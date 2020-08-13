@@ -33,5 +33,5 @@ jobs:
             allow_empty_commit: false
             keep_files: false
             force_orphan: true
-            # TODO uncomment the following line if you have a custom domain name
-            # cname: demo.meziantou.net
+            # Custom Domain
+            cname: exokomodo.com
