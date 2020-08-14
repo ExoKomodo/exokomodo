@@ -1,5 +1,5 @@
-
-using ExoKomodo.Config;
+using Microsoft.JSInterop;
+using ExoKomodo.Helpers.P5;
 using ExoKomodo.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using ExoKomodo.Helpers.P5.Models;
 
 namespace ExoKomodo.Pages.Users.Jorson
 {
@@ -53,6 +54,9 @@ namespace ExoKomodo.Pages.Users.Jorson
             {
                 throw new Exception($"Could not find user {UserId}");
             }
+
+            _application = new HomeP5Application(_jsRuntime);
+            _application.Start();
         }
         #endregion
 
@@ -61,9 +65,12 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Private
 
         #region Members
+        private HomeP5Application _application { get; set; }
         [Inject]
         private HttpClient _http { get; set; }
         private bool _isDisposed { get; set; }
+        [Inject]
+        private IJSRuntime _jsRuntime { get; set; }
         private PageBase _pageBase { get; set; }
         private User _self;
         #endregion
@@ -84,6 +91,50 @@ namespace ExoKomodo.Pages.Users.Jorson
 
                 GC.SuppressFinalize(this);
                 _isDisposed = true;
+            }
+            #endregion
+
+            #endregion
+        }
+
+        private class HomeP5Application : P5Application
+        {
+            #region Public
+
+            #region Constructors
+            public HomeP5Application(IJSRuntime jsRuntime) : base(jsRuntime, "p5-container")
+            {
+            }
+            #endregion
+
+            #region Members
+            public Color ClearColor { get; set; }
+            #endregion
+
+            #region Member Methods
+            [JSInvokable("draw")]
+            public override void Draw()
+            {
+                Background(new Color(150, 250, 150));
+                Fill(new Color(100, 100, 250));
+                Rectangle(20, 20, 60, 60);
+                StrokeWeight(5);
+                Erase(150, 255);
+                Triangle(
+                    new Triangle(
+                        new Vector2(50, 10),
+                        new Vector2(70, 50),
+                        new Vector2(90, 10)
+                    )
+                );
+                NoErase();
+            }
+
+            [JSInvokable("setup")]
+            public override void Setup()
+            {
+                ClearColor = new Color(hue: 0, saturation: 255, brightness: 255);
+                CreateCanvas(400, 400);
             }
             #endregion
 
