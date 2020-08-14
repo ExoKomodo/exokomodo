@@ -1,6 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using ExoKomodo.Config;
 
-<div class="sidebar">
+@inherits LayoutComponentBase
+
+<div hidden="@(AppState.IsSidebarHidden)" class="sidebar">
     <NavMenu />
 </div>
 
