@@ -1,5 +1,7 @@
 @page "/users/jorson"
 
+@using ExoKomodo.Config;
+
 @if (_self == null)
 {
     <p><em>Loading...</em></p>
@@ -8,3 +10,8 @@ else
 {
     <h1>Hey it's me, @(_self.FullName)!</h1>
 }
+
+<div style="float: right;">
+    <input id="hide-sidebar" type="checkbox" @bind="AppState.IsSidebarHidden" />
+    <label for="hide-sidebar">Hide sidebar?</label>
+</div>
