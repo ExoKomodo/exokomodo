@@ -7,13 +7,18 @@ using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
-    public abstract class P5Application
+    public abstract class P5Application : IDisposable
     {
         #region Public
 
         #region Constructors
         public P5Application(IJSRuntime jsRuntime, string containerId)
         {
+            if (Instance != null)
+            {
+                throw new Exception("Only one P5Application should exist at once");
+            }
+            Instance = this;
             _jsRuntime = jsRuntime as IJSInProcessRuntime;
             _containerId = containerId;
         }
@@ -144,7 +149,21 @@ namespace ExoKomodo.Helpers.P5
         public const double TWO_PI = 6.28318530717958647693d;
         #endregion
 
+        #region Static Members
+        public static P5Application Instance { get; protected set; }
+        #endregion
+
         #region Member Methods
+        public void Dispose()
+        {
+            if (Instance == null)
+            {
+                return;
+            }
+            Remove();
+            Instance = null;
+        }
+
         [JSInvokable("doubleClicked")]
         public virtual bool DoubleClicked()
         {

@@ -9,7 +9,6 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ExoKomodo.Helpers.P5.Models;
-using ExoKomodo.Helpers.P5;
 
 namespace ExoKomodo.Pages.Users.Jorson
 {
@@ -56,7 +55,7 @@ namespace ExoKomodo.Pages.Users.Jorson
                 throw new Exception($"Could not find user {UserId}");
             }
 
-            _application = new HomeP5Application(_jsRuntime);
+            _application = new HomeP5Application(_jsRuntime, "app-container");
             _application.Start();
         }
         #endregion
@@ -66,7 +65,7 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Private
 
         #region Members
-        private HomeP5Application _application { get; set; }
+        private P5Application _application { get; set; }
         [Inject]
         private HttpClient _http { get; set; }
         private bool _isDisposed { get; set; }
@@ -103,7 +102,7 @@ namespace ExoKomodo.Pages.Users.Jorson
             #region Public
 
             #region Constructors
-            public HomeP5Application(IJSRuntime jsRuntime) : base(jsRuntime, "p5-container")
+            public HomeP5Application(IJSRuntime jsRuntime, string containerId) : base(jsRuntime, containerId)
             {
             }
             #endregion
