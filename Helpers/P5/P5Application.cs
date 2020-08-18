@@ -1356,6 +1356,51 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
+        protected double Noise(double x) => _jsRuntime.Invoke<double>(
+            _p5InvokeFunction,
+            "noise",
+            x
+        );
+
+        protected double Noise(double x, double y) => _jsRuntime.Invoke<double>(
+            _p5InvokeFunction,
+            "noise",
+            x,
+            y
+        );
+
+        protected double Noise(double x, double y, double z) => _jsRuntime.Invoke<double>(
+            _p5InvokeFunction,
+            "noise",
+            x,
+            y,
+            z
+        );
+
+        protected double Noise(Vector2 dimensions) => Noise(
+            dimensions.X,
+            dimensions.Y
+        );
+
+        protected double Noise(Vector3 dimensions) => Noise(
+            dimensions.X,
+            dimensions.Y,
+            dimensions.Z
+        );
+
+        protected double NoiseDetail(double lod, double falloff) => _jsRuntime.Invoke<double>(
+            _p5InvokeFunction,
+            "noiseDetail",
+            lod,
+            Math.Clamp(falloff, 0, 1)
+        );
+
+        protected double NoiseSeed(double seed) => _jsRuntime.Invoke<double>(
+            _p5InvokeFunction,
+            "noiseSeed",
+            seed
+        );
+
         protected void NoLoop()
         {
             _jsRuntime.InvokeVoid(
@@ -1818,10 +1863,20 @@ namespace ExoKomodo.Helpers.P5
         protected void Save(Image image, string savePath)
         {
             _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "saveImageDotnet",
+                "window.p5Instance.saveImageDotnet",
                 image.Id,
                 savePath
+            );
+        }
+
+        protected void SaveJson(object obj, string savePath, bool prettyPrint = true)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "saveJSON",
+                obj,
+                savePath,
+                !prettyPrint
             );
         }
 
