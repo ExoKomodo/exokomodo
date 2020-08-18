@@ -25,19 +25,19 @@ namespace ExoKomodo.Helpers.P5
         [JSInvokable("keyPressed")]
         public virtual bool KeyPressed()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
 
         [JSInvokable("keyReleased")]
         public virtual bool KeyReleased()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
 
         [JSInvokable("keyTyped")]
         public virtual bool KeyTyped()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
         #endregion
 
