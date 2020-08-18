@@ -109,6 +109,7 @@ namespace ExoKomodo.Pages.Users.Jorson
 
             #region Members
             public Color ClearColor { get; set; }
+            public Image Img { get; set; }
             #endregion
 
             #region Member Methods
@@ -128,13 +129,25 @@ namespace ExoKomodo.Pages.Users.Jorson
                     )
                 );
                 NoErase();
+                Image(Img);
+            }
+
+            [JSInvokable("preload")]
+            public override void Preload()
+            {
+                Img = LoadImage("assets/jorson/knuckles.jpg");
             }
 
             [JSInvokable("setup")]
             public override void Setup()
             {
                 ClearColor = new Color(hue: 0, saturation: 255, brightness: 255);
-                CreateCanvas(400, 400);
+                CreateCanvas(800, 800);
+                SetImageFields(Img);
+                Img.Width = Img.Width / 4;
+                Img.Height = Img.Height / 4;
+                Img.X = 100;
+                Img.Y = 100;
             }
             #endregion
 
