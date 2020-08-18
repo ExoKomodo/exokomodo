@@ -161,7 +161,17 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
                 )
                 {
                     Speed += 2.5;
-                    _direction.X *= -1;
+                    if (
+                        Body.X < Application.PaddleOne.Body.X + Application.PaddleOne.HalfWidth
+                        || Body.X > Application.PaddleTwo.Body.X - Application.PaddleTwo.HalfWidth
+                    )
+                    {
+                        _direction.Y *= -1;
+                    }
+                    else
+                    {
+                        _direction.X *= -1;
+                    }
                 }
 
                 if (Body.X - Body.Radius <= 0 || Body.X + Body.Radius >= Application.Width)
