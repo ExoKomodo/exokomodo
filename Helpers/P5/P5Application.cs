@@ -1110,6 +1110,30 @@ namespace ExoKomodo.Helpers.P5
             image
         );
 
+        protected void ImageMode(Enums.ImageMode mode)
+        {
+            var imageMode = "";
+            switch (mode)
+            {
+                case Enums.ImageMode.Center:
+                    imageMode = "center";
+                    break;
+                case Enums.ImageMode.Corner:
+                    imageMode = "corner";
+                    break;
+                case Enums.ImageMode.Corners:
+                    imageMode = "corners";
+                    break;
+                default:
+                    throw new Exception("Invalid ImageMode");
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "imageMode",
+                imageMode
+            );
+        }
+
         protected uint ImageWidth(Image image) => _jsRuntime.Invoke<uint>(
             "window.p5Instance.imageWidthDotnet",
             image
@@ -1618,10 +1642,73 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
+        protected void Rotate(double angle)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "rotate",
+                angle
+            );
+        }
+
+        protected void RotateX(double angle)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "rotateX",
+                angle
+            );
+        }
+
+        protected void RotateY(double angle)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "rotateY",
+                angle
+            );
+        }
+
+        protected void RotateZ(double angle)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "rotateZ",
+                angle
+            );
+        }
+
+        protected void Scale(double[] scales)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "scale",
+                scales
+            );
+        }
+
         protected void SetImageFields(Image image)
         {
             image.Width = ImageWidth(image);
             image.Height = ImageHeight(image);
+        }
+
+        protected void ShearX(double angle)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "shearX",
+                angle
+            );
+        }
+
+        protected void ShearY(double angle)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "shearY",
+                angle
+            );
         }
 
         protected void Smooth()
@@ -1771,6 +1858,45 @@ namespace ExoKomodo.Helpers.P5
                 weight
             );
         }
+
+        protected void Translate(
+            double x,
+            double y,
+            double z = 0
+        )
+        {
+            if (IsWebGL)
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "translate",
+                    x,
+                    y,
+                    z
+                );
+            }
+            else
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "translate",
+                    x,
+                    y
+                );
+            }
+        }
+
+        protected void Translate(Vector2 translation) => Translate(
+            translation.X,
+            translation.Y,
+            0
+        );
+
+        protected void Translate(Vector3 translation) => Translate(
+            translation.X,
+            translation.Y,
+            translation.Z
+        );
 
         protected void Triangle(
             double x1,

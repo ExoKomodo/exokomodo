@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ExoKomodo.Helpers.P5.Models;
+using ExoKomodo.Helpers.P5;
 
 namespace ExoKomodo.Pages.Users.Jorson
 {
@@ -129,7 +130,15 @@ namespace ExoKomodo.Pages.Users.Jorson
                     )
                 );
                 NoErase();
+                
+                Push();
+                ImageMode(Helpers.P5.Enums.ImageMode.Center);
+                Translate(MouseX, MouseY);
+                Scale(new double[] {0.5, 0.5, 0.5});
+                Rotate(PI / 4d);
+                Console.WriteLine($"{MouseX} {MouseY}");
                 Image(Img);
+                Pop();
             }
 
             [JSInvokable("preload")]
@@ -144,10 +153,6 @@ namespace ExoKomodo.Pages.Users.Jorson
                 ClearColor = new Color(hue: 0, saturation: 255, brightness: 255);
                 CreateCanvas(800, 800);
                 SetImageFields(Img);
-                Img.Width = Img.Width / 4;
-                Img.Height = Img.Height / 4;
-                Img.X = 100;
-                Img.Y = 100;
             }
             #endregion
 
