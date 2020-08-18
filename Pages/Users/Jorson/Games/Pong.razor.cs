@@ -174,8 +174,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
                     }
                 }
 
-                if (Body.X - Body.Radius <= 0 || Body.X + Body.Radius >= Application.Width)
+                if (Body.X - Body.Radius <= 0)
                 {
+                    Application.PaddleOne.Score++;
+                    return true;
+                }
+                if (Body.X + Body.Radius >= Application.Width)
+                {
+                    Application.PaddleTwo.Score++;
                     return true;
                 }
                 return false;
@@ -188,6 +194,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
         {
             public readonly PongApplication Application;
             public const double Speed = 100;
+            public uint Score { get; set; }
             public double HalfHeight => Body.Height / 2;
             public double HalfWidth => Body.Width / 2;
             public Rectangle Body { get; set; }
@@ -276,13 +283,23 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
                 PaddleTwo.UpdateAi();
                 if (Ball.Update())
                 {
-                    Reset();
+                    ResetBall();
                 }
                 foreach (var paddle in _paddles)
                 {
                     paddle.Draw();
                 }
                 Ball.Draw();
+
+                Push();
+                SetTextAlign(HorizontalTextAlign.Center, VerticalTextAlign.Top);
+                SetTextSize(32);
+                DrawText(
+                    $"{PaddleOne.Score} - {PaddleTwo.Score}",
+                    Width / 2,
+                    10
+                );
+                Pop();
             }
 
             [JSInvokable("preload")]
@@ -294,8 +311,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
 
             public void Reset()
             {
-                Ball.Speed = 30;
-                Ball.Body = new Circle(Width / 2, Height / 4, Width / 30);
+                ResetBall();
 
                 var paddleDimensions = new Vector2(Width / 20, Height / 10);
                 PaddleOne.Body = new Rectangle(
@@ -306,6 +322,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
                     new Vector2(Width - (paddleDimensions.X * 2), Height / 2),
                     paddleDimensions
                 );
+            }
+
+            public void ResetBall()
+            {
+                Ball.Speed = 30;
+                Ball.Body = new Circle(Width / 2, Height / 4, Width / 30);
             }
 
             [JSInvokable("setup")]
