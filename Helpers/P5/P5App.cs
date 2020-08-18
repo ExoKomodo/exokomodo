@@ -1,22 +1,20 @@
-using System.Text.Json.Serialization;
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using System;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
-    public abstract class P5Application : IDisposable
+    public abstract class P5App : IDisposable
     {
         #region Public
 
         #region Constructors
-        public P5Application(IJSRuntime jsRuntime, string containerId)
+        public P5App(IJSRuntime jsRuntime, string containerId)
         {
             if (Instance != null)
             {
-                throw new Exception("Only one P5Application should exist at once");
+                throw new Exception("Only one P5App should exist at once");
             }
             Instance = this;
             _jsRuntime = jsRuntime as IJSInProcessRuntime;
@@ -150,7 +148,7 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Static Members
-        public static P5Application Instance { get; protected set; }
+        public static P5App Instance { get; protected set; }
         #endregion
 
         #region Member Methods
@@ -173,7 +171,7 @@ namespace ExoKomodo.Helpers.P5
         [JSInvokable("draw")]
         public abstract void Draw();
 
-        public DotNetObjectReference<P5Application> GetJsInteropReference()
+        public DotNetObjectReference<P5App> GetJsInteropReference()
         {
             return DotNetObjectReference.Create(this);
         }

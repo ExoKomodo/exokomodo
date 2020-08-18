@@ -66,7 +66,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
         #region Private
 
         #region Members
-        private P5Application _application { get; set; }
+        private P5App _application { get; set; }
         [Inject]
         private HttpClient _http { get; set; }
         private bool _isDisposed { get; set; }
@@ -233,7 +233,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
             }
         }
 
-        private class PongApplication : P5Application
+        private class PongApplication : P5App
         {
             #region Public
 
