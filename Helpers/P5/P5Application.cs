@@ -25,7 +25,7 @@ namespace ExoKomodo.Helpers.P5
             "deltaTime"
         );
         public double DisplayDensity => _jsRuntime.Invoke<double>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "displayDensity"
         );
         public uint DisplayHeight => _jsRuntime.Invoke<uint>(
@@ -61,7 +61,7 @@ namespace ExoKomodo.Helpers.P5
             "focused"
         );
         public bool IsLooping => _jsRuntime.Invoke<bool>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "isLooping"
         );
         public bool IsWebGL { get; protected set; }
@@ -99,11 +99,11 @@ namespace ExoKomodo.Helpers.P5
             "movedY"
         );
         public string Url => _jsRuntime.Invoke<string>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "getURL"
         );
         public string UrlPath => _jsRuntime.Invoke<string>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "getURLPath"
         );
         public double Width => _jsRuntime.Invoke<uint>(
@@ -232,6 +232,7 @@ namespace ExoKomodo.Helpers.P5
 
         #region Constants
         protected const string _p5InvokeFunction = "window.p5Instance.invokeP5Function";
+        protected const string _p5InvokeFunctionAndReturn = "window.p5Instance.invokeP5FunctionAndReturn";
         protected const string _p5GetValue = "window.p5Instance.getValue";
         #endregion
 
@@ -308,8 +309,8 @@ namespace ExoKomodo.Helpers.P5
         protected void Arc(Arc arc) => Arc(
             arc.X,
             arc.Y,
-            arc.W,
-            arc.H,
+            arc.Width,
+            arc.Height,
             arc.StartAngle,
             arc.StopAngle,
             arc.Mode,
@@ -1072,7 +1073,7 @@ namespace ExoKomodo.Helpers.P5
         }
         
         protected double FrameRate() => _jsRuntime.Invoke<double>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "frameRate"
         );
 
@@ -1086,7 +1087,7 @@ namespace ExoKomodo.Helpers.P5
         }
 
         protected bool Fullscreen() => _jsRuntime.Invoke<bool>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "fullscreen"
         );
 
@@ -1099,8 +1100,23 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
+        protected void Image(Image image) => _jsRuntime.InvokeVoid(
+            "window.p5Instance.imageDotnet",
+            image
+        );
+
+        protected uint ImageHeight(Image image) => _jsRuntime.Invoke<uint>(
+            "window.p5Instance.imageHeightDotnet",
+            image
+        );
+
+        protected uint ImageWidth(Image image) => _jsRuntime.Invoke<uint>(
+            "window.p5Instance.imageWidthDotnet",
+            image
+        );
+
         protected bool IsKeyDown(uint code) => _jsRuntime.Invoke<bool>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "keyIsDown",
             code
         );
@@ -1161,6 +1177,11 @@ namespace ExoKomodo.Helpers.P5
             line.End
         );
 
+        protected Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
+            "window.p5Instance.loadImageDotnet",
+            path
+        );
+
         protected void Loop()
         {
             _jsRuntime.InvokeVoid(
@@ -1219,7 +1240,7 @@ namespace ExoKomodo.Helpers.P5
         }
 
         protected double PixelDensity() => _jsRuntime.Invoke<double>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "pixelDensity"
         );
 
@@ -1553,8 +1574,8 @@ namespace ExoKomodo.Helpers.P5
         protected void Rectangle(Rectangle rect) => Rectangle(
             rect.X,
             rect.Y,
-            rect.W,
-            rect.H,
+            rect.Width,
+            rect.Height,
             rect.TopLeftRadius,
             rect.TopRightRadius,
             rect.BottomRightRadius,
@@ -1595,6 +1616,12 @@ namespace ExoKomodo.Helpers.P5
                 _p5InvokeFunction,
                 "requestPointerLock"
             );
+        }
+
+        protected void SetImageFields(Image image)
+        {
+            image.Width = ImageWidth(image);
+            image.Height = ImageHeight(image);
         }
 
         protected void Smooth()

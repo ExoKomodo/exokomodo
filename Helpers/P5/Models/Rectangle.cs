@@ -66,12 +66,12 @@ namespace ExoKomodo.Helpers.P5.Models
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double W
+        public double Width
         {
             get => Dimensions.X;
             set => _dimensions.X = value;
         }
-        public double H
+        public double Height
         {
             get => Dimensions.Y;
             set => _dimensions.Y = value;
