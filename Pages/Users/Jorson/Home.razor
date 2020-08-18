@@ -9,11 +9,16 @@
 else
 {
     <h1>Hey it's me, @(_self.FullName)!</h1>
+    <p>I like to work on games and weird code stuff.</p>
 }
 
-<div style="float: right;">
-    <input id="hide-sidebar" type="checkbox" @bind="AppState.IsSidebarHidden" />
-    <label for="hide-sidebar">Hide sidebar?</label>
+<div>
+    <ul>
+        @foreach (var game in _games)
+        {
+            <li>
+                <a href="@($"/users/jorson/{game.ToLower()}")">@(game)</a>
+            </li>
+        }
+    </ul>
 </div>
-
-<div id="app-container"></div>

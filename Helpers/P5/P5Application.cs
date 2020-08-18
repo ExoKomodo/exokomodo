@@ -695,7 +695,7 @@ namespace ExoKomodo.Helpers.P5
         public void Circle(Circle circle) => Circle(
             circle.X,
             circle.Y,
-            circle.D
+            circle.Diameter
         );
 
         public void Clear()
