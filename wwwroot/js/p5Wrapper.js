@@ -21,8 +21,8 @@ function startP5(p5Implementation, container)
                 this.images[imageModel.id],
                 imageModel.x,
                 imageModel.y,
-                imageModel.w,
-                imageModel.h
+                imageModel.width,
+                imageModel.height
             );
         }
 
