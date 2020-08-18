@@ -16,9 +16,9 @@ function startP5(p5Implementation, container)
             return this[valueName];
         }
 
-        p.imageDotnet = function(imageModel) {
+        p.imageDotnet = function(id) {
             this.image(
-                this.images[imageModel.id],
+                this.images[id],
                 imageModel.x,
                 imageModel.y,
                 imageModel.width,
@@ -26,12 +26,12 @@ function startP5(p5Implementation, container)
             );
         }
 
-        p.imageHeightDotnet = function(imageModel) {
-            return this.images[imageModel.id].height;
+        p.imageHeightDotnet = function(id) {
+            return this.images[id].height;
         }
 
-        p.imageWidthDotnet = function(imageModel) {
-            return this.images[imageModel.id].width;
+        p.imageWidthDotnet = function(id) {
+            return this.images[id].width;
         }
         
         p.invokeP5Function = function(functionName) {
@@ -63,8 +63,8 @@ function startP5(p5Implementation, container)
             };
         }
 
-        p.loadPixelsDotnet = function(imageModel) {
-            this.images[imageModel.id].loadPixels();
+        p.loadPixelsDotnet = function(id) {
+            this.images[id].loadPixels();
         }
 
         p.mouseClicked = function() {

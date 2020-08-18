@@ -601,6 +601,97 @@ namespace ExoKomodo.Helpers.P5
             bezierVertex.SecondAnchor
         );
 
+        protected void BlendMode(Enums.BlendMode mode)
+        {
+            var blendMode = "";
+            switch (mode)
+            {
+                case Enums.BlendMode.Add:
+                    blendMode = "lighter";
+                    break;
+                case Enums.BlendMode.Blend:
+                    blendMode = "source-over";
+                    break;
+                case Enums.BlendMode.Burn:
+                    if (IsWebGL)
+                    {
+                        throw new Exception("Invalid BlendMode for WebGL");
+                    }
+                    blendMode = "color-burn";
+                    break;
+                case Enums.BlendMode.Darkest:
+                    blendMode = "darken";
+                    break;
+                case Enums.BlendMode.Difference:
+                    blendMode = "difference";
+                    break;
+                case Enums.BlendMode.Dodge:
+                    if (IsWebGL)
+                    {
+                        throw new Exception("Invalid BlendMode for WebGL");
+                    }
+                    blendMode = "color-dodge";
+                    break;
+                case Enums.BlendMode.Exclusion:
+                    blendMode = "exclusion";
+                    break;
+                case Enums.BlendMode.HardLight:
+                    if (IsWebGL)
+                    {
+                        throw new Exception("Invalid BlendMode for WebGL");
+                    }
+                    blendMode = "hard-light";
+                    break;
+                case Enums.BlendMode.Lightest:
+                    blendMode = "lighten";
+                    break;
+                case Enums.BlendMode.Multiply:
+                    blendMode = "multiply";
+                    break;
+                case Enums.BlendMode.Overlay:
+                    if (IsWebGL)
+                    {
+                        throw new Exception("Invalid BlendMode for WebGL");
+                    }
+                    blendMode = "overlay";
+                    break;
+                case Enums.BlendMode.Remove:
+                    blendMode = "destination-out";
+                    break;
+                case Enums.BlendMode.Replace:
+                    blendMode = "copy";
+                    break;
+                case Enums.BlendMode.Screen:
+                    if (IsWebGL)
+                    {
+                        throw new Exception("Invalid BlendMode for WebGL");
+                    }
+                    blendMode = "screen";
+                    break;
+                case Enums.BlendMode.SoftLight:
+                    if (IsWebGL)
+                    {
+                        throw new Exception("Invalid BlendMode for WebGL");
+                    }
+                    blendMode = "soft-light";
+                    break;
+                case Enums.BlendMode.Subtract:
+                    if (!IsWebGL)
+                    {
+                        throw new Exception("Invalid BlendMode for non-WebGL");
+                    }
+                    blendMode = "subtract";
+                    break;
+                default:
+                    throw new Exception("Invalid BlendMode");
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "blendMode",
+                blendMode
+            );
+        }
+
         protected void Circle(double x, double y, double d)
         {
             _jsRuntime.InvokeVoid(
@@ -1121,12 +1212,12 @@ namespace ExoKomodo.Helpers.P5
 
         protected void Image(Image image) => _jsRuntime.InvokeVoid(
             "window.p5Instance.imageDotnet",
-            image
+            image.Id
         );
 
         protected uint ImageHeight(Image image) => _jsRuntime.Invoke<uint>(
             "window.p5Instance.imageHeightDotnet",
-            image
+            image.Id
         );
 
         protected void ImageMode(Enums.ImageMode mode)
@@ -1155,7 +1246,7 @@ namespace ExoKomodo.Helpers.P5
 
         protected uint ImageWidth(Image image) => _jsRuntime.Invoke<uint>(
             "window.p5Instance.imageWidthDotnet",
-            image
+            image.Id
         );
 
         protected bool IsKeyDown(uint code) => _jsRuntime.Invoke<bool>(
@@ -1233,6 +1324,13 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
+        protected void NoCanvas()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "noCanvas"
+            );
+        }
 
         protected void NoCursor()
         {
@@ -1661,6 +1759,17 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
+        protected void ResizeCanvas(uint width, uint height, bool noRedraw = false)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "resizeCanvas",
+                width,
+                height,
+                noRedraw
+            );
+        }
+
         protected void Rotate(double angle)
         {
             _jsRuntime.InvokeVoid(
@@ -1694,6 +1803,25 @@ namespace ExoKomodo.Helpers.P5
                 _p5InvokeFunction,
                 "rotateZ",
                 angle
+            );
+        }
+
+        protected void Save(string savePath)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "save",
+                savePath
+            );
+        }
+
+        protected void Save(Image image, string savePath)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "saveImageDotnet",
+                image.Id,
+                savePath
             );
         }
 
