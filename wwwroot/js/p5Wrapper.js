@@ -113,6 +113,14 @@ function startP5(p5Implementation, container)
             p5Implementation.invokeMethodAsync('setup');
         }
 
+        p.textFontDotnet = function(id, size) {
+            if (!size) {
+                this.textFont(this.fonts[id]);
+            } else {
+                this.textFont(this.fonts[id], size);
+            }
+        }
+
         p.windowResized = function() {
             p5Implementation.invokeMethodAsync('windowResized');
         }

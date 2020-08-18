@@ -2070,7 +2070,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Text(string text, double x, double y)
+        protected void Text(string text, double x = 0, double y = 0)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -2170,9 +2170,22 @@ namespace ExoKomodo.Helpers.P5
             font
         );
 
+        protected void TextFont(string font, double size) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "textFont",
+            font,
+            size
+        );
+
         protected void TextFont(Font font) => _jsRuntime.InvokeVoid(
             "window.p5Instance.textFontDotnet",
             font.Id
+        );
+
+        protected void TextFont(Font font, double size) => _jsRuntime.InvokeVoid(
+            "window.p5Instance.textFontDotnet",
+            font.Id,
+            size
         );
 
         protected double TextLeading() => _jsRuntime.Invoke<double>(

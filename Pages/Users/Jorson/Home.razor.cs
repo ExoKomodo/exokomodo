@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ExoKomodo.Helpers.P5.Models;
+using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Pages.Users.Jorson
 {
@@ -109,7 +110,8 @@ namespace ExoKomodo.Pages.Users.Jorson
 
             #region Members
             public Color ClearColor { get; set; }
-            public Image Img { get; set; }
+            public Image Image { get; set; }
+            public Font Font { get; set; }
             #endregion
 
             #region Member Methods
@@ -117,6 +119,15 @@ namespace ExoKomodo.Pages.Users.Jorson
             public override void Draw()
             {
                 Background(new Color(150, 250, 150));
+
+                Push();
+                Fill(50);
+                TextFont(Font);
+                TextAlign(HorizontalTextAlign.Left, VerticalTextAlign.Top);
+                Text("Hello world!");
+                Pop();
+
+                Push();
                 Fill(new Color(100, 100, 250));
                 Rectangle(20, 20, 60, 60);
                 StrokeWeight(5);
@@ -129,21 +140,23 @@ namespace ExoKomodo.Pages.Users.Jorson
                     )
                 );
                 NoErase();
-                
+                Pop();
+;                
                 Push();
                 ImageMode(Helpers.P5.Enums.ImageMode.Center);
                 Translate(MouseX, MouseY);
                 Scale(new double[] {0.5, 0.5, 0.5});
                 Rotate(PI / 4d);
                 Console.WriteLine($"{MouseX} {MouseY}");
-                Image(Img);
+                Image(Image);
                 Pop();
             }
 
             [JSInvokable("preload")]
             public override void Preload()
             {
-                Img = LoadImage("assets/jorson/knuckles.jpg");
+                Image = LoadImage("assets/jorson/knuckles.jpg");
+                Font = LoadFont("assets/jorson/Roboto-Regular.ttf");
             }
 
             [JSInvokable("setup")]
@@ -151,7 +164,7 @@ namespace ExoKomodo.Pages.Users.Jorson
             {
                 ClearColor = new Color(hue: 0, saturation: 255, brightness: 255);
                 CreateCanvas(800, 800);
-                SetImageFields(Img);
+                SetImageFields(Image);
             }
             #endregion
 
