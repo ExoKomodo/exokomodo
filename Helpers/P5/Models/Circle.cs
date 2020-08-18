@@ -11,16 +11,16 @@ namespace ExoKomodo.Helpers.P5.Models
         public Circle(
             double x,
             double y,
-            double d
-        ) : this(new Vector2(x, y), d) {}
+            double diameter
+        ) : this(new Vector2(x, y), diameter) {}
 
         public Circle(
             Vector2 position,
-            double d
+            double diameter
         )
         {
             _position = position;
-            D = d;
+            Diameter = diameter;
         }
         #endregion
 
@@ -35,7 +35,8 @@ namespace ExoKomodo.Helpers.P5.Models
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double D { get; set; }
+        public double Diameter { get; set; }
+        public double Radius => Diameter / 2;
         public Vector2 Position
         {
             get => _position;
