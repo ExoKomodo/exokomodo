@@ -3,7 +3,9 @@ function startP5(p5Implementation, container)
     let sketch = function(p) {
         window.p5Instance = p;
 
+        p.fonts = {};
         p.images = {};
+
         p.doubleClicked = function() {
             return p5Implementation.invokeMethodAsync('doubleClicked');
         }
@@ -12,17 +14,26 @@ function startP5(p5Implementation, container)
             p5Implementation.invokeMethodAsync('draw');
         }
 
+        p.fontDotnet = function(id, size) {
+            let font = this.fonts[id];
+            if (!size) {
+                this.textFont(font);
+            } else {
+                this.textFont(font, size);
+            }
+        }
+
         p.getValue = function(valueName) {
             return this[valueName];
         }
 
-        p.imageDotnet = function(id) {
+        p.imageDotnet = function(id, x, y, width, height) {
             this.image(
                 this.images[id],
-                imageModel.x,
-                imageModel.y,
-                imageModel.width,
-                imageModel.height
+                x,
+                y,
+                width,
+                height
             );
         }
 
@@ -60,6 +71,13 @@ function startP5(p5Implementation, container)
             this.images[imagePath] = this.loadImage(imagePath);
             return {
                 id: imagePath,
+            };
+        }
+
+        p.loadFontDotnet = function(fontPath) {
+            this.fonts[fontPath] = this.loadFont(fontPath);
+            return {
+                id: fontPath,
             };
         }
 

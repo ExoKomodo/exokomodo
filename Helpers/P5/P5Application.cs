@@ -1212,7 +1212,11 @@ namespace ExoKomodo.Helpers.P5
 
         protected void Image(Image image) => _jsRuntime.InvokeVoid(
             "window.p5Instance.imageDotnet",
-            image.Id
+            image.Id,
+            image.X,
+            image.Y,
+            image.Width,
+            image.Height
         );
 
         protected uint ImageHeight(Image image) => _jsRuntime.Invoke<uint>(
@@ -1309,6 +1313,11 @@ namespace ExoKomodo.Helpers.P5
         protected void Line(Line line) => Line(
             line.Start,
             line.End
+        );
+
+        protected Font LoadFont(string path) => _jsRuntime.Invoke<Font>(
+            "window.p5Instance.loadFontDotnet",
+            path
         );
 
         protected Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
@@ -2060,6 +2069,187 @@ namespace ExoKomodo.Helpers.P5
                 weight
             );
         }
+
+        protected void Text(string text, double x, double y)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "text",
+                text,
+                x,
+                y
+            );
+        }
+
+        protected void Text(string text, Vector2 position) => Text(
+            text,
+            position.X,
+            position.Y
+        );
+
+        protected void TextAlign(HorizontalTextAlign align)
+        {
+            var textAlign = "";
+            switch (align)
+            {
+                case HorizontalTextAlign.Center:
+                    textAlign = "center";
+                    break;
+                case HorizontalTextAlign.Left:
+                    textAlign = "left";
+                    break;
+                case HorizontalTextAlign.Right:
+                    textAlign = "right";
+                    break;
+                default:
+                    throw new Exception("Invalid HorizontalTextAlign");
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "textAlign",
+                textAlign
+            );
+        }
+
+        protected void TextAlign(HorizontalTextAlign horizontalAlign, VerticalTextAlign verticalAlign)
+        {
+            var horizontalTextAlign = "";
+            switch (horizontalAlign)
+            {
+                case HorizontalTextAlign.Center:
+                    horizontalTextAlign = "center";
+                    break;
+                case HorizontalTextAlign.Left:
+                    horizontalTextAlign = "left";
+                    break;
+                case HorizontalTextAlign.Right:
+                    horizontalTextAlign = "right";
+                    break;
+                default:
+                    throw new Exception("Invalid HorizontalTextAlign");
+            }
+            var verticalTextAlign = "";
+            switch (verticalAlign)
+            {
+                case VerticalTextAlign.Baseline:
+                    verticalTextAlign = "alphabetic";
+                    break;
+                case VerticalTextAlign.Bottom:
+                    verticalTextAlign = "bottom";
+                    break;
+                case VerticalTextAlign.Center:
+                    verticalTextAlign = "center";
+                    break;
+                case VerticalTextAlign.Top:
+                    verticalTextAlign = "top";
+                    break;
+                default:
+                    throw new Exception("Invalid VerticalTextAlign");
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "textAlign",
+                horizontalTextAlign,
+                verticalTextAlign
+            );
+        }
+
+        protected double TextAscent() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textAscent"
+        );
+
+        protected double TextDescent() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textDescent"
+        );
+
+        protected void TextFont(string font) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "textFont",
+            font
+        );
+
+        protected void TextFont(Font font) => _jsRuntime.InvokeVoid(
+            "window.p5Instance.textFontDotnet",
+            font.Id
+        );
+
+        protected double TextLeading() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textLeading"
+        );
+
+        protected void TextLeading(double leading) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "textLeading",
+            leading
+        );
+
+        protected double TextSize() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textSize"
+        );
+
+        protected void TextSize(double size) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "textSize",
+            size
+        );
+
+        protected Enums.TextStyle TextStyle()
+        {
+            var style = _jsRuntime.Invoke<string>(
+                _p5InvokeFunctionAndReturn,
+                "textStyle"
+            );
+            switch (style)
+            {
+                case "bold":
+                    return Enums.TextStyle.Bold;
+                case "bold italic":
+                    return Enums.TextStyle.BoldItalic;
+                case "italic":
+                    return Enums.TextStyle.Italic;
+                case "normal":
+                    return Enums.TextStyle.Normal;
+                default:
+                    throw new Exception("Invalid TextStyle");
+            }
+        }
+
+        protected void TextStyle(Enums.TextStyle style)
+        {
+            var textStyle = "";
+            switch (style)
+            {
+                case Enums.TextStyle.Bold:
+                    textStyle = "bold";
+                    break;
+                case Enums.TextStyle.BoldItalic:
+                    textStyle = "bold italic";
+                    break;
+                case Enums.TextStyle.Italic:
+                    textStyle = "italic";
+                    break;
+                case Enums.TextStyle.Normal:
+                    textStyle = "normal";
+                    break;
+                default:
+                    throw new Exception("Invalid TextStyle");
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "textStyle",
+                textStyle
+            );
+        }
+
+        protected double TextWidth(string text) => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textWidth",
+            text
+        );
 
         protected void Translate(
             double x,
