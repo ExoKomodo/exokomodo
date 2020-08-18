@@ -1,5 +1,8 @@
 name: 'Publish application'
-on: push
+on: 
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -20,7 +23,9 @@ jobs:
 
         # Generate the website
         - name: Publish
-          run: dotnet publish ExoKomodo.csproj --configuration Release
+          run: |
+            cp wwwroot/index.html wwwroot/404.html
+            dotnet publish ExoKomodo.csproj --configuration Release
 
         # Publish the website
         - name: GitHub Pages action
