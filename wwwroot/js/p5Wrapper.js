@@ -1,5 +1,5 @@
-function startP5(p5Implementation, container)
-{
+
+function startP5(p5Implementation, container) {
     let sketch = function(p) {
         window.p5Instance = p;
 
@@ -7,11 +7,11 @@ function startP5(p5Implementation, container)
         p.images = {};
 
         p.doubleClicked = function() {
-            return p5Implementation.invokeMethodAsync('doubleClicked');
+            return p5Implementation.invokeMethod('doubleClicked');
         }
 
         p.draw = function() {
-            p5Implementation.invokeMethodAsync('draw');
+            p5Implementation.invokeMethod('draw');
         }
 
         p.fontDotnet = function(id, size) {
@@ -56,15 +56,15 @@ function startP5(p5Implementation, container)
         }
 
         p.keyPressed = function() {
-            return p5Implementation.invokeMethodAsync('keyPressed');
+            return p5Implementation.invokeMethod('keyPressed');
         }
 
         p.keyReleased = function() {
-            return p5Implementation.invokeMethodAsync('keyReleased');
+            return p5Implementation.invokeMethod('keyReleased');
         }
 
         p.keyTyped = function() {
-            return p5Implementation.invokeMethodAsync('keyTyped');
+            return p5Implementation.invokeMethod('keyTyped');
         }
 
         p.loadImageDotnet = function(imagePath) {
@@ -86,31 +86,31 @@ function startP5(p5Implementation, container)
         }
 
         p.mouseClicked = function() {
-            return p5Implementation.invokeMethodAsync('mouseClicked');
+            return p5Implementation.invokeMethod('mouseClicked');
         }
 
         p.mouseDragged = function() {
-            return p5Implementation.invokeMethodAsync('mouseDragged');
+            return p5Implementation.invokeMethod('mouseDragged');
         }
 
         p.mouseMoved = function() {
-            return p5Implementation.invokeMethodAsync('mouseMoved');
+            return p5Implementation.invokeMethod('mouseMoved');
         }
 
         p.mousePressed = function() {
-            return p5Implementation.invokeMethodAsync('mousePressed');
+            return p5Implementation.invokeMethod('mousePressed');
         }
 
         p.mouseReleased = function() {
-            return p5Implementation.invokeMethodAsync('mouseReleased');
+            return p5Implementation.invokeMethod('mouseReleased');
         }
 
         p.preload = function() {
-            p5Implementation.invokeMethodAsync('preload');
+            p5Implementation.invokeMethod('preload');
         }
         
         p.setup = function() {
-            p5Implementation.invokeMethodAsync('setup');
+            p5Implementation.invokeMethod('setup');
         }
 
         p.textFontDotnet = function(id, size) {
@@ -122,8 +122,8 @@ function startP5(p5Implementation, container)
         }
 
         p.windowResized = function() {
-            p5Implementation.invokeMethodAsync('windowResized');
+            p5Implementation.invokeMethod('windowResized');
         }
     };
-    new p5(sketch, window.document.getElementById(container));
+    new p5(sketch, document.getElementById(container));
 }

@@ -37,6 +37,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
                 return;
             }
             _base.Dispose();
+            _application.Dispose();
 
             GC.SuppressFinalize(this);
             _isDisposed = true;

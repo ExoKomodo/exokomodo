@@ -159,6 +159,8 @@ namespace ExoKomodo.Helpers.P5
                 return;
             }
             Remove();
+            // This is necessary to reset the p5 sketch context
+            _jsRuntime.InvokeVoid("location.reload");
             Instance = null;
         }
 
@@ -234,7 +236,11 @@ namespace ExoKomodo.Helpers.P5
 
         public void Start()
         {
-            _jsRuntime.InvokeVoid("startP5", GetJsInteropReference(), _containerId);
+            _jsRuntime.InvokeVoid(
+                "startP5",
+                GetJsInteropReference(),
+                _containerId
+            );
         }
 
         [JSInvokable("windowResized")]
@@ -1192,7 +1198,7 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void Image(Image image) => _jsRuntime.InvokeVoid(
-            "window.p5Instance.imageDotnet",
+            "p5Instance.imageDotnet",
             image.Id,
             image.X,
             image.Y,
@@ -1201,7 +1207,7 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public uint ImageHeight(Image image) => _jsRuntime.Invoke<uint>(
-            "window.p5Instance.imageHeightDotnet",
+            "p5Instance.imageHeightDotnet",
             image.Id
         );
 
@@ -1230,7 +1236,7 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public uint ImageWidth(Image image) => _jsRuntime.Invoke<uint>(
-            "window.p5Instance.imageWidthDotnet",
+            "p5Instance.imageWidthDotnet",
             image.Id
         );
 
@@ -1297,12 +1303,12 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public Font LoadFont(string path) => _jsRuntime.Invoke<Font>(
-            "window.p5Instance.loadFontDotnet",
+            "p5Instance.loadFontDotnet",
             path
         );
 
         public Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
-            "window.p5Instance.loadImageDotnet",
+            "p5Instance.loadImageDotnet",
             path
         );
 
@@ -1853,7 +1859,7 @@ namespace ExoKomodo.Helpers.P5
         public void Save(Image image, string savePath)
         {
             _jsRuntime.InvokeVoid(
-                "window.p5Instance.saveImageDotnet",
+                "p5Instance.saveImageDotnet",
                 image.Id,
                 savePath
             );
@@ -2159,12 +2165,12 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void TextFont(Font font) => _jsRuntime.InvokeVoid(
-            "window.p5Instance.textFontDotnet",
+            "p5Instance.textFontDotnet",
             font.Id
         );
 
         public void TextFont(Font font, double size) => _jsRuntime.InvokeVoid(
-            "window.p5Instance.textFontDotnet",
+            "p5Instance.textFontDotnet",
             font.Id,
             size
         );
@@ -2387,9 +2393,9 @@ namespace ExoKomodo.Helpers.P5
         #region Protected
 
         #region Constants
-        protected const string _p5InvokeFunction = "window.p5Instance.invokeP5Function";
-        protected const string _p5InvokeFunctionAndReturn = "window.p5Instance.invokeP5FunctionAndReturn";
-        protected const string _p5GetValue = "window.p5Instance.getValue";
+        protected const string _p5InvokeFunction = "p5Instance.invokeP5Function";
+        protected const string _p5InvokeFunctionAndReturn = "p5Instance.invokeP5FunctionAndReturn";
+        protected const string _p5GetValue = "p5Instance.getValue";
         #endregion
 
         #region Members
