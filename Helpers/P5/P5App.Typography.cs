@@ -8,12 +8,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public Font LoadFont(string path) => _jsRuntime.Invoke<Font>(
-            "p5Instance.loadFontDotnet",
-            path
-        );
-
-        public void Text(string text, double x = 0, double y = 0)
+        public void DrawText(string text, double x = 0, double y = 0)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -24,10 +19,15 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Text(string text, Vector2 position) => Text(
+        public void DrawText(string text, Vector2 position) => DrawText(
             text,
             position.X,
             position.Y
+        );
+
+        public Font LoadFont(string path) => _jsRuntime.Invoke<Font>(
+            "p5Instance.loadFontDotnet",
+            path
         );
 
         public void TextFont(string font) => _jsRuntime.InvokeVoid(

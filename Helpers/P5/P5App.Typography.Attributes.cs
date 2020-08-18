@@ -9,7 +9,54 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void TextAlign(HorizontalTextAlign align)
+        public double GetTextAscent() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textAscent"
+        );
+
+        public double GetTextDescent() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textDescent"
+        );
+
+        public double GetTextLeading() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textLeading"
+        );
+
+        public double GetTextSize() => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textSize"
+        );
+
+        public TextStyle GetTextStyle()
+        {
+            var style = _jsRuntime.Invoke<string>(
+                _p5InvokeFunctionAndReturn,
+                "textStyle"
+            );
+            switch (style)
+            {
+                case "bold":
+                    return TextStyle.Bold;
+                case "bold italic":
+                    return TextStyle.BoldItalic;
+                case "italic":
+                    return TextStyle.Italic;
+                case "normal":
+                    return TextStyle.Normal;
+                default:
+                    throw new Exception("Invalid TextStyle");
+            }
+        }
+
+        public double GetTextWidth(string text) => _jsRuntime.Invoke<double>(
+            _p5InvokeFunctionAndReturn,
+            "textWidth",
+            text
+        );
+
+        public void SetTextAlign(HorizontalTextAlign align)
         {
             var textAlign = "";
             switch (align)
@@ -33,7 +80,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void TextAlign(HorizontalTextAlign horizontalAlign, VerticalTextAlign verticalAlign)
+        public void SetTextAlign(HorizontalTextAlign horizontalAlign, VerticalTextAlign verticalAlign)
         {
             var horizontalTextAlign = "";
             switch (horizontalAlign)
@@ -76,74 +123,33 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public double TextAscent() => _jsRuntime.Invoke<double>(
-            _p5InvokeFunctionAndReturn,
-            "textAscent"
-        );
-
-        public double TextDescent() => _jsRuntime.Invoke<double>(
-            _p5InvokeFunctionAndReturn,
-            "textDescent"
-        );
-
-        public double TextLeading() => _jsRuntime.Invoke<double>(
-            _p5InvokeFunctionAndReturn,
-            "textLeading"
-        );
-
-        public void TextLeading(double leading) => _jsRuntime.InvokeVoid(
+        public void SetTextLeading(double leading) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textLeading",
             leading
         );
 
-        public double TextSize() => _jsRuntime.Invoke<double>(
-            _p5InvokeFunctionAndReturn,
-            "textSize"
-        );
-
-        public void TextSize(double size) => _jsRuntime.InvokeVoid(
+        public void SetTextSize(double size) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textSize",
             size
         );
 
-        public Enums.TextStyle TextStyle()
-        {
-            var style = _jsRuntime.Invoke<string>(
-                _p5InvokeFunctionAndReturn,
-                "textStyle"
-            );
-            switch (style)
-            {
-                case "bold":
-                    return Enums.TextStyle.Bold;
-                case "bold italic":
-                    return Enums.TextStyle.BoldItalic;
-                case "italic":
-                    return Enums.TextStyle.Italic;
-                case "normal":
-                    return Enums.TextStyle.Normal;
-                default:
-                    throw new Exception("Invalid TextStyle");
-            }
-        }
-
-        public void TextStyle(Enums.TextStyle style)
+        public void SetTextStyle(TextStyle style)
         {
             var textStyle = "";
             switch (style)
             {
-                case Enums.TextStyle.Bold:
+                case TextStyle.Bold:
                     textStyle = "bold";
                     break;
-                case Enums.TextStyle.BoldItalic:
+                case TextStyle.BoldItalic:
                     textStyle = "bold italic";
                     break;
-                case Enums.TextStyle.Italic:
+                case TextStyle.Italic:
                     textStyle = "italic";
                     break;
-                case Enums.TextStyle.Normal:
+                case TextStyle.Normal:
                     textStyle = "normal";
                     break;
                 default:
@@ -155,12 +161,6 @@ namespace ExoKomodo.Helpers.P5
                 textStyle
             );
         }
-
-        public double TextWidth(string text) => _jsRuntime.Invoke<double>(
-            _p5InvokeFunctionAndReturn,
-            "textWidth",
-            text
-        );
         #endregion
 
         #endregion

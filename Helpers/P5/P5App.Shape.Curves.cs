@@ -9,7 +9,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void Bezier(
+        public void DrawBezier(
             double x1,
             double y1,
             double z1,
@@ -42,12 +42,12 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Bezier(
+        public void DrawBezier(
             Vector3 firstAnchor,
             Vector3 firstControl,
             Vector3 secondControl,
             Vector3 secondAnchor
-        ) => Bezier(
+        ) => DrawBezier(
             firstAnchor.X,
             firstAnchor.Y,
             firstAnchor.Z,
@@ -62,14 +62,14 @@ namespace ExoKomodo.Helpers.P5
             secondAnchor.Z
         );
         
-        public void Bezier(Bezier bezier) => Bezier(
+        public void DrawBezier(Bezier bezier) => DrawBezier(
             bezier.FirstAnchor,
             bezier.FirstControl,
             bezier.SecondControl,
             bezier.SecondAnchor
         );
 
-        public void BezierDetail(uint detail = 20)
+        public void DrawBezierDetail(uint detail = 20)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -78,7 +78,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void BezierPoint(
+        public void DrawBezierPoint(
             double firstPoint,
             double firstControl,
             double secondControl,
@@ -98,7 +98,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void BezierTangent(
+        public void DrawBezierTangent(
             double firstPoint,
             double firstControl,
             double secondControl,
@@ -118,7 +118,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Curve(
+        public void DrawCurve(
             double x1,
             double y1,
             double x2,
@@ -127,7 +127,7 @@ namespace ExoKomodo.Helpers.P5
             double y3,
             double x4,
             double y4
-        ) => Curve(
+        ) => DrawCurve(
             x1,
             y1,
             0,
@@ -142,7 +142,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        public void Curve(
+        public void DrawCurve(
             double x1,
             double y1,
             double z1,
@@ -175,12 +175,12 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Curve(
+        public void DrawCurve(
             Vector2 beginningControl,
             Vector2 firstPoint,
             Vector2 secondPoint,
             Vector2 endingControl
-        ) => Curve(
+        ) => DrawCurve(
             beginningControl.X,
             beginningControl.Y,
             firstPoint.X,
@@ -191,12 +191,12 @@ namespace ExoKomodo.Helpers.P5
             endingControl.Y
         );
 
-        public void Curve(
+        public void DrawCurve(
             Vector3 beginningControl,
             Vector3 firstPoint,
             Vector3 secondPoint,
             Vector3 endingControl
-        ) => Curve(
+        ) => DrawCurve(
             beginningControl.X,
             beginningControl.Y,
             beginningControl.Z,
@@ -211,14 +211,14 @@ namespace ExoKomodo.Helpers.P5
             endingControl.Z
         );
 
-        public void Curve(Curve curve) => Curve(
+        public void DrawCurve(Curve curve) => DrawCurve(
             curve.BeginningControl,
             curve.FirstPoint,
             curve.SecondPoint,
             curve.EndingControl
         );
 
-        public void CurveDetail(uint detail = 20)
+        public void DrawCurveDetail(uint detail = 20)
         {
             detail = Math.Max(3, detail);
             _jsRuntime.InvokeVoid(
@@ -228,7 +228,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void CurvePoint(
+        public void DrawCurvePoint(
             double firstControl,
             double firstPoint,
             double secondPoint,
@@ -248,7 +248,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void CurveTangent(
+        public void DrawCurveTangent(
             double firstControl,
             double firstPoint,
             double secondPoint,
@@ -268,7 +268,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void CurveTightness(double amount)
+        public void DrawCurveTightness(double amount)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,

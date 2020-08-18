@@ -1,5 +1,6 @@
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
+using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -21,7 +22,7 @@ namespace ExoKomodo.Helpers.P5
         {
             switch (color.Mode)
             {
-                case Enums.ColorMode.RGB:
+                case ColorMode.RGB:
                     _jsRuntime.InvokeVoid(
                         _p5InvokeFunction,
                         "background",
@@ -30,7 +31,7 @@ namespace ExoKomodo.Helpers.P5
                         color.Blue
                     );
                     break;
-                case Enums.ColorMode.HSB:
+                case ColorMode.HSB:
                     _jsRuntime.InvokeVoid(
                         _p5InvokeFunction,
                         "background",
@@ -50,12 +51,13 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void ColorMode(Enums.ColorMode mode)
+        public void Erase(byte strengthFill = 255, byte strengthStroke = 255)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
-                "colorMode",
-                Models.Color.ToString(mode)
+                "erase",
+                strengthFill,
+                strengthStroke
             );
         }
 
@@ -72,7 +74,7 @@ namespace ExoKomodo.Helpers.P5
         {
             switch (color.Mode)
             {
-                case Enums.ColorMode.RGB:
+                case ColorMode.RGB:
                     _jsRuntime.InvokeVoid(
                         _p5InvokeFunction,
                         "fill",
@@ -81,7 +83,7 @@ namespace ExoKomodo.Helpers.P5
                         color.Blue
                     );
                     break;
-                case Enums.ColorMode.HSB:
+                case ColorMode.HSB:
                     _jsRuntime.InvokeVoid(
                         _p5InvokeFunction,
                         "fill",
@@ -91,6 +93,14 @@ namespace ExoKomodo.Helpers.P5
                     );
                     break;
             }
+        }
+
+        public void NoErase()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "noErase"
+            );
         }
 
         public void NoFill()
@@ -109,6 +119,15 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
+        public void SetColorMode(ColorMode mode)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "colorMode",
+                Color.ToString(mode)
+            );
+        }
+
         public void Stroke(byte grayscale)
         {
             _jsRuntime.InvokeVoid(
@@ -122,7 +141,7 @@ namespace ExoKomodo.Helpers.P5
         {
             switch (color.Mode)
             {
-                case Enums.ColorMode.RGB:
+                case ColorMode.RGB:
                     _jsRuntime.InvokeVoid(
                         _p5InvokeFunction,
                         "stroke",
@@ -131,7 +150,7 @@ namespace ExoKomodo.Helpers.P5
                         color.Blue
                     );
                     break;
-                case Enums.ColorMode.HSB:
+                case ColorMode.HSB:
                     _jsRuntime.InvokeVoid(
                         _p5InvokeFunction,
                         "stroke",
@@ -141,24 +160,6 @@ namespace ExoKomodo.Helpers.P5
                     );
                     break;
             }
-        }
-
-        public void Erase(byte strengthFill = 255, byte strengthStroke = 255)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "erase",
-                strengthFill,
-                strengthStroke
-            );
-        }
-
-        public void NoErase()
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "noErase"
-            );
         }
         #endregion
 

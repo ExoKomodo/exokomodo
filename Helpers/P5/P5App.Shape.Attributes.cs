@@ -1,3 +1,5 @@
+using ExoKomodo.Helpers.P5.Enums;
+using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System;
 
@@ -8,15 +10,6 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void EllipseMode(Enums.EllipseMode mode)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "ellipseMode",
-                Models.Ellipse.ToString(mode)
-            );
-        }
-
         public void NoSmooth()
         {
             _jsRuntime.InvokeVoid(
@@ -25,35 +18,36 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void RectangleMode(Enums.RectangleMode mode)
+        public void SetEllipseMode(EllipseMode mode)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "ellipseMode",
+                Ellipse.ToString(mode)
+            );
+        }
+        
+        public void SetRectangleMode(RectangleMode mode)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "rectMode",
-                Models.Rectangle.ToString(mode)
+                Rectangle.ToString(mode)
             );
         }
 
-        public void Smooth()
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "smooth"
-            );
-        }
-
-        public void StrokeCap(Enums.StrokeCap cap)
+        public void SetStrokeCap(StrokeCap cap)
         {
             var mode = "";
             switch (cap)
             {
-                case Enums.StrokeCap.Project:
+                case StrokeCap.Project:
                     mode = "project";
                     break;
-                case Enums.StrokeCap.Round:
+                case StrokeCap.Round:
                     mode = "round";
                     break;
-                case Enums.StrokeCap.Square:
+                case StrokeCap.Square:
                     mode = "square";
                     break;
                 default:
@@ -66,18 +60,18 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void StrokeJoin(Enums.StrokeJoin join)
+        public void SetStrokeJoin(StrokeJoin join)
         {
             var mode = "";
             switch (join)
             {
-                case Enums.StrokeJoin.Bevel:
+                case StrokeJoin.Bevel:
                     mode = "bevel";
                     break;
-                case Enums.StrokeJoin.Miter:
+                case StrokeJoin.Miter:
                     mode = "miter";
                     break;
-                case Enums.StrokeJoin.Round:
+                case StrokeJoin.Round:
                     mode = "round";
                     break;
                 default:
@@ -96,6 +90,14 @@ namespace ExoKomodo.Helpers.P5
                 _p5InvokeFunction,
                 "strokeWeight",
                 weight
+            );
+        }
+
+        public void Smooth()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "smooth"
             );
         }
         #endregion

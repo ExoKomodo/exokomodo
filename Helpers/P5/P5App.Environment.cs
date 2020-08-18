@@ -1,3 +1,4 @@
+using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
 
@@ -75,27 +76,27 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Member Methods
-        public void Cursor(Enums.CursorMode mode)
+        public void Cursor(CursorMode mode)
         {
             var cursorMode = "";
             switch (mode)
             {
-                case Enums.CursorMode.Arrow:
+                case CursorMode.Arrow:
                     cursorMode = "default";
                     break;
-                case Enums.CursorMode.Cross:
+                case CursorMode.Cross:
                     cursorMode = "crosshair";
                     break;
-                case Enums.CursorMode.Hand:
+                case CursorMode.Hand:
                     cursorMode = "pointer";
                     break;
-                case Enums.CursorMode.Move:
+                case CursorMode.Move:
                     cursorMode = "move";
                     break;
-                case Enums.CursorMode.Text:
+                case CursorMode.Text:
                     cursorMode = "text";
                     break;
-                case Enums.CursorMode.Wait:
+                case CursorMode.Wait:
                     cursorMode = "wait";
                     break;
                 default:
@@ -104,27 +105,27 @@ namespace ExoKomodo.Helpers.P5
             Cursor(cursorMode);
         }
 
-        public void Cursor(Enums.CursorMode mode, uint x, uint y)
+        public void Cursor(CursorMode mode, uint x, uint y)
         {
             var cursorMode = "";
             switch (mode)
             {
-                case Enums.CursorMode.Arrow:
+                case CursorMode.Arrow:
                     cursorMode = "default";
                     break;
-                case Enums.CursorMode.Cross:
+                case CursorMode.Cross:
                     cursorMode = "crosshair";
                     break;
-                case Enums.CursorMode.Hand:
+                case CursorMode.Hand:
                     cursorMode = "pointer";
                     break;
-                case Enums.CursorMode.Move:
+                case CursorMode.Move:
                     cursorMode = "move";
                     break;
-                case Enums.CursorMode.Text:
+                case CursorMode.Text:
                     cursorMode = "text";
                     break;
-                case Enums.CursorMode.Wait:
+                case CursorMode.Wait:
                     cursorMode = "wait";
                     break;
                 default:

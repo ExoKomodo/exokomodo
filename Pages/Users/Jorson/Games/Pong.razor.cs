@@ -131,7 +131,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
                 Application.Push();
                 Application.NoStroke();
                 Application.Fill(255);
-                Application.Circle(Body);
+                Application.DrawCircle(Body);
                 Application.Pop();
             }
 
@@ -190,8 +190,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
                 Application.Push();
                 Application.NoStroke();
                 Application.Fill(255);
-                Application.RectangleMode(RectangleMode.Center);
-                Application.Rectangle(Body);
+                Application.SetRectangleMode(RectangleMode.Center);
+                Application.DrawRectangle(Body);
                 Application.Pop();
             }
 

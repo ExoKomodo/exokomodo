@@ -1,3 +1,4 @@
+using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
 
@@ -8,15 +9,15 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void AngleMode(Enums.AngleMode mode)
+        public void SetAngleMode(AngleMode mode)
         {
             var angleMode = "";
             switch (mode)
             {
-                case Enums.AngleMode.Degrees:
+                case AngleMode.Degrees:
                     angleMode = "degrees";
                     break;
-                case Enums.AngleMode.Radians:
+                case AngleMode.Radians:
                     angleMode = "radians";
                     break;
                 default:

@@ -1,6 +1,7 @@
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
 using System;
+using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -9,7 +10,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void Image(Image image) => _jsRuntime.InvokeVoid(
+        public void DrawImage(Image image) => _jsRuntime.InvokeVoid(
             "p5Instance.imageDotnet",
             image.Id,
             image.X,
@@ -18,23 +19,34 @@ namespace ExoKomodo.Helpers.P5
             image.Height
         );
 
-        public uint ImageHeight(Image image) => _jsRuntime.Invoke<uint>(
+        public uint GetImageHeight(Image image) => _jsRuntime.Invoke<uint>(
             "p5Instance.imageHeightDotnet",
             image.Id
         );
 
-        public void ImageMode(Enums.ImageMode mode)
+        public uint GetImageWidth(Image image) => _jsRuntime.Invoke<uint>(
+            "p5Instance.imageWidthDotnet",
+            image.Id
+        );
+
+        public void SetImageFields(Image image)
+        {
+            image.Width = GetImageWidth(image);
+            image.Height = GetImageHeight(image);
+        }
+
+        public void SetImageMode(ImageMode mode)
         {
             var imageMode = "";
             switch (mode)
             {
-                case Enums.ImageMode.Center:
+                case ImageMode.Center:
                     imageMode = "center";
                     break;
-                case Enums.ImageMode.Corner:
+                case ImageMode.Corner:
                     imageMode = "corner";
                     break;
-                case Enums.ImageMode.Corners:
+                case ImageMode.Corners:
                     imageMode = "corners";
                     break;
                 default:
@@ -45,17 +57,6 @@ namespace ExoKomodo.Helpers.P5
                 "imageMode",
                 imageMode
             );
-        }
-
-        public uint ImageWidth(Image image) => _jsRuntime.Invoke<uint>(
-            "p5Instance.imageWidthDotnet",
-            image.Id
-        );
-
-        public void SetImageFields(Image image)
-        {
-            image.Width = ImageWidth(image);
-            image.Height = ImageHeight(image);
         }
 
         public Image LoadImage(string path) => _jsRuntime.Invoke<Image>(

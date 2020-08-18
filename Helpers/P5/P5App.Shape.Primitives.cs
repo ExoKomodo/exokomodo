@@ -1,4 +1,5 @@
 using Microsoft.JSInterop;
+using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 
 namespace ExoKomodo.Helpers.P5
@@ -8,14 +9,14 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void Arc(
+        public void DrawArc(
             double x,
             double y,
             double w,
             double h,
             double startAngle,
             double stopAngle,
-            Enums.ArcMode mode = Enums.ArcMode.Pie,
+            ArcMode mode = ArcMode.Pie,
             uint detail = 25
         )
         {
@@ -28,19 +29,19 @@ namespace ExoKomodo.Helpers.P5
                 h,
                 startAngle,
                 stopAngle,
-                Models.Arc.ToString(mode),
+                Arc.ToString(mode),
                 detail
             );
         }
 
-        public void Arc(
+        public void DrawArc(
             Vector2 position,
             Vector2 dimensions,
             double startAngle,
             double stopAngle,
-            Enums.ArcMode mode = Enums.ArcMode.Pie,
+            ArcMode mode = ArcMode.Pie,
             uint detail = 25
-        ) => Arc(
+        ) => DrawArc(
             position.X,
             position.Y,
             dimensions.X,
@@ -51,7 +52,7 @@ namespace ExoKomodo.Helpers.P5
             detail
         );
 
-        public void Arc(Arc arc) => Arc(
+        public void DrawArc(Arc arc) => DrawArc(
             arc.X,
             arc.Y,
             arc.Width,
@@ -62,7 +63,7 @@ namespace ExoKomodo.Helpers.P5
             arc.Detail
         );
 
-        public void Circle(double x, double y, double d)
+        public void DrawCircle(double x, double y, double d)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -73,19 +74,19 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Circle(Vector2 position, double d) => Circle(
+        public void DrawCircle(Vector2 position, double d) => DrawCircle(
             position.X,
             position.Y,
             d
         );
 
-        public void Circle(Circle circle) => Circle(
+        public void DrawCircle(Circle circle) => DrawCircle(
             circle.X,
             circle.Y,
             circle.Diameter
         );
 
-        public void Ellipse(
+        public void DrawEllipse(
             double x,
             double y,
             double w,
@@ -122,11 +123,11 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public void Ellipse(
+        public void DrawEllipse(
             Vector2 position,
             Vector2 dimensions,
             uint detail = 25
-        ) => Ellipse(
+        ) => DrawEllipse(
             position.X,
             position.Y,
             dimensions.X,
@@ -134,18 +135,18 @@ namespace ExoKomodo.Helpers.P5
             detail
         );
 
-        public void Ellipse(Ellipse ellipse) => Ellipse(
+        public void DrawEllipse(Ellipse ellipse) => DrawEllipse(
             ellipse.Position,
             ellipse.Dimensions,
             ellipse.Detail
         );
 
-        public void Line(
+        public void DrawLine(
             double x1,
             double y1,
             double x2,
             double y2
-        ) => Line(
+        ) => DrawLine(
             x1,
             y1,
             0,
@@ -154,7 +155,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        public void Line(
+        public void DrawLine(
             double x1,
             double y1,
             double z1,
@@ -175,14 +176,14 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Line(Vector2 start, Vector2 end) => Line(
+        public void DrawLine(Vector2 start, Vector2 end) => DrawLine(
             start.X,
             start.Y,
             end.X,
             end.Y
         );
 
-        public void Line(Vector3 start, Vector3 end) => Line(
+        public void DrawLine(Vector3 start, Vector3 end) => DrawLine(
             start.X,
             start.Y,
             start.Z,
@@ -191,12 +192,12 @@ namespace ExoKomodo.Helpers.P5
             end.Z
         );
 
-        public void Line(Line line) => Line(
+        public void DrawLine(Line line) => DrawLine(
             line.Start,
             line.End
         );
 
-        public void Point(
+        public void DrawPoint(
             double x,
             double y,
             double z = 0
@@ -224,18 +225,18 @@ namespace ExoKomodo.Helpers.P5
             
         }
         
-        public void Point(Vector2 point) => Point(
+        public void DrawPoint(Vector2 point) => DrawPoint(
             point.X,
             point.Y
         );
 
-        public void Point(Vector3 point) => Point(
+        public void DrawPoint(Vector3 point) => DrawPoint(
             point.X,
             point.Y,
             point.Z
         );
 
-        public void Quad(
+        public void DrawQuad(
             double x1,
             double y1,
             double x2,
@@ -244,7 +245,7 @@ namespace ExoKomodo.Helpers.P5
             double y3,
             double x4,
             double y4
-        ) => Quad(
+        ) => DrawQuad(
             x1,
             y1,
             0,
@@ -259,7 +260,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        public void Quad(
+        public void DrawQuad(
             double x1,
             double y1,
             double z1,
@@ -310,12 +311,12 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public void Quad(
+        public void DrawQuad(
             Vector2 v1,
             Vector2 v2,
             Vector2 v3,
             Vector2 v4
-        ) => Quad(
+        ) => DrawQuad(
             v1.X,
             v1.Y,
             v2.X,
@@ -326,12 +327,12 @@ namespace ExoKomodo.Helpers.P5
             v4.Y
         );
 
-        public void Quad(
+        public void DrawQuad(
             Vector3 v1,
             Vector3 v2,
             Vector3 v3,
             Vector3 v4
-        ) => Quad(
+        ) => DrawQuad(
             v1.X,
             v1.Y,
             v1.Z,
@@ -346,14 +347,14 @@ namespace ExoKomodo.Helpers.P5
             v4.Z
         );
         
-        public void Quad(Quad quad) => Quad(
+        public void DrawQuad(Quad quad) => DrawQuad(
             quad.V1,
             quad.V2,
             quad.V3,
             quad.V4
         );
 
-        public void Rectangle(
+        public void DrawRectangle(
             double x,
             double y,
             double w,
@@ -400,7 +401,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public void Rectangle(
+        public void DrawRectangle(
             Vector2 position,
             Vector2 dimensions,
             double topLeftRadius = 0,
@@ -409,7 +410,7 @@ namespace ExoKomodo.Helpers.P5
             double bottomLeftRadius = 0,
             uint detailX = 25,
             uint detailY = 25
-        ) => Rectangle(
+        ) => DrawRectangle(
             position.X,
             position.Y,
             dimensions.X,
@@ -422,7 +423,7 @@ namespace ExoKomodo.Helpers.P5
             detailY
         );
 
-        public void Rectangle(Rectangle rect) => Rectangle(
+        public void DrawRectangle(Rectangle rect) => DrawRectangle(
             rect.X,
             rect.Y,
             rect.Width,
@@ -435,7 +436,7 @@ namespace ExoKomodo.Helpers.P5
             rect.DetailY
         );
 
-        public void Square(
+        public void DrawSquare(
             double x,
             double y,
             double side,
@@ -458,14 +459,14 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Square(
+        public void DrawSquare(
             Vector2 position,
             double side,
             double? topLeftRadius = null,
             double? topRightRadius = null,
             double? bottomRightRadius = null,
             double? bottomLeftRadius = null
-        ) => Square(
+        ) => DrawSquare(
             position.X,
             position.Y,
             side,
@@ -475,7 +476,7 @@ namespace ExoKomodo.Helpers.P5
             bottomLeftRadius
         );
 
-        public void Square(Square square) => Square(
+        public void DrawSquare(Square square) => DrawSquare(
             square.Position,
             square.Side,
             square.TopLeftRadius,
@@ -484,7 +485,7 @@ namespace ExoKomodo.Helpers.P5
             square.BottomLeftRadius
         );
 
-        public void Triangle(
+        public void DrawTriangle(
             double x1,
             double y1,
             double x2,
@@ -505,11 +506,11 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Triangle(
+        public void DrawTriangle(
             Vector2 v1,
             Vector2 v2,
             Vector2 v3
-        ) => Triangle(
+        ) => DrawTriangle(
             v1.X,
             v1.Y,
             v2.X,
@@ -518,7 +519,7 @@ namespace ExoKomodo.Helpers.P5
             v3.Y
         );
 
-        public void Triangle(Triangle triangle) => Triangle(
+        public void DrawTriangle(Triangle triangle) => DrawTriangle(
             triangle.V1,
             triangle.V2,
             triangle.V3

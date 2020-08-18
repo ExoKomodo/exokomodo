@@ -34,14 +34,14 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void BezierVertex(
+        public void DrawBezierVertex(
             double x2,
             double y2,
             double x3,
             double y3,
             double x4,
             double y4
-        ) => BezierVertex(
+        ) => DrawBezierVertex(
             x2,
             y2,
             0,
@@ -53,7 +53,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        public void BezierVertex(
+        public void DrawBezierVertex(
             double x2,
             double y2,
             double z2,
@@ -96,11 +96,11 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public void BezierVertex(
+        public void DrawBezierVertex(
             Vector2 firstControl,
             Vector2 secondControl,
             Vector2 secondAnchor
-        ) => BezierVertex(
+        ) => DrawBezierVertex(
             firstControl.X,
             firstControl.Y,
             secondControl.X,
@@ -109,11 +109,11 @@ namespace ExoKomodo.Helpers.P5
             secondAnchor.Y
         );
 
-        public void BezierVertex(
+        public void DrawBezierVertex(
             Vector3 firstControl,
             Vector3 secondControl,
             Vector3 secondAnchor
-        ) => BezierVertex(
+        ) => DrawBezierVertex(
             firstControl.X,
             firstControl.Y,
             firstControl.Z,
@@ -125,13 +125,13 @@ namespace ExoKomodo.Helpers.P5
             secondAnchor.Z
         );
         
-        public void BezierVertex(BezierVertex bezierVertex) => BezierVertex(
+        public void DrawBezierVertex(BezierVertex bezierVertex) => DrawBezierVertex(
             bezierVertex.FirstControl,
             bezierVertex.SecondControl,
             bezierVertex.SecondAnchor
         );
 
-        public void CurveVertex(
+        public void DrawCurveVertex(
             double x,
             double y,
             double z = 0
@@ -158,56 +158,29 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public void CurveVertex(Vector2 vertex) => CurveVertex(
+        public void DrawCurveVertex(Vector2 vertex) => DrawCurveVertex(
             vertex.X,
             vertex.Y
         );
 
-        public void CurveVertex(Vector3 vertex) => CurveVertex(
+        public void DrawCurveVertex(Vector3 vertex) => DrawCurveVertex(
             vertex.X,
             vertex.Y,
             vertex.Z
         );
         
-        public void CurveVertex(CurveVertex vertex) => CurveVertex(
+        public void DrawCurveVertex(CurveVertex vertex) => DrawCurveVertex(
             vertex.X,
             vertex.Y,
             vertex.Z
         );
 
-        public void EndContour()
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "endContour"
-            );
-        }
-
-        public void EndShape(bool shouldClose = false)
-        {
-            if (shouldClose)
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "endShape",
-                    "close"
-                );
-            }
-            else
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "endShape"
-                );
-            }
-        }
-
-        public void QuadraticVertex(
+        public void DrawQuadraticVertex(
             double x1 = 0,
             double y1 = 0,
             double x2 = 0,
             double y2 = 0
-        ) => QuadraticVertex(
+        ) => DrawQuadraticVertex(
             x1,
             y1,
             0,
@@ -216,7 +189,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
         
-        public void QuadraticVertex(
+        public void DrawQuadraticVertex(
             double x1 = 0,
             double y1 = 0,
             double z1 = 0,
@@ -251,20 +224,20 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public void QuadraticVertex(
+        public void DrawQuadraticVertex(
             Vector2 controlPoint,
             Vector2 anchorPoint
-        ) => QuadraticVertex(
+        ) => DrawQuadraticVertex(
             controlPoint.X,
             controlPoint.Y,
             anchorPoint.X,
             anchorPoint.Y
         );
 
-        public void QuadraticVertex(
+        public void DrawQuadraticVertex(
             Vector3 controlPoint,
             Vector3 anchorPoint
-        ) => QuadraticVertex(
+        ) => DrawQuadraticVertex(
             controlPoint.X,
             controlPoint.Y,
             controlPoint.Z,
@@ -273,14 +246,14 @@ namespace ExoKomodo.Helpers.P5
             anchorPoint.Z
         );
 
-        public void QuadraticVertex(QuadraticVertex vertex) => QuadraticVertex(
+        public void DrawQuadraticVertex(QuadraticVertex vertex) => DrawQuadraticVertex(
             vertex.ControlPoint,
             vertex.AnchorPoint
         );
 
-        public void Vertex(double x, double y) => Vertex(x, y, 0);
-        public void Vertex(double x, double y, double u, double v) => Vertex(x, y, 0, u, v);
-        public void Vertex(double x, double y, double z)
+        public void DrawVertex(double x, double y) => DrawVertex(x, y, 0);
+        public void DrawVertex(double x, double y, double u, double v) => DrawVertex(x, y, 0, u, v);
+        public void DrawVertex(double x, double y, double z)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -290,7 +263,7 @@ namespace ExoKomodo.Helpers.P5
                 z
             );
         }
-        public void Vertex(double x, double y, double z, double u, double v)
+        public void DrawVertex(double x, double y, double z, double u, double v)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -303,23 +276,23 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Vertex(Vector2 position, Vector2? uv = null)
+        public void DrawVertex(Vector2 position, Vector2? uv = null)
         {
             if (uv.HasValue)
             {
-                Vertex(position.X, position.Y, uv.Value.X, uv.Value.Y);
+                DrawVertex(position.X, position.Y, uv.Value.X, uv.Value.Y);
             }
             else
             {
-                Vertex(position);
+                DrawVertex(position);
             }
         }
 
-        public void Vertex(Vector3 position, Vector2? uv = null)
+        public void DrawVertex(Vector3 position, Vector2? uv = null)
         {
             if (uv.HasValue)
             {
-                Vertex(
+                DrawVertex(
                     position.X,
                     position.Y,
                     position.Z,
@@ -329,11 +302,38 @@ namespace ExoKomodo.Helpers.P5
             }
             else
             {
-                Vertex(position);
+                DrawVertex(position);
             }
         }
 
-        public void Vertex(Vertex vertex) => Vertex(vertex.Position, vertex.UV);
+        public void DrawVertex(Vertex vertex) => DrawVertex(vertex.Position, vertex.UV);
+
+        public void EndContour()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "endContour"
+            );
+        }
+
+        public void EndShape(bool shouldClose = false)
+        {
+            if (shouldClose)
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "endShape",
+                    "close"
+                );
+            }
+            else
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "endShape"
+                );
+            }
+        }
         #endregion
 
         #endregion
