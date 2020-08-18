@@ -243,25 +243,8 @@ namespace ExoKomodo.Helpers.P5
         public virtual void WindowResized()
         {
         }
-        #endregion
 
-        #endregion
-
-        #region Protected
-
-        #region Constants
-        protected const string _p5InvokeFunction = "window.p5Instance.invokeP5Function";
-        protected const string _p5InvokeFunctionAndReturn = "window.p5Instance.invokeP5FunctionAndReturn";
-        protected const string _p5GetValue = "window.p5Instance.getValue";
-        #endregion
-
-        #region Members
-        protected readonly IJSInProcessRuntime _jsRuntime;
-        protected readonly string _containerId;
-        #endregion
-
-        #region Member Methods
-        protected void AngleMode(Enums.AngleMode mode)
+        public void AngleMode(Enums.AngleMode mode)
         {
             var angleMode = "";
             switch (mode)
@@ -282,7 +265,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Arc(
+        public void Arc(
             double x,
             double y,
             double w,
@@ -307,7 +290,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Arc(
+        public void Arc(
             Vector2 position,
             Vector2 dimensions,
             double startAngle,
@@ -325,7 +308,7 @@ namespace ExoKomodo.Helpers.P5
             detail
         );
 
-        protected void Arc(Arc arc) => Arc(
+        public void Arc(Arc arc) => Arc(
             arc.X,
             arc.Y,
             arc.Width,
@@ -336,7 +319,7 @@ namespace ExoKomodo.Helpers.P5
             arc.Detail
         );
 
-        protected void Background(byte grayscale)
+        public void Background(byte grayscale)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -345,7 +328,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Background(Color color)
+        public void Background(Color color)
         {
             switch (color.Mode)
             {
@@ -370,7 +353,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void BeginContour()
+        public void BeginContour()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -378,7 +361,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void BeginShape()
+        public void BeginShape()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -386,7 +369,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void BeginShape(ShapeKind kind)
+        public void BeginShape(ShapeKind kind)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -395,7 +378,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Bezier(
+        public void Bezier(
             double x1,
             double y1,
             double z1,
@@ -428,7 +411,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Bezier(
+        public void Bezier(
             Vector3 firstAnchor,
             Vector3 firstControl,
             Vector3 secondControl,
@@ -448,14 +431,14 @@ namespace ExoKomodo.Helpers.P5
             secondAnchor.Z
         );
         
-        protected void Bezier(Bezier bezier) => Bezier(
+        public void Bezier(Bezier bezier) => Bezier(
             bezier.FirstAnchor,
             bezier.FirstControl,
             bezier.SecondControl,
             bezier.SecondAnchor
         );
 
-        protected void BezierDetail(uint detail = 20)
+        public void BezierDetail(uint detail = 20)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -464,7 +447,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void BezierPoint(
+        public void BezierPoint(
             double firstPoint,
             double firstControl,
             double secondControl,
@@ -484,7 +467,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void BezierTangent(
+        public void BezierTangent(
             double firstPoint,
             double firstControl,
             double secondControl,
@@ -504,7 +487,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void BezierVertex(
+        public void BezierVertex(
             double x2,
             double y2,
             double x3,
@@ -523,7 +506,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        protected void BezierVertex(
+        public void BezierVertex(
             double x2,
             double y2,
             double z2,
@@ -566,7 +549,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void BezierVertex(
+        public void BezierVertex(
             Vector2 firstControl,
             Vector2 secondControl,
             Vector2 secondAnchor
@@ -579,7 +562,7 @@ namespace ExoKomodo.Helpers.P5
             secondAnchor.Y
         );
 
-        protected void BezierVertex(
+        public void BezierVertex(
             Vector3 firstControl,
             Vector3 secondControl,
             Vector3 secondAnchor
@@ -595,13 +578,13 @@ namespace ExoKomodo.Helpers.P5
             secondAnchor.Z
         );
         
-        protected void BezierVertex(BezierVertex bezierVertex) => BezierVertex(
+        public void BezierVertex(BezierVertex bezierVertex) => BezierVertex(
             bezierVertex.FirstControl,
             bezierVertex.SecondControl,
             bezierVertex.SecondAnchor
         );
 
-        protected void BlendMode(Enums.BlendMode mode)
+        public void BlendMode(Enums.BlendMode mode)
         {
             var blendMode = "";
             switch (mode)
@@ -692,7 +675,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Circle(double x, double y, double d)
+        public void Circle(double x, double y, double d)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -703,19 +686,19 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Circle(Vector2 position, double d) => Circle(
+        public void Circle(Vector2 position, double d) => Circle(
             position.X,
             position.Y,
             d
         );
 
-        protected void Circle(Circle circle) => Circle(
+        public void Circle(Circle circle) => Circle(
             circle.X,
             circle.Y,
             circle.D
         );
 
-        protected void Clear()
+        public void Clear()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -723,7 +706,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void ColorMode(Enums.ColorMode mode)
+        public void ColorMode(Enums.ColorMode mode)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -732,7 +715,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void CreateCanvas(uint width, uint height, bool useWebGL = false)
+        public void CreateCanvas(uint width, uint height, bool useWebGL = false)
         {
             IsWebGL = useWebGL;
             if (useWebGL)
@@ -756,7 +739,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Cursor(Enums.CursorMode mode)
+        public void Cursor(Enums.CursorMode mode)
         {
             var cursorMode = "";
             switch (mode)
@@ -785,7 +768,7 @@ namespace ExoKomodo.Helpers.P5
             Cursor(cursorMode);
         }
 
-        protected void Cursor(Enums.CursorMode mode, uint x, uint y)
+        public void Cursor(Enums.CursorMode mode, uint x, uint y)
         {
             var cursorMode = "";
             switch (mode)
@@ -814,7 +797,7 @@ namespace ExoKomodo.Helpers.P5
             Cursor(cursorMode, x, y);
         }
 
-        protected void Cursor(string mode)
+        public void Cursor(string mode)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -823,7 +806,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Cursor(string mode, uint x, uint y)
+        public void Cursor(string mode, uint x, uint y)
         {
             x = Math.Min(x, 32);
             y = Math.Min(y, 32);
@@ -836,7 +819,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Curve(
+        public void Curve(
             double x1,
             double y1,
             double x2,
@@ -860,7 +843,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        protected void Curve(
+        public void Curve(
             double x1,
             double y1,
             double z1,
@@ -893,7 +876,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Curve(
+        public void Curve(
             Vector2 beginningControl,
             Vector2 firstPoint,
             Vector2 secondPoint,
@@ -909,7 +892,7 @@ namespace ExoKomodo.Helpers.P5
             endingControl.Y
         );
 
-        protected void Curve(
+        public void Curve(
             Vector3 beginningControl,
             Vector3 firstPoint,
             Vector3 secondPoint,
@@ -929,14 +912,14 @@ namespace ExoKomodo.Helpers.P5
             endingControl.Z
         );
 
-        protected void Curve(Curve curve) => Curve(
+        public void Curve(Curve curve) => Curve(
             curve.BeginningControl,
             curve.FirstPoint,
             curve.SecondPoint,
             curve.EndingControl
         );
 
-        protected void CurveDetail(uint detail = 20)
+        public void CurveDetail(uint detail = 20)
         {
             detail = Math.Max(3, detail);
             _jsRuntime.InvokeVoid(
@@ -946,7 +929,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void CurvePoint(
+        public void CurvePoint(
             double firstControl,
             double firstPoint,
             double secondPoint,
@@ -966,7 +949,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void CurveTangent(
+        public void CurveTangent(
             double firstControl,
             double firstPoint,
             double secondPoint,
@@ -986,7 +969,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void CurveTightness(double amount)
+        public void CurveTightness(double amount)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -995,7 +978,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void CurveVertex(
+        public void CurveVertex(
             double x,
             double y,
             double z = 0
@@ -1022,24 +1005,24 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void CurveVertex(Vector2 vertex) => CurveVertex(
+        public void CurveVertex(Vector2 vertex) => CurveVertex(
             vertex.X,
             vertex.Y
         );
 
-        protected void CurveVertex(Vector3 vertex) => CurveVertex(
+        public void CurveVertex(Vector3 vertex) => CurveVertex(
             vertex.X,
             vertex.Y,
             vertex.Z
         );
         
-        protected void CurveVertex(CurveVertex vertex) => CurveVertex(
+        public void CurveVertex(CurveVertex vertex) => CurveVertex(
             vertex.X,
             vertex.Y,
             vertex.Z
         );
 
-        protected void Ellipse(
+        public void Ellipse(
             double x,
             double y,
             double w,
@@ -1076,7 +1059,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Ellipse(
+        public void Ellipse(
             Vector2 position,
             Vector2 dimensions,
             uint detail = 25
@@ -1088,13 +1071,13 @@ namespace ExoKomodo.Helpers.P5
             detail
         );
 
-        protected void Ellipse(Ellipse ellipse) => Ellipse(
+        public void Ellipse(Ellipse ellipse) => Ellipse(
             ellipse.Position,
             ellipse.Dimensions,
             ellipse.Detail
         );
 
-        protected void EllipseMode(Enums.EllipseMode mode)
+        public void EllipseMode(Enums.EllipseMode mode)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1103,7 +1086,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void EndContour()
+        public void EndContour()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1111,7 +1094,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void EndShape(bool shouldClose = false)
+        public void EndShape(bool shouldClose = false)
         {
             if (shouldClose)
             {
@@ -1130,7 +1113,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Erase(byte strengthFill = 255, byte strengthStroke = 255)
+        public void Erase(byte strengthFill = 255, byte strengthStroke = 255)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1140,7 +1123,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void ExitPointerLock()
+        public void ExitPointerLock()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1148,7 +1131,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Fill(byte grayscale)
+        public void Fill(byte grayscale)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1157,7 +1140,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Fill(Color color)
+        public void Fill(Color color)
         {
             switch (color.Mode)
             {
@@ -1182,12 +1165,12 @@ namespace ExoKomodo.Helpers.P5
             }
         }
         
-        protected double FrameRate() => _jsRuntime.Invoke<double>(
+        public double FrameRate() => _jsRuntime.Invoke<double>(
             _p5InvokeFunctionAndReturn,
             "frameRate"
         );
 
-        protected void FrameRate(double fps)
+        public void FrameRate(double fps)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1196,12 +1179,12 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected bool Fullscreen() => _jsRuntime.Invoke<bool>(
+        public bool Fullscreen() => _jsRuntime.Invoke<bool>(
             _p5InvokeFunctionAndReturn,
             "fullscreen"
         );
 
-        protected void Fullscreen(bool isFullscreen)
+        public void Fullscreen(bool isFullscreen)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1210,7 +1193,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Image(Image image) => _jsRuntime.InvokeVoid(
+        public void Image(Image image) => _jsRuntime.InvokeVoid(
             "window.p5Instance.imageDotnet",
             image.Id,
             image.X,
@@ -1219,12 +1202,12 @@ namespace ExoKomodo.Helpers.P5
             image.Height
         );
 
-        protected uint ImageHeight(Image image) => _jsRuntime.Invoke<uint>(
+        public uint ImageHeight(Image image) => _jsRuntime.Invoke<uint>(
             "window.p5Instance.imageHeightDotnet",
             image.Id
         );
 
-        protected void ImageMode(Enums.ImageMode mode)
+        public void ImageMode(Enums.ImageMode mode)
         {
             var imageMode = "";
             switch (mode)
@@ -1248,18 +1231,18 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected uint ImageWidth(Image image) => _jsRuntime.Invoke<uint>(
+        public uint ImageWidth(Image image) => _jsRuntime.Invoke<uint>(
             "window.p5Instance.imageWidthDotnet",
             image.Id
         );
 
-        protected bool IsKeyDown(uint code) => _jsRuntime.Invoke<bool>(
+        public bool IsKeyDown(uint code) => _jsRuntime.Invoke<bool>(
             _p5InvokeFunctionAndReturn,
             "keyIsDown",
             code
         );
 
-        protected void Line(
+        public void Line(
             double x1,
             double y1,
             double x2,
@@ -1273,7 +1256,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        protected void Line(
+        public void Line(
             double x1,
             double y1,
             double z1,
@@ -1294,14 +1277,14 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Line(Vector2 start, Vector2 end) => Line(
+        public void Line(Vector2 start, Vector2 end) => Line(
             start.X,
             start.Y,
             end.X,
             end.Y
         );
 
-        protected void Line(Vector3 start, Vector3 end) => Line(
+        public void Line(Vector3 start, Vector3 end) => Line(
             start.X,
             start.Y,
             start.Z,
@@ -1310,22 +1293,22 @@ namespace ExoKomodo.Helpers.P5
             end.Z
         );
 
-        protected void Line(Line line) => Line(
+        public void Line(Line line) => Line(
             line.Start,
             line.End
         );
 
-        protected Font LoadFont(string path) => _jsRuntime.Invoke<Font>(
+        public Font LoadFont(string path) => _jsRuntime.Invoke<Font>(
             "window.p5Instance.loadFontDotnet",
             path
         );
 
-        protected Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
+        public Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
             "window.p5Instance.loadImageDotnet",
             path
         );
 
-        protected void Loop()
+        public void Loop()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1333,7 +1316,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void NoCanvas()
+        public void NoCanvas()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1341,7 +1324,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void NoCursor()
+        public void NoCursor()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1349,7 +1332,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void NoErase()
+        public void NoErase()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1357,7 +1340,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void NoFill()
+        public void NoFill()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1365,20 +1348,20 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected double Noise(double x) => _jsRuntime.Invoke<double>(
+        public double Noise(double x) => _jsRuntime.Invoke<double>(
             _p5InvokeFunction,
             "noise",
             x
         );
 
-        protected double Noise(double x, double y) => _jsRuntime.Invoke<double>(
+        public double Noise(double x, double y) => _jsRuntime.Invoke<double>(
             _p5InvokeFunction,
             "noise",
             x,
             y
         );
 
-        protected double Noise(double x, double y, double z) => _jsRuntime.Invoke<double>(
+        public double Noise(double x, double y, double z) => _jsRuntime.Invoke<double>(
             _p5InvokeFunction,
             "noise",
             x,
@@ -1386,31 +1369,31 @@ namespace ExoKomodo.Helpers.P5
             z
         );
 
-        protected double Noise(Vector2 dimensions) => Noise(
+        public double Noise(Vector2 dimensions) => Noise(
             dimensions.X,
             dimensions.Y
         );
 
-        protected double Noise(Vector3 dimensions) => Noise(
+        public double Noise(Vector3 dimensions) => Noise(
             dimensions.X,
             dimensions.Y,
             dimensions.Z
         );
 
-        protected double NoiseDetail(double lod, double falloff) => _jsRuntime.Invoke<double>(
+        public double NoiseDetail(double lod, double falloff) => _jsRuntime.Invoke<double>(
             _p5InvokeFunction,
             "noiseDetail",
             lod,
             Math.Clamp(falloff, 0, 1)
         );
 
-        protected double NoiseSeed(double seed) => _jsRuntime.Invoke<double>(
+        public double NoiseSeed(double seed) => _jsRuntime.Invoke<double>(
             _p5InvokeFunction,
             "noiseSeed",
             seed
         );
 
-        protected void NoLoop()
+        public void NoLoop()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1418,7 +1401,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void NoSmooth()
+        public void NoSmooth()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1426,7 +1409,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void NoStroke()
+        public void NoStroke()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1434,12 +1417,12 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected double PixelDensity() => _jsRuntime.Invoke<double>(
+        public double PixelDensity() => _jsRuntime.Invoke<double>(
             _p5InvokeFunctionAndReturn,
             "pixelDensity"
         );
 
-        protected void PixelDensity(double density)
+        public void PixelDensity(double density)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1448,7 +1431,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Point(
+        public void Point(
             double x,
             double y,
             double z = 0
@@ -1476,18 +1459,18 @@ namespace ExoKomodo.Helpers.P5
             
         }
         
-        protected void Point(Vector2 point) => Point(
+        public void Point(Vector2 point) => Point(
             point.X,
             point.Y
         );
 
-        protected void Point(Vector3 point) => Point(
+        public void Point(Vector3 point) => Point(
             point.X,
             point.Y,
             point.Z
         );
 
-        protected void Pop()
+        public void Pop()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1495,7 +1478,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Push()
+        public void Push()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1503,7 +1486,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Quad(
+        public void Quad(
             double x1,
             double y1,
             double x2,
@@ -1527,7 +1510,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        protected void Quad(
+        public void Quad(
             double x1,
             double y1,
             double z1,
@@ -1578,7 +1561,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Quad(
+        public void Quad(
             Vector2 v1,
             Vector2 v2,
             Vector2 v3,
@@ -1594,7 +1577,7 @@ namespace ExoKomodo.Helpers.P5
             v4.Y
         );
 
-        protected void Quad(
+        public void Quad(
             Vector3 v1,
             Vector3 v2,
             Vector3 v3,
@@ -1614,14 +1597,14 @@ namespace ExoKomodo.Helpers.P5
             v4.Z
         );
         
-        protected void Quad(Quad quad) => Quad(
+        public void Quad(Quad quad) => Quad(
             quad.V1,
             quad.V2,
             quad.V3,
             quad.V4
         );
 
-        protected void QuadraticVertex(
+        public void QuadraticVertex(
             double x1 = 0,
             double y1 = 0,
             double x2 = 0,
@@ -1635,7 +1618,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
         
-        protected void QuadraticVertex(
+        public void QuadraticVertex(
             double x1 = 0,
             double y1 = 0,
             double z1 = 0,
@@ -1670,7 +1653,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void QuadraticVertex(
+        public void QuadraticVertex(
             Vector2 controlPoint,
             Vector2 anchorPoint
         ) => QuadraticVertex(
@@ -1680,7 +1663,7 @@ namespace ExoKomodo.Helpers.P5
             anchorPoint.Y
         );
 
-        protected void QuadraticVertex(
+        public void QuadraticVertex(
             Vector3 controlPoint,
             Vector3 anchorPoint
         ) => QuadraticVertex(
@@ -1692,12 +1675,12 @@ namespace ExoKomodo.Helpers.P5
             anchorPoint.Z
         );
 
-        protected void QuadraticVertex(QuadraticVertex vertex) => QuadraticVertex(
+        public void QuadraticVertex(QuadraticVertex vertex) => QuadraticVertex(
             vertex.ControlPoint,
             vertex.AnchorPoint
         );
 
-        protected void Rectangle(
+        public void Rectangle(
             double x,
             double y,
             double w,
@@ -1744,7 +1727,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Rectangle(
+        public void Rectangle(
             Vector2 position,
             Vector2 dimensions,
             double topLeftRadius = 0,
@@ -1766,7 +1749,7 @@ namespace ExoKomodo.Helpers.P5
             detailY
         );
 
-        protected void Rectangle(Rectangle rect) => Rectangle(
+        public void Rectangle(Rectangle rect) => Rectangle(
             rect.X,
             rect.Y,
             rect.Width,
@@ -1779,7 +1762,7 @@ namespace ExoKomodo.Helpers.P5
             rect.DetailY
         );
 
-        protected void RectangleMode(Enums.RectangleMode mode)
+        public void RectangleMode(Enums.RectangleMode mode)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1788,7 +1771,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Redraw(uint times = 1)
+        public void Redraw(uint times = 1)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1797,7 +1780,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Remove()
+        public void Remove()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1805,7 +1788,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void RequestPointerLock()
+        public void RequestPointerLock()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1813,7 +1796,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void ResizeCanvas(uint width, uint height, bool noRedraw = false)
+        public void ResizeCanvas(uint width, uint height, bool noRedraw = false)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1824,7 +1807,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Rotate(double angle)
+        public void Rotate(double angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1833,7 +1816,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void RotateX(double angle)
+        public void RotateX(double angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1842,7 +1825,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void RotateY(double angle)
+        public void RotateY(double angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1851,7 +1834,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void RotateZ(double angle)
+        public void RotateZ(double angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1860,7 +1843,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Save(string savePath)
+        public void Save(string savePath)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1869,7 +1852,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Save(Image image, string savePath)
+        public void Save(Image image, string savePath)
         {
             _jsRuntime.InvokeVoid(
                 "window.p5Instance.saveImageDotnet",
@@ -1878,7 +1861,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void SaveJson(object obj, string savePath, bool prettyPrint = true)
+        public void SaveJson(object obj, string savePath, bool prettyPrint = true)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1889,7 +1872,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Scale(double[] scales)
+        public void Scale(double[] scales)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1898,13 +1881,13 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void SetImageFields(Image image)
+        public void SetImageFields(Image image)
         {
             image.Width = ImageWidth(image);
             image.Height = ImageHeight(image);
         }
 
-        protected void ShearX(double angle)
+        public void ShearX(double angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1913,7 +1896,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void ShearY(double angle)
+        public void ShearY(double angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1922,7 +1905,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Smooth()
+        public void Smooth()
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1930,7 +1913,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Square(
+        public void Square(
             double x,
             double y,
             double side,
@@ -1953,7 +1936,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Square(
+        public void Square(
             Vector2 position,
             double side,
             double? topLeftRadius = null,
@@ -1970,7 +1953,7 @@ namespace ExoKomodo.Helpers.P5
             bottomLeftRadius
         );
 
-        protected void Square(Square square) => Square(
+        public void Square(Square square) => Square(
             square.Position,
             square.Side,
             square.TopLeftRadius,
@@ -1979,7 +1962,7 @@ namespace ExoKomodo.Helpers.P5
             square.BottomLeftRadius
         );
 
-        protected void Stroke(byte grayscale)
+        public void Stroke(byte grayscale)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -1988,7 +1971,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Stroke(Color color)
+        public void Stroke(Color color)
         {
             switch (color.Mode)
             {
@@ -2013,7 +1996,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void StrokeCap(Enums.StrokeCap cap)
+        public void StrokeCap(Enums.StrokeCap cap)
         {
             var mode = "";
             switch (cap)
@@ -2037,7 +2020,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void StrokeJoin(Enums.StrokeJoin join)
+        public void StrokeJoin(Enums.StrokeJoin join)
         {
             var mode = "";
             switch (join)
@@ -2061,7 +2044,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void StrokeWeight(byte weight)
+        public void StrokeWeight(byte weight)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -2070,7 +2053,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Text(string text, double x = 0, double y = 0)
+        public void Text(string text, double x = 0, double y = 0)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -2081,13 +2064,13 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Text(string text, Vector2 position) => Text(
+        public void Text(string text, Vector2 position) => Text(
             text,
             position.X,
             position.Y
         );
 
-        protected void TextAlign(HorizontalTextAlign align)
+        public void TextAlign(HorizontalTextAlign align)
         {
             var textAlign = "";
             switch (align)
@@ -2111,7 +2094,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void TextAlign(HorizontalTextAlign horizontalAlign, VerticalTextAlign verticalAlign)
+        public void TextAlign(HorizontalTextAlign horizontalAlign, VerticalTextAlign verticalAlign)
         {
             var horizontalTextAlign = "";
             switch (horizontalAlign)
@@ -2154,63 +2137,63 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected double TextAscent() => _jsRuntime.Invoke<double>(
+        public double TextAscent() => _jsRuntime.Invoke<double>(
             _p5InvokeFunctionAndReturn,
             "textAscent"
         );
 
-        protected double TextDescent() => _jsRuntime.Invoke<double>(
+        public double TextDescent() => _jsRuntime.Invoke<double>(
             _p5InvokeFunctionAndReturn,
             "textDescent"
         );
 
-        protected void TextFont(string font) => _jsRuntime.InvokeVoid(
+        public void TextFont(string font) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textFont",
             font
         );
 
-        protected void TextFont(string font, double size) => _jsRuntime.InvokeVoid(
+        public void TextFont(string font, double size) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textFont",
             font,
             size
         );
 
-        protected void TextFont(Font font) => _jsRuntime.InvokeVoid(
+        public void TextFont(Font font) => _jsRuntime.InvokeVoid(
             "window.p5Instance.textFontDotnet",
             font.Id
         );
 
-        protected void TextFont(Font font, double size) => _jsRuntime.InvokeVoid(
+        public void TextFont(Font font, double size) => _jsRuntime.InvokeVoid(
             "window.p5Instance.textFontDotnet",
             font.Id,
             size
         );
 
-        protected double TextLeading() => _jsRuntime.Invoke<double>(
+        public double TextLeading() => _jsRuntime.Invoke<double>(
             _p5InvokeFunctionAndReturn,
             "textLeading"
         );
 
-        protected void TextLeading(double leading) => _jsRuntime.InvokeVoid(
+        public void TextLeading(double leading) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textLeading",
             leading
         );
 
-        protected double TextSize() => _jsRuntime.Invoke<double>(
+        public double TextSize() => _jsRuntime.Invoke<double>(
             _p5InvokeFunctionAndReturn,
             "textSize"
         );
 
-        protected void TextSize(double size) => _jsRuntime.InvokeVoid(
+        public void TextSize(double size) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textSize",
             size
         );
 
-        protected Enums.TextStyle TextStyle()
+        public Enums.TextStyle TextStyle()
         {
             var style = _jsRuntime.Invoke<string>(
                 _p5InvokeFunctionAndReturn,
@@ -2231,7 +2214,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void TextStyle(Enums.TextStyle style)
+        public void TextStyle(Enums.TextStyle style)
         {
             var textStyle = "";
             switch (style)
@@ -2258,13 +2241,13 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected double TextWidth(string text) => _jsRuntime.Invoke<double>(
+        public double TextWidth(string text) => _jsRuntime.Invoke<double>(
             _p5InvokeFunctionAndReturn,
             "textWidth",
             text
         );
 
-        protected void Translate(
+        public void Translate(
             double x,
             double y,
             double z = 0
@@ -2291,19 +2274,19 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Translate(Vector2 translation) => Translate(
+        public void Translate(Vector2 translation) => Translate(
             translation.X,
             translation.Y,
             0
         );
 
-        protected void Translate(Vector3 translation) => Translate(
+        public void Translate(Vector3 translation) => Translate(
             translation.X,
             translation.Y,
             translation.Z
         );
 
-        protected void Triangle(
+        public void Triangle(
             double x1,
             double y1,
             double x2,
@@ -2324,7 +2307,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Triangle(
+        public void Triangle(
             Vector2 v1,
             Vector2 v2,
             Vector2 v3
@@ -2337,15 +2320,15 @@ namespace ExoKomodo.Helpers.P5
             v3.Y
         );
 
-        protected void Triangle(Triangle triangle) => Triangle(
+        public void Triangle(Triangle triangle) => Triangle(
             triangle.V1,
             triangle.V2,
             triangle.V3
         );
 
-        protected void Vertex(double x, double y) => Vertex(x, y, 0);
-        protected void Vertex(double x, double y, double u, double v) => Vertex(x, y, 0, u, v);
-        protected void Vertex(double x, double y, double z)
+        public void Vertex(double x, double y) => Vertex(x, y, 0);
+        public void Vertex(double x, double y, double u, double v) => Vertex(x, y, 0, u, v);
+        public void Vertex(double x, double y, double z)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -2355,7 +2338,7 @@ namespace ExoKomodo.Helpers.P5
                 z
             );
         }
-        protected void Vertex(double x, double y, double z, double u, double v)
+        public void Vertex(double x, double y, double z, double u, double v)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -2368,7 +2351,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        protected void Vertex(Vector2 position, Vector2? uv = null)
+        public void Vertex(Vector2 position, Vector2? uv = null)
         {
             if (uv.HasValue)
             {
@@ -2380,7 +2363,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Vertex(Vector3 position, Vector2? uv = null)
+        public void Vertex(Vector3 position, Vector2? uv = null)
         {
             if (uv.HasValue)
             {
@@ -2398,7 +2381,22 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        protected void Vertex(Vertex vertex) => Vertex(vertex.Position, vertex.UV);
+        public void Vertex(Vertex vertex) => Vertex(vertex.Position, vertex.UV);
+        #endregion
+
+        #endregion
+
+        #region Protected
+
+        #region Constants
+        protected const string _p5InvokeFunction = "window.p5Instance.invokeP5Function";
+        protected const string _p5InvokeFunctionAndReturn = "window.p5Instance.invokeP5FunctionAndReturn";
+        protected const string _p5GetValue = "window.p5Instance.getValue";
+        #endregion
+
+        #region Members
+        protected readonly IJSInProcessRuntime _jsRuntime;
+        protected readonly string _containerId;
         #endregion
 
         #endregion
