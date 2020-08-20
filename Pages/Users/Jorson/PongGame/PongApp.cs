@@ -97,8 +97,8 @@ namespace ExoKomodo.Pages.Users.Jorson.PongGame
         [JSInvokable("setup")]
         public override void Setup()
         {
-            _width = WindowWidth * (3d / 4d);
-            _height = WindowHeight * (4d / 5d);
+            _width = WindowWidth * 0.75d;
+            _height = WindowHeight * 0.7d;
             _clearColor = new Color(hue: 0, saturation: 255, brightness: 255);
             CreateCanvas((uint)_width, (uint)_height);
             SetImageFields(_image);
