@@ -1,6 +1,7 @@
 @page "/users/jorson"
 
 <link href="css/jorson/styles.css" rel="stylesheet" />
+<link href="css/jorson/home.css" rel="stylesheet" />
 
 @if (_self == null)
 {
@@ -10,8 +11,8 @@ else
     <div id="body">
         <h1>Hey it's me, @(_self.FullName)!</h1>
         <div id="home-body-content">
+            <h3 id="who-am-i-heading">Who am I?</h3>
             <p id="who-am-i">
-                <strong>Who am I?</strong>
                 <br />I am a recent Computer Science graduate of <a href="https://www.cedarville.edu">Cedarville University</a>.
                 Despite not having internet until my mid teen years, I fell in love with video games and digital media growing
                 up.
@@ -27,9 +28,9 @@ else
                 class="home-body-image"
                 src="assets/jorson/about/headshot.png"
                 alt="James Orson">
+            <h3 id="what-do-i-care-about-heading">What do I care about?</h3>
             <p id="what-do-i-care-about"
                 class="content-heading">
-                <strong>What do I care about?</strong>
                 <br />
                 Like most normal humans, I care a lot about my family, including my wife and two cats. I also care greatly about games,
                 both digital and physical, and I program in much of my spare time. I greatly value education, so many of my

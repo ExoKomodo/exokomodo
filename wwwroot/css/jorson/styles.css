@@ -4,31 +4,3 @@
     font-family: Montserrat, sans-serif;
     margin: 2rem 2rem;
 }
-
-#home-body-content {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-areas: "who-am-i who-am-i who-am-i-image"
-                         "what-do-i-care-about-image what-do-i-care-about what-do-i-care-about";
-    gap: 2rem;
-}
-
-#who-am-i {
-    grid-area: who-am-i;
-}
-
-#who-am-i-image {
-    grid-area: who-am-i-image;
-}
-
-#what-do-i-care-about {
-    grid-area: what-do-i-care-about;
-}
-#what-do-i-care-about-image {
-    grid-area: what-do-i-care-about-image;
-}
-
-.home-body-image {
-    height: auto;
-    width: 15rem;
-}
