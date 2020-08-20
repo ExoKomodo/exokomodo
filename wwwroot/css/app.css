@@ -46,39 +46,39 @@ app {
     text-overflow: ellipsis;
 }
 
-.sidebar {
+.sidenav {
     background-image: linear-gradient(180deg, rgb(0, 0, 0) 0%, #aa0647 70%);
 }
 
-    .sidebar .top-row {
+    .sidenav .top-row {
         background-color: rgba(0,0,0,0.4);
     }
 
-    .sidebar .navbar-brand {
+    .sidenav .navbar-brand {
         font-size: 1.1rem;
     }
 
-    .sidebar .oi {
+    .sidenav .oi {
         width: 2rem;
         font-size: 1.1rem;
         vertical-align: text-top;
         top: -2px;
     }
 
-    .sidebar .nav-item {
+    .sidenav .nav-item {
         font-size: 0.9rem;
         padding-bottom: 0.5rem;
     }
 
-        .sidebar .nav-item:first-of-type {
+        .sidenav .nav-item:first-of-type {
             padding-top: 1rem;
         }
 
-        .sidebar .nav-item:last-of-type {
+        .sidenav .nav-item:last-of-type {
             padding-bottom: 1rem;
         }
 
-        .sidebar .nav-item a {
+        .sidenav .nav-item a {
             color: #d7d7d7;
             border-radius: 4px;
             height: 3rem;
@@ -87,12 +87,12 @@ app {
             line-height: 3rem;
         }
 
-            .sidebar .nav-item a.active {
+            .sidenav .nav-item a.active {
                 background-color: rgba(255,255,255,0.25);
                 color: white;
             }
 
-            .sidebar .nav-item a:hover {
+            .sidenav .nav-item a:hover {
                 background-color: rgba(255,255,255,0.1);
                 color: white;
             }
@@ -155,7 +155,7 @@ app {
         flex-direction: row;
     }
 
-    .sidebar {
+    .sidenav {
         width: 250px;
         height: 100vh;
         position: sticky;
@@ -176,8 +176,8 @@ app {
         display: none;
     }
 
-    .sidebar .collapse {
-        /* Never collapse the sidebar for wide screens */
+    .sidenav .collapse {
+        /* Never collapse the sidenav for wide screens */
         display: block;
     }
 }

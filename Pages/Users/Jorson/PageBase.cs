@@ -8,7 +8,16 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Publie
 
         #region Member Methods
-        public abstract void Dispose();
+        public virtual void Dispose()
+        {
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            GC.SuppressFinalize(this);
+            _isDisposed = true;
+        }
 
         public virtual void Initialize()
         {
