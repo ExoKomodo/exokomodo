@@ -62,31 +62,31 @@ namespace ExoKomodo.Helpers.P5
         [JSInvokable("mouseClicked")]
         public virtual bool MouseClicked()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
 
         [JSInvokable("mouseDragged")]
         public virtual bool MouseDragged()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
 
         [JSInvokable("mouseMoved")]
         public virtual bool MouseMoved()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
         
         [JSInvokable("mousePressed")]
         public virtual bool MousePressed()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
 
         [JSInvokable("mouseReleased")]
         public virtual bool MouseReleased()
         {
-            return false; // Event prevent default
+            return true; // Event prevent default
         }
         #endregion
 
