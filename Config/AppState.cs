@@ -7,17 +7,17 @@ namespace ExoKomodo.Config
         #region Public
 
         #region Members
-        public static bool IsSidebarHidden
+        public static bool IsSideNavHidden
         {
-            get => _isSidebarHidden;
+            get => _isSideNavHidden;
             set
             {
-                _isSidebarHidden = value;
-                OnIsSideBarHiddenChange?.Invoke();
+                _isSideNavHidden = value;
+                OnIsSideNavHiddenChange?.Invoke();
                 NotifyStateChanged();
             }
         }
-        public static event Action OnIsSideBarHiddenChange;
+        public static event Action OnIsSideNavHiddenChange;
         public static event Action OnChange;
         #endregion
 
@@ -26,7 +26,7 @@ namespace ExoKomodo.Config
         #region Private
 
         #region Members
-        private static bool _isSidebarHidden { get; set; }
+        private static bool _isSideNavHidden { get; set; }
         #endregion
 
         #region Member Methods
