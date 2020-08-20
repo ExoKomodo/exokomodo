@@ -15,6 +15,7 @@ namespace ExoKomodo.Pages.Users.Jorson.PongGame
         #endregion
 
         #region Members
+        public double Acceleration { get; set; }
         public readonly PongApp Application;
         public Circle Body { get; set; }
         public Color FillColor { get; set; }
@@ -54,13 +55,9 @@ namespace ExoKomodo.Pages.Users.Jorson.PongGame
 
         public bool Update()
         {
-            var delta = Application.DeltaTime;
-            if (delta == 0)
-            {
-                return false;
-            }
-            Body.X += _direction.X * Speed / delta;
-            Body.Y += _direction.Y * Speed / delta;
+            var delta = Application.DeltaTime / 1000d;
+            Body.X += _direction.X * Speed * delta;
+            Body.Y += _direction.Y * Speed * delta;
             if (Body.Y - Body.Radius <= 0)
             {
                 Body.Y = Body.Radius;
@@ -77,7 +74,8 @@ namespace ExoKomodo.Pages.Users.Jorson.PongGame
                 || Collides(Application.PaddleTwo)
             )
             {
-                Speed += 5;
+                Speed += Acceleration;
+                System.Console.WriteLine(Speed);
                 if (
                     Body.X < Application.PaddleOne.Body.X + Application.PaddleOne.HalfWidth
                     || Body.X > Application.PaddleTwo.Body.X - Application.PaddleTwo.HalfWidth

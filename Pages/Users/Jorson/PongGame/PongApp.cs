@@ -90,15 +90,18 @@ namespace ExoKomodo.Pages.Users.Jorson.PongGame
 
         public void ResetBall()
         {
-            Ball.Speed = _width / 20;
+            Ball.Speed = _width / 10;
+            Ball.Acceleration = Ball.Speed / 3;
             Ball.Body = new Circle(_width / 2, _height / 4, _width / 60);
         }
 
         [JSInvokable("setup")]
         public override void Setup()
         {
+            bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
+            double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
             _width = WindowWidth * 0.75d;
-            _height = WindowHeight * 0.7d;
+            _height = _width / aspectRatio;
             _clearColor = new Color(hue: 0, saturation: 255, brightness: 255);
             CreateCanvas((uint)_width, (uint)_height);
             SetImageFields(_image);
