@@ -13,9 +13,11 @@ namespace ExoKomodo.Config
             set
             {
                 _isSidebarHidden = value;
+                OnIsSideBarHiddenChange?.Invoke();
                 NotifyStateChanged();
             }
         }
+        public static event Action OnIsSideBarHiddenChange;
         public static event Action OnChange;
         #endregion
 

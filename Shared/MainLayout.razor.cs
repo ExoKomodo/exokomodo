@@ -10,7 +10,7 @@ namespace ExoKomodo.Shared
         #region Member Methods
         public void Dispose()
         {
-            AppState.OnChange -= StateHasChanged;
+            AppState.OnIsSideBarHiddenChange -= StateHasChanged;
         }
         #endregion
 
@@ -21,7 +21,7 @@ namespace ExoKomodo.Shared
         #region Member Methods
         protected override void OnInitialized()
         {
-            AppState.OnChange += StateHasChanged;
+            AppState.OnIsSideBarHiddenChange += StateHasChanged;
         }
         #endregion
 
