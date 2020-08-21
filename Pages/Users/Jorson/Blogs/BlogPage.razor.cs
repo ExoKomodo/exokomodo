@@ -55,12 +55,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
 
         protected override async Task OnInitializedAsync()
         {
-            var blogs = (await _http.GetFromJsonAsync<SiteData>("https://api.npoint.io/ebf93ec56fb637e88982"))?.Blogs;
-            _blog = blogs.FirstOrDefault(blog => blog.Id == Id);
+            _blog = await _http.GetFromJsonAsync<Blog>($"{JorsonState.DATA_URL}/blogs/{Id}");
             if (_blog == null)
             {
                 _navigation.NavigateTo("/users/jorson/blogs");
             }
+            _blog.Id = Id;
         }
         #endregion
 
