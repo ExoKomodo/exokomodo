@@ -1,0 +1,25 @@
+@page "/users/jorson/blogs"
+
+<link href="css/jorson/styles.css" rel="stylesheet" />
+
+@if (_blogs != null)
+{
+    <div id="body">
+        <a href="/users/jorson">&larr; Back to Home</a>
+        <h1>Blogs</h1>
+        <div>
+            <ul>
+                @foreach (var blog in _blogs)
+                {
+                    <li>
+                        <h3>
+                            <a href="@($"/users/jorson/blogs/{blog.Id}")">
+                                @blog.Date.ToShortDateString() - @((MarkupString)blog.Title)
+                            </a>
+                        </h3>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

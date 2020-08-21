@@ -1,0 +1,15 @@
+@page "/users/jorson/blogs/{Id:int}"
+
+<link href="css/jorson/styles.css" rel="stylesheet" />
+
+@if (_blog != null)
+{
+    <div id="body">
+        <a href="/users/jorson/blogs">&larr; Back to Blogs</a>
+        <h1>@_blog.Title</h1>
+        <div>
+            @((MarkupString)_blog.Content.Text)
+            <img src="assets/jorson/james-logo.svg" height="100px">
+        </div>
+    </div>
+}

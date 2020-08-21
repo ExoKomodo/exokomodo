@@ -10,7 +10,7 @@
                          "who-am-i who-am-i who-am-i-image"
                          "what-do-i-care-about-heading what-do-i-care-about-heading what-do-i-care-about-heading"
                          "what-do-i-care-about-image what-do-i-care-about what-do-i-care-about";
-    gap: 2rem;
+    column-gap: 2rem;
 }
 
 #who-am-i {

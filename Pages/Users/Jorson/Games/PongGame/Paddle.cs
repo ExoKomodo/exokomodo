@@ -2,7 +2,7 @@ using System;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 
-namespace ExoKomodo.Pages.Users.Jorson.PongGame
+namespace ExoKomodo.Pages.Users.Jorson.Games.PongGame
 {
     public class Paddle
     {

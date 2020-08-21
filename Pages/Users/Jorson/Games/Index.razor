@@ -1,0 +1,21 @@
+@page "/users/jorson/games"
+
+<link href="css/jorson/styles.css" rel="stylesheet" />
+
+@if (_games != null)
+{
+    <div id="body">
+        <a href="/users/jorson">&larr; Back to Home</a>
+        <h1>Games</h1>
+        <div>
+            <ul>
+                @foreach (var game in _games)
+                {
+                    <li>
+                        <a href="@($"/users/jorson/games/{game.ToLower()}")">@game</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
