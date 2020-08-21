@@ -1,37 +1,32 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Config;
 using ExoKomodo.Models;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using ExoKomodo.Models.Jorson;
 
-namespace ExoKomodo.Pages.Users.Jorson
+namespace ExoKomodo.Pages.Users.Jorson.Blogs
 {
-    internal class HomeBase : PageBase {}
+    internal class BlogPageBase : PageBase {}
 
-    public partial class Home : IDisposable
+    public partial class BlogPage : IDisposable
     {
         #region Public
 
         #region Constructors
-        public Home()
+        public BlogPage()
         {
-            _base = new HomeBase();
+            _base = new BlogPageBase();
             _base.Initialize();
-
-            _games = new List<string>
-            {
-                "Pong",
-            };
         }
         #endregion
 
-        #region Constants
-        public const string UserId = "jorson";
+        #region Members
+        [Parameter]
+        public int Id { get; set; }
         #endregion
 
         #region Member Methods
@@ -60,10 +55,11 @@ namespace ExoKomodo.Pages.Users.Jorson
 
         protected override async Task OnInitializedAsync()
         {
-            _self = (await _http.GetFromJsonAsync<List<User>>("data/users.json")).Where(user => user.Id == UserId).FirstOrDefault();
-            if (_self == null)
+            var blogs = (await _http.GetFromJsonAsync<SiteData>("https://api.npoint.io/ebf93ec56fb637e88982"))?.Blogs;
+            _blog = blogs.FirstOrDefault(blog => blog.Id == Id);
+            if (_blog == null)
             {
-                throw new Exception($"Could not find user {UserId}");
+                _navigation.NavigateTo("/users/jorson/blogs");
             }
         }
         #endregion
@@ -73,12 +69,13 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Private
 
         #region Members
-        private IList<string> _games { get; set; }
+        private Blog _blog { get; set; }
         [Inject]
         private HttpClient _http { get; set; }
         private bool _isDisposed { get; set; }
+        [Inject]
+        private NavigationManager _navigation { get; set; }
         private PageBase _base { get; set; }
-        private User _self;
         #endregion
 
         #endregion

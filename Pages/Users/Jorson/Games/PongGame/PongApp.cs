@@ -4,7 +4,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 
-namespace ExoKomodo.Pages.Users.Jorson.PongGame
+namespace ExoKomodo.Pages.Users.Jorson.Games.PongGame
 {
     public class PongApp : P5App
     {

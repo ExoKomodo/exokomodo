@@ -9,7 +9,11 @@
 else
 {
     <div id="body">
-        <h1>Hey it's me, @(_self.FullName)!</h1>
+        <a href="/users">&larr; Back to users</a>
+        <h1>
+            Hey it's me, @(_self.FullName)!
+            Check out my <a href="/users/jorson/blogs">Blog</a> and <a href="/users/jorson/games">Games</a>.
+        </h1>
         <div id="home-body-content">
             <h3 id="who-am-i-heading">Who am I?</h3>
             <p id="who-am-i">
@@ -45,18 +49,6 @@ else
                 class="home-body-image"
                 src="assets/jorson/about/family.png"
                 alt="James Orson">
-        </div>
-
-        <div>
-            <h2>Games</h2>
-            <ul>
-                @foreach (var game in _games)
-                {
-                    <li>
-                        <a href="@($"/users/jorson/{game.ToLower()}")">@(game)</a>
-                    </li>
-                }
-            </ul>
         </div>
     </div>
 }
