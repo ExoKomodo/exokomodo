@@ -56,7 +56,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
 
         protected override async Task OnInitializedAsync()
         {
-            _blogs = (await _http.GetFromJsonAsync<SiteData>("https://api.npoint.io/ebf93ec56fb637e88982"))?.Blogs;
+            _blogs = await _http.GetFromJsonAsync<List<Blog>>($"{JorsonState.DATA_URL}/blogs");
         }
         #endregion
 
