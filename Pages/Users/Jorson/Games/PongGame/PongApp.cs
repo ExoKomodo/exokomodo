@@ -41,7 +41,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.PongGame
         [JSInvokable("draw")]
         public override void Draw()
         {
-            Background(new Color(150, 250, 150));
+            Background(_clearColor);
 
             PaddleOne.UpdatePlayer();
             PaddleTwo.UpdateAi();
@@ -102,7 +102,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.PongGame
             double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
             _width = WindowWidth * 0.75d;
             _height = _width / aspectRatio;
-            _clearColor = new Color(hue: 0, saturation: 255, brightness: 255);
+            _clearColor = new Color(hue: 150, saturation: 250, brightness: 150);
             CreateCanvas((uint)_width, (uint)_height);
             SetImageFields(_image);
 
