@@ -62,11 +62,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
             }
             
             // Print out option prompt
-            var prompt = "What do you do?";
+            var prompt = "What do you do?\n";
             for (int i = 0; i < state.Options.Count; i++)
             {
                 var option = state.Options[i];
-                prompt += $"\n\n{i + 1}: {option}";
+                prompt += $"\n{i + 1}: {option}";
             }
             SetTextAlign(HorizontalTextAlign.Left, VerticalTextAlign.Top);
             DrawText(
