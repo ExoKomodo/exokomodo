@@ -1,12 +1,9 @@
 using ExoKomodo.Config;
-using ExoKomodo.Models;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ExoKomodo.Models.Jorson;
+using ExoKomodo.Pages.Users.Jorson.Helpers;
 
 namespace ExoKomodo.Pages.Users.Jorson.Blogs
 {
@@ -29,20 +26,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
         public int Id { get; set; }
         #endregion
 
-        #region Member Methods
-        public void Dispose()
-        {
-            if (_isDisposed)
-            {
-                return;
-            }
-            _base.Dispose();
-
-            GC.SuppressFinalize(this);
-            _isDisposed = true;
-        }
-        #endregion
-
         #endregion
 
         #region Protected
@@ -55,7 +38,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
 
         protected override async Task OnInitializedAsync()
         {
-            _blog = await _http.GetFromJsonAsync<Blog>($"{JorsonState.DATA_URL}/blogs/{Id}");
+            _blog = await _db.GetByIdAsync(Id);
             if (_blog == null)
             {
                 _navigation.NavigateTo("/users/jorson/blogs");
@@ -71,13 +54,31 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
         #region Members
         private Blog _blog { get; set; }
         [Inject]
-        private HttpClient _http { get; set; }
+        private JsonDb<int, Blog> _db { get; set; }
         private bool _isDisposed { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
         private PageBase _base { get; set; }
         #endregion
 
+        #endregion
+
+        #region IDisposable Support
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_isDisposed || !disposing)
+            {
+                return;
+            }
+            _base.Dispose();
+            _isDisposed = true;
+        }
         #endregion
     }
 }
