@@ -1,37 +1,47 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExoKomodo.Pages.Users.Jorson.Models;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
-    public class StateMachine
+    public class StateMachine<T> where T : State
     {
         #region Public
 
         #region Constructors
-        public StateMachine()
+        public StateMachine() : this(new Dictionary<string, T>()) {}
+
+        public StateMachine(IEnumerable<T> states)
         {
-            _states = new Dictionary<string, State>();
+            _states = new Dictionary<string, T>();
+
+            foreach (var state in states)
+            {
+                if (state?.Id == null)
+                {
+                    throw new Exception("A State or State Id was null when creating StateMachine");
+                }
+                _states[state.Id] = state;
+            }
         }
 
-        public StateMachine(IDictionary<string, State> states)
+        public StateMachine(IDictionary<string, T> states)
         {
             _states = states;
         }
         #endregion
 
         #region Members
-        public State CurrentState
+        public T CurrentState
         {
             get => _currentState;
             private set
             {
                 // Only move to states that exist in the state machine
                 if (
-                    _states == null || (
-                        value?.Id != null
-                        && !_states.ContainsKey(value.Id)
-                    )
+                    value?.Id != null
+                    && !_states.ContainsKey(value.Id)
                 )
                 {
                     return;
@@ -42,22 +52,22 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #endregion
 
         #region Member Methods
-        public bool AddNextState(State state, string nextStateId)
+        public bool AddNextState(T state, string nextStateId)
         {
-            if (state?.Id == null || nextStateId == null || _states == null)
+            if (state?.Id == null || nextStateId == null)
             {
                 return false;
             }
 
-            if (_states.TryGetValue(nextStateId, out State nextState))
+            if (_states.TryGetValue(nextStateId, out T nextState))
             {
                 return AddNextState(state, nextState);
             }
             return false;
         }
-        public bool AddNextState(State state, State nextState)
+        public bool AddNextState(T state, T nextState)
         {
-            if (state?.Id == null || nextState?.Id == null || _states == null)
+            if (state?.Id == null || nextState?.Id == null)
             {
                 return false;
             }
@@ -71,22 +81,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             return true;
         }
         
-        public bool AddState(State state)
+        public bool AddState(T state)
         {
-            if (_states == null)
-            {
-                return false;
-            }
             _states[state.Id] = state;
             return true;
         }
 
-        public bool MoveTo(State state)
+        public bool MoveTo(T state)
         {
-            if (state?.Id == null || _states == null)
-            {
-                return false;
-            }
             // If the current state is null, any state is valid.
             if (CurrentState == null)
             {
@@ -104,7 +106,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
         public bool MoveTo(string id)
         {
-            if (id == null || _states == null)
+            if (id == null)
             {
                 return false;
             }
@@ -121,12 +123,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #region Private
 
         #region Members
-        private State _currentState { get; set; }
-        private IDictionary<string, State> _states { get; set; }
+        private T _currentState { get; set; }
+        private IDictionary<string, T> _states { get; set; }
         #endregion
 
         #region Member Methods
-        private State TryMoveTo(State state)
+        private T TryMoveTo(T state)
         {
             if (state?.Id == null)
             {
@@ -136,7 +138,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             var nextStateId = CurrentState.NextStates?.FirstOrDefault(
                 x => x != null && x == state.Id
             );
-            if (!_states.TryGetValue(nextStateId, out State nextState))
+            if (!_states.TryGetValue(nextStateId, out T nextState))
             {
                 return null;
             }
