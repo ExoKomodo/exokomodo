@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using ExoKomodo.Pages.Users.Jorson.Models;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {

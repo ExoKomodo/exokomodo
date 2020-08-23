@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ExoKomodo.Pages.Users.Jorson.Models
+namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
     public class State
     {

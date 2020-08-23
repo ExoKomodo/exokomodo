@@ -1,14 +1,10 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Config;
-using ExoKomodo.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ExoKomodo.Models.Jorson;
+using ExoKomodo.Pages.Users.Jorson.Helpers;
 
 namespace ExoKomodo.Pages.Users.Jorson.Blogs
 {
@@ -30,20 +26,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
         public const string UserId = "jorson";
         #endregion
 
-        #region Member Methods
-        public void Dispose()
-        {
-            if (_isDisposed)
-            {
-                return;
-            }
-            _base.Dispose();
-
-            GC.SuppressFinalize(this);
-            _isDisposed = true;
-        }
-        #endregion
-
         #endregion
 
         #region Protected
@@ -56,7 +38,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
 
         protected override async Task OnInitializedAsync()
         {
-            _blogs = await _http.GetFromJsonAsync<List<Blog>>($"{JorsonState.DATA_URL}/blogs");
+            _blogs = await _db.GetAllAsync();
         }
         #endregion
 
@@ -67,11 +49,29 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
         #region Members
         private IList<Blog> _blogs { get; set; }
         [Inject]
-        private HttpClient _http { get; set; }
+        private JsonDb<int, Blog> _db { get; set; }
         private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         #endregion
 
+        #endregion
+
+        #region IDisposable Support
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_isDisposed || !disposing)
+            {
+                return;
+            }
+            _base.Dispose();
+            _isDisposed = true;
+        }
         #endregion
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace ExoKomodo.Models.Jorson
 {
     public class BlogContent

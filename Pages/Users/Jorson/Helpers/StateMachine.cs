@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExoKomodo.Pages.Users.Jorson.Models;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ExoKomodo.Pages.Users.Jorson.Models
+namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
     public class TextAdventureState : State
     {
@@ -8,7 +8,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Models
 
         #region Members
         public IList<string> Options { get; set; }
-        public Item RequiredItem { get; set; }
+        public TextAdventureItem RequiredItem { get; set; }
         public string Text { get; set; }
         #endregion
 
