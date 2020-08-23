@@ -37,13 +37,19 @@ namespace ExoKomodo.Helpers.P5
             }
             Remove();
             // This is necessary to reset the p5 sketch context
-            _jsRuntime.InvokeVoid("location.reload");
+            ReloadPage();
             Instance = null;
         }
 
         public DotNetObjectReference<P5App> GetJsInteropReference()
         {
             return DotNetObjectReference.Create(this);
+        }
+
+        public void ReloadPage()
+        {
+            _jsRuntime.InvokeVoid("location.reload");
+            Instance = null;
         }
 
         public void Start()

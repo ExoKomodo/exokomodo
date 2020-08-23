@@ -101,6 +101,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             {
                 return false;
             }
+            CurrentState = nextState;
             return true;
         }
 
@@ -134,9 +135,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             {
                 return null;
             }
+            if (state.Id == "default")
+            {
+                return state;
+            }
             
             var nextStateId = CurrentState.NextStates?.FirstOrDefault(
-                x => x != null && x == state.Id
+                x => x != null && x == state?.Id
             );
             if (!_states.TryGetValue(nextStateId, out T nextState))
             {
