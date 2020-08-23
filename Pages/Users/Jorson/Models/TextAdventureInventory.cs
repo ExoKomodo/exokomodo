@@ -29,6 +29,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Models
         {
             return _inventory.ContainsKey(itemId);
         }
+
+        public void Reset()
+        {
+            _inventory.Clear();
+        }
         #endregion
 
         #endregion

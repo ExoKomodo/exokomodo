@@ -3,6 +3,9 @@ using ExoKomodo.Config;
 using ExoKomodo.Helpers.P5;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Net.Http;
+using ExoKomodo.Pages.Users.Jorson.Helpers;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
 {
@@ -40,18 +43,15 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
         #region Protected
 
         #region Member Methods
-        protected override void OnAfterRender(bool firstRender)
-        {
-            if (firstRender)
-            {
-                _application = new NoxApp(_jsRuntime, "nox-container");
-                _application.Start();
-            }
-        }
-
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             AppState.IsSideNavHidden = true;
+
+            _adventure = await TextAdventure.LoadFromJsonAsync(_http, "data/jorson/games/nox/adventure.json");
+            _adventure.Initialize();
+
+            _application = new NoxApp(_jsRuntime, "nox-container", _adventure);
+            _application.Start();
         }
         #endregion
 
@@ -60,8 +60,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
         #region Private
 
         #region Members
+        private TextAdventure _adventure { get; set; }
         private P5App _application { get; set; }
         private bool _isDisposed { get; set; }
+        [Inject]
+        private HttpClient _http { get; set; }
         [Inject]
         private IJSRuntime _jsRuntime { get; set; }
         private PageBase _base { get; set; }

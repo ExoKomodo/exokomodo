@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ExoKomodo.Pages.Users.Jorson.Models;
 
@@ -16,14 +17,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         {
             _inventory = new TextAdventureInventory();
             _stateMachine = new StateMachine<TextAdventureState>();
+            States = new List<TextAdventureState>();
         }
         #endregion
 
         #region Members
+        [JsonIgnore]
         public TextAdventureState CurrentState => _stateMachine.CurrentState;
+        [JsonIgnore]
         public TextAdventureInventory Inventory { get; private set; }
+        [JsonIgnore]
         public bool IsInitialized { get; private set; }
-        public IList<TextAdventureState> States { get; private set; }
+        public IList<TextAdventureState> States { get; set; }
         #endregion
 
         #region Static Methods
@@ -43,29 +48,30 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
                 return IsInitialized;
             }
             _stateMachine = new StateMachine<TextAdventureState>(States);
+            _stateMachine.MoveTo(States.FirstOrDefault());
 
             IsInitialized = true;
             return IsInitialized;
         }
 
-        public bool MoveTo(TextAdventureState state)
+        public bool MoveTo(TextAdventureState nextState)
         {
             if (
-                States?.FirstOrDefault(x => x?.Id == state?.Id) == null
+                States?.FirstOrDefault(state => state?.Id == nextState?.Id) == null
                 || (
-                    state.RequiredItem != null && _inventory.HasItem(state.RequiredItem)
+                    nextState.RequiredItem != null && _inventory.HasItem(nextState.RequiredItem)
                 )
             )
             {
                 return false;
             }
 
-            return _stateMachine.MoveTo(state);
+            return _stateMachine.MoveTo(nextState);
         }
 
         public bool MoveTo(string stateId)
         {
-            var state = States?.FirstOrDefault(state => state.Id == stateId);
+            var state = States?.FirstOrDefault(state => state?.Id == stateId);
             if (state == null)
             {
                 return false;
@@ -74,17 +80,27 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             return MoveTo(state);
         }
 
+        public void Reset()
+        {
+            _inventory.Reset();
+            MoveTo(States?.FirstOrDefault());
+        }
+
         public bool Update(int choice)
         {
             if (CurrentState == null)
             {
                 return false;
             }
-            if (choice < 0 || choice >= CurrentState.Options.Count)
+            if (
+                choice < 0
+                || choice >= CurrentState.Options.Count
+                || choice >= CurrentState.NextStates.Count
+            )
             {
                 return false;
             }
-            return MoveTo(CurrentState.Options[choice]);
+            return MoveTo(CurrentState.NextStates[choice]);
         }
         #endregion
 

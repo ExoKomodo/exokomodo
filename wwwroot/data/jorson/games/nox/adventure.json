@@ -1,0 +1,50 @@
+{
+    "states": [
+        {
+            "id": "default",
+            "nextStates": [
+                "food bowl 1",
+                "homicide"
+            ],
+            "options": [
+                "You feed him.",
+                "You do not feed him."
+            ],
+            "requiredItem": null,
+            "text": "Nox is soft. He looks and angry about something.\n\"I am fat. Feed me now!\" says Nox."
+        },
+        {
+            "id": "homicide",
+            "nextStates": [],
+            "options": [],
+            "requiredItem": null,
+            "text": "Nox killed you.\nTry again."
+        },
+        {
+            "id": "food bowl 1",
+            "nextStates": [
+                "homicide",
+                "food bowl 2"
+            ],
+            "options": [
+                "Don't feed him anymore",
+                "Feed him again"
+            ],
+            "requiredItem": null,
+            "text": "Nox is still soft...but seems angry again."
+        },
+        {
+            "id": "food bowl 2",
+            "nextStates": [
+                "homicide",
+                "food bowl 1"
+            ],
+            "options": [
+                "Don't feed him anymore",
+                "Feed him again"
+            ],
+            "requiredItem": null,
+            "text": "Nox just keeps on chomping."
+        }
+    ]
+}
