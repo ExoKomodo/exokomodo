@@ -1,14 +1,8 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Config;
-using ExoKomodo.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
-using ExoKomodo.Models.Jorson;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games
 {
@@ -63,8 +57,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
 
         #region Members
         private IList<string> _games { get; set; }
-        [Inject]
-        private HttpClient _http { get; set; }
         private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         #endregion
