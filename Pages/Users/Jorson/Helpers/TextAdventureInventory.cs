@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using ExoKomodo.Pages.Users.Jorson.Helpers;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
@@ -11,29 +9,26 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #region Constructors
         public TextAdventureInventory()
         {
-            _inventory = new Dictionary<string, TextAdventureItem>();
+            _inventory = new HashSet<TextAdventureItem>();
         }
-        #endregion
-
-        #region Members
-        public IDictionary<string, TextAdventureItem> _inventory { get; private set; }
         #endregion
 
         #region Member Methods
-        public bool HasItem(TextAdventureItem item)
-        {
-            return HasItem(item?.Id);
-        }
+        public bool Add(TextAdventureItem item) => item != null && _inventory.Add(item);
+        
+        public void Clear() => _inventory.Clear();
 
-        public bool HasItem(string itemId)
-        {
-            return _inventory.ContainsKey(itemId);
-        }
+        public bool Contains(TextAdventureItem item) => item != null && _inventory.Contains(item);
 
-        public void Reset()
-        {
-            _inventory.Clear();
-        }
+        public bool Remove(TextAdventureItem item) => item != null && _inventory.Remove(item);
+        #endregion
+
+        #endregion
+
+        #region Private
+        
+        #region Members
+        private ISet<TextAdventureItem> _inventory { get; set; }
         #endregion
 
         #endregion

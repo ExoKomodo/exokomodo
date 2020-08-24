@@ -24,9 +24,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         [JsonIgnore]
         public TextAdventureState CurrentState => _stateMachine.CurrentState;
         [JsonIgnore]
-        public TextAdventureInventory Inventory { get; private set; }
-        [JsonIgnore]
         public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool BlockedTransition { get; private set; }
         public IList<TextAdventureState> States { get; set; }
         #endregion
 
@@ -55,17 +55,22 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
         public bool MoveTo(TextAdventureState nextState)
         {
-            if (
-                States?.FirstOrDefault(state => state?.Id == nextState?.Id) == null
-                || (
-                    nextState.RequiredItem != null && _inventory.HasItem(nextState.RequiredItem)
-                )
-            )
+            if (States?.FirstOrDefault(state => state?.Id == nextState?.Id) == null)
             {
                 return false;
             }
+            if (nextState?.RequiredItem != null && !_inventory.Contains(nextState?.RequiredItem))
+            {
+                BlockedTransition = true;
+                return false;
+            }
 
-            return _stateMachine.MoveTo(nextState);
+            if (_stateMachine.MoveTo(nextState))
+            {
+                _inventory.Add(CurrentState.AcquiredItem);
+                return true;
+            }
+            return false;
         }
 
         public bool MoveTo(string stateId)
@@ -81,12 +86,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
         public void Reset()
         {
-            _inventory.Reset();
+            _inventory.Clear();
             MoveTo(States?.FirstOrDefault());
         }
 
         public bool Update(int choice)
         {
+            BlockedTransition = false;
             if (CurrentState == null)
             {
                 return false;
