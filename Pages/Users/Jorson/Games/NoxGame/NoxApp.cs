@@ -43,22 +43,49 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
             var state = _adventure.CurrentState;
             Push();
             // Draw the main text of the State
-            Fill(255);
             SetTextAlign(HorizontalTextAlign.Center, VerticalTextAlign.Top);
             SetTextSize(32);
-            DrawText(state.Text, _width / 2, _height / 2);
+            Fill(255);
+            DrawText(state.Text, _width / 2, _height / 4);
+            Pop();
             
             // Check for a deadend
-            SetTextSize(16);
             if (state.Options.Count == 0)
             {
-                DrawText(
-                    "End!",
-                    _width / 2,
-                    _height * 0.75
-                );
+                Push();
+                SetImageMode(ImageMode.Center);
+                Translate(_width * 0.5, _height * 0.7);
+                
+                Image image;
+                if (_adventure.CurrentState.Id == "end")
+                {
+                    image = _cats;
+                    Scale(new double[2] { 0.7, 0.7 });
+                }
+                else
+                {
+                    image = _nox;
+                    Scale(new double[2] { 0.35, 0.35 });
+                }
+                
+                DrawImage(image);
+                Pop();
                 IsFinished = true;
                 return;
+            }
+
+            if (_adventure.BlockedTransition)
+            {
+                Push();
+                SetTextAlign(HorizontalTextAlign.Center, VerticalTextAlign.Top);
+                SetTextSize(24);
+                Fill(new Color(red: 255, green: 0, blue: 0));
+                DrawText(
+                    "You can't do that",
+                    _width / 2,
+                    _height * 0.5
+                );
+                Pop();
             }
             
             // Print out option prompt
@@ -68,7 +95,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
                 var option = state.Options[i];
                 prompt += $"\n{i + 1}: {option}";
             }
+            Push();
             SetTextAlign(HorizontalTextAlign.Left, VerticalTextAlign.Top);
+            SetTextSize(16);
+            Fill(255);
             DrawText(
                 prompt,
                 _width / 4,
@@ -126,6 +156,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
         [JSInvokable("preload")]
         public override void Preload()
         {
+            _cats = LoadImage("assets/jorson/nox_and_luna.jpg");
+            _nox = LoadImage("assets/jorson/nox_closeup.jpg");
         }
 
         public void Reset()
@@ -141,7 +173,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
             _currentOption = 0;
             bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
             double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
-            _width = WindowWidth * 0.75d;
+            _width = WindowWidth * 0.6d;
             _height = _width / aspectRatio;
             _clearColor = new Color(32, 32, 32);
             CreateCanvas((uint)_width, (uint)_height);
@@ -154,8 +186,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.NoxGame
 
         #region Members
         private TextAdventure _adventure { get; set; }
+        private Image _cats { get; set; }
         private Color _clearColor { get; set; }
         private double _height { get; set; }
+        private Image _nox { get; set; }
         private double _width { get; set; }
         private int _currentOption { get; set; }
         #endregion

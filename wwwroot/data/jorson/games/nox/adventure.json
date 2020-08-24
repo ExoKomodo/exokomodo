@@ -3,15 +3,63 @@
         {
             "id": "default",
             "nextStates": [
-                "food bowl 1",
+                "pantry",
+                "food bowl",
                 "homicide"
             ],
             "options": [
-                "You feed him.",
-                "You do not feed him."
+                "Go to the pantry",
+                "Feed Nox",
+                "Pet Luna"
             ],
             "requiredItem": null,
-            "text": "Nox is soft. He looks and angry about something.\n\"I am fat. Feed me now!\" says Nox."
+            "text": "Nox and Luna are both in the room and very soft.\nNox looks angry about something.\n\"I am fat. Feed me now!\" says Nox."
+        },
+        {
+            "id": "pantry",
+            "nextStates": [
+                "grab food",
+                "default"
+            ],
+            "options": [
+                "Grab the cat food",
+                "Go back to the cats"
+            ],
+            "acquiredItem": null,
+            "requiredItem": null,
+            "text": "You look in the pantry and see some cat food."
+        },
+        {
+            "id": "grab food",
+            "nextStates": [
+                "pantry",
+                "default"
+            ],
+            "options": [
+                "Go back to the pantry",
+                "Go back to the cats"
+            ],
+            "acquiredItem": {
+                "id": "food"
+            },
+            "requiredItem": null,
+            "text": "You grab the cat food and have it in your hand."
+        },
+        {
+            "id": "food bowl",
+            "nextStates": [
+                "end",
+                "homicide"
+            ],
+            "options": [
+                "Pet Nox",
+                "Pet Luna"
+            ],
+            "acquiredItem": null,
+            "requiredItem": {
+                "id": "food"
+            },
+            "text": "Nox is satisfied, and still very soft.\nHis sister Luna wants to be pet."
         },
         {
             "id": "homicide",
@@ -21,30 +69,11 @@
             "text": "Nox killed you.\nTry again."
         },
         {
-            "id": "food bowl 1",
-            "nextStates": [
-                "homicide",
-                "food bowl 2"
-            ],
-            "options": [
-                "Don't feed him anymore",
-                "Feed him again"
-            ],
+            "id": "end",
+            "nextStates": [],
+            "options": [],
             "requiredItem": null,
-            "text": "Nox is still soft...but seems angry again."
-        },
-        {
-            "id": "food bowl 2",
-            "nextStates": [
-                "homicide",
-                "food bowl 1"
-            ],
-            "options": [
-                "Don't feed him anymore",
-                "Feed him again"
-            ],
-            "requiredItem": null,
-            "text": "Nox just keeps on chomping."
+            "text": "You made Nox happy by ignoring Luna.\nCongratulations!"
         }
     ]
 }
