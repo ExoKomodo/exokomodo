@@ -8,17 +8,6 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Publie
 
         #region Member Methods
-        public virtual void Dispose()
-        {
-            if (_isDisposed)
-            {
-                return;
-            }
-
-            GC.SuppressFinalize(this);
-            _isDisposed = true;
-        }
-
         public virtual void Initialize()
         {
             SetAppState();
@@ -37,6 +26,23 @@ namespace ExoKomodo.Pages.Users.Jorson
         protected virtual void SetAppState() {}
         #endregion
 
+        #endregion
+
+        #region IDisposable Support
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_isDisposed || !disposing)
+            {
+                return;
+            }
+            _isDisposed = true;
+        }
         #endregion
     }
 }

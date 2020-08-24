@@ -29,20 +29,6 @@ namespace ExoKomodo.Pages.Users.Jorson
         public const string UserId = "jorson";
         #endregion
 
-        #region Member Methods
-        public void Dispose()
-        {
-            if (_isDisposed)
-            {
-                return;
-            }
-            _base.Dispose();
-
-            GC.SuppressFinalize(this);
-            _isDisposed = true;
-        }
-        #endregion
-
         #endregion
 
         #region Protected
@@ -75,6 +61,24 @@ namespace ExoKomodo.Pages.Users.Jorson
         private User _self;
         #endregion
 
+        #endregion
+
+        #region IDisposable Support
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_isDisposed || !disposing)
+            {
+                return;
+            }
+            _base.Dispose();
+            _isDisposed = true;
+        }
         #endregion
     }
 }
