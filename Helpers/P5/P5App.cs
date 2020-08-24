@@ -8,7 +8,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Constructors
-        public P5App(IJSRuntime jsRuntime, string containerId)
+        protected P5App(IJSRuntime jsRuntime, string containerId)
         {
             if (Instance != null)
             {
@@ -29,18 +29,6 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Member Methods
-        public void Dispose()
-        {
-            if (Instance == null)
-            {
-                return;
-            }
-            Remove();
-            // This is necessary to reset the p5 sketch context
-            ReloadPage();
-            Instance = null;
-        }
-
         public DotNetObjectReference<P5App> GetJsInteropReference()
         {
             return DotNetObjectReference.Create(this);
@@ -73,10 +61,31 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Members
+        protected bool _isDisposed { get; set; }
         protected readonly IJSInProcessRuntime _jsRuntime;
         protected readonly string _containerId;
         #endregion
 
+        #endregion
+
+        #region IDisposable Support
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (Instance == null || _isDisposed || !disposing)
+            {
+                return;
+            }
+            // This is necessary to reset the p5 sketch context
+            ReloadPage();
+            Instance = null;
+            _isDisposed = true;
+        }
         #endregion
     }
 }

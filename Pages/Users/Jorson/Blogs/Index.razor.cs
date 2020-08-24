@@ -70,7 +70,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
                 return;
             }
             _base.Dispose();
-            _isDisposed = true;
         }
         #endregion
     }
