@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace ExoKomodo.Helpers.P5.Models
 {
     public class Triangle
@@ -6,12 +8,12 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public Triangle(
-            double x1,
-            double y1,
-            double x2,
-            double y2,
-            double x3,
-            double y3
+            float x1,
+            float y1,
+            float x2,
+            float y2,
+            float x3,
+            float y3
         ) : this(
             new Vector2(x1, y1),
             new Vector2(x2, y2),

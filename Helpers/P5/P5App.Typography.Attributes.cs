@@ -9,22 +9,22 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public double GetTextAscent() => _jsRuntime.Invoke<double>(
+        public float GetTextAscent() => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "textAscent"
         );
 
-        public double GetTextDescent() => _jsRuntime.Invoke<double>(
+        public float GetTextDescent() => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "textDescent"
         );
 
-        public double GetTextLeading() => _jsRuntime.Invoke<double>(
+        public float GetTextLeading() => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "textLeading"
         );
 
-        public double GetTextSize() => _jsRuntime.Invoke<double>(
+        public float GetTextSize() => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "textSize"
         );
@@ -50,7 +50,7 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public double GetTextWidth(string text) => _jsRuntime.Invoke<double>(
+        public float GetTextWidth(string text) => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "textWidth",
             text
@@ -123,13 +123,13 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void SetTextLeading(double leading) => _jsRuntime.InvokeVoid(
+        public void SetTextLeading(float leading) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textLeading",
             leading
         );
 
-        public void SetTextSize(double size) => _jsRuntime.InvokeVoid(
+        public void SetTextSize(float size) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textSize",
             size

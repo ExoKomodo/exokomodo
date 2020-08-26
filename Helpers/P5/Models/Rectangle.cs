@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5.Models
@@ -9,14 +10,14 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public Rectangle(
-            double x,
-            double y,
-            double w,
-            double? h = null,
-            double topLeftRadius = 0,
-            double topRightRadius = 0,
-            double bottomRightRadius = 0,
-            double bottomLeftRadius = 0,
+            float x,
+            float y,
+            float w,
+            float? h = null,
+            float topLeftRadius = 0,
+            float topRightRadius = 0,
+            float bottomRightRadius = 0,
+            float bottomLeftRadius = 0,
             uint detailX = 25,
             uint detailY = 25
         )
@@ -36,10 +37,10 @@ namespace ExoKomodo.Helpers.P5.Models
         public Rectangle(
             Vector2 position,
             Vector2 dimensions,
-            double topLeftRadius = 0,
-            double topRightRadius = 0,
-            double bottomRightRadius = 0,
-            double bottomLeftRadius = 0,
+            float topLeftRadius = 0,
+            float topRightRadius = 0,
+            float bottomRightRadius = 0,
+            float bottomLeftRadius = 0,
             uint detailX = 25,
             uint detailY = 25
         )
@@ -56,30 +57,30 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Members
-        public double X
+        public float X
         {
             get => Position.X;
             set => _position.X = value;
         }
-        public double Y
+        public float Y
         {
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double Width
+        public float Width
         {
             get => Dimensions.X;
             set => _dimensions.X = value;
         }
-        public double Height
+        public float Height
         {
             get => Dimensions.Y;
             set => _dimensions.Y = value;
         }
-        public double TopLeftRadius { get; set; }
-        public double TopRightRadius { get; set; }
-        public double BottomLeftRadius { get; set; }
-        public double BottomRightRadius { get; set; }
+        public float TopLeftRadius { get; set; }
+        public float TopRightRadius { get; set; }
+        public float BottomLeftRadius { get; set; }
+        public float BottomRightRadius { get; set; }
         public Vector2 Dimensions
         {
             get => _dimensions;

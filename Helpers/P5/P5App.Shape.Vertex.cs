@@ -1,6 +1,7 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
+using Microsoft.JSInterop;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -35,12 +36,12 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void DrawBezierVertex(
-            double x2,
-            double y2,
-            double x3,
-            double y3,
-            double x4,
-            double y4
+            float x2,
+            float y2,
+            float x3,
+            float y3,
+            float x4,
+            float y4
         ) => DrawBezierVertex(
             x2,
             y2,
@@ -54,15 +55,15 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawBezierVertex(
-            double x2,
-            double y2,
-            double z2,
-            double x3,
-            double y3,
-            double z3,
-            double x4,
-            double y4,
-            double z4
+            float x2,
+            float y2,
+            float z2,
+            float x3,
+            float y3,
+            float z3,
+            float x4,
+            float y4,
+            float z4
         )
         {
             if (IsWebGL)
@@ -132,9 +133,9 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawCurveVertex(
-            double x,
-            double y,
-            double z = 0
+            float x,
+            float y,
+            float z = 0
         )
         {
             if (IsWebGL)
@@ -176,10 +177,10 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawQuadraticVertex(
-            double x1 = 0,
-            double y1 = 0,
-            double x2 = 0,
-            double y2 = 0
+            float x1 = 0,
+            float y1 = 0,
+            float x2 = 0,
+            float y2 = 0
         ) => DrawQuadraticVertex(
             x1,
             y1,
@@ -190,12 +191,12 @@ namespace ExoKomodo.Helpers.P5
         );
         
         public void DrawQuadraticVertex(
-            double x1 = 0,
-            double y1 = 0,
-            double z1 = 0,
-            double x2 = 0,
-            double y2 = 0,
-            double z2 = 0
+            float x1 = 0,
+            float y1 = 0,
+            float z1 = 0,
+            float x2 = 0,
+            float y2 = 0,
+            float z2 = 0
         )
         {
             if (IsWebGL)
@@ -251,9 +252,9 @@ namespace ExoKomodo.Helpers.P5
             vertex.AnchorPoint
         );
 
-        public void DrawVertex(double x, double y) => DrawVertex(x, y, 0);
-        public void DrawVertex(double x, double y, double u, double v) => DrawVertex(x, y, 0, u, v);
-        public void DrawVertex(double x, double y, double z)
+        public void DrawVertex(float x, float y) => DrawVertex(x, y, 0);
+        public void DrawVertex(float x, float y, float u, float v) => DrawVertex(x, y, 0, u, v);
+        public void DrawVertex(float x, float y, float z)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -263,7 +264,7 @@ namespace ExoKomodo.Helpers.P5
                 z
             );
         }
-        public void DrawVertex(double x, double y, double z, double u, double v)
+        public void DrawVertex(float x, float y, float z, float u, float v)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,

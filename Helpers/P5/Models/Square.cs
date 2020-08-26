@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace ExoKomodo.Helpers.P5.Models
 {
     public class Square
@@ -6,13 +8,13 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public Square(
-            double x,
-            double y,
-            double side,
-            double topLeftRadius = 0,
-            double topRightRadius = 0,
-            double bottomRightRadius = 0,
-            double bottomLeftRadius = 0
+            float x,
+            float y,
+            float side,
+            float topLeftRadius = 0,
+            float topRightRadius = 0,
+            float bottomRightRadius = 0,
+            float bottomLeftRadius = 0
         ) : this(
             new Vector2(x, y),
             side,
@@ -24,11 +26,11 @@ namespace ExoKomodo.Helpers.P5.Models
 
         public Square(
             Vector2 position,
-            double side,
-            double topLeftRadius = 0,
-            double topRightRadius = 0,
-            double bottomRightRadius = 0,
-            double bottomLeftRadius = 0
+            float side,
+            float topLeftRadius = 0,
+            float topRightRadius = 0,
+            float bottomRightRadius = 0,
+            float bottomLeftRadius = 0
         )
         {
             _position = position;
@@ -41,21 +43,21 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Members
-        public double X
+        public float X
         {
             get => Position.X;
             set => _position.X = value;
         }
-        public double Y
+        public float Y
         {
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double Side { get; set; }
-        public double TopLeftRadius { get; set; }
-        public double TopRightRadius { get; set; }
-        public double BottomLeftRadius { get; set; }
-        public double BottomRightRadius { get; set; }
+        public float Side { get; set; }
+        public float TopLeftRadius { get; set; }
+        public float TopRightRadius { get; set; }
+        public float BottomLeftRadius { get; set; }
+        public float BottomRightRadius { get; set; }
         public Vector2 Position
         {
             get => _position;

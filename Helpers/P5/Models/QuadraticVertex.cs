@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace ExoKomodo.Helpers.P5.Models
 {
     public struct QuadraticVertex
@@ -6,19 +8,19 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public QuadraticVertex(
-            double x1 = 0,
-            double y1 = 0,
-            double x2 = 0,
-            double y2 = 0
+            float x1 = 0,
+            float y1 = 0,
+            float x2 = 0,
+            float y2 = 0
         ) : this(new Vector3(x1, y1, 0), new Vector3(x2, y2, 0)) {}
         
         public QuadraticVertex(
-            double x1 = 0,
-            double y1 = 0,
-            double z1 = 0,
-            double x2 = 0,
-            double y2 = 0,
-            double z2 = 0
+            float x1 = 0,
+            float y1 = 0,
+            float z1 = 0,
+            float x2 = 0,
+            float y2 = 0,
+            float z2 = 0
         ) : this(new Vector3(x1, y1, z1), new Vector3(x2, y2, z2)) {}
 
         public QuadraticVertex(Vector2 controlPoint, Vector2 anchorPoint)

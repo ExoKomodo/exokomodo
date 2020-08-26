@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace ExoKomodo.Helpers.P5.Models
 {
     public struct BezierVertex
@@ -6,15 +8,15 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public BezierVertex(
-            double x2,
-            double y2,
-            double z2,
-            double x3,
-            double y3,
-            double z3,
-            double x4,
-            double y4,
-            double z4
+            float x2,
+            float y2,
+            float z2,
+            float x3,
+            float y3,
+            float z3,
+            float x4,
+            float y4,
+            float z4
         ) : this(
             new Vector3(x2, y2, z2),
             new Vector3(x3, y3, z3),

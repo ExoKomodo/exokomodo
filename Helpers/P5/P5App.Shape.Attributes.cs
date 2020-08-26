@@ -84,7 +84,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void StrokeWeight(byte weight)
+        public void StrokeWeight(uint weight)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,

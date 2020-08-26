@@ -1,5 +1,6 @@
 
 using System;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
@@ -9,14 +10,14 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public Circle(
-            double x,
-            double y,
-            double diameter
+            float x,
+            float y,
+            float diameter
         ) : this(new Vector2(x, y), diameter) {}
 
         public Circle(
             Vector2 position,
-            double diameter
+            float diameter
         )
         {
             _position = position;
@@ -25,18 +26,18 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Members
-        public double X
+        public float X
         {
             get => Position.X;
             set => _position.X = value;
         }
-        public double Y
+        public float Y
         {
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double Diameter { get; set; }
-        public double Radius => Diameter / 2;
+        public float Diameter { get; set; }
+        public float Radius => Diameter / 2;
         public Vector2 Position
         {
             get => _position;

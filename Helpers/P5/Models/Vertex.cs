@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace ExoKomodo.Helpers.P5.Models
 {
     public struct Vertex
@@ -6,29 +8,29 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public Vertex(
-            double x = 0,
-            double y = 0
+            float x = 0,
+            float y = 0
         ) : this(new Vector3(x, y, 0)) {}
 
         public Vertex(
-            double x = 0,
-            double y = 0,
-            double u = 0,
-            double v = 0
+            float x = 0,
+            float y = 0,
+            float u = 0,
+            float v = 0
         ) : this(new Vector3(x, y, 0), new Vector2(u, v)) {}
         
         public Vertex(
-            double x = 0,
-            double y = 0,
-            double z = 0
+            float x = 0,
+            float y = 0,
+            float z = 0
         ) : this(new Vector3(x, y, z)) {}
 
         public Vertex(
-            double x = 0,
-            double y = 0,
-            double z = 0,
-            double u = 0,
-            double v = 0
+            float x = 0,
+            float y = 0,
+            float z = 0,
+            float u = 0,
+            float v = 0
         ) : this(new Vector3(x, y, z), new Vector2(u, v)) {}
 
         public Vertex(Vector2 position, Vector2? uv = null)
@@ -45,22 +47,22 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Members
-        public double X
+        public float X
         {
             get => Position.X;
             set => _position.X = value;
         }
-        public double Y
+        public float Y
         {
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double Z
+        public float Z
         {
             get => Position.Z;
             set => _position.Z = value;
         }
-        public double? U
+        public float? U
         {
             get => UV?.X;
             set
@@ -76,7 +78,7 @@ namespace ExoKomodo.Helpers.P5.Models
                 _uv = new Vector2(value.Value, _uv.Value.Y);
             }
         }
-        public double? V
+        public float? V
         {
             get => UV?.Y;
             set

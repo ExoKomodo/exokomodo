@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace ExoKomodo.Helpers.P5.Models
 {
     public class Image
@@ -6,11 +8,11 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Members
         public string Id { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
         public Vector2 Position => new Vector2(X, Y);
-        public double Width { get; set; }
-        public double Height { get; set; }
+        public float Width { get; set; }
+        public float Height { get; set; }
         public Vector2 Dimensions => new Vector2(Width, Height);
         #endregion
 

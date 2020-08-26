@@ -1,5 +1,5 @@
-
 using System;
+using System.Numerics;
 using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5.Models
@@ -10,12 +10,12 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public Arc(
-            double x,
-            double y,
-            double w,
-            double h,
-            double startAngle,
-            double stopAngle,
+            float x,
+            float y,
+            float w,
+            float h,
+            float startAngle,
+            float stopAngle,
             ArcMode mode = ArcMode.Pie,
             uint detail = 25
         ) : this(
@@ -30,8 +30,8 @@ namespace ExoKomodo.Helpers.P5.Models
         public Arc(
             Vector2 position,
             Vector2 dimensions,
-            double startAngle,
-            double stopAngle,
+            float startAngle,
+            float stopAngle,
             ArcMode mode = ArcMode.Pie,
             uint detail = 25
         )
@@ -46,22 +46,22 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Members
-        public double X
+        public float X
         {
             get => Position.X;
             set => _position.X = value;
         }
-        public double Y
+        public float Y
         {
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double Width
+        public float Width
         {
             get => Dimensions.X;
             set => _dimensions.X = value;
         }
-        public double Height
+        public float Height
         {
             get => Dimensions.Y;
             set => _dimensions.Y = value;
@@ -76,8 +76,8 @@ namespace ExoKomodo.Helpers.P5.Models
             get => _position;
             set => _position = value;
         }
-        public double StartAngle { get; set; }
-        public double StopAngle { get; set; }
+        public float StartAngle { get; set; }
+        public float StopAngle { get; set; }
         public ArcMode Mode{ get; set; }
         public uint Detail { get; set; }
         #endregion

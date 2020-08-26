@@ -9,12 +9,12 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
-        public double DeltaTime => _jsRuntime.Invoke<double>(
+        public float DeltaTime => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "deltaTime"
         );
 
-        public double DisplayDensity => _jsRuntime.Invoke<double>(
+        public float DisplayDensity => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "displayDensity"
         );
@@ -24,7 +24,7 @@ namespace ExoKomodo.Helpers.P5
             "displayHeight"
         );
 
-        public double DisplayWidth => _jsRuntime.Invoke<uint>(
+        public float DisplayWidth => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "displayWidth"
         );
@@ -54,7 +54,7 @@ namespace ExoKomodo.Helpers.P5
             "getURLPath"
         );
         
-        public double Width => _jsRuntime.Invoke<uint>(
+        public float Width => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "width"
         );
@@ -64,7 +64,7 @@ namespace ExoKomodo.Helpers.P5
             "windowHeight"
         );
 
-        public double WindowWidth => _jsRuntime.Invoke<uint>(
+        public float WindowWidth => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "windowWidth"
         );
@@ -156,12 +156,12 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public double FrameRate() => _jsRuntime.Invoke<double>(
+        public float FrameRate() => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "frameRate"
         );
 
-        public void FrameRate(double fps)
+        public void FrameRate(float fps)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
