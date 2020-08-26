@@ -1,5 +1,6 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
+using Microsoft.JSInterop;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -8,7 +9,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void Rotate(double angle)
+        public void Rotate(float angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -17,7 +18,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void RotateX(double angle)
+        public void RotateX(float angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -26,7 +27,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void RotateY(double angle)
+        public void RotateY(float angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -35,7 +36,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void RotateZ(double angle)
+        public void RotateZ(float angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -44,7 +45,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Scale(double[] scales)
+        public void Scale(float[] scales)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -53,7 +54,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void ShearX(double angle)
+        public void ShearX(float angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -62,7 +63,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void ShearY(double angle)
+        public void ShearY(float angle)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -72,9 +73,9 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void Translate(
-            double x,
-            double y,
-            double z = 0
+            float x,
+            float y,
+            float z = 0
         )
         {
             if (IsWebGL)

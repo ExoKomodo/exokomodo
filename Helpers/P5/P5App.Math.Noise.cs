@@ -1,5 +1,6 @@
 using ExoKomodo.Helpers.P5.Models;
 using System;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -8,20 +9,20 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public double Noise(double x) => _jsRuntime.Invoke<double>(
+        public float Noise(float x) => _jsRuntime.Invoke<float>(
             _p5InvokeFunction,
             "noise",
             x
         );
 
-        public double Noise(double x, double y) => _jsRuntime.Invoke<double>(
+        public float Noise(float x, float y) => _jsRuntime.Invoke<float>(
             _p5InvokeFunction,
             "noise",
             x,
             y
         );
 
-        public double Noise(double x, double y, double z) => _jsRuntime.Invoke<double>(
+        public float Noise(float x, float y, float z) => _jsRuntime.Invoke<float>(
             _p5InvokeFunction,
             "noise",
             x,
@@ -29,25 +30,25 @@ namespace ExoKomodo.Helpers.P5
             z
         );
 
-        public double Noise(Vector2 dimensions) => Noise(
+        public float Noise(Vector2 dimensions) => Noise(
             dimensions.X,
             dimensions.Y
         );
 
-        public double Noise(Vector3 dimensions) => Noise(
+        public float Noise(Vector3 dimensions) => Noise(
             dimensions.X,
             dimensions.Y,
             dimensions.Z
         );
 
-        public double NoiseDetail(double lod, double falloff) => _jsRuntime.Invoke<double>(
+        public float NoiseDetail(float lod, float falloff) => _jsRuntime.Invoke<float>(
             _p5InvokeFunction,
             "noiseDetail",
             lod,
             Math.Clamp(falloff, 0, 1)
         );
 
-        public double NoiseSeed(double seed) => _jsRuntime.Invoke<double>(
+        public float NoiseSeed(float seed) => _jsRuntime.Invoke<float>(
             _p5InvokeFunction,
             "noiseSeed",
             seed

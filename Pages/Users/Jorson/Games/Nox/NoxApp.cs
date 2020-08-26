@@ -54,18 +54,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
             {
                 Push();
                 SetImageMode(ImageMode.Center);
-                Translate(_width * 0.5, _height * 0.7);
+                Translate(_width * 0.5f, _height * 0.7f);
                 
                 Image image;
                 if (_adventure.CurrentState.Id == "end")
                 {
                     image = _cats;
-                    Scale(new double[2] { 0.7, 0.7 });
+                    Scale(new float[2] { 0.7f, 0.7f });
                 }
                 else
                 {
                     image = _nox;
-                    Scale(new double[2] { 0.35, 0.35 });
+                    Scale(new float[2] { 0.35f, 0.35f });
                 }
                 
                 DrawImage(image);
@@ -83,7 +83,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
                 DrawText(
                     "You can't do that",
                     _width / 2,
-                    _height * 0.5
+                    _height * 0.5f
                 );
                 Pop();
             }
@@ -102,7 +102,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
             DrawText(
                 prompt,
                 _width / 4,
-                _height * 0.75
+                _height * 0.75f
             );
             Pop();
         }
@@ -183,9 +183,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         private TextAdventure _adventure { get; set; }
         private Image _cats { get; set; }
         private Color _clearColor { get; set; }
-        private double _height { get; set; }
+        private float _height { get; set; }
         private Image _nox { get; set; }
-        private double _width { get; set; }
+        private float _width { get; set; }
         private int _currentOption { get; set; }
         #endregion
 
@@ -193,8 +193,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         private void InitializeCanvas()
         {
             bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
-            double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
-            _width = WindowWidth * 0.6d;
+            float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
+            _width = WindowWidth * 0.6f;
             _height = _width / aspectRatio;
             _clearColor = new Color(32, 32, 32);
             CreateCanvas((uint)_width, (uint)_height);

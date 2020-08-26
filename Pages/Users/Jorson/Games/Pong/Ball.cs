@@ -1,4 +1,5 @@
 using ExoKomodo.Helpers.P5.Models;
+using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
 {
@@ -10,16 +11,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         public Ball(PongApp application)
         {
             Application = application;
-            _direction = new Vector2(1, 0.7);
+            _direction = new Vector2(1, 0.7f);
         }
         #endregion
 
         #region Members
-        public double Acceleration { get; set; }
+        public float Acceleration { get; set; }
         public readonly PongApp Application;
         public Circle Body { get; set; }
         public Color FillColor { get; set; }
-        public double Speed { get; set; }
+        public float Speed { get; set; }
         public Color? StrokeColor { get; set; }
         #endregion
 
@@ -55,7 +56,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
 
         public bool Update()
         {
-            var delta = Application.DeltaTime / 1000d;
+            var delta = Application.DeltaTime / 1000f;
             Body.X += _direction.X * Speed * delta;
             Body.Y += _direction.Y * Speed * delta;
             if (Body.Y - Body.Radius <= 0)

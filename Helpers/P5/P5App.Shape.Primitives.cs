@@ -1,6 +1,7 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
+using Microsoft.JSInterop;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,12 +11,12 @@ namespace ExoKomodo.Helpers.P5
 
         #region Member Methods
         public void DrawArc(
-            double x,
-            double y,
-            double w,
-            double h,
-            double startAngle,
-            double stopAngle,
+            float x,
+            float y,
+            float w,
+            float h,
+            float startAngle,
+            float stopAngle,
             ArcMode mode = ArcMode.Pie,
             uint detail = 25
         )
@@ -37,8 +38,8 @@ namespace ExoKomodo.Helpers.P5
         public void DrawArc(
             Vector2 position,
             Vector2 dimensions,
-            double startAngle,
-            double stopAngle,
+            float startAngle,
+            float stopAngle,
             ArcMode mode = ArcMode.Pie,
             uint detail = 25
         ) => DrawArc(
@@ -63,7 +64,7 @@ namespace ExoKomodo.Helpers.P5
             arc.Detail
         );
 
-        public void DrawCircle(double x, double y, double d)
+        public void DrawCircle(float x, float y, float d)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -74,7 +75,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void DrawCircle(Vector2 position, double d) => DrawCircle(
+        public void DrawCircle(Vector2 position, float d) => DrawCircle(
             position.X,
             position.Y,
             d
@@ -87,9 +88,9 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawEllipse(
-            double x,
-            double y,
-            double w,
+            float x,
+            float y,
+            float w,
             double? h = null,
             uint detail = 25
         )
@@ -142,10 +143,10 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawLine(
-            double x1,
-            double y1,
-            double x2,
-            double y2
+            float x1,
+            float y1,
+            float x2,
+            float y2
         ) => DrawLine(
             x1,
             y1,
@@ -156,12 +157,12 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawLine(
-            double x1,
-            double y1,
-            double z1,
-            double x2,
-            double y2,
-            double z2
+            float x1,
+            float y1,
+            float z1,
+            float x2,
+            float y2,
+            float z2
         )
         {
             _jsRuntime.InvokeVoid(
@@ -198,9 +199,9 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawPoint(
-            double x,
-            double y,
-            double z = 0
+            float x,
+            float y,
+            float z = 0
         )
         {
             if (IsWebGL)
@@ -237,14 +238,14 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawQuad(
-            double x1,
-            double y1,
-            double x2,
-            double y2,
-            double x3,
-            double y3,
-            double x4,
-            double y4
+            float x1,
+            float y1,
+            float x2,
+            float y2,
+            float x3,
+            float y3,
+            float x4,
+            float y4
         ) => DrawQuad(
             x1,
             y1,
@@ -261,18 +262,18 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawQuad(
-            double x1,
-            double y1,
-            double z1,
-            double x2,
-            double y2,
-            double z2,
-            double x3,
-            double y3,
-            double z3,
-            double x4,
-            double y4,
-            double z4
+            float x1,
+            float y1,
+            float z1,
+            float x2,
+            float y2,
+            float z2,
+            float x3,
+            float y3,
+            float z3,
+            float x4,
+            float y4,
+            float z4
         )
         {
             if (IsWebGL)
@@ -355,14 +356,14 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawRectangle(
-            double x,
-            double y,
-            double w,
+            float x,
+            float y,
+            float w,
             double? h = null,
-            double topLeftRadius = 0,
-            double topRightRadius = 0,
-            double bottomRightRadius = 0,
-            double bottomLeftRadius = 0,
+            float topLeftRadius = 0,
+            float topRightRadius = 0,
+            float bottomRightRadius = 0,
+            float bottomLeftRadius = 0,
             uint detailX = 25,
             uint detailY = 25
         )
@@ -404,10 +405,10 @@ namespace ExoKomodo.Helpers.P5
         public void DrawRectangle(
             Vector2 position,
             Vector2 dimensions,
-            double topLeftRadius = 0,
-            double topRightRadius = 0,
-            double bottomRightRadius = 0,
-            double bottomLeftRadius = 0,
+            float topLeftRadius = 0,
+            float topRightRadius = 0,
+            float bottomRightRadius = 0,
+            float bottomLeftRadius = 0,
             uint detailX = 25,
             uint detailY = 25
         ) => DrawRectangle(
@@ -437,9 +438,9 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawSquare(
-            double x,
-            double y,
-            double side,
+            float x,
+            float y,
+            float side,
             double? topLeftRadius = null,
             double? topRightRadius = null,
             double? bottomRightRadius = null,
@@ -461,7 +462,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void DrawSquare(
             Vector2 position,
-            double side,
+            float side,
             double? topLeftRadius = null,
             double? topRightRadius = null,
             double? bottomRightRadius = null,
@@ -486,12 +487,12 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawTriangle(
-            double x1,
-            double y1,
-            double x2,
-            double y2,
-            double x3,
-            double y3
+            float x1,
+            float y1,
+            float x2,
+            float y2,
+            float x3,
+            float y3
         )
         {
             _jsRuntime.InvokeVoid(

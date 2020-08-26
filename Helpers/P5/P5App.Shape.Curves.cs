@@ -1,6 +1,7 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
+using Microsoft.JSInterop;
 using System;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,18 +11,18 @@ namespace ExoKomodo.Helpers.P5
 
         #region Member Methods
         public void DrawBezier(
-            double x1,
-            double y1,
-            double z1,
-            double x2,
-            double y2,
-            double z2,
-            double x3,
-            double y3,
-            double z3,
-            double x4,
-            double y4,
-            double z4
+            float x1,
+            float y1,
+            float z1,
+            float x2,
+            float y2,
+            float z2,
+            float x3,
+            float y3,
+            float z3,
+            float x4,
+            float y4,
+            float z4
         )
         {
             _jsRuntime.InvokeVoid(
@@ -79,11 +80,11 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void DrawBezierPoint(
-            double firstPoint,
-            double firstControl,
-            double secondControl,
-            double secondPoint,
-            double t
+            float firstPoint,
+            float firstControl,
+            float secondControl,
+            float secondPoint,
+            float t
         )
         {
             t = Math.Clamp(t, 0, 1);
@@ -99,11 +100,11 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void DrawBezierTangent(
-            double firstPoint,
-            double firstControl,
-            double secondControl,
-            double secondPoint,
-            double t
+            float firstPoint,
+            float firstControl,
+            float secondControl,
+            float secondPoint,
+            float t
         )
         {
             t = Math.Clamp(t, 0, 1);
@@ -119,14 +120,14 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void DrawCurve(
-            double x1,
-            double y1,
-            double x2,
-            double y2,
-            double x3,
-            double y3,
-            double x4,
-            double y4
+            float x1,
+            float y1,
+            float x2,
+            float y2,
+            float x3,
+            float y3,
+            float x4,
+            float y4
         ) => DrawCurve(
             x1,
             y1,
@@ -143,18 +144,18 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public void DrawCurve(
-            double x1,
-            double y1,
-            double z1,
-            double x2,
-            double y2,
-            double z2,
-            double x3,
-            double y3,
-            double z3,
-            double x4,
-            double y4,
-            double z4
+            float x1,
+            float y1,
+            float z1,
+            float x2,
+            float y2,
+            float z2,
+            float x3,
+            float y3,
+            float z3,
+            float x4,
+            float y4,
+            float z4
         )
         {
             _jsRuntime.InvokeVoid(
@@ -229,11 +230,11 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void DrawCurvePoint(
-            double firstControl,
-            double firstPoint,
-            double secondPoint,
-            double secondControl,
-            double t
+            float firstControl,
+            float firstPoint,
+            float secondPoint,
+            float secondControl,
+            float t
         )
         {
             t = Math.Clamp(t, 0, 1);
@@ -249,11 +250,11 @@ namespace ExoKomodo.Helpers.P5
         }
 
         public void DrawCurveTangent(
-            double firstControl,
-            double firstPoint,
-            double secondPoint,
-            double secondControl,
-            double t
+            float firstControl,
+            float firstPoint,
+            float secondPoint,
+            float secondControl,
+            float t
         )
         {
             t = Math.Clamp(t, 0, 1);
@@ -268,7 +269,7 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void DrawCurveTightness(double amount)
+        public void DrawCurveTightness(float amount)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,

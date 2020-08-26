@@ -48,10 +48,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         #region Members
         private P5App _application { get; set; }
+        private PageBase _base { get; set; }
         private bool _isDisposed { get; set; }
         [Inject]
         private IJSRuntime _jsRuntime { get; set; }
-        private PageBase _base { get; set; }
         #endregion
 
         #endregion

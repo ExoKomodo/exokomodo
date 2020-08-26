@@ -16,43 +16,43 @@ namespace ExoKomodo.Helpers.P5
             _p5GetValue,
             "mouseIsPressed"
         );
-        public double MouseX => _jsRuntime.Invoke<double>(
+        public float MouseX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "mouseX"
         );
-        public double MouseXPrevious => _jsRuntime.Invoke<double>(
+        public float MouseXPrevious => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "pmouseX"
         );
-        public double MouseY => _jsRuntime.Invoke<double>(
+        public float MouseY => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "mouseY"
         );
-        public double MouseYPrevious => _jsRuntime.Invoke<double>(
+        public float MouseYPrevious => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "pmouseY"
         );
-        public double MouseMovedX => _jsRuntime.Invoke<double>(
+        public float MouseMovedX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "movedX"
         );
-        public double MouseMovedY => _jsRuntime.Invoke<double>(
+        public float MouseMovedY => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "movedY"
         );
-        public double WindowMouseX => _jsRuntime.Invoke<double>(
+        public float WindowMouseX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "winMouseX"
         );
-        public double WindowMouseXPrevious => _jsRuntime.Invoke<double>(
+        public float WindowMouseXPrevious => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "pwinMouseX"
         );
-        public double WindowMouseY => _jsRuntime.Invoke<double>(
+        public float WindowMouseY => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "winMouseY"
         );
-        public double WindowMouseYPrevious => _jsRuntime.Invoke<double>(
+        public float WindowMouseYPrevious => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "pwinMouseY"
         );

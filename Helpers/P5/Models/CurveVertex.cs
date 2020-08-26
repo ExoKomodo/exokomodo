@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace ExoKomodo.Helpers.P5.Models
 {
     public struct CurveVertex
@@ -6,9 +8,9 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public CurveVertex(
-            double x,
-            double y,
-            double z = 0
+            float x,
+            float y,
+            float z = 0
         ) : this(new Vector3(x, y, z)) {}
         
         public CurveVertex(Vector3 vertex)
@@ -18,17 +20,17 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Members
-        public double X
+        public float X
         {
             get => Vertex.X;
             set => _vertex.X = value;
         }
-        public double Y
+        public float Y
         {
             get => Vertex.Y;
             set => _vertex.Y = value;
         }
-        public double Z
+        public float Z
         {
             get => Vertex.Z;
             set => _vertex.Z = value;

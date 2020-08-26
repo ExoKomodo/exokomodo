@@ -61,12 +61,12 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public double PixelDensity() => _jsRuntime.Invoke<double>(
+        public float PixelDensity() => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "pixelDensity"
         );
 
-        public void PixelDensity(double density)
+        public void PixelDensity(float density)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,

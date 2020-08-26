@@ -1,5 +1,6 @@
-using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
+using Microsoft.JSInterop;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -8,7 +9,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void DrawText(string text, double x = 0, double y = 0)
+        public void DrawText(string text, float x = 0, float y = 0)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -36,7 +37,7 @@ namespace ExoKomodo.Helpers.P5
             font
         );
 
-        public void TextFont(string font, double size) => _jsRuntime.InvokeVoid(
+        public void TextFont(string font, float size) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "textFont",
             font,
@@ -48,7 +49,7 @@ namespace ExoKomodo.Helpers.P5
             font.Id
         );
 
-        public void TextFont(Font font, double size) => _jsRuntime.InvokeVoid(
+        public void TextFont(Font font, float size) => _jsRuntime.InvokeVoid(
             "p5Instance.textFontDotnet",
             font.Id,
             size

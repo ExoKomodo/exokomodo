@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5.Models
@@ -9,10 +10,10 @@ namespace ExoKomodo.Helpers.P5.Models
 
         #region Constructors
         public Ellipse(
-            double x,
-            double y,
-            double w,
-            double? h = null,
+            float x,
+            float y,
+            float w,
+            float? h = null,
             uint detail = 25
         )
         {
@@ -36,22 +37,22 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Members
-        public double X
+        public float X
         {
             get => Position.X;
             set => _position.X = value;
         }
-        public double Y
+        public float Y
         {
             get => Position.Y;
             set => _position.Y = value;
         }
-        public double Width
+        public float Width
         {
             get => Dimensions.X;
             set => _dimensions.X = value;
         }
-        public double Height
+        public float Height
         {
             get => Dimensions.Y;
             set => _dimensions.Y = value;

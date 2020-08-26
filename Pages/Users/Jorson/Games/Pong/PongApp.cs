@@ -1,8 +1,9 @@
-using System.Collections.Generic;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
 {
@@ -111,18 +112,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         #region Members
         private Color _clearColor { get; set; }
         private Font _font { get; set; }
-        private double _height { get; set; }
+        private float _height { get; set; }
         private Image _image { get; set; }
         private IList<Paddle> _paddles { get; set; }
-        private double _width { get; set; }
+        private float _width { get; set; }
         #endregion
 
         #region Member Methods
         private void InitializeCanvas()
         {
             bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
-            double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
-            _width = WindowWidth * 0.75d;
+            float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
+            _width = WindowWidth * 0.75f;
             _height = _width / aspectRatio;
             _clearColor = new Color(hue: 150, saturation: 250, brightness: 150);
             CreateCanvas((uint)_width, (uint)_height);

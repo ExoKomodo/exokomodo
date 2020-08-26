@@ -19,10 +19,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         public readonly PongApp Application;
         public Rectangle Body { get; set; }
         public Color FillColor { get; set; }
-        public double HalfHeight => Body.Height / 2;
-        public double HalfWidth => Body.Width / 2;
+        public float HalfHeight => Body.Height / 2f;
+        public float HalfWidth => Body.Width / 2f;
         public uint Score { get; set; }
-        public const double Speed = 100;
+        public const float Speed = 100f;
         public Color? StrokeColor { get; set; }
         #endregion
         
