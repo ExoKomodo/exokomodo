@@ -1,5 +1,6 @@
-#pong-container
-{
+#pong-container {
     margin: auto;
-    width: fit-content;
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }

@@ -27,6 +27,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         #region Member Methods
         protected override void OnAfterRender(bool firstRender)
         {
+            base.OnAfterRender(firstRender);
             if (firstRender)
             {
                 _application = new PongApp(_jsRuntime, "pong-container");

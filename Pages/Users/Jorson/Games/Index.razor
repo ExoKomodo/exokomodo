@@ -12,7 +12,7 @@
                 @foreach (var game in _games)
                 {
                     <li>
-                        <a href="@($"/users/jorson/games/{game.ToLower()}")">@game</a>
+                        <a href="@($"/users/jorson/games/{String.Join('-', game.ToLower().Split(' '))}")">@game</a>
                     </li>
                 }
             </ul>
