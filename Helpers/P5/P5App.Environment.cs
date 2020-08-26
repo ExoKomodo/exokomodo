@@ -34,7 +34,7 @@ namespace ExoKomodo.Helpers.P5
             "frameCount"
         );
         
-        public uint Height => _jsRuntime.Invoke<uint>(
+        public float Height => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "height"
         );

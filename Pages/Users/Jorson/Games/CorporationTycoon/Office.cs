@@ -12,10 +12,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public Office(Vector2 position)
             : base(
                   position,
-                  new Color(red: 255, green: 255, blue: 255),
+                  new Color(red: 128, green: 64, blue: 64),
                   new Color(),
                   strokeWeight: 0,
-                  width: 3
+                  width: 3 * UNIT_SCALE
             ) { }
         #endregion
 
