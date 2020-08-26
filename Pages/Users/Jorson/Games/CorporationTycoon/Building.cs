@@ -12,6 +12,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public Color FillColor { get; set; }
         public Color StrokeColor { get; set; }
         public uint StrokeWeight { get; set; } = 0;
+        public const uint UNIT_SCALE = 100;
 
         public Vector2 Position
         {
@@ -21,6 +22,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
                 _rect.Position = value;
             }
         }
+
+        public uint UnitWidth => Width / UNIT_SCALE;
 
         public uint Width
         {
@@ -53,7 +56,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         {
             _rect = new Rectangle(
                 position,
-                new Vector2(width, 1)
+                new Vector2(width, UNIT_SCALE)
             );
             FillColor = fillColor;
             StrokeColor = strokeColor;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
@@ -31,6 +32,22 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             DrawBuildings();
         }
 
+        [JSInvokable("mousePressed")]
+        public override bool MousePressed()
+        {
+            Console.WriteLine("pressed");
+            switch (_state)
+            {
+                case GameState.Default:
+                    var position = ClampPositionToGridLines();
+                    _grid.Add(new Office(position));
+                    break;
+                default:
+                    break;
+            }
+            return true; // Event prevent default
+        }
+
         [JSInvokable("preload")]
         public override void Preload() {}
 
@@ -38,9 +55,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public override void Setup()
         {
             InitializeCanvas();
-
             _buildings.Clear();
-            _buildings.Add(new Office(new Vector2(0, 0)));
+            _grid = new Grid(
+                (uint)_width / Building.UNIT_SCALE,
+                (uint)_height / Building.UNIT_SCALE
+            );
         }
         #endregion
 
@@ -51,16 +70,26 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         #region Members
         private IList<Building> _buildings { get; set; }
         private Color _clearColor { get; set; }
-        private double _height { get; set; }
-        private double _width { get; set; }
+        private Grid _grid { get; set; }
+        private float _height { get; set; }
+        private float _width { get; set; }
+        private GameState _state { get; set; }
         #endregion
 
         #region Member Methods
+        private Vector2 ClampPositionToGridLines()
+        {
+            return new Vector2(
+                MathF.Floor(MouseX / Building.UNIT_SCALE),
+                MathF.Floor(MouseY / Building.UNIT_SCALE)
+            ) * Building.UNIT_SCALE;
+        }
+
         private void DrawBuildings()
         {
-            foreach (var building in _buildings)
+            foreach (var building in _grid)
             {
-                building.Draw(this);
+                building?.Draw(this);
             }
         }
 
@@ -70,15 +99,15 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.6f;
             _height = _width / aspectRatio;
-            _clearColor = new Color(32, 32, 32);
-            CreateCanvas((uint)_width, (uint)_height);
+            _clearColor = new Color(0, 64, 64);
+            CreateCanvas((uint)(_width / 100) * 100, (uint)(_height / 100) * 100);
         }
 
         private void Update(float dt)
         {
-            foreach (var building in _buildings)
+            foreach (var building in _grid)
             {
-                building.Update(this, dt);
+                building?.Update(this, dt);
             }
         }
         #endregion
