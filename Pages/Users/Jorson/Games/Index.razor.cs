@@ -22,6 +22,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
             {
                 "Pong",
                 "Nox",
+                "Corporation Tycoon",
             };
         }
         #endregion

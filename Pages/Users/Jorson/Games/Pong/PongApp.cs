@@ -98,14 +98,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         [JSInvokable("setup")]
         public override void Setup()
         {
-            bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
-            double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
-            _width = WindowWidth * 0.75d;
-            _height = _width / aspectRatio;
-            _clearColor = new Color(hue: 150, saturation: 250, brightness: 150);
-            CreateCanvas((uint)_width, (uint)_height);
+            InitializeCanvas();
             SetImageFields(_image);
-
             Reset();
         }
         #endregion
@@ -121,6 +115,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         private Image _image { get; set; }
         private IList<Paddle> _paddles { get; set; }
         private double _width { get; set; }
+        #endregion
+
+        #region Member Methods
+        private void InitializeCanvas()
+        {
+            bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
+            double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
+            _width = WindowWidth * 0.75d;
+            _height = _width / aspectRatio;
+            _clearColor = new Color(hue: 150, saturation: 250, brightness: 150);
+            CreateCanvas((uint)_width, (uint)_height);
+        }
         #endregion
 
         #endregion

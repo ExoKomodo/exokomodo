@@ -170,13 +170,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         [JSInvokable("setup")]
         public override void Setup()
         {
+            InitializeCanvas();
             _currentOption = 0;
-            bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
-            double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
-            _width = WindowWidth * 0.6d;
-            _height = _width / aspectRatio;
-            _clearColor = new Color(32, 32, 32);
-            CreateCanvas((uint)_width, (uint)_height);
         }
         #endregion
 
@@ -192,6 +187,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         private Image _nox { get; set; }
         private double _width { get; set; }
         private int _currentOption { get; set; }
+        #endregion
+
+        #region Member Methods
+        private void InitializeCanvas()
+        {
+            bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
+            double aspectRatio = isVerticalDisplay ? 4d / 3d : 16d / 9d;
+            _width = WindowWidth * 0.6d;
+            _height = _width / aspectRatio;
+            _clearColor = new Color(32, 32, 32);
+            CreateCanvas((uint)_width, (uint)_height);
+        }
         #endregion
 
         #endregion

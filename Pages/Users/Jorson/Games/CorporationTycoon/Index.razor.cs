@@ -4,18 +4,18 @@ using ExoKomodo.Helpers.P5;
 using Microsoft.AspNetCore.Components;
 using System;
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.PongGame
+namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 {
-    internal class PongBase : PageBase {}
+    internal class CorporationTycoonBase : PageBase {}
 
-    public partial class Pong : IDisposable
+    public partial class Index : IDisposable
     {
         #region Public
 
         #region Constructors
-        public Pong()
+        public Index()
         {
-            _base = new PongBase();
+            _base = new CorporationTycoonBase();
             _base.Initialize();
         }
         #endregion
@@ -27,9 +27,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.PongGame
         #region Member Methods
         protected override void OnAfterRender(bool firstRender)
         {
+            base.OnAfterRender(firstRender);
+
             if (firstRender)
             {
-                _application = new PongApp(_jsRuntime, "pong-container");
+                _application = new CorporationTycoonApp(_jsRuntime, "corporation-tycoon-container");
                 _application.Start();
             }
         }
