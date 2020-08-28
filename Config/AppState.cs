@@ -7,6 +7,16 @@ namespace ExoKomodo.Config
         #region Public
 
         #region Members
+        public static string FaviconUri
+        {
+            get => _faviconUri;
+            set
+            {
+                _faviconUri = value;
+                OnFaviconUriChange?.Invoke();
+                NotifyStateChanged();
+            }
+        }
         public static bool IsSideNavHidden
         {
             get => _isSideNavHidden;
@@ -17,6 +27,7 @@ namespace ExoKomodo.Config
                 NotifyStateChanged();
             }
         }
+        public static event Action OnFaviconUriChange;
         public static event Action OnIsSideNavHiddenChange;
         public static event Action OnChange;
         #endregion
@@ -26,7 +37,8 @@ namespace ExoKomodo.Config
         #region Private
 
         #region Members
-        private static bool _isSideNavHidden { get; set; }
+        private static string _faviconUri { get; set; } = "";
+        private static bool _isSideNavHidden { get; set; } = false;
         #endregion
 
         #region Member Methods
