@@ -3,9 +3,9 @@ using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using System.Numerics;
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Buildings
+namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 {
-    public class Office : Building
+    public class Office : Room
     {
         #region Public
 

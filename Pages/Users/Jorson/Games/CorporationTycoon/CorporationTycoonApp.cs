@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Models;
-using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Buildings;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
+using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms;
 using Microsoft.JSInterop;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
@@ -59,7 +59,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public override void Setup()
         {
             InitializeCanvas();
-            _corporation = new Grid<Building>(
+            _corporation = new Grid<Room>(
                 (uint)_width / UNIT_SCALE,
                 (uint)_height / UNIT_SCALE
             );
@@ -72,7 +72,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         #region Members
         private Color _clearColor { get; set; }
-        private Grid<Building> _corporation { get; set; }
+        private Grid<Room> _corporation { get; set; }
         private float _height { get; set; }
         private float _width { get; set; }
         private GameState _state { get; set; }
@@ -89,13 +89,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         private void DrawCorporation()
         {
-            foreach (var building in _corporation)
+            foreach (var room in _corporation)
             {
-                if (building is null)
-                {
-                    continue;
-                }
-                building.Draw(this);
+                room?.Draw(this);
             }
         }
 
@@ -105,31 +101,31 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             {
                 case GameState.Default:
                     var position = ClampPositionToGridLines();
-                    // If a building exists, add an employee instead
-                    var building = _corporation.Get(position);
-                    if (building is null)
+                    // If a room exists, add an employee instead
+                    var room = _corporation.Get(position);
+                    if (room is null)
                     {
                         _corporation.Add(new Office(position));
                         break;
                     }
-                    Hire(building, position);
+                    Hire(room, position);
                     break;
                 default:
                     break;
             }
         }
 
-        private bool Hire(Building building, Vector2 hirePosition)
+        private bool Hire(Room room, Vector2 hirePosition)
         {
-            if (building is null)
+            if (room is null)
             {
                 return false;
             }
             hirePosition += new Vector2(UNIT_SCALE / 2f, UNIT_SCALE / 2f);
-            return building switch
+            return room switch
             {
                 Office office => office.Hire(new Worker(hirePosition)),
-                _ => throw new NotImplementedException($"Building of type {building.GetType()} not yet implemented"),
+                _ => throw new NotImplementedException($"Room of type {room.GetType()} not yet implemented"),
             };
         }
 
@@ -145,9 +141,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         private void Update(float dt)
         {
-            foreach (var building in _corporation)
+            foreach (var room in _corporation)
             {
-                building?.Update(this, dt);
+                room?.Update(this, dt);
             }
         }
         #endregion
