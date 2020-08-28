@@ -10,33 +10,50 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         #region Public
 
         #region Constructors
-        public Worker(Vector2 position)
+        public Worker(CorporationTycoonApp application, Vector2 position)
             : base(
-                  position,
-                  new Color(red: 0, green: 64, blue: 0),
-                  new Color(),
+                  application: application,
+                  position: position,
+                  fillColor: new Color(red: 0, green: 64, blue: 0),
+                  strokeColor: new Color(),
                   strokeWeight: 0
             )
         { }
         #endregion
 
+        #region Constants
+        public override decimal HiringBonus => 100m;
+        #endregion
+
+        #region Members
+        public decimal Profit => ProfitFactor * Salary;
+        public decimal ProfitFactor { get; set; } = 1.4m;
+        public override decimal Salary => 40m * SalaryFactor;
+        #endregion
+
         #region Member Methods
-        public override void Draw(P5App application)
+        public override void Draw()
         {
-            application.Push();
+            _app.Push();
 
-            application.SetRectangleMode(RectangleMode.Center);
-            application.Fill(FillColor);
-            application.StrokeWeight(StrokeWeight);
-            application.Stroke(StrokeColor);
-            application.DrawRectangle(_rect);
+            _app.SetRectangleMode(RectangleMode.Center);
+            _app.Fill(FillColor);
+            _app.StrokeWeight(StrokeWeight);
+            _app.Stroke(StrokeColor);
+            _app.DrawRectangle(_rect);
 
-            application.Pop();
+            _app.Pop();
         }
 
-        public override void Update(P5App application, double dt)
+        public override void Update(double dt)
         {
+            base.Update(dt);
 
+            _app.Account.Deposit(
+                Profit
+                * _app.TimeScale
+                * (decimal)dt
+            );
         }
         #endregion
 

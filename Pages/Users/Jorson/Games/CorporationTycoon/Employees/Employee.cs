@@ -11,6 +11,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
 
         #region Constants
         public const float Height = UnitHeight * CorporationTycoonApp.UNIT_SCALE;
+        public abstract decimal HiringBonus { get; }
         public const float Width = UnitWidth * CorporationTycoonApp.UNIT_SCALE;
         public const float UnitHeight = 0.8f;
         public const float UnitWidth = 0.8f;
@@ -44,6 +45,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         public Color FillColor;
         public bool IsEmployed => OfficeSpace != null && Desk >= 0;
         public Room OfficeSpace { get; set; }
+        public abstract decimal Salary { get; }
+        public decimal SalaryFactor { get; set; } = 1m;
         public Color StrokeColor;
         public uint StrokeWeight { get; set; } = 0;
 
@@ -58,9 +61,19 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         #endregion
 
         #region Member Methods
-        public abstract void Draw(P5App application);
+        public abstract void Draw();
 
-        public abstract void Update(P5App application, double dt);
+        public virtual void Update(double dt)
+        {
+            _app.Account.Withdraw(
+                (
+                    Salary
+                    * _app.TimeScale
+                    * (decimal)dt
+                ),
+                force: true
+            );
+        }
         #endregion
 
         #endregion
@@ -69,12 +82,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
 
         #region Constructors
         protected Employee(
+            CorporationTycoonApp application,
             Vector2 position,
             Color fillColor,
             Color strokeColor,
             uint strokeWeight
         )
         {
+            _app = application;
             _rect = new Rectangle(
                 position,
                 new Vector2(Width, Height)
@@ -86,6 +101,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         #endregion
 
         #region Members
+        protected CorporationTycoonApp _app;
         protected Rectangle _rect;
         #endregion
 

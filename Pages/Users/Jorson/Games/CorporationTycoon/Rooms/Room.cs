@@ -12,15 +12,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #region Public
 
         #region Constants
+        public abstract decimal BuildCost { get; }
         public const float Height = UnitHeight * CorporationTycoonApp.UNIT_SCALE;
         public const float UnitHeight = 1f;
         #endregion
 
         #region Members
+        public decimal BuildCostFactor { get; set; } = 1m;
         public Color FillColor;
-        public Color StrokeColor;
-        public uint StrokeWeight { get; set; } = 0;
-
         public override Vector2 Position
         {
             get => _rect.Position;
@@ -29,9 +28,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
                 _rect.Position = value;
             }
         }
-
+        public Color StrokeColor;
+        public uint StrokeWeight { get; set; } = 0;
         public override float UnitWidth => Width / CorporationTycoonApp.UNIT_SCALE;
-
+        public abstract decimal UpkeepCost { get; }
+        public decimal UpkeepCostFactor { get; set; } = 1m;
         public float Width
         {
             get => _rect.Width;
@@ -43,7 +44,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Member Methods
-        public abstract void Draw(P5App application);
+        public abstract void Draw(CorporationTycoonApp application);
 
         public virtual bool Hire(Employee employee)
         {
@@ -61,6 +62,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             if (
                 desk >= Width
                 || _employees[desk] != null
+                || !_app.Account.Withdraw(employee.HiringBonus)
             )
             {
                 return false;
@@ -73,7 +75,22 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             return true;
         }
 
-        public abstract void Update(P5App application, double dt);
+        public virtual void Update(double dt)
+        {
+            _app.Account.Withdraw(
+                (
+                    UpkeepCost
+                    * _app.TimeScale
+                    * (decimal)dt
+                ),
+                force: true
+            );
+
+            foreach (var employee in _employees)
+            {
+                employee?.Update(dt);
+            }
+        }
         #endregion
 
         #endregion
@@ -82,6 +99,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 
         #region Constructors
         protected Room(
+            CorporationTycoonApp application,
             Vector2 position,
             Color fillColor,
             Color strokeColor,
@@ -89,6 +107,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             uint width
         )
         {
+            _app = application;
             _rect = new Rectangle(
                 position,
                 new Vector2(width, CorporationTycoonApp.UNIT_SCALE)
@@ -102,16 +121,17 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Members
+        protected CorporationTycoonApp _app;
         protected Employee[] _employees;
         protected Rectangle _rect;
         #endregion
 
         #region Member Methods
-        protected void DrawEmployees(P5App application)
+        protected void DrawEmployees()
         {
             foreach (var employee in _employees)
             {
-                employee?.Draw(application);
+                employee?.Draw();
             }
         }
         #endregion

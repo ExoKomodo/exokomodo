@@ -10,8 +10,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #region Public
 
         #region Constructors
-        public Office(Vector2 position)
+        public Office(CorporationTycoonApp application, Vector2 position)
             : base(
+                  application: application,
                   position: position,
                   fillColor: new Color(red: 128, green: 64, blue: 64),
                   strokeColor: new Color(),
@@ -20,8 +21,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             ) { }
         #endregion
 
+        #region Constants
+        public override decimal BuildCost => 1_000m * BuildCostFactor;
+        public override decimal UpkeepCost => 50m * UpkeepCostFactor;
+        #endregion
+
         #region Member Methods
-        public override void Draw(P5App application)
+        public override void Draw(CorporationTycoonApp application)
         {
             application.Push();
 
@@ -32,7 +38,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 
             application.Pop();
 
-            DrawEmployees(application);
+            DrawEmployees();
         }
 
         public override bool Hire(Employee employee)
@@ -44,9 +50,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             return false;
         }
 
-        public override void Update(P5App application, double dt)
+        public override void Update(double dt)
         {
-
+            base.Update(dt);
         }
         #endregion
 

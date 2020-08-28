@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
+using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
@@ -19,11 +20,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             string containerId
         ) : base(jsRuntime, containerId)
         {
+            Account = new Bank(10_000m);
         }
         #endregion
 
         #region Constants
         public const uint UNIT_SCALE = 100;
+        #endregion
+
+        #region Members
+        public Bank Account { get; set; }
+        public string CurrencySymbol { get; set; } = "$";
+        public decimal TimeScale { get; private set; } = 1m;
         #endregion
 
         #region Member Methods
@@ -36,6 +44,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
             DrawCorporation();
             DrawHoverElements();
+            DrawUi();
         }
 
         [JSInvokable("mousePressed")]
@@ -61,10 +70,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             InitializeCanvas();
             _corporation = new Grid<Room>(
                 (uint)_width / UNIT_SCALE,
-                (uint)_height / UNIT_SCALE
+                (uint)_height / UNIT_SCALE,
+                UNIT_SCALE
             );
-            _hoverRoom = new Office(Vector2.Zero);
-            _hoverEmployee = new Worker(Vector2.Zero);
+            _hoverRoom = new Office(this, Vector2.Zero);
+            _hoverEmployee = new Worker(this, Vector2.Zero);
         }
         #endregion
 
@@ -117,7 +127,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             var renderPosition = position + (Vector2.One * UNIT_SCALE / 2f);
             _hoverEmployee.FillColor.Alpha = 150;
             _hoverEmployee.Position = renderPosition;
-            _hoverEmployee.Draw(this);
+            _hoverEmployee.Draw();
         }
 
         private void DrawHoverRoom(Vector2 position)
@@ -125,6 +135,24 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             _hoverRoom.FillColor.Alpha = 150;
             _hoverRoom.Position = position;
             _hoverRoom.Draw(this);
+        }
+
+        private void DrawUi()
+        {
+            DrawUiBalance();
+        }
+
+        private void DrawUiBalance()
+        {
+            Push();
+            Fill(255);
+            SetTextAlign(HorizontalTextAlign.Left, VerticalTextAlign.Top);
+            SetTextSize(20);
+            DrawText(
+                $"Balance: {string.Format($"{{0:{CurrencySymbol}#,##0.00}}", Account.Balance)}",
+                Vector2.One * UNIT_SCALE / 10f
+            );
+            Pop();
         }
 
         private void HandleLeftMouse()
@@ -137,7 +165,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
                     var room = _corporation.Get(position);
                     if (room is null)
                     {
-                        _corporation.Add(new Office(position));
+                        room = new Office(this, position);
+                        if (Account.Withdraw(room.BuildCost))
+                        {
+                            _corporation.Add(room);
+                        }
                         break;
                     }
                     Hire(room, position);
@@ -156,7 +188,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             hirePosition += new Vector2(UNIT_SCALE / 2f, UNIT_SCALE / 2f);
             return room switch
             {
-                Office office => office.Hire(new Worker(hirePosition)),
+                Office office => office.Hire(new Worker(this, hirePosition)),
                 _ => throw new NotImplementedException($"Room of type {room.GetType()} not yet implemented"),
             };
         }
@@ -165,7 +197,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         {
             bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
-            _width = WindowWidth * 0.6f;
+            _width = WindowWidth * 0.8f;
             _height = _width / aspectRatio;
             _clearColor = new Color(0, 64, 64);
             CreateCanvas((uint)(_width / 100) * 100, (uint)(_height / 100) * 100);
@@ -175,7 +207,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         {
             foreach (var room in _corporation)
             {
-                room?.Update(this, dt);
+                room?.Update(dt);
             }
 
             _hoverRoom.Position = new Vector2(MouseX, MouseY);
