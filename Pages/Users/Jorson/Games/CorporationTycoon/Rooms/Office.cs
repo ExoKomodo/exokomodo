@@ -12,9 +12,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #region Constructors
         public Office(Vector2 position)
             : base(
-                  position,
-                  new Color(red: 128, green: 64, blue: 64),
-                  new Color(),
+                  position: position,
+                  fillColor: new Color(red: 128, green: 64, blue: 64),
+                  strokeColor: new Color(),
                   strokeWeight: 0,
                   width: 3 * CorporationTycoonApp.UNIT_SCALE
             ) { }

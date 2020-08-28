@@ -41,10 +41,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
                 ;
             }
         }
-        public Color FillColor { get; set; }
+        public Color FillColor;
         public bool IsEmployed => OfficeSpace != null && Desk >= 0;
         public Room OfficeSpace { get; set; }
-        public Color StrokeColor { get; set; }
+        public Color StrokeColor;
         public uint StrokeWeight { get; set; } = 0;
 
         public Vector2 Position
