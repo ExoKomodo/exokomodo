@@ -23,7 +23,10 @@ namespace ExoKomodo.Pages.Users.Jorson
         #endregion
 
         #region Member Methods
-        protected virtual void SetAppState() {}
+        protected virtual void SetAppState()
+        {
+            AppState.FaviconUri = "assets/jorson/james-logo.png";
+        }
         #endregion
 
         #endregion
