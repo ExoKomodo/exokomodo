@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Models;
@@ -36,6 +35,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             Background(_clearColor);
 
             DrawCorporation();
+            DrawHoverElements();
         }
 
         [JSInvokable("mousePressed")]
@@ -63,6 +63,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
                 (uint)_width / UNIT_SCALE,
                 (uint)_height / UNIT_SCALE
             );
+            _hoverRoom = new Office(Vector2.Zero);
+            _hoverEmployee = new Worker(Vector2.Zero);
         }
         #endregion
 
@@ -73,6 +75,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         #region Members
         private Color _clearColor { get; set; }
         private Grid<Room> _corporation { get; set; }
+        private Room _hoverRoom { get; set; }
+        private Employee _hoverEmployee { get; set; }
         private float _height { get; set; }
         private float _width { get; set; }
         private GameState _state { get; set; }
@@ -93,6 +97,34 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             {
                 room?.Draw(this);
             }
+        }
+
+        private void DrawHoverElements()
+        {
+            var position = ClampPositionToGridLines();
+            if (_corporation.Get(position) is null)
+            {
+                DrawHoverRoom(position);
+            }
+            else
+            {
+                DrawHoverEmployee(position);
+            }
+        }
+
+        private void DrawHoverEmployee(Vector2 position)
+        {
+            var renderPosition = position + (Vector2.One * UNIT_SCALE / 2f);
+            _hoverEmployee.FillColor.Alpha = 150;
+            _hoverEmployee.Position = renderPosition;
+            _hoverEmployee.Draw(this);
+        }
+
+        private void DrawHoverRoom(Vector2 position)
+        {
+            _hoverRoom.FillColor.Alpha = 150;
+            _hoverRoom.Position = position;
+            _hoverRoom.Draw(this);
         }
 
         private void HandleLeftMouse()
@@ -145,6 +177,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             {
                 room?.Update(this, dt);
             }
+
+            _hoverRoom.Position = new Vector2(MouseX, MouseY);
         }
         #endregion
 

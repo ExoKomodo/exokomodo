@@ -17,8 +17,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Members
-        public Color FillColor { get; set; }
-        public Color StrokeColor { get; set; }
+        public Color FillColor;
+        public Color StrokeColor;
         public uint StrokeWeight { get; set; } = 0;
 
         public override Vector2 Position

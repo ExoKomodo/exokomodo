@@ -60,7 +60,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
         {
             position = ConvertAbsoluteToGrid(position);
             if (
-                position.X >= Width
+                position.X < 0
+                || position.Y < 0
+                || position.X >= Width
                 || position.Y >= Height
             )
             {
