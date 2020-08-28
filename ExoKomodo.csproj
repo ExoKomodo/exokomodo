@@ -14,5 +14,8 @@
 
   <ItemGroup>
     <Folder Include="Pages\Users\Jorson\Games\CorporationTycoon\" />
+    <Folder Include="Pages\Users\Jorson\Games\CorporationTycoon\Buildings\" />
+    <Folder Include="Pages\Users\Jorson\Games\CorporationTycoon\Employees\" />
+    <Folder Include="Pages\Users\Jorson\Games\CorporationTycoon\Helpers\" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,9 @@
 ﻿using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Models;
+using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using System.Numerics;
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
+namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Buildings
 {
     public class Office : Building
     {
@@ -15,7 +16,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
                   new Color(red: 128, green: 64, blue: 64),
                   new Color(),
                   strokeWeight: 0,
-                  width: 3 * UNIT_SCALE
+                  width: 3 * CorporationTycoonApp.UNIT_SCALE
             ) { }
         #endregion
 
@@ -30,6 +31,17 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             application.DrawRectangle(_rect);
 
             application.Pop();
+
+            DrawEmployees(application);
+        }
+
+        public override bool Hire(Employee employee)
+        {
+            if (employee is Worker)
+            {
+                return base.Hire(employee);
+            }
+            return false;
         }
 
         public override void Update(P5App application, double dt)
