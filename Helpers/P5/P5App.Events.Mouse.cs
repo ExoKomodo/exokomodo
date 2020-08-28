@@ -6,6 +6,15 @@ namespace ExoKomodo.Helpers.P5
     {
         #region Public
 
+        #region Constants
+        public static class MouseButtons
+        {
+            public const string CenterMouseButton = "center";
+            public const string LeftMouseButton = "left";
+            public const string RightMouseButton = "right";
+        }
+        #endregion
+
         #region Members
         // Careful calling this function if the mouse is not currently pressed
         public string MouseButton => _jsRuntime.Invoke<string>(
