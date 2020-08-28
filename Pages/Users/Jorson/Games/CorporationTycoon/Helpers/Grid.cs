@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
+namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
 {
-    public class Grid : IEnumerable<Building>
+    public class Grid<T> : IEnumerable<T> where T : GridEntry
     {
         #region Public
 
@@ -14,10 +14,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         {
             Height = (int)height;
             Width = (int)width;
-            _grid = new Building[Width][];
+            _grid = new T[Width][];
             for (int i = 0; i < Width; i++)
             {
-                _grid[i] = new Building[Height];
+                _grid[i] = new T[Height];
             }
         }
         #endregion
@@ -28,15 +28,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         #endregion
 
         #region Members Methods
-        public bool Add(Building building)
+        public bool Add(T obj)
         {
-            var position = ConvertAbsoluteToGrid(building.Position);
-            for (int i = 0; i < building.UnitWidth; i++)
+            var position = ConvertAbsoluteToGrid(obj.Position);
+            for (int i = 0; i < (int)obj.UnitWidth; i++)
             {
                 int gridX = i + (int)position.X;
                 int gridY = (int)position.Y;
                 if (
                     gridX >= Width
+                    || gridY >= Height
                     || _grid[gridX][gridY] != null
                 )
                 {
@@ -44,34 +45,47 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
                 }
             }
 
-            for (int i = 0; i < building.UnitWidth; i++)
+            for (int i = 0; i < (int)obj.UnitWidth; i++)
             {
                 _grid[
                     i + (int)position.X
                 ][
                     (int)position.Y
-                ] = building;
+                ] = obj;
             }
             return true;
         }
 
-        public IEnumerator<Building> GetEnumerator()
+        public T Get(Vector2 position)
         {
-            Building building = null;
+            position = ConvertAbsoluteToGrid(position);
+            if (
+                position.X >= Width
+                || position.Y >= Height
+            )
+            {
+                return null;
+            }
+            return _grid[(int)position.X][(int)position.Y];
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            T obj = null;
             int startX = 0;
             for (int y = 0; y < Height; ++y)
             {
                 for (int x = 0; x < Width; ++x)
                 {
-                    if (building == null)
+                    if (obj == null)
                     {
                         startX = x;
-                        building = _grid[x][y];
-                        yield return building;
+                        obj = _grid[x][y];
+                        yield return obj;
                     }
-                    else if (x == startX + building.UnitWidth - 1)
+                    else if (x == startX + (int)obj.UnitWidth - 1)
                     {
-                        building = null;
+                        obj = null;
                     }
                 }
             }
@@ -79,7 +93,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public bool Remove(Building building)
+        public bool Remove(T obj)
         {
             return true;
         }
@@ -90,15 +104,15 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         #region Private
 
         #region Members
-        private Building[][] _grid;
+        private T[][] _grid;
         #endregion
 
         #region Members Methods
         private Vector2 ConvertAbsoluteToGrid(Vector2 position)
         {
             return new Vector2(
-                MathF.Floor(position.X / Building.UNIT_SCALE),
-                MathF.Floor(position.Y / Building.UNIT_SCALE)
+                MathF.Floor(position.X / CorporationTycoonApp.UNIT_SCALE),
+                MathF.Floor(position.Y / CorporationTycoonApp.UNIT_SCALE)
             );
         }
         #endregion

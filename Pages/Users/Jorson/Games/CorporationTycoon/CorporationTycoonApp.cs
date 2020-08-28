@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Models;
+using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Buildings;
+using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
+using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
 using Microsoft.JSInterop;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
@@ -17,8 +20,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             string containerId
         ) : base(jsRuntime, containerId)
         {
-            _buildings = new List<Building>();
         }
+        #endregion
+
+        #region Constants
+        public const uint UNIT_SCALE = 100;
         #endregion
 
         #region Member Methods
@@ -29,18 +35,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
             Background(_clearColor);
 
-            DrawBuildings();
+            DrawCorporation();
         }
 
         [JSInvokable("mousePressed")]
         public override bool MousePressed()
         {
-            Console.WriteLine("pressed");
-            switch (_state)
+            switch (MouseButton)
             {
-                case GameState.Default:
-                    var position = ClampPositionToGridLines();
-                    _grid.Add(new Office(position));
+                case MouseButtons.LeftMouseButton:
+                    HandleLeftMouse();
                     break;
                 default:
                     break;
@@ -55,10 +59,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public override void Setup()
         {
             InitializeCanvas();
-            _buildings.Clear();
-            _grid = new Grid(
-                (uint)_width / Building.UNIT_SCALE,
-                (uint)_height / Building.UNIT_SCALE
+            _corporation = new Grid<Building>(
+                (uint)_width / UNIT_SCALE,
+                (uint)_height / UNIT_SCALE
             );
         }
         #endregion
@@ -68,9 +71,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         #region Private
 
         #region Members
-        private IList<Building> _buildings { get; set; }
         private Color _clearColor { get; set; }
-        private Grid _grid { get; set; }
+        private Grid<Building> _corporation { get; set; }
         private float _height { get; set; }
         private float _width { get; set; }
         private GameState _state { get; set; }
@@ -80,17 +82,55 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         private Vector2 ClampPositionToGridLines()
         {
             return new Vector2(
-                MathF.Floor(MouseX / Building.UNIT_SCALE),
-                MathF.Floor(MouseY / Building.UNIT_SCALE)
-            ) * Building.UNIT_SCALE;
+                MathF.Floor(MouseX / UNIT_SCALE),
+                MathF.Floor(MouseY / UNIT_SCALE)
+            ) * UNIT_SCALE;
         }
 
-        private void DrawBuildings()
+        private void DrawCorporation()
         {
-            foreach (var building in _grid)
+            foreach (var building in _corporation)
             {
-                building?.Draw(this);
+                if (building is null)
+                {
+                    continue;
+                }
+                building.Draw(this);
             }
+        }
+
+        private void HandleLeftMouse()
+        {
+            switch (_state)
+            {
+                case GameState.Default:
+                    var position = ClampPositionToGridLines();
+                    // If a building exists, add an employee instead
+                    var building = _corporation.Get(position);
+                    if (building is null)
+                    {
+                        _corporation.Add(new Office(position));
+                        break;
+                    }
+                    Hire(building, position);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private bool Hire(Building building, Vector2 hirePosition)
+        {
+            if (building is null)
+            {
+                return false;
+            }
+            hirePosition += new Vector2(UNIT_SCALE / 2f, UNIT_SCALE / 2f);
+            return building switch
+            {
+                Office office => office.Hire(new Worker(hirePosition)),
+                _ => throw new NotImplementedException($"Building of type {building.GetType()} not yet implemented"),
+            };
         }
 
         private void InitializeCanvas()
@@ -105,7 +145,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         private void Update(float dt)
         {
-            foreach (var building in _grid)
+            foreach (var building in _corporation)
             {
                 building?.Update(this, dt);
             }
