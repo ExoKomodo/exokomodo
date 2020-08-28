@@ -10,10 +10,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
         #region Public
 
         #region Constructors
-        public Grid(uint width, uint height)
+        public Grid(uint width, uint height, uint unitScale)
         {
             Height = (int)height;
             Width = (int)width;
+            _unitScale = unitScale;
             _grid = new T[Width][];
             for (int i = 0; i < Width; i++)
             {
@@ -107,14 +108,15 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
 
         #region Members
         private T[][] _grid;
+        private uint _unitScale;
         #endregion
 
         #region Members Methods
         private Vector2 ConvertAbsoluteToGrid(Vector2 position)
         {
             return new Vector2(
-                MathF.Floor(position.X / CorporationTycoonApp.UNIT_SCALE),
-                MathF.Floor(position.Y / CorporationTycoonApp.UNIT_SCALE)
+                MathF.Floor(position.X / _unitScale),
+                MathF.Floor(position.Y / _unitScale)
             );
         }
         #endregion
