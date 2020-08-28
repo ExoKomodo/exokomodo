@@ -28,7 +28,8 @@ namespace ExoKomodo.Helpers.P5
                         "background",
                         color.Red,
                         color.Green,
-                        color.Blue
+                        color.Blue,
+                        color.Alpha
                     );
                     break;
                 case ColorMode.HSB:
@@ -80,7 +81,8 @@ namespace ExoKomodo.Helpers.P5
                         "fill",
                         color.Red,
                         color.Green,
-                        color.Blue
+                        color.Blue,
+                        color.Alpha
                     );
                     break;
                 case ColorMode.HSB:
@@ -147,7 +149,8 @@ namespace ExoKomodo.Helpers.P5
                         "stroke",
                         color.Red,
                         color.Green,
-                        color.Blue
+                        color.Blue,
+                        color.Alpha
                     );
                     break;
                 case ColorMode.HSB:

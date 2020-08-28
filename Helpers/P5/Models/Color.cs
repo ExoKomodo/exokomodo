@@ -8,7 +8,7 @@ namespace ExoKomodo.Helpers.P5.Models
         #region Public
 
         #region Conastructors
-        public Color(byte red = 0, byte green = 0, byte blue = 0, byte alpha = 1)
+        public Color(byte red = 0, byte green = 0, byte blue = 0, byte alpha = 255)
         {
             Red = red;
             Green = green;
