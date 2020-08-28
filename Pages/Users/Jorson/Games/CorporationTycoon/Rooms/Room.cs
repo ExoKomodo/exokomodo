@@ -5,9 +5,9 @@ using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
 using System.Numerics;
 
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Buildings
+namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 {
-    public abstract class Building : GridEntry
+    public abstract class Room : GridEntry
     {
         #region Public
 
@@ -81,7 +81,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Buildings
         #region Protected
 
         #region Constructors
-        protected Building(
+        protected Room(
             Vector2 position,
             Color fillColor,
             Color strokeColor,

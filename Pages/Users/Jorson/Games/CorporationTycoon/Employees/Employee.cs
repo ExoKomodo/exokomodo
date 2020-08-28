@@ -1,6 +1,6 @@
 ﻿using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Models;
-using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Buildings;
+using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms;
 using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
@@ -43,7 +43,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         }
         public Color FillColor { get; set; }
         public bool IsEmployed => OfficeSpace != null && Desk >= 0;
-        public Building OfficeSpace { get; set; }
+        public Room OfficeSpace { get; set; }
         public Color StrokeColor { get; set; }
         public uint StrokeWeight { get; set; } = 0;
 
