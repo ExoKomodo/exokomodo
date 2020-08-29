@@ -13,8 +13,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         public const float Height = UnitHeight * CorporationTycoonApp.UNIT_SCALE;
         public abstract decimal HiringBonus { get; }
         public const float Width = UnitWidth * CorporationTycoonApp.UNIT_SCALE;
-        public const float UnitHeight = 0.8f;
-        public const float UnitWidth = 0.8f;
+        public const float UnitHeight = 0.5f;
+        public const float UnitWidth = 0.3f;
         #endregion
 
         #region Members

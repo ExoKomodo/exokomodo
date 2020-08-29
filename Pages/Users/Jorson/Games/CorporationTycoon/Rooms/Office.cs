@@ -1,4 +1,5 @@
 ﻿using ExoKomodo.Helpers.P5;
+using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using System.Numerics;
@@ -17,6 +18,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
                   fillColor: new Color(red: 128, green: 64, blue: 64),
                   strokeColor: new Color(),
                   strokeWeight: 0,
+                  windowStrokeWeight: 0,
                   width: 3 * CorporationTycoonApp.UNIT_SCALE
             ) { }
         #endregion
@@ -27,17 +29,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Member Methods
-        public override void Draw(CorporationTycoonApp application)
+        public override void Draw()
         {
-            application.Push();
+            _app.Push();
 
-            application.Fill(FillColor);
-            application.StrokeWeight(StrokeWeight);
-            application.Stroke(StrokeColor);
-            application.DrawRectangle(_rect);
+            _app.Fill(FillColor);
+            _app.StrokeWeight(StrokeWeight);
+            _app.Stroke(StrokeColor);
+            _app.DrawRectangle(_rect);
 
-            application.Pop();
+            _app.Pop();
 
+            DrawWindows();
             DrawEmployees();
         }
 

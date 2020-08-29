@@ -1,4 +1,5 @@
 ﻿using ExoKomodo.Helpers.P5;
+using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
@@ -41,10 +42,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
                 _rect.Width = value < 0 ? 0 : value;
             }
         }
+        public Color WindowFillColor => new Color(32, 32, 32, 255);
+        public Color WindowStrokeColor => new Color();
+        public uint WindowStrokeWeight { get; set; } = 0;
         #endregion
 
         #region Member Methods
-        public abstract void Draw(CorporationTycoonApp application);
+        public abstract void Draw();
 
         public virtual bool Hire(Employee employee)
         {
@@ -104,6 +108,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             Color fillColor,
             Color strokeColor,
             uint strokeWeight,
+            uint windowStrokeWeight,
             uint width
         )
         {
@@ -115,6 +120,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             FillColor = fillColor;
             StrokeColor = strokeColor;
             StrokeWeight = strokeWeight;
+            WindowStrokeWeight = windowStrokeWeight;
 
             _employees = new Employee[(int)UnitWidth];
         }
@@ -133,6 +139,35 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             {
                 employee?.Draw();
             }
+        }
+
+        protected void DrawWindows()
+        {
+            var rootPosition = Position + (
+                Vector2.One
+                * 0.5f
+                * CorporationTycoonApp.UNIT_SCALE
+            );
+            var windowDimensions = Vector2.One * CorporationTycoonApp.UNIT_SCALE * 0.8f;
+
+            _app.Push();
+
+            _app.SetRectangleMode(RectangleMode.Center);
+            _app.Fill(WindowFillColor);
+            _app.StrokeWeight(WindowStrokeWeight);
+            _app.Stroke(WindowStrokeColor);
+            for (int i = 0; i < UnitWidth; i++)
+            {
+                _app.DrawRectangle(
+                    new Rectangle(
+                        position: rootPosition,
+                        dimensions: windowDimensions
+                    )
+                );
+                rootPosition.X += CorporationTycoonApp.UNIT_SCALE;
+            }
+
+            _app.Pop();
         }
         #endregion
 
