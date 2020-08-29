@@ -18,13 +18,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public CorporationTycoonApp(
             IJSRuntime jsRuntime,
             string containerId
-        ) : base(jsRuntime, containerId)
-        {
-            Account = new Bank(10_000m);
-        }
+        ) : base(jsRuntime, containerId) {}
         #endregion
 
         #region Constants
+        public const decimal GAME_OVER_BALANCE = -1_000m;
         public const uint UNIT_SCALE = 100;
         #endregion
 
@@ -68,13 +66,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public override void Setup()
         {
             InitializeCanvas();
-            _corporation = new Grid<Room>(
-                (uint)_width / UNIT_SCALE,
-                (uint)_height / UNIT_SCALE,
-                UNIT_SCALE
-            );
-            _hoverRoom = new Office(this, Vector2.Zero);
-            _hoverEmployee = new Worker(this, Vector2.Zero);
+            Reset();
         }
         #endregion
 
@@ -105,7 +97,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         {
             foreach (var room in _corporation)
             {
-                room?.Draw(this);
+                room?.Draw();
             }
         }
 
@@ -134,7 +126,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         {
             _hoverRoom.FillColor.Alpha = 150;
             _hoverRoom.Position = position;
-            _hoverRoom.Draw(this);
+            _hoverRoom.Draw();
         }
 
         private void DrawUi()
@@ -203,6 +195,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             CreateCanvas((uint)(_width / 100) * 100, (uint)(_height / 100) * 100);
         }
 
+        private void Reset()
+        {
+            Account = new Bank(10_000m);
+            _corporation = new Grid<Room>(
+                (uint)_width / UNIT_SCALE,
+                (uint)_height / UNIT_SCALE,
+                UNIT_SCALE
+            );
+            _hoverRoom = new Office(this, Vector2.Zero);
+            _hoverEmployee = new Worker(this, Vector2.Zero);
+        }
+
         private void Update(float dt)
         {
             foreach (var room in _corporation)
@@ -211,6 +215,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             }
 
             _hoverRoom.Position = new Vector2(MouseX, MouseY);
+
+            if (Account.Balance <= GAME_OVER_BALANCE)
+            {
+                Reset();
+            }
         }
         #endregion
 

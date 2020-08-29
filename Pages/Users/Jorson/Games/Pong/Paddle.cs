@@ -17,13 +17,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
 
         #region Members
         public readonly PongApp Application;
-        public Rectangle Body { get; set; }
-        public Color FillColor { get; set; }
+        public Rectangle Body;
+        public Color FillColor;
         public float HalfHeight => Body.Height / 2f;
         public float HalfWidth => Body.Width / 2f;
         public uint Score { get; set; }
         public const float Speed = 100f;
-        public Color? StrokeColor { get; set; }
+        public Color? StrokeColor;
         #endregion
         
         #region Member Methods

@@ -18,10 +18,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         #region Members
         public float Acceleration { get; set; }
         public readonly PongApp Application;
-        public Circle Body { get; set; }
-        public Color FillColor { get; set; }
+        public Circle Body;
+        public Color FillColor;
         public float Speed { get; set; }
-        public Color? StrokeColor { get; set; }
+        public Color? StrokeColor;
         #endregion
 
         #region Member Methods
