@@ -4,7 +4,7 @@ using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
-    public class Rectangle
+    public struct Rectangle
     {
         #region Public
 
@@ -45,8 +45,8 @@ namespace ExoKomodo.Helpers.P5.Models
             uint detailY = 25
         )
         {
-            Dimensions = dimensions;
-            Position = position;
+            _dimensions = dimensions;
+            _position = position;
             TopLeftRadius = topLeftRadius;
             TopRightRadius = topRightRadius;
             BottomRightRadius = bottomRightRadius;

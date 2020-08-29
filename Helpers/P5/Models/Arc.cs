@@ -4,7 +4,7 @@ using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
-    public class Arc
+    public struct Arc
     {
         #region Public
 

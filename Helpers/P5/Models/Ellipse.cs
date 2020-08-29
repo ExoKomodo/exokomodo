@@ -4,7 +4,7 @@ using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
-    public class Ellipse
+    public struct Ellipse
     {
         #region Public
 
