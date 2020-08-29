@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
@@ -29,7 +30,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         #region Members
         public Bank Account { get; set; }
         public string CurrencySymbol { get; set; } = "$";
-        public decimal TimeScale { get; private set; } = 1m;
+        public decimal SupervisionFactor { get; private set; }
+        public decimal TimeScale { get; private set; } = 0.25m;
         #endregion
 
         #region Member Methods
@@ -43,6 +45,32 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             DrawCorporation();
             DrawHoverElements();
             DrawUi();
+        }
+
+        [JSInvokable("keyPressed")]
+        public override bool KeyPressed()
+        {
+            switch (Key)
+            {
+                case "1":
+                    _roomType = typeof(Office);
+                    if (!(_hoverRoom is Office))
+                    {
+                        _hoverRoom = new Office(this, Vector2.Zero);
+                    }
+                    break;
+                case "2":
+                    _roomType = typeof(PrivateOffice);
+                    if (!(_hoverRoom is PrivateOffice))
+                    {
+                        _hoverRoom = new PrivateOffice(this, Vector2.Zero);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return true; // Event prevent default
         }
 
         [JSInvokable("mousePressed")]
@@ -74,23 +102,72 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         #region Private
 
+        #region Constants
+        private const decimal OPTIMAL_SUPERVISION_RATIO = 6m;
+        #endregion
+
         #region Members
         private Color _clearColor { get; set; }
-        private Grid<Room> _corporation { get; set; }
+        private Corporation _corporation { get; set; }
+        private float _height { get; set; }
         private Room _hoverRoom { get; set; }
         private Employee _hoverEmployee { get; set; }
-        private float _height { get; set; }
-        private float _width { get; set; }
+        private Type _roomType { get; set; }
         private GameState _state { get; set; }
+        private float _width { get; set; }
         #endregion
 
         #region Member Methods
+        private void CalculateSupervisionFactor()
+        {
+            SupervisionFactor = 0m;
+            decimal workerCount = 0m;
+            decimal supervisorCount = 0m;
+
+            foreach (var room in _corporation)
+            {
+                var workers = room?.Employees?.Where(employee => employee is Worker)?.ToList();
+                workerCount += workers is null ? 0 : workers.Count;
+
+                var supervisors = room?.Employees?.Where(employee => employee is Supervisor)?.ToList();
+                supervisorCount += supervisors is null ? 0 : supervisors.Count;
+            }
+
+            if (supervisorCount == 0)
+            {
+                SupervisionFactor = 1m;
+                return;
+            }
+            var ratio = workerCount / supervisorCount;
+            var difference = 1 + Math.Abs(OPTIMAL_SUPERVISION_RATIO - ratio);
+            SupervisionFactor = Math.Max(
+                0.1m,
+                (
+                    workerCount / OPTIMAL_SUPERVISION_RATIO
+                )
+                / difference
+            );
+        }
+
         private Vector2 ClampPositionToGridLines()
         {
             return new Vector2(
                 MathF.Floor(MouseX / UNIT_SCALE),
                 MathF.Floor(MouseY / UNIT_SCALE)
             ) * UNIT_SCALE;
+        }
+
+        private Room CreateRoom(Vector2 position)
+        {
+            if (_roomType == typeof(Office))
+            {
+                return new Office(this, position);
+            }
+            if (_roomType == typeof(PrivateOffice))
+            {
+                return new PrivateOffice(this, position);
+            }
+            throw new NotImplementedException("Room type not implemented");
         }
 
         private void DrawCorporation()
@@ -104,19 +181,41 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         private void DrawHoverElements()
         {
             var position = ClampPositionToGridLines();
-            if (_corporation.Get(position) is null)
+            var room = _corporation.Get(position);
+            if (room is null)
             {
+                if (!_corporation.IsValidPlacement(_hoverRoom, position))
+                {
+                    return;
+                }
                 DrawHoverRoom(position);
             }
             else
             {
-                DrawHoverEmployee(position);
+                DrawHoverEmployee(room, position);
             }
         }
 
-        private void DrawHoverEmployee(Vector2 position)
+        private void DrawHoverEmployee(Room room, Vector2 position)
         {
             var renderPosition = position + (Vector2.One * UNIT_SCALE / 2f);
+            switch (room)
+            {
+                case Office _:
+                    if (!(_hoverEmployee is Worker))
+                    {
+                        _hoverEmployee = new Worker(this, Vector2.Zero);
+                    }
+                    break;
+                case PrivateOffice _:
+                    if (!(_hoverEmployee is Supervisor))
+                    {
+                        _hoverEmployee = new Supervisor(this, Vector2.Zero);
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException($"Room of type {room.GetType()} not yet implemented");
+            }
             _hoverEmployee.FillColor.Alpha = 150;
             _hoverEmployee.Position = renderPosition;
             _hoverEmployee.Draw();
@@ -157,7 +256,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
                     var room = _corporation.Get(position);
                     if (room is null)
                     {
-                        room = new Office(this, position);
+                        room = CreateRoom(position);
                         if (Account.Withdraw(room.BuildCost))
                         {
                             _corporation.Add(room);
@@ -181,6 +280,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             return room switch
             {
                 Office office => office.Hire(new Worker(this, hirePosition)),
+                PrivateOffice privateOffice => privateOffice.Hire(new Supervisor(this, hirePosition)),
                 _ => throw new NotImplementedException($"Room of type {room.GetType()} not yet implemented"),
             };
         }
@@ -195,20 +295,35 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             CreateCanvas((uint)(_width / 100) * 100, (uint)(_height / 100) * 100);
         }
 
+        private void PostUpdate()
+        {
+            if (Account.Balance <= GAME_OVER_BALANCE)
+            {
+                Reset();
+            }
+        }
+
+        private void PreUpdate()
+        {
+            CalculateSupervisionFactor();
+        }
+
         private void Reset()
         {
             Account = new Bank(10_000m);
-            _corporation = new Grid<Room>(
+            _corporation = new Corporation(
                 (uint)_width / UNIT_SCALE,
                 (uint)_height / UNIT_SCALE,
                 UNIT_SCALE
             );
+            _roomType = typeof(Office);
             _hoverRoom = new Office(this, Vector2.Zero);
-            _hoverEmployee = new Worker(this, Vector2.Zero);
         }
 
         private void Update(float dt)
         {
+            PreUpdate();
+
             foreach (var room in _corporation)
             {
                 room?.Update(dt);
@@ -216,10 +331,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
             _hoverRoom.Position = new Vector2(MouseX, MouseY);
 
-            if (Account.Balance <= GAME_OVER_BALANCE)
-            {
-                Reset();
-            }
+            PostUpdate();
         }
         #endregion
 

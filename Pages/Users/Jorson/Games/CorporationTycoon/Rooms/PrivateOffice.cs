@@ -6,26 +6,27 @@ using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 {
-    public class Office : Room
+    public class PrivateOffice : Room
     {
         #region Public
 
         #region Constructors
-        public Office(CorporationTycoonApp application, Vector2 position)
+        public PrivateOffice(CorporationTycoonApp application, Vector2 position)
             : base(
                   application: application,
                   position: position,
-                  fillColor: new Color(red: 128, green: 64, blue: 64),
+                  fillColor: new Color(red: 128, green: 128, blue: 128),
                   strokeColor: new Color(),
                   strokeWeight: 0,
                   windowStrokeWeight: 0,
                   width: 3 * CorporationTycoonApp.UNIT_SCALE
-            ) { }
+            )
+        { }
         #endregion
 
         #region Constants
-        public override decimal BuildCost => 1_000m * BuildCostFactor;
-        public override decimal UpkeepCost => 20m * UpkeepCostFactor;
+        public override decimal BuildCost => 2_000m * BuildCostFactor;
+        public override decimal UpkeepCost => 30m * UpkeepCostFactor;
         #endregion
 
         #region Member Methods
@@ -46,7 +47,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 
         public override bool Hire(Employee employee)
         {
-            if (employee is Worker)
+            if (employee is Supervisor)
             {
                 return base.Hire(employee);
             }

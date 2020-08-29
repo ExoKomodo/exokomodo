@@ -20,6 +20,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 
         #region Members
         public decimal BuildCostFactor { get; set; } = 1m;
+        public Employee[] Employees { get; protected set; }
         public Color FillColor;
         public override Vector2 Position
         {
@@ -65,13 +66,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             );
             if (
                 desk >= Width
-                || _employees[desk] != null
+                || Employees[desk] != null
                 || !_app.Account.Withdraw(employee.HiringBonus)
             )
             {
                 return false;
             }
-            _employees[desk] = employee;
+            Employees[desk] = employee;
             employee.OfficeSpace = this;
             employee.Desk = desk;
             // Start employee at their desk
@@ -90,7 +91,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
                 force: true
             );
 
-            foreach (var employee in _employees)
+            foreach (var employee in Employees)
             {
                 employee?.Update(dt);
             }
@@ -122,20 +123,19 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             StrokeWeight = strokeWeight;
             WindowStrokeWeight = windowStrokeWeight;
 
-            _employees = new Employee[(int)UnitWidth];
+            Employees = new Employee[(int)UnitWidth];
         }
         #endregion
 
         #region Members
         protected CorporationTycoonApp _app;
-        protected Employee[] _employees;
         protected Rectangle _rect;
         #endregion
 
         #region Member Methods
         protected void DrawEmployees()
         {
-            foreach (var employee in _employees)
+            foreach (var employee in Employees)
             {
                 employee?.Draw();
             }

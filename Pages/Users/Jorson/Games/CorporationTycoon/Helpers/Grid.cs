@@ -32,18 +32,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
         public bool Add(T obj)
         {
             var position = ConvertAbsoluteToGrid(obj.Position);
-            for (int i = 0; i < (int)obj.UnitWidth; i++)
+            if (!IsValidPlacement(obj, position))
             {
-                int gridX = i + (int)position.X;
-                int gridY = (int)position.Y;
-                if (
-                    gridX >= Width
-                    || gridY >= Height
-                    || _grid[gridX][gridY] != null
-                )
-                {
-                    return false;
-                }
+                return false;
             }
 
             for (int i = 0; i < (int)obj.UnitWidth; i++)
@@ -55,6 +46,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
                 ] = obj;
             }
             return true;
+        }
+
+        public Vector2 ConvertAbsoluteToGrid(Vector2 position)
+        {
+            return new Vector2(
+                MathF.Floor(position.X / _unitScale),
+                MathF.Floor(position.Y / _unitScale)
+            );
         }
 
         public T Get(Vector2 position)
@@ -96,6 +95,27 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        public bool IsValidPlacement(T obj, Vector2 position)
+        {
+            position = ConvertAbsoluteToGrid(position);
+            for (int i = 0; i < (int)obj.UnitWidth; i++)
+            {
+                int gridX = i + (int)position.X;
+                int gridY = (int)position.Y;
+                if (
+                    gridX >= Width
+                    || gridX < 0
+                    || gridY >= Height
+                    || gridY < 0
+                    || _grid[gridX][gridY] != null
+                )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public bool Remove(T obj)
         {
             return true;
@@ -104,21 +124,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
 
         #endregion
 
-        #region Private
+        #region Protected
 
         #region Members
-        private T[][] _grid;
-        private uint _unitScale;
-        #endregion
-
-        #region Members Methods
-        private Vector2 ConvertAbsoluteToGrid(Vector2 position)
-        {
-            return new Vector2(
-                MathF.Floor(position.X / _unitScale),
-                MathF.Floor(position.Y / _unitScale)
-            );
-        }
+        protected T[][] _grid;
+        protected uint _unitScale;
         #endregion
 
         #endregion

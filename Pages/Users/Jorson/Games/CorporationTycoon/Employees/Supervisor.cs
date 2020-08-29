@@ -5,16 +5,16 @@ using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
 {
-    public class Worker : Employee
+    public class Supervisor : Employee
     {
         #region Public
 
         #region Constructors
-        public Worker(CorporationTycoonApp application, Vector2 position)
+        public Supervisor(CorporationTycoonApp application, Vector2 position)
             : base(
                   application: application,
                   position: position,
-                  fillColor: new Color(red: 0, green: 64, blue: 0),
+                  fillColor: new Color(red: 0, green: 0, blue: 64),
                   strokeColor: new Color(),
                   strokeWeight: 0
             )
@@ -22,13 +22,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         #endregion
 
         #region Constants
-        public override decimal HiringBonus => 100m;
+        public override decimal HiringBonus => 200m;
         #endregion
 
         #region Members
-        public decimal Profit => ProfitFactor * Salary;
-        public decimal ProfitFactor { get; set; } = 1.4m;
-        public override decimal Salary => 40m * SalaryFactor;
+        public override decimal Salary => 60m * SalaryFactor;
         #endregion
 
         #region Member Methods
@@ -48,13 +46,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         public override void Update(double dt)
         {
             base.Update(dt);
-
-            _app.Account.Deposit(
-                Profit
-                * _app.TimeScale
-                * _app.SupervisionFactor
-                * (decimal)dt
-            );
         }
         #endregion
 
