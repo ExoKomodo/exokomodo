@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
-    public class Triangle
+    public struct Triangle
     {
         #region Public
 

@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
-    public class Square
+    public struct Square
     {
         #region Public
 

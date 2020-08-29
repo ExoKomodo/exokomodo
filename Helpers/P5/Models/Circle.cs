@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
-    public class Circle
+    public struct Circle
     {
         #region Public
 
