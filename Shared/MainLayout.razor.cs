@@ -1,5 +1,7 @@
 ﻿using System;
 using ExoKomodo.Config;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace ExoKomodo.Shared
 {
@@ -10,7 +12,7 @@ namespace ExoKomodo.Shared
         #region Member Methods
         public void Dispose()
         {
-            AppState.OnFaviconUriChange -= StateHasChanged;
+            AppState.OnFaviconUriChange -= UpdateFavicon;
             AppState.OnIsSideNavHiddenChange -= StateHasChanged;
         }
         #endregion
@@ -19,11 +21,22 @@ namespace ExoKomodo.Shared
 
         #region Protected
 
+        #region Members
+        [Inject]
+        protected IJSRuntime _jsRuntime { get; set; }
+        #endregion
+
         #region Member Methods
         protected override void OnInitialized()
         {
-            AppState.OnFaviconUriChange += StateHasChanged;
+            AppState.OnFaviconUriChange += UpdateFavicon;
             AppState.OnIsSideNavHiddenChange += StateHasChanged;
+        }
+
+        protected void UpdateFavicon()
+        {
+            _jsRuntime.InvokeVoidAsync("updateFavicon", AppState.FaviconUri);
+            StateHasChanged();
         }
         #endregion
 
