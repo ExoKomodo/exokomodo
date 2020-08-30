@@ -18,8 +18,8 @@ namespace ExoKomodo.Helpers.P5.Models
             float topRightRadius = 0,
             float bottomRightRadius = 0,
             float bottomLeftRadius = 0,
-            uint detailX = 25,
-            uint detailY = 25
+            uint detailX = DEFAULT_DETAIL,
+            uint detailY = DEFAULT_DETAIL
         )
         {
             TopLeftRadius = topLeftRadius;
@@ -41,8 +41,8 @@ namespace ExoKomodo.Helpers.P5.Models
             float topRightRadius = 0,
             float bottomRightRadius = 0,
             float bottomLeftRadius = 0,
-            uint detailX = 25,
-            uint detailY = 25
+            uint detailX = DEFAULT_DETAIL,
+            uint detailY = DEFAULT_DETAIL
         )
         {
             _dimensions = dimensions;
@@ -54,6 +54,10 @@ namespace ExoKomodo.Helpers.P5.Models
             DetailX = detailX;
             DetailY = detailY;
         }
+        #endregion
+
+        #region Constants
+        public const uint DEFAULT_DETAIL = 25;
         #endregion
 
         #region Members

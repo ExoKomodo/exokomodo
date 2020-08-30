@@ -70,15 +70,6 @@ namespace ExoKomodo.Helpers.P5
             bezier.SecondAnchor
         );
 
-        public void DrawBezierDetail(uint detail = 20)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "bezierDetail",
-                detail
-            );
-        }
-
         public void DrawBezierPoint(
             float firstPoint,
             float firstControl,
@@ -219,16 +210,6 @@ namespace ExoKomodo.Helpers.P5
             curve.EndingControl
         );
 
-        public void DrawCurveDetail(uint detail = 20)
-        {
-            detail = Math.Max(3, detail);
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "curveDetail",
-                detail
-            );
-        }
-
         public void DrawCurvePoint(
             float firstControl,
             float firstPoint,
@@ -276,6 +257,31 @@ namespace ExoKomodo.Helpers.P5
                 "curveTightness",
                 amount
             );
+        }
+
+        public void SetBezierDetail(uint detail = 20)
+        {
+            if (IsWebGL)
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "bezierDetail",
+                    detail
+                );
+            }
+        }
+
+        public void SetCurveDetail(uint detail = 20)
+        {
+            if (IsWebGL)
+            {
+                detail = Math.Max(3, detail);
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "curveDetail",
+                    detail
+                );
+            }
         }
         #endregion
 
