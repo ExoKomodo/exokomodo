@@ -20,8 +20,7 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Constructors
         public Index()
         {
-            _base = new IndexBase();
-            _base.Initialize();
+            _base = new IndexBase();   
         }
         #endregion
 
@@ -34,6 +33,16 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Protected
 
         #region Member Methods
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                _base.Initialize();
+            }
+        }
+
         protected override async Task OnInitializedAsync()
         {
             _self = (await _http.GetFromJsonAsync<List<User>>("data/users.json")).Where(user => user.Id == UserId).FirstOrDefault();

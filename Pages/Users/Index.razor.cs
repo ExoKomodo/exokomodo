@@ -10,14 +10,19 @@ namespace ExoKomodo.Pages.Users
 {
     public partial class Index
     {
-        public Index()
-        {
-            AppState.Reset();
-        }
-
         [Inject]
         private HttpClient _http { get; set; }
         private IList<User> _users;
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                AppState.Reset();
+            }
+        }
 
         protected override async Task OnInitializedAsync()
         {

@@ -10,9 +10,14 @@ namespace ExoKomodo.Pages
 {
     public partial class Index
     {
-        public Index()
+        protected override void OnAfterRender(bool firstRender)
         {
-            AppState.Reset();
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                AppState.Reset();
+            }
         }
     }
 }

@@ -16,7 +16,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         public Index()
         {
             _base = new PongBase();
-            _base.Initialize();
         }
         #endregion
 
@@ -30,6 +29,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             base.OnAfterRender(firstRender);
             if (firstRender)
             {
+                _base.Initialize();
                 _application = new PongApp(_jsRuntime, "pong-container");
                 _application.Start();
             }
