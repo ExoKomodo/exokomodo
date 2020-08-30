@@ -7,7 +7,7 @@ namespace ExoKomodo.Config
         #region Public
 
         #region Defaults
-        public const string DEFAULT_FAVICON_URI = "favicon.ico";
+        public const string DEFAULT_FAVICON_URI = "favicons/favicon.ico";
         public const bool DEFAULT_IS_SIDENAV_HIDDEN = false;
         #endregion
 
