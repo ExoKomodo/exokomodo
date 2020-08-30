@@ -5,6 +5,7 @@ function startP5(p5Implementation, container) {
 
         p.fonts = {};
         p.images = {};
+        p.models = {};
 
         p.doubleClicked = function() {
             return p5Implementation.invokeMethod('doubleClicked');
@@ -67,22 +68,42 @@ function startP5(p5Implementation, container) {
             return p5Implementation.invokeMethod('keyTyped');
         }
 
+        p.loadFontDotnet = function(fontPath) {
+            if (!this.fonts[fontPath])
+            {
+                this.fonts[fontPath] = this.loadFont(fontPath);
+            }
+            return {
+                id: fontPath,
+            };
+        }
+        
         p.loadImageDotnet = function(imagePath) {
-            this.images[imagePath] = this.loadImage(imagePath);
+            if (!this.images[imagePath])
+            {
+                this.images[imagePath] = this.loadImage(imagePath);
+            }
             return {
                 id: imagePath,
             };
         }
 
-        p.loadFontDotnet = function(fontPath) {
-            this.fonts[fontPath] = this.loadFont(fontPath);
+        p.loadModelDotnet = function(modelPath, normalize) {
+            if (!this.models[modelPath])
+            {
+                this.models[modelPath] = this.loadModel(modelPath, normalize);
+            }
             return {
-                id: fontPath,
+                id: modelPath,
             };
         }
 
         p.loadPixelsDotnet = function(id) {
             this.images[id].loadPixels();
+        }
+
+        p.modelDotnet = function(id) {
+            this.model(this.models[id]);
         }
 
         p.mouseClicked = function() {

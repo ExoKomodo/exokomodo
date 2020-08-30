@@ -12,15 +12,15 @@ namespace ExoKomodo.Helpers.P5.Models
         public Arc(
             float x,
             float y,
-            float w,
-            float h,
+            float width,
+            float height,
             float startAngle,
             float stopAngle,
             ArcMode mode = ArcMode.Pie,
             uint detail = DEFAULT_DETAIL
         ) : this(
             new Vector2(x, y),
-            new Vector2(w, h),
+            new Vector2(width, height),
             startAngle,
             stopAngle,
             mode,

@@ -13,8 +13,8 @@ namespace ExoKomodo.Helpers.P5
         public void DrawArc(
             float x,
             float y,
-            float w,
-            float h,
+            float width,
+            float height,
             float startAngle,
             float stopAngle,
             ArcMode mode = ArcMode.Pie,
@@ -26,8 +26,8 @@ namespace ExoKomodo.Helpers.P5
                 "arc",
                 x,
                 y,
-                w,
-                h,
+                width,
+                height,
                 startAngle,
                 stopAngle,
                 Arc.ToString(mode),
@@ -90,14 +90,14 @@ namespace ExoKomodo.Helpers.P5
         public void DrawEllipse(
             float x,
             float y,
-            float w,
-            double? h = null,
+            float width,
+            double? height = null,
             uint detail = Ellipse.DEFAULT_DETAIL
         )
         {
-            if (!h.HasValue)
+            if (!height.HasValue)
             {
-                h = w;
+                height = width;
             }
             if (IsWebGL)
             {
@@ -106,8 +106,8 @@ namespace ExoKomodo.Helpers.P5
                     "ellipse",
                     x,
                     y,
-                    w,
-                    h,
+                    width,
+                    height,
                     detail
                 );
             }
@@ -118,8 +118,8 @@ namespace ExoKomodo.Helpers.P5
                     "ellipse",
                     x,
                     y,
-                    w,
-                    h
+                    width,
+                    height
                 );
             }
         }
@@ -358,8 +358,8 @@ namespace ExoKomodo.Helpers.P5
         public void DrawRectangle(
             float x,
             float y,
-            float w,
-            double? h = null,
+            float width,
+            double? height = null,
             float topLeftRadius = 0,
             float topRightRadius = 0,
             float bottomRightRadius = 0,
@@ -375,8 +375,8 @@ namespace ExoKomodo.Helpers.P5
                     "rect",
                     x,
                     y,
-                    w,
-                    h.HasValue ? h : null,
+                    width,
+                    (height.HasValue ? height : width).Value,
                     topLeftRadius,
                     topRightRadius,
                     bottomRightRadius,
@@ -392,8 +392,8 @@ namespace ExoKomodo.Helpers.P5
                     "rect",
                     x,
                     y,
-                    w,
-                    h.HasValue ? h : null,
+                    width,
+                    (height.HasValue ? height : width).Value,
                     topLeftRadius,
                     topRightRadius,
                     bottomRightRadius,
