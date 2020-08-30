@@ -14,7 +14,7 @@ namespace ExoKomodo.Helpers.P5.Models
             float y,
             float w,
             float? h = null,
-            uint detail = 25
+            uint detail = DEFAULT_DETAIL
         )
         {
             var dimensions = new Vector2(w, (h.HasValue ? h : w).Value);
@@ -27,13 +27,17 @@ namespace ExoKomodo.Helpers.P5.Models
         public Ellipse(
             Vector2 position,
             Vector2 dimensions,
-            uint detail = 25
+            uint detail = DEFAULT_DETAIL
         )
         {
             _dimensions = dimensions;
             _position = position;
             Detail = detail;
         }
+        #endregion
+
+        #region Constants
+        public const uint DEFAULT_DETAIL = 25;
         #endregion
 
         #region Members

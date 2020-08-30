@@ -17,7 +17,7 @@ namespace ExoKomodo.Helpers.P5.Models
             float startAngle,
             float stopAngle,
             ArcMode mode = ArcMode.Pie,
-            uint detail = 25
+            uint detail = DEFAULT_DETAIL
         ) : this(
             new Vector2(x, y),
             new Vector2(w, h),
@@ -33,7 +33,7 @@ namespace ExoKomodo.Helpers.P5.Models
             float startAngle,
             float stopAngle,
             ArcMode mode = ArcMode.Pie,
-            uint detail = 25
+            uint detail = DEFAULT_DETAIL
         )
         {
             _dimensions = dimensions;
@@ -43,6 +43,10 @@ namespace ExoKomodo.Helpers.P5.Models
             Mode = mode;
             Detail = detail;
         }
+        #endregion
+
+        #region Constants
+        public const uint DEFAULT_DETAIL = 25;
         #endregion
 
         #region Members

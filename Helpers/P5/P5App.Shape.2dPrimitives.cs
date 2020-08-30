@@ -18,7 +18,7 @@ namespace ExoKomodo.Helpers.P5
             float startAngle,
             float stopAngle,
             ArcMode mode = ArcMode.Pie,
-            uint detail = 25
+            uint detail = Arc.DEFAULT_DETAIL
         )
         {
             _jsRuntime.InvokeVoid(
@@ -41,7 +41,7 @@ namespace ExoKomodo.Helpers.P5
             float startAngle,
             float stopAngle,
             ArcMode mode = ArcMode.Pie,
-            uint detail = 25
+            uint detail = Arc.DEFAULT_DETAIL
         ) => DrawArc(
             position.X,
             position.Y,
@@ -92,7 +92,7 @@ namespace ExoKomodo.Helpers.P5
             float y,
             float w,
             double? h = null,
-            uint detail = 25
+            uint detail = Ellipse.DEFAULT_DETAIL
         )
         {
             if (!h.HasValue)
@@ -127,7 +127,7 @@ namespace ExoKomodo.Helpers.P5
         public void DrawEllipse(
             Vector2 position,
             Vector2 dimensions,
-            uint detail = 25
+            uint detail = Ellipse.DEFAULT_DETAIL
         ) => DrawEllipse(
             position.X,
             position.Y,
@@ -364,8 +364,8 @@ namespace ExoKomodo.Helpers.P5
             float topRightRadius = 0,
             float bottomRightRadius = 0,
             float bottomLeftRadius = 0,
-            uint detailX = 25,
-            uint detailY = 25
+            uint detailX = Rectangle.DEFAULT_DETAIL,
+            uint detailY = Rectangle.DEFAULT_DETAIL
         )
         {
             if (IsWebGL)
@@ -409,8 +409,8 @@ namespace ExoKomodo.Helpers.P5
             float topRightRadius = 0,
             float bottomRightRadius = 0,
             float bottomLeftRadius = 0,
-            uint detailX = 25,
-            uint detailY = 25
+            uint detailX = Rectangle.DEFAULT_DETAIL,
+            uint detailY = Rectangle.DEFAULT_DETAIL
         ) => DrawRectangle(
             position.X,
             position.Y,
