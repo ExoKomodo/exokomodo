@@ -34,11 +34,6 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Protected
 
         #region Member Methods
-        protected override void OnInitialized()
-        {
-            AppState.IsSideNavHidden = true;
-        }
-
         protected override async Task OnInitializedAsync()
         {
             _self = (await _http.GetFromJsonAsync<List<User>>("data/users.json")).Where(user => user.Id == UserId).FirstOrDefault();
