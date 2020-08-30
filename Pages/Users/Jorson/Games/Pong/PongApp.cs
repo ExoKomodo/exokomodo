@@ -70,8 +70,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         [JSInvokable("preload")]
         public override void Preload()
         {
-            _image = LoadImage("assets/jorson/knuckles.jpg");
-            _font = LoadFont("assets/jorson/Roboto-Regular.ttf");
+            _image = LoadImage("img/jorson/knuckles.jpg");
+            _font = LoadFont("fonts/jorson/Roboto-Regular.ttf");
         }
 
         public void Reset()

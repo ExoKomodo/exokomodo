@@ -156,8 +156,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         [JSInvokable("preload")]
         public override void Preload()
         {
-            _cats = LoadImage("assets/jorson/nox_and_luna.jpg");
-            _nox = LoadImage("assets/jorson/nox_closeup.jpg");
+            _cats = LoadImage("img/jorson/nox_and_luna.jpg");
+            _nox = LoadImage("img/jorson/nox_closeup.jpg");
         }
 
         public void Reset()

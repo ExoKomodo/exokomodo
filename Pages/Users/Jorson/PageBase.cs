@@ -25,7 +25,7 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Member Methods
         protected virtual void SetAppState()
         {
-            AppState.FaviconUri = "assets/jorson/favicons/favicon.ico";
+            AppState.FaviconUri = "favicons/jorson/favicon.ico";
             AppState.IsSideNavHidden = true;
         }
         #endregion
