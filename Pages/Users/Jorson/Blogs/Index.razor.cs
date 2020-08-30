@@ -18,7 +18,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
         public Index()
         {
             _base = new IndexBase();
-            _base.Initialize();
         }
         #endregion
 
@@ -31,9 +30,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
         #region Protected
 
         #region Member Methods
-        protected override void OnInitialized()
+        protected override void OnAfterRender(bool firstRender)
         {
-            AppState.IsSideNavHidden = true;
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                _base.Initialize();
+            }
         }
 
         protected override async Task OnInitializedAsync()

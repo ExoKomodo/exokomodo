@@ -16,7 +16,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
         public Index()
         {
             _base = new IndexBase();
-            _base.Initialize();
 
             _games = new List<string>
             {
@@ -32,9 +31,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
         #region Protected
 
         #region Member Methods
-        protected override void OnInitialized()
+        protected override void OnAfterRender(bool firstRender)
         {
-            AppState.IsSideNavHidden = true;
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                _base.Initialize();
+            }
         }
         #endregion
 

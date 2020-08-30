@@ -6,14 +6,10 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace ExoKomodo.Pages.Users
+namespace ExoKomodo.Pages
 {
     public partial class Index
     {
-        [Inject]
-        private HttpClient _http { get; set; }
-        private IList<User> _users;
-
         protected override void OnAfterRender(bool firstRender)
         {
             base.OnAfterRender(firstRender);
@@ -22,11 +18,6 @@ namespace ExoKomodo.Pages.Users
             {
                 AppState.Reset();
             }
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            _users = await _http.GetFromJsonAsync<List<User>>("data/users.json");
         }
     }
 }

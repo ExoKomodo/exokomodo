@@ -16,7 +16,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         public Index()
         {
             _base = new CorporationTycoonBase();
-            _base.Initialize();
         }
         #endregion
 
@@ -31,6 +30,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
             if (firstRender)
             {
+                _base.Initialize();
                 _application = new CorporationTycoonApp(_jsRuntime, "corporation-tycoon-container");
                 _application.Start();
             }

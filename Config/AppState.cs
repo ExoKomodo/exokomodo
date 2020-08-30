@@ -6,7 +6,12 @@ namespace ExoKomodo.Config
     {
         #region Public
 
-        #region Members
+        #region Defaults
+        public const string DEFAULT_FAVICON_URI = "favicons/favicon.ico";
+        public const bool DEFAULT_IS_SIDENAV_HIDDEN = false;
+        #endregion
+
+        #region Fields
         public static string FaviconUri
         {
             get => _faviconUri;
@@ -32,16 +37,24 @@ namespace ExoKomodo.Config
         public static event Action OnChange;
         #endregion
 
+        #region Methods
+        public static void Reset()
+        {
+            FaviconUri = DEFAULT_FAVICON_URI;
+            IsSideNavHidden = DEFAULT_IS_SIDENAV_HIDDEN;
+        }
+        #endregion
+
         #endregion
 
         #region Private
 
-        #region Members
-        private static string _faviconUri { get; set; } = "";
-        private static bool _isSideNavHidden { get; set; } = false;
+        #region Fields
+        private static string _faviconUri { get; set; } = DEFAULT_FAVICON_URI;
+        private static bool _isSideNavHidden { get; set; } = DEFAULT_IS_SIDENAV_HIDDEN;
         #endregion
 
-        #region Member Methods
+        #region Methods
         private static void NotifyStateChanged() => OnChange?.Invoke();
         #endregion
 
