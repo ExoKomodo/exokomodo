@@ -12,8 +12,8 @@ namespace ExoKomodo.Helpers.P5.Models
         public Rectangle(
             float x,
             float y,
-            float w,
-            float? h = null,
+            float width,
+            float? height = null,
             float topLeftRadius = 0,
             float topRightRadius = 0,
             float bottomRightRadius = 0,
@@ -27,7 +27,10 @@ namespace ExoKomodo.Helpers.P5.Models
             BottomRightRadius = bottomRightRadius;
             BottomLeftRadius = bottomLeftRadius;
             var position = new Vector2(x, y);
-            var dimensions = new Vector2(w, (h.HasValue ? h : w).Value);
+            var dimensions = new Vector2(
+                width,
+                (height.HasValue ? height : width).Value
+            );
             _position = position;
             _dimensions = dimensions;
             DetailX = detailX;

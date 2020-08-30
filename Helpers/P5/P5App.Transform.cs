@@ -45,13 +45,41 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public void Scale(float[] scales)
+        public void Scale(float scales)
         {
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "scale",
                 scales
             );
+        }
+        
+        public void Scale(float x, float y)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "scale",
+                x,
+                y
+            );
+        }
+
+        public void Scale(float x, float y, float z)
+        {
+            if (IsWebGL)
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "scale",
+                    x,
+                    y,
+                    z
+                );
+            }
+            else
+            {
+                Scale(x, y);
+            }
         }
 
         public void ShearX(float angle)

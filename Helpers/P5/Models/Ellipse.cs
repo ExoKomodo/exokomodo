@@ -12,12 +12,15 @@ namespace ExoKomodo.Helpers.P5.Models
         public Ellipse(
             float x,
             float y,
-            float w,
-            float? h = null,
+            float width,
+            float? height = null,
             uint detail = DEFAULT_DETAIL
         )
         {
-            var dimensions = new Vector2(w, (h.HasValue ? h : w).Value);
+            var dimensions = new Vector2(
+                width,
+                (height.HasValue ? height : width).Value
+            );
             var position = new Vector2(x, y);
             _dimensions = dimensions;
             _position = position;
