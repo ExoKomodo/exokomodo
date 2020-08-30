@@ -19,9 +19,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games
 
             _games = new List<string>
             {
-                "Pong",
-                "Nox",
                 "Corporation Tycoon",
+                "Kaiju",
+                "Nox",
+                "Pong",
             };
         }
         #endregion
