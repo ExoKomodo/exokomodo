@@ -104,22 +104,14 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Static Methods
-        public static string ToString(RectangleMode mode)
+        public static string RectangleModeToString(RectangleMode mode) => mode switch
         {
-            switch (mode)
-            {
-                case RectangleMode.Center:
-                    return "center";
-                case RectangleMode.Corner:
-                    return "corner";
-                case RectangleMode.Corners:
-                    return "corners";
-                case RectangleMode.Radius:
-                    return "radius";
-                default:
-                    throw new Exception("Invalid RectangleMode");
-            }
-        }
+            RectangleMode.Center => "center",
+            RectangleMode.Corner => "corner",
+            RectangleMode.Corners => "corners",
+            RectangleMode.Radius => "radius",
+            _ => throw new Exception("Invalid RectangleMode"),
+        };
         #endregion
 
         #endregion

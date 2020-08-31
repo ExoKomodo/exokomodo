@@ -35,34 +35,26 @@ namespace ExoKomodo.Helpers.P5
             image.Height = GetImageHeight(image);
         }
 
-        public void SetImageMode(ImageMode mode)
-        {
-            var imageMode = "";
-            switch (mode)
-            {
-                case ImageMode.Center:
-                    imageMode = "center";
-                    break;
-                case ImageMode.Corner:
-                    imageMode = "corner";
-                    break;
-                case ImageMode.Corners:
-                    imageMode = "corners";
-                    break;
-                default:
-                    throw new Exception("Invalid ImageMode");
-            }
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "imageMode",
-                imageMode
-            );
-        }
+        public void SetImageMode(ImageMode mode) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "imageMode",
+            ImageModeToString(mode)
+        );
 
         public Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
             "p5Instance.loadImageDotnet",
             path
         );
+        #endregion
+
+        #region Static Methods
+        public static string ImageModeToString(ImageMode mode) => mode switch
+        {
+            ImageMode.Center => "center",
+            ImageMode.Corner => "corner",
+            ImageMode.Corners => "corners",
+            _ => throw new Exception("Invalid ImageMode"),
+        };
         #endregion
 
         #endregion

@@ -126,7 +126,7 @@ namespace ExoKomodo.Helpers.P5
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "colorMode",
-                Color.ToString(mode)
+                Color.ColorModeToString(mode)
             );
         }
 

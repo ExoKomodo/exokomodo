@@ -11,24 +11,21 @@ namespace ExoKomodo.Helpers.P5
         #region Member Methods
         public void SetAngleMode(AngleMode mode)
         {
-            var angleMode = "";
-            switch (mode)
-            {
-                case AngleMode.Degrees:
-                    angleMode = "degrees";
-                    break;
-                case AngleMode.Radians:
-                    angleMode = "radians";
-                    break;
-                default:
-                    throw new Exception("Invalid AngleMode");
-            }
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "angleMode",
-                angleMode
+                AngleModeToString(mode)
             );
         }
+        #endregion
+
+        #region Static Methods
+        public static string AngleModeToString(AngleMode mode) => mode switch
+        {
+            AngleMode.Degrees => "degrees",
+            AngleMode.Radians => "radians",
+            _ => throw new Exception("Invalid AngleMode"),
+        };
         #endregion
 
         #endregion

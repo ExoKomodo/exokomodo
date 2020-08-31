@@ -87,20 +87,13 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Static Methods
-        public static string ToString(ArcMode mode)
+        public static string ArcModeToString(ArcMode mode) => mode switch
         {
-            switch (mode)
-            {
-                case ArcMode.Chord:
-                    return "chord";
-                case ArcMode.Open:
-                    return "open";
-                case ArcMode.Pie:
-                    return "pie";
-                default:
-                    throw new Exception("Invalid ArcMode");
-            }
-        }
+            ArcMode.Chord => "chord",
+            ArcMode.Open => "open",
+            ArcMode.Pie => "pie",
+            _ => throw new Exception("Invalid ArcMode"),
+        };
         #endregion
 
         #endregion

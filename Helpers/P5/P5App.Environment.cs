@@ -78,60 +78,12 @@ namespace ExoKomodo.Helpers.P5
         #region Member Methods
         public void Cursor(CursorMode mode)
         {
-            var cursorMode = "";
-            switch (mode)
-            {
-                case CursorMode.Arrow:
-                    cursorMode = "default";
-                    break;
-                case CursorMode.Cross:
-                    cursorMode = "crosshair";
-                    break;
-                case CursorMode.Hand:
-                    cursorMode = "pointer";
-                    break;
-                case CursorMode.Move:
-                    cursorMode = "move";
-                    break;
-                case CursorMode.Text:
-                    cursorMode = "text";
-                    break;
-                case CursorMode.Wait:
-                    cursorMode = "wait";
-                    break;
-                default:
-                    throw new Exception("Invalid CursorMode");
-            }
-            Cursor(cursorMode);
+            Cursor(CursorModeToString(mode));
         }
 
         public void Cursor(CursorMode mode, uint x, uint y)
         {
-            var cursorMode = "";
-            switch (mode)
-            {
-                case CursorMode.Arrow:
-                    cursorMode = "default";
-                    break;
-                case CursorMode.Cross:
-                    cursorMode = "crosshair";
-                    break;
-                case CursorMode.Hand:
-                    cursorMode = "pointer";
-                    break;
-                case CursorMode.Move:
-                    cursorMode = "move";
-                    break;
-                case CursorMode.Text:
-                    cursorMode = "text";
-                    break;
-                case CursorMode.Wait:
-                    cursorMode = "wait";
-                    break;
-                default:
-                    throw new Exception("Invalid CursorMode");
-            }
-            Cursor(cursorMode, x, y);
+            Cursor(CursorModeToString(mode), x, y);
         }
 
         public void Cursor(string mode)
@@ -177,6 +129,19 @@ namespace ExoKomodo.Helpers.P5
                 "noCursor"
             );
         }
+        #endregion
+
+        #region Static Methods
+        public static string CursorModeToString(CursorMode mode) => mode switch
+        {
+            CursorMode.Arrow => "default",
+            CursorMode.Cross => "crosshair",
+            CursorMode.Hand => "pointer",
+            CursorMode.Move => "move",
+            CursorMode.Text => "text",
+            CursorMode.Wait => "wait",
+            _ => throw new Exception("Invalid CursorMode"),
+        };
         #endregion
 
         #endregion

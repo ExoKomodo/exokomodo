@@ -8,7 +8,17 @@ namespace ExoKomodo.Helpers.P5.Models
         #region Public
 
         #region Conastructors
-        public Color(byte red = 0, byte green = 0, byte blue = 0, byte alpha = 255)
+        public Color(byte grayscale, byte alpha = 255)
+        {
+            Red = grayscale;
+            Green = grayscale;
+            Blue = grayscale;
+            Alpha = alpha;
+
+            Mode = ColorMode.RGB;
+        }
+
+        public Color(byte red, byte green, byte blue, byte alpha = 255)
         {
             Red = red;
             Green = green;
@@ -18,7 +28,7 @@ namespace ExoKomodo.Helpers.P5.Models
             Mode = ColorMode.RGB;
         }
 
-        public Color(byte hue = 0, byte saturation = 0, byte brightness = 0)
+        public Color(byte hue, byte saturation, byte brightness)
         {
             Red = hue;
             Green = saturation;
@@ -54,18 +64,12 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Static Methods
-        public static string ToString(ColorMode mode)
+        public static string ColorModeToString(ColorMode mode) => mode switch
         {
-            switch (mode)
-            {
-                case ColorMode.RGB:
-                    return "rgb";
-                case ColorMode.HSB:
-                    return "hsb";
-                default:
-                    throw new Exception("Invalid ColorMode");
-            }
-        }
+                ColorMode.RGB => "rgb",
+                ColorMode.HSB => "hsb",
+                _ => throw new Exception("Invalid ColorMode"),
+        };
         #endregion
 
         #endregion

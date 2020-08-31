@@ -30,7 +30,7 @@ namespace ExoKomodo.Helpers.P5
                 height,
                 startAngle,
                 stopAngle,
-                Arc.ToString(mode),
+                Arc.ArcModeToString(mode),
                 detail
             );
         }

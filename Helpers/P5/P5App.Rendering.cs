@@ -54,94 +54,35 @@ namespace ExoKomodo.Helpers.P5
 
         public void SetBlendMode(BlendMode mode)
         {
-            var blendMode = "";
-            switch (mode)
-            {
-                case BlendMode.Add:
-                    blendMode = "lighter";
-                    break;
-                case BlendMode.Blend:
-                    blendMode = "source-over";
-                    break;
-                case BlendMode.Burn:
-                    if (IsWebGL)
-                    {
-                        throw new Exception("Invalid BlendMode for WebGL");
-                    }
-                    blendMode = "color-burn";
-                    break;
-                case BlendMode.Darkest:
-                    blendMode = "darken";
-                    break;
-                case BlendMode.Difference:
-                    blendMode = "difference";
-                    break;
-                case BlendMode.Dodge:
-                    if (IsWebGL)
-                    {
-                        throw new Exception("Invalid BlendMode for WebGL");
-                    }
-                    blendMode = "color-dodge";
-                    break;
-                case BlendMode.Exclusion:
-                    blendMode = "exclusion";
-                    break;
-                case BlendMode.HardLight:
-                    if (IsWebGL)
-                    {
-                        throw new Exception("Invalid BlendMode for WebGL");
-                    }
-                    blendMode = "hard-light";
-                    break;
-                case BlendMode.Lightest:
-                    blendMode = "lighten";
-                    break;
-                case BlendMode.Multiply:
-                    blendMode = "multiply";
-                    break;
-                case BlendMode.Overlay:
-                    if (IsWebGL)
-                    {
-                        throw new Exception("Invalid BlendMode for WebGL");
-                    }
-                    blendMode = "overlay";
-                    break;
-                case BlendMode.Remove:
-                    blendMode = "destination-out";
-                    break;
-                case BlendMode.Replace:
-                    blendMode = "copy";
-                    break;
-                case BlendMode.Screen:
-                    if (IsWebGL)
-                    {
-                        throw new Exception("Invalid BlendMode for WebGL");
-                    }
-                    blendMode = "screen";
-                    break;
-                case BlendMode.SoftLight:
-                    if (IsWebGL)
-                    {
-                        throw new Exception("Invalid BlendMode for WebGL");
-                    }
-                    blendMode = "soft-light";
-                    break;
-                case BlendMode.Subtract:
-                    if (!IsWebGL)
-                    {
-                        throw new Exception("Invalid BlendMode for non-WebGL");
-                    }
-                    blendMode = "subtract";
-                    break;
-                default:
-                    throw new Exception("Invalid BlendMode");
-            }
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "blendMode",
-                blendMode
+                BlendModeToString(mode)
             );
         }
+        #endregion
+
+                #region Static Methods
+        public static string BlendModeToString(BlendMode mode) => mode switch
+        {
+            BlendMode.Add => "lighter",
+            BlendMode.Blend => "source-over",
+            BlendMode.Burn when !Instance.IsWebGL => "color-burn",
+            BlendMode.Darkest => "darken",
+            BlendMode.Difference => "difference",
+            BlendMode.Dodge when !Instance.IsWebGL => "color-dodge",
+            BlendMode.Exclusion => "exclusion",
+            BlendMode.HardLight when !Instance.IsWebGL => "hard-light",
+            BlendMode.Lightest => "lighten",
+            BlendMode.Multiply => "multiply",
+            BlendMode.Overlay when !Instance.IsWebGL => "overlay",
+            BlendMode.Remove => "destination-out",
+            BlendMode.Replace => "copy",
+            BlendMode.Screen when !Instance.IsWebGL => "screen",
+            BlendMode.SoftLight when !Instance.IsWebGL => "soft-light",
+            BlendMode.Subtract when Instance.IsWebGL => "subtract",
+            _ => throw new Exception("Invalid BlendMode"),
+        };
         #endregion
 
         #endregion
