@@ -24,14 +24,36 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("draw")]
         public override void Draw()
         {
-            var _ = DeviceOrientation;
-            Background(200);
-            DrawTeapot();
+            SetUniform(
+                _mandelbrot,
+                "r",
+                (
+                    1.5
+                    * Math.Pow(
+                        Math.E,
+                        -6.5
+                        * (
+                            1
+                            + Math.Sin(
+                                Millis
+                                / 2000
+                            )
+                        )
+                    )
+                )
+            );
+            DrawQuad(
+                -1f, -1f,
+                1f, -1f,
+                1f, 1f,
+                -1f, 1f
+            );
         }
 
         [JSInvokable("preload")]
         public override void Preload()
         {
+            _mandelbrot = LoadShader("assets/mandelbrot.vert", "assets/mandelbrot.frag");
             _teapot = LoadModel("assets/teapot.obj", true);
         }
 
@@ -45,6 +67,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             _clearColor = new Color(200);
             InitializeCanvas();
             Reset();
+
+            UseShader(_mandelbrot);
+            NoStroke();
+            SetUniform(
+                _mandelbrot,
+                "p",
+                new double[] {-0.74364388703, 0.13182590421 }
+            );
         }
 
         [JSInvokable("windowResized")]
@@ -62,6 +92,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Members
         private Color _clearColor { get; set; }
         private float _height { get; set; }
+        private Shader _mandelbrot { get; set; }
         private Model3D _teapot { get; set; }
         private float _width { get; set; }
         #endregion
