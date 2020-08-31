@@ -12,13 +12,14 @@ namespace ExoKomodo.Helpers.P5
         #region Member Methods
         public void DrawModel(Model3D model)
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                _jsRuntime.InvokeVoid(
-                    "p5Instance.modelDotnet",
-                    model.Id
-                );
+                return;
             }
+            _jsRuntime.InvokeVoid(
+                "p5Instance.modelDotnet",
+                model.Id
+            );
         } 
 
         public Model3D LoadModel(string path, bool normalize = false) => _jsRuntime.Invoke<Model3D>(
