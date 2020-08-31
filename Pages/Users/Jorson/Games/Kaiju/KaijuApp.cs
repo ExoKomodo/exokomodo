@@ -13,10 +13,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Public
 
         #region Constructors
-        public KaijuApp(IJSRuntime jsRuntime, string containerId) : base(jsRuntime, containerId)
-        {
-            
-        }
+        public KaijuApp(IJSRuntime jsRuntime, string containerId)
+            : base(jsRuntime, containerId) {}
         #endregion
 
         #region Members
@@ -43,8 +41,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("setup")]
         public override void Setup()
         {
+            _clearColor = new Color(200);
             InitializeCanvas();
             Reset();
+        }
+
+        [JSInvokable("windowResized")]
+        public override void WindowResized()
+        {
+            QueryWindow();
+            ResizeCanvas((uint)_width, (uint)_height);
         }
         #endregion
 
@@ -74,12 +80,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 
         private void InitializeCanvas()
         {
+            QueryWindow();
+            CreateCanvas((uint)_width, (uint)_height, useWebGl: true);
+        }
+
+        private void QueryWindow()
+        {
             bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.75f;
             _height = _width / aspectRatio;
-            _clearColor = new Color(200);
-            CreateCanvas((uint)_width, (uint)_height, useWebGl: true);
         }
         #endregion
 
