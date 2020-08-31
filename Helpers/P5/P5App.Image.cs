@@ -29,6 +29,19 @@ namespace ExoKomodo.Helpers.P5
             image.Id
         );
 
+        public Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
+            "p5Instance.loadImageDotnet",
+            path
+        );
+
+        public void NoTint()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "noTint"
+            );
+        }
+
         public void SetImageFields(Image image)
         {
             image.Width = GetImageWidth(image);
@@ -41,10 +54,41 @@ namespace ExoKomodo.Helpers.P5
             ImageModeToString(mode)
         );
 
-        public Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
-            "p5Instance.loadImageDotnet",
-            path
-        );
+        public void Tint(byte grayscale, byte alpha = 255)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "tint",
+                grayscale,
+                alpha
+            );
+        }
+
+        public void Tint(Color color)
+        {
+            switch (color.Mode)
+            {
+                case ColorMode.RGB:
+                    _jsRuntime.InvokeVoid(
+                        _p5InvokeFunction,
+                        "tint",
+                        color.Red,
+                        color.Green,
+                        color.Blue,
+                        color.Alpha
+                    );
+                    break;
+                case ColorMode.HSB:
+                    _jsRuntime.InvokeVoid(
+                        _p5InvokeFunction,
+                        "tint",
+                        color.Hue,
+                        color.Saturation,
+                        color.Brightness
+                    );
+                    break;
+            }
+        }
         #endregion
 
         #region Static Methods
