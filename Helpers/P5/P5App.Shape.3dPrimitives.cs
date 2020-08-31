@@ -12,7 +12,7 @@ namespace ExoKomodo.Helpers.P5
         #region Member Methods
         public void DrawBox()
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -30,7 +30,7 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Box.DEFAULT_DETAIL
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -73,7 +73,7 @@ namespace ExoKomodo.Helpers.P5
             bool showCap = true
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -113,7 +113,7 @@ namespace ExoKomodo.Helpers.P5
             bool showTopCap = true
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -154,7 +154,7 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Ellipsoid.DEFAULT_DETAIL_Y
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -202,7 +202,7 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Models.Plane.DEFAULT_DETAIL
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -242,7 +242,7 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Sphere.MAX_DETAIL
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -276,7 +276,7 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Torus.DEFAULT_DETAIL_Y
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }

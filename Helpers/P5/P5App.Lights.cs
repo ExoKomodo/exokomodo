@@ -13,7 +13,7 @@ namespace ExoKomodo.Helpers.P5
         #region Member Methods
         public void AmbientLight(byte grayscale, byte alpha = 255)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -27,7 +27,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void AmbientLight(Color color)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -57,7 +57,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void DirectionalLight(Color color, float x, float y, float z)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -103,7 +103,7 @@ namespace ExoKomodo.Helpers.P5
             float quadratic = 0f
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -134,7 +134,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void PointLight(Color color, float x, float y, float z)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -176,7 +176,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void SpecularColor(Color color)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -211,7 +211,7 @@ namespace ExoKomodo.Helpers.P5
             float concentration = 100f
         )
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }

@@ -66,7 +66,7 @@ namespace ExoKomodo.Helpers.P5
             float z4
         )
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
@@ -138,7 +138,7 @@ namespace ExoKomodo.Helpers.P5
             float z = 0
         )
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
@@ -199,7 +199,7 @@ namespace ExoKomodo.Helpers.P5
             float z2 = 0
         )
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,

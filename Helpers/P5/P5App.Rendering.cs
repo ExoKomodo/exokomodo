@@ -1,6 +1,7 @@
 using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -9,10 +10,10 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void CreateCanvas(uint width, uint height, bool useWebGL = false)
+        public void CreateCanvas(uint width, uint height, bool useWebGl = false)
         {
-            IsWebGL = useWebGL;
-            if (useWebGL)
+            IsWebGl = useWebGl;
+            if (useWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
@@ -52,6 +53,28 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
+        public void SetAttributes(WebGlAttribute attribute, bool value)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "setAttributes",
+                WebGlAttributeToString(attribute),
+                value
+            );
+        }
+
+        public void SetAttributes(IDictionary<WebGlAttribute, bool> attributes)
+        {
+            if (attributes is null)
+            {
+                return;
+            }
+            foreach (var pair in attributes)
+            {
+                SetAttributes(pair.Key, pair.Value);
+            }
+        }
+
         public void SetBlendMode(BlendMode mode)
         {
             _jsRuntime.InvokeVoid(
@@ -62,26 +85,38 @@ namespace ExoKomodo.Helpers.P5
         }
         #endregion
 
-                #region Static Methods
+        #region Static Methods
         public static string BlendModeToString(BlendMode mode) => mode switch
         {
             BlendMode.Add => "lighter",
             BlendMode.Blend => "source-over",
-            BlendMode.Burn when !Instance.IsWebGL => "color-burn",
+            BlendMode.Burn when !Instance.IsWebGl => "color-burn",
             BlendMode.Darkest => "darken",
             BlendMode.Difference => "difference",
-            BlendMode.Dodge when !Instance.IsWebGL => "color-dodge",
+            BlendMode.Dodge when !Instance.IsWebGl => "color-dodge",
             BlendMode.Exclusion => "exclusion",
-            BlendMode.HardLight when !Instance.IsWebGL => "hard-light",
+            BlendMode.HardLight when !Instance.IsWebGl => "hard-light",
             BlendMode.Lightest => "lighten",
             BlendMode.Multiply => "multiply",
-            BlendMode.Overlay when !Instance.IsWebGL => "overlay",
+            BlendMode.Overlay when !Instance.IsWebGl => "overlay",
             BlendMode.Remove => "destination-out",
             BlendMode.Replace => "copy",
-            BlendMode.Screen when !Instance.IsWebGL => "screen",
-            BlendMode.SoftLight when !Instance.IsWebGL => "soft-light",
-            BlendMode.Subtract when Instance.IsWebGL => "subtract",
+            BlendMode.Screen when !Instance.IsWebGl => "screen",
+            BlendMode.SoftLight when !Instance.IsWebGl => "soft-light",
+            BlendMode.Subtract when Instance.IsWebGl => "subtract",
             _ => throw new Exception("Invalid BlendMode"),
+        };
+
+        public static string WebGlAttributeToString(WebGlAttribute attribute) => attribute switch
+        {
+            WebGlAttribute.Alpha => "alpha",
+            WebGlAttribute.AntiAlias => "antialias",
+            WebGlAttribute.Depth => "depth",
+            WebGlAttribute.PerPixelLighting => "perPixelLighting",
+            WebGlAttribute.PreMultipliedAlpha => "premultipliedAlpha",
+            WebGlAttribute.PreserveDrawingBuffer => "preserveDrawingBuffer",
+            WebGlAttribute.Stencil => "stencil",
+            _ => throw new Exception("Invalid WebGlAttribute"),
         };
         #endregion
 

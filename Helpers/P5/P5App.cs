@@ -25,7 +25,7 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Members
-        public bool IsWebGL { get; protected set; }
+        public bool IsWebGl { get; protected set; }
         #endregion
 
         #region Member Methods
