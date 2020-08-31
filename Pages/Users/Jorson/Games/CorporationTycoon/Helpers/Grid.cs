@@ -79,7 +79,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
             {
                 for (int x = 0; x < Width; ++x)
                 {
-                    if (obj == null)
+                    if (obj is null)
                     {
                         startX = x;
                         obj = _grid[x][y];

@@ -77,7 +77,7 @@ namespace ExoKomodo.Helpers.P5
 
         protected virtual void Dispose(bool disposing)
         {
-            if (Instance == null || _isDisposed || !disposing)
+            if (Instance is null || _isDisposed || !disposing)
             {
                 return;
             }

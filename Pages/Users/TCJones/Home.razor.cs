@@ -20,7 +20,7 @@ namespace ExoKomodo.Pages.Users.TCJones
         protected override async Task OnInitializedAsync()
         {
             _self = (await _http.GetFromJsonAsync<List<User>>("data/users.json")).Where(user => user.Id == UserId).FirstOrDefault();
-            if (_self == null)
+            if (_self is null)
             {
                 throw new Exception($"Could not find user {UserId}");
             }

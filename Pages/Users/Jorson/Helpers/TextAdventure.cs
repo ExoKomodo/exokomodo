@@ -42,7 +42,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #region Member Methods
         public bool Initialize()
         {
-            if (IsInitialized || States == null)
+            if (IsInitialized || States is null)
             {
                 return IsInitialized;
             }
@@ -55,7 +55,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
         public bool MoveTo(TextAdventureState nextState)
         {
-            if (States?.FirstOrDefault(state => state?.Id == nextState?.Id) == null)
+            if (States?.FirstOrDefault(state => state?.Id == nextState?.Id) is null)
             {
                 return false;
             }
@@ -76,7 +76,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         public bool MoveTo(string stateId)
         {
             var state = States?.FirstOrDefault(state => state?.Id == stateId);
-            if (state == null)
+            if (state is null)
             {
                 return false;
             }
@@ -93,7 +93,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         public bool Update(int choice)
         {
             BlockedTransition = false;
-            if (CurrentState == null)
+            if (CurrentState is null)
             {
                 return false;
             }

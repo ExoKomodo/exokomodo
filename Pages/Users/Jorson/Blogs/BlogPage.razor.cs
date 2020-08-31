@@ -44,7 +44,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Blogs
         protected override async Task OnInitializedAsync()
         {
             _blog = await _db.GetByIdAsync(Id);
-            if (_blog == null)
+            if (_blog is null)
             {
                 _navigation.NavigateTo("/users/jorson/blogs");
             }
