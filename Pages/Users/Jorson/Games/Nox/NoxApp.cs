@@ -60,12 +60,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
                 if (_adventure.CurrentState.Id == "end")
                 {
                     image = _cats;
-                    Scale(new float[2] { 0.7f, 0.7f });
+                    Scale(0.7f);
                 }
                 else
                 {
                     image = _nox;
-                    Scale(new float[2] { 0.35f, 0.35f });
+                    Scale(0.35f);
                 }
                 
                 DrawImage(image);
