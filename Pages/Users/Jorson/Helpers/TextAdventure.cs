@@ -59,7 +59,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             {
                 return false;
             }
-            if (nextState?.RequiredItem != null && !_inventory.Contains(nextState?.RequiredItem))
+            if (nextState?.RequiredItem !is null && !_inventory.Contains(nextState?.RequiredItem))
             {
                 BlockedTransition = true;
                 return false;

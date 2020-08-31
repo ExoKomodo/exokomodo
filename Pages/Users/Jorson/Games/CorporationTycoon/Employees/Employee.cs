@@ -43,7 +43,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
             }
         }
         public Color FillColor;
-        public bool IsEmployed => OfficeSpace != null && Desk >= 0;
+        public bool IsEmployed => OfficeSpace !is null && Desk >= 0;
         public Room OfficeSpace { get; set; }
         public abstract decimal Salary { get; }
         public decimal SalaryFactor { get; set; } = 1m;

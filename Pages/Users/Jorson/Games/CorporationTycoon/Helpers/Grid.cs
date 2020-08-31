@@ -107,7 +107,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
                     || gridX < 0
                     || gridY >= Height
                     || gridY < 0
-                    || _grid[gridX][gridY] != null
+                    || _grid[gridX][gridY] !is null
                 )
                 {
                     return false;
