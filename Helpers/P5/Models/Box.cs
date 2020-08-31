@@ -22,16 +22,6 @@ namespace ExoKomodo.Helpers.P5.Models
         ) {}
 
         public Box(
-            float side,
-            uint detailX = DEFAULT_DETAIL,
-            uint detailY = DEFAULT_DETAIL
-        ) : this(
-            new Vector3(side, side, side),
-            detailX,
-            detailY
-        ) {}
-
-        public Box(
             Vector3 dimensions,
             uint detailX = DEFAULT_DETAIL,
             uint detailY = DEFAULT_DETAIL

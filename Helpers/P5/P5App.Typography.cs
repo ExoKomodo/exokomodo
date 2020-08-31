@@ -9,16 +9,13 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void DrawText(string text, float x = 0, float y = 0)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "text",
-                text,
-                x,
-                y
-            );
-        }
+        public void DrawText(string text, float x = 0, float y = 0) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "text",
+            text,
+            x,
+            y
+        );
 
         public void DrawText(string text, Vector2 position) => DrawText(
             text,

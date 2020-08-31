@@ -79,22 +79,14 @@ namespace ExoKomodo.Helpers.P5.Models
         #endregion
 
         #region Static Methods
-        public static string ToString(EllipseMode mode)
+        public static string EllipseModeToString(EllipseMode mode) => mode switch
         {
-            switch (mode)
-            {
-                case EllipseMode.Center:
-                    return "center";
-                case EllipseMode.Corner:
-                    return "corner";
-                case EllipseMode.Corners:
-                    return "corners";
-                case EllipseMode.Radius:
-                    return "radius";
-                default:
-                    throw new Exception("Invalid EllipseMode");
-            }
-        }
+            EllipseMode.Center => "center",
+            EllipseMode.Corner => "corner",
+            EllipseMode.Corners => "corners",
+            EllipseMode.Radius => "radius",
+            _ => throw new Exception("Invalid EllipseMode"),
+        };
         #endregion
 
         #endregion

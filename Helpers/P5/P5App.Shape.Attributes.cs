@@ -23,7 +23,7 @@ namespace ExoKomodo.Helpers.P5
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "ellipseMode",
-                Ellipse.ToString(mode)
+                Ellipse.EllipseModeToString(mode)
             );
         }
         
@@ -32,7 +32,7 @@ namespace ExoKomodo.Helpers.P5
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "rectMode",
-                Rectangle.ToString(mode)
+                Rectangle.RectangleModeToString(mode)
             );
         }
 
