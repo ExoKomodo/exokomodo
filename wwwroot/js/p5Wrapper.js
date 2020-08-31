@@ -3,10 +3,20 @@ function startP5(p5Implementation, container) {
     let sketch = function(p) {
         window.p5Instance = p;
 
+        p.nextCameraId = 0;
+
+        p.cameras = {};
         p.fonts = {};
         p.images = {};
         p.models = {};
         p.shaders = {};
+
+        p.createCameraDotnet = function() {
+            p.cameras[p.nextCameraId] = this.createCamera();
+            return {
+                id: p.nextCameraId++,
+            };
+        }
 
         p.deviceMoved = function() {
             p5Implementation.invokeMethod('deviceMoved');
@@ -18,6 +28,10 @@ function startP5(p5Implementation, container) {
 
         p.deviceTurned = function() {
             p5Implementation.invokeMethod('deviceTurned');
+        }
+
+        p.disableFriendlyErrorsDotnet = function(value) {
+            this.disableFriendlyErrors = !!value;
         }
 
         p.doubleClicked = function() {
@@ -39,6 +53,15 @@ function startP5(p5Implementation, container) {
             } else {
                 this.textFont(font, size);
             }
+        }
+
+        p.frustumDotnet = function(id, left, right, bottom, top, near, far) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.frustum(left, right, bottom, top, near, far);
         }
 
         p.getValue = function(valueName) {
@@ -150,6 +173,15 @@ function startP5(p5Implementation, container) {
             };
         }
 
+        p.lookAtDotnet = function(id, x, y, z) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.lookAt(x, y, z);
+        }
+
         p.modelDotnet = function(id) {
             let model = this.models[id];
             if (!model) {
@@ -183,8 +215,71 @@ function startP5(p5Implementation, container) {
             return p5Implementation.invokeMethod('mouseWheel', event.delta);
         }
 
+        p.moveDotnet = function(id, x, y, z) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.move(x, y, z);
+        }
+
+        p.orthoDotnet = function(id, left, right, bottom, top, near, far) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.ortho(left, right, bottom, top, near, far);
+        }
+
+        p.panDotnet = function(id, angle) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.pan(angle);
+        }
+
+        p.perspectiveDotnet = function(id, fovY, aspect, near, far) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.perspective(fovY, aspect, near, far);
+        }
+
         p.preload = function() {
             p5Implementation.invokeMethod('preload');
+        }
+
+        p.setCameraDotnet = function(id) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            this.setCamera(camera);
+        }
+
+        p.setCameraParametersDotnet = function(id, x, y, z, centerX, centerY, centerZ, upX, upY, upZ) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.camera(x, y, z, centerX, centerY, centerZ, upX, upY, upZ);
+        }
+        
+        p.setCameraPositionDotnet = function(id, x, y, z) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.setPosition(x, y, z);
         }
 
         p.setUniformDotnet = function(id, uniformName, value) {
@@ -229,6 +324,15 @@ function startP5(p5Implementation, container) {
                 return;
             }
             this.texture(image);
+        }
+
+        p.tiltDotnet = function(id, angle) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return;
+            }
+            camera.tilt(angle);
         }
 
         p.touchEnded = function() {
