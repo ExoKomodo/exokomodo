@@ -9,6 +9,35 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
+        public void ApplyMatrix(
+            float a,
+            float b,
+            float c,
+            float d,
+            float e,
+            float f
+        )
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "applyMatrix",
+                a,
+                b,
+                c,
+                d,
+                e,
+                f
+            );
+        }
+
+        public void ResetMatrix()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "resetMatrix"
+            );
+        }
+
         public void Rotate(float angle)
         {
             _jsRuntime.InvokeVoid(

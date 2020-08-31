@@ -14,12 +14,6 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Hooks
-        [JSInvokable("doubleClicked")]
-        public virtual bool DoubleClicked()
-        {
-            return false; // Event prevent default
-        }
-
         [JSInvokable("draw")]
         public abstract void Draw();
 

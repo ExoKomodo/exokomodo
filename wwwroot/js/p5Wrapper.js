@@ -7,6 +7,18 @@ function startP5(p5Implementation, container) {
         p.images = {};
         p.models = {};
 
+        p.deviceMoved = function() {
+            p5Implementation.invokeMethod('deviceMoved');
+        }
+
+        p.deviceShaken = function() {
+            p5Implementation.invokeMethod('deviceShaken');
+        }
+
+        p.deviceTurned = function() {
+            p5Implementation.invokeMethod('deviceTurned');
+        }
+
         p.doubleClicked = function() {
             return p5Implementation.invokeMethod('doubleClicked');
         }
@@ -126,6 +138,10 @@ function startP5(p5Implementation, container) {
             return p5Implementation.invokeMethod('mouseReleased');
         }
 
+        p.mouseWheel = function(event) {
+            return p5Implementation.invokeMethod('mouseWheel', event.delta);
+        }
+
         p.preload = function() {
             p5Implementation.invokeMethod('preload');
         }
@@ -148,6 +164,18 @@ function startP5(p5Implementation, container) {
                 return;
             }
             this.texture(image);
+        }
+
+        p.touchEnded = function() {
+            return p5Implementation.invokeMethod('touchEnded');
+        }
+
+        p.touchMoved = function() {
+            return p5Implementation.invokeMethod('touchMoved');
+        }
+
+        p.touchStarted = function() {
+            return p5Implementation.invokeMethod('touchStarted');
         }
 
         p.windowResized = function() {
