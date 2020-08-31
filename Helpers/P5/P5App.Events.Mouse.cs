@@ -1,4 +1,6 @@
+using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
+using System;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -6,21 +8,25 @@ namespace ExoKomodo.Helpers.P5
     {
         #region Public
 
-        #region Constants
-        public static class MouseButtons
-        {
-            public const string CenterMouseButton = "center";
-            public const string LeftMouseButton = "left";
-            public const string RightMouseButton = "right";
-        }
-        #endregion
-
         #region Members
         // Careful calling this function if the mouse is not currently pressed
-        public string MouseButton => _jsRuntime.Invoke<string>(
-            _p5GetValue,
-            "mouseButton"
-        );
+        public MouseButtons MouseButton
+        {
+            get
+            {
+                var button = _jsRuntime.Invoke<string>(
+                    _p5GetValue,
+                    "mouseButton"
+                );
+                return button switch
+                {
+                    "center" => MouseButtons.Center,
+                    "left" => MouseButtons.Left,
+                    "right" => MouseButtons.Right,
+                    _ => throw new Exception("Invalid MouseButton"),
+                };
+            }
+        }
         public bool MouseIsPressed => _jsRuntime.Invoke<bool>(
             _p5GetValue,
             "mouseIsPressed"
@@ -68,6 +74,12 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Hooks
+        [JSInvokable("doubleClicked")]
+        public virtual bool DoubleClicked()
+        {
+            return true; // Event prevent default
+        }
+
         [JSInvokable("mouseClicked")]
         public virtual bool MouseClicked()
         {
@@ -94,6 +106,12 @@ namespace ExoKomodo.Helpers.P5
 
         [JSInvokable("mouseReleased")]
         public virtual bool MouseReleased()
+        {
+            return true; // Event prevent default
+        }
+
+        [JSInvokable("mouseWheel")]
+        public virtual bool MouseWheel(float delta)
         {
             return true; // Event prevent default
         }

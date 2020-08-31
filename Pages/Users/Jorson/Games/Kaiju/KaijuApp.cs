@@ -24,6 +24,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("draw")]
         public override void Draw()
         {
+            var _ = DeviceOrientation;
             Background(200);
             DrawTeapot();
         }

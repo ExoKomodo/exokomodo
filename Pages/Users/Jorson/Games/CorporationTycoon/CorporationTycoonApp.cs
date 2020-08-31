@@ -78,7 +78,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         {
             switch (MouseButton)
             {
-                case MouseButtons.LeftMouseButton:
+                case MouseButtons.Left:
                     HandleLeftMouse();
                     break;
                 default:
