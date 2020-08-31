@@ -1,0 +1,6 @@
+#kaiju-container {
+    margin: auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}

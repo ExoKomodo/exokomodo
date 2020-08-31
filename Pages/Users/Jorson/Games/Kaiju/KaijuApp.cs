@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -25,19 +26,17 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("draw")]
         public override void Draw()
         {
-            Background(_clearColor);
+            Background(200);
+            DrawTeapot();
         }
 
         [JSInvokable("preload")]
         public override void Preload()
         {
+            _teapot = LoadModel("models/teapot.obj", true);
         }
 
         public void Reset()
-        {
-        }
-
-        public void ResetBall()
         {
         }
 
@@ -56,18 +55,31 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Members
         private Color _clearColor { get; set; }
         private float _height { get; set; }
+        private Model3D _teapot { get; set; }
         private float _width { get; set; }
         #endregion
 
         #region Member Methods
+        private void DrawTeapot()
+        {
+            var frames = FrameCount;
+            Push();
+            Scale(0.4f);
+            RotateX(frames * 0.01f);
+            RotateY(frames * 0.01f);
+            NormalMaterial();
+            DrawModel(_teapot);
+            Pop();
+        }
+
         private void InitializeCanvas()
         {
             bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.75f;
             _height = _width / aspectRatio;
-            _clearColor = new Color(red:205, green: 102, blue: 94);
-            CreateCanvas((uint)_width, (uint)height, useWebGL: true);
+            _clearColor = new Color(200);
+            CreateCanvas((uint)_width, (uint)_height, useWebGL: true);
         }
         #endregion
 
