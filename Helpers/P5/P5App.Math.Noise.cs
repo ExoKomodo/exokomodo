@@ -10,20 +10,20 @@ namespace ExoKomodo.Helpers.P5
 
         #region Member Methods
         public float Noise(float x) => _jsRuntime.Invoke<float>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "noise",
             x
         );
 
         public float Noise(float x, float y) => _jsRuntime.Invoke<float>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "noise",
             x,
             y
         );
 
         public float Noise(float x, float y, float z) => _jsRuntime.Invoke<float>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "noise",
             x,
             y,
@@ -42,14 +42,14 @@ namespace ExoKomodo.Helpers.P5
         );
 
         public float NoiseDetail(float lod, float falloff) => _jsRuntime.Invoke<float>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "noiseDetail",
             lod,
             Math.Clamp(falloff, 0, 1)
         );
 
         public float NoiseSeed(float seed) => _jsRuntime.Invoke<float>(
-            _p5InvokeFunction,
+            _p5InvokeFunctionAndReturn,
             "noiseSeed",
             seed
         );
