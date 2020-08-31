@@ -6,6 +6,7 @@ function startP5(p5Implementation, container) {
         p.fonts = {};
         p.images = {};
         p.models = {};
+        p.shaders = {};
 
         p.deviceMoved = function() {
             p5Implementation.invokeMethod('deviceMoved');
@@ -29,6 +30,10 @@ function startP5(p5Implementation, container) {
 
         p.fontDotnet = function(id, size) {
             let font = this.fonts[id];
+            if (!font) {
+                console.error(`Font with id '${id}' is not loaded`);
+                return;
+            }
             if (!size) {
                 this.textFont(font);
             } else {
@@ -41,8 +46,13 @@ function startP5(p5Implementation, container) {
         }
 
         p.imageDotnet = function(id, x, y, width, height) {
+            let image = this.images[id];
+            if (!image) {
+                console.error(`Image with id '${id}' is not loaded`);
+                return;
+            }
             this.image(
-                this.images[id],
+                image,
                 x,
                 y,
                 width,
@@ -51,11 +61,21 @@ function startP5(p5Implementation, container) {
         }
 
         p.imageHeightDotnet = function(id) {
-            return this.images[id].height;
+            let image = this.images[id];
+            if (!image) {
+                console.error(`Image with id '${id}' is not loaded`);
+                return;
+            }
+            return image.height;
         }
 
         p.imageWidthDotnet = function(id) {
-            return this.images[id].width;
+            let image = this.images[id];
+            if (!image) {
+                console.error(`Image with id '${id}' is not loaded`);
+                return;
+            }
+            return image.width;
         }
         
         p.invokeP5Function = function(functionName) {
@@ -64,7 +84,7 @@ function startP5(p5Implementation, container) {
         }
 
         p.invokeP5FunctionAndReturn = function(functionName) {
-            var args = Array.prototype.splice.call(arguments, 1);u
+            var args = Array.prototype.splice.call(arguments, 1);
             return this[functionName].apply(this, args);
         }
 
@@ -111,11 +131,32 @@ function startP5(p5Implementation, container) {
         }
 
         p.loadPixelsDotnet = function(id) {
-            this.images[id].loadPixels();
+            let image = this.images[id];
+            if (!image) {
+                console.error(`Image with id '${id}' is not loaded`);
+                return;
+            }
+            image.loadPixels();
+        }
+
+        p.loadShaderDotnet = function(vertexShaderPath, fragmentShaderPath) {
+            let id = `${vertexShaderPath}-${fragmentShaderPath}`;
+            if (!this.shaders[id])
+            {
+                this.shaders[id] = this.loadShader(vertexShaderPath, fragmentShaderPath);
+            }
+            return {
+                id,
+            };
         }
 
         p.modelDotnet = function(id) {
-            this.model(this.models[id]);
+            let model = this.models[id];
+            if (!model) {
+                console.error(`Model with id '${id}' is not loaded`);
+                return;
+            }
+            this.model(model);
         }
 
         p.mouseClicked = function() {
@@ -145,12 +186,35 @@ function startP5(p5Implementation, container) {
         p.preload = function() {
             p5Implementation.invokeMethod('preload');
         }
+
+        p.setUniformDotnet = function(id, uniformName, value) {
+            let shader = this.shaders[id];
+            if (!shader) {
+                console.error(`Shader with id '${id}' is not loaded`);
+                return;
+            }
+            shader.setUniform(uniformName, value);
+        }
         
         p.setup = function() {
             p5Implementation.invokeMethod('setup');
         }
+        
+        p.shaderDotnet = function(id) {
+            let shader = this.shaders[id];
+            if (!shader) {
+                console.error(`Shader with id '${id}' is not loaded`);
+                return;
+            }
+            this.shader(shader);
+        }
 
         p.textFontDotnet = function(id, size) {
+            let font = this.fonts[id];
+            if (!font) {
+                console.error(`Font with id '${id}' is not loaded`);
+                return;
+            }
             if (!size) {
                 this.textFont(this.fonts[id]);
             } else {
@@ -161,6 +225,7 @@ function startP5(p5Implementation, container) {
         p.textureDotnet = function(id) {
             let image = this.images[id];
             if (!image) {
+                console.error(`Image with id '${id}' is not loaded`);
                 return;
             }
             this.texture(image);

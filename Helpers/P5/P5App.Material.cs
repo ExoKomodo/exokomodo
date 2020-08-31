@@ -82,6 +82,12 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
+        public Shader LoadShader(string vertexShaderPath, string fragmentShaderPath) => _jsRuntime.Invoke<Shader>(
+            "p5Instance.loadShaderDotnet",
+            vertexShaderPath,
+            fragmentShaderPath
+        );
+
         public void NormalMaterial()
         {
             if (!IsWebGl)
@@ -93,6 +99,68 @@ namespace ExoKomodo.Helpers.P5
                 "normalMaterial"
             );
         }
+
+        public void ResetShader()
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "resetShader"
+            );
+        }
+
+        public void SetUniform(
+            Shader shader,
+            string uniformName,
+            bool value
+        ) => SetUniformCommon(
+            shader,
+            uniformName,
+            value
+        );
+
+        public void SetUniform(
+            Shader shader,
+            string uniformName,
+            double value
+        ) => SetUniformCommon(
+            shader,
+            uniformName,
+            value
+        );
+
+        public void SetUniform(
+            Shader shader,
+            string uniformName,
+            float value
+        ) => SetUniformCommon(
+            shader,
+            uniformName,
+            value
+        );
+
+        public void SetUniform(
+            Shader shader,
+            string uniformName,
+            double[] value
+        ) => SetUniformCommon(
+            shader,
+            uniformName,
+            value
+        );
+        
+        public void SetUniform(
+            Shader shader,
+            string uniformName,
+            float[] value
+        ) => SetUniformCommon(
+            shader,
+            uniformName,
+            value
+        );
 
         public void Shininess(float shininess = 1f)
         {
@@ -153,6 +221,42 @@ namespace ExoKomodo.Helpers.P5
                     );
                     break;
             }
+        }
+
+        public void UseShader(Shader shader)
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
+                "p5Instance.shaderDotnet",
+                shader.Id
+            );
+        }
+        #endregion
+
+        #endregion
+
+        #region Private
+
+        #region Member Methods
+        private void SetUniformCommon(
+            Shader shader,
+            string uniformName,
+            object value
+        )
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
+                "p5Instance.setUniformDotnet",
+                shader.Id,
+                uniformName,
+                value
+            );
         }
         #endregion
 
