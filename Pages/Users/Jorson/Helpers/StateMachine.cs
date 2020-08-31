@@ -17,7 +17,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
             foreach (var state in states)
             {
-                if (state?.Id == null)
+                if (state?.Id is null)
                 {
                     throw new Exception("A State or State Id was null when creating StateMachine");
                 }
@@ -53,7 +53,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #region Member Methods
         public bool AddNextState(T state, string nextStateId)
         {
-            if (state?.Id == null || nextStateId == null)
+            if (state?.Id is null || nextStateId is null)
             {
                 return false;
             }
@@ -66,12 +66,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         }
         public bool AddNextState(T state, T nextState)
         {
-            if (state?.Id == null || nextState?.Id == null)
+            if (state?.Id is null || nextState?.Id is null)
             {
                 return false;
             }
 
-            if (state.NextStates == null)
+            if (state.NextStates is null)
             {
                 state.NextStates = new List<string>();
             }
@@ -89,14 +89,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         public bool MoveTo(T state)
         {
             // If the current state is null, any state is valid.
-            if (CurrentState == null)
+            if (CurrentState is null)
             {
                 CurrentState = state;
                 return true;
             }
 
             var nextState = TryMoveTo(state);
-            if (nextState == null)
+            if (nextState is null)
             {
                 return false;
             }
@@ -106,7 +106,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
         public bool MoveTo(string id)
         {
-            if (id == null)
+            if (id is null)
             {
                 return false;
             }
@@ -130,7 +130,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #region Member Methods
         private T TryMoveTo(T state)
         {
-            if (state?.Id == null)
+            if (state?.Id is null)
             {
                 return null;
             }
