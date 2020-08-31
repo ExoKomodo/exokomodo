@@ -142,6 +142,14 @@ function startP5(p5Implementation, container) {
             }
         }
 
+        p.textureDotnet = function(id) {
+            let image = this.images[id];
+            if (!image) {
+                return;
+            }
+            this.texture(image);
+        }
+
         p.windowResized = function() {
             p5Implementation.invokeMethod('windowResized');
         }

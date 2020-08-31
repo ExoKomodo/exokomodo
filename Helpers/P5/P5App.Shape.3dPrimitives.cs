@@ -10,6 +10,18 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
+        public void DrawBox()
+        {
+            if (!IsWebGL)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "box"
+            );
+        }
+
         public void DrawBox(
             float width,
             float height,
@@ -18,31 +30,20 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Box.DEFAULT_DETAIL
         )
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "box",
-                    width,
-                    height,
-                    depth,
-                    detailX,
-                    detailY
-                );
+                return;
             }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "box",
+                width,
+                height,
+                depth,
+                detailX,
+                detailY
+            );
         }
-
-        public void DrawBox(
-            float side,
-            uint detailX = Box.DEFAULT_DETAIL,
-            uint detailY = Box.DEFAULT_DETAIL
-        ) => DrawBox(
-            side,
-            side,
-            side,
-            detailX,
-            detailY
-        );
 
         public void DrawBox(
             Vector3 dimensions,
@@ -72,26 +73,27 @@ namespace ExoKomodo.Helpers.P5
             bool showCap = true
         )
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                if (detailX > Cone.MAX_DETAIL)
-                {
-                    detailX = Cone.MAX_DETAIL;
-                }
-                if (detailY > Cone.MAX_DETAIL)
-                {
-                    detailY = Cone.MAX_DETAIL;
-                }
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "cone",
-                    radius,
-                    height,
-                    detailX,
-                    detailY,
-                    showCap
-                );
+                return;
             }
+            if (detailX > Cone.MAX_DETAIL)
+            {
+                detailX = Cone.MAX_DETAIL;
+            }
+            if (detailY > Cone.MAX_DETAIL)
+            {
+                detailY = Cone.MAX_DETAIL;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "cone",
+                radius,
+                height,
+                detailX,
+                detailY,
+                showCap
+            );
         }
 
         public void DrawCone(Cone cone) => DrawCone(
@@ -111,27 +113,28 @@ namespace ExoKomodo.Helpers.P5
             bool showTopCap = true
         )
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                if (detailX > Cylinder.MAX_DETAIL)
-                {
-                    detailX = Cylinder.MAX_DETAIL;
-                }
-                if (detailY > Cylinder.MAX_DETAIL)
-                {
-                    detailY = Cylinder.MAX_DETAIL;
-                }
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "cylinder",
-                    radius,
-                    height,
-                    detailX,
-                    detailY,
-                    showBottomCap,
-                    showTopCap
-                );
+                return;
             }
+            if (detailX > Cylinder.MAX_DETAIL)
+            {
+                detailX = Cylinder.MAX_DETAIL;
+            }
+            if (detailY > Cylinder.MAX_DETAIL)
+            {
+                detailY = Cylinder.MAX_DETAIL;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "cylinder",
+                radius,
+                height,
+                detailX,
+                detailY,
+                showBottomCap,
+                showTopCap
+            );
         }
 
         public void DrawCylinder(Cylinder cylinder) => DrawCylinder(
@@ -151,26 +154,27 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Ellipsoid.DEFAULT_DETAIL_Y
         )
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                if (detailX > Ellipsoid.MAX_DETAIL)
-                {
-                    detailX = Ellipsoid.MAX_DETAIL;
-                }
-                if (detailY > Ellipsoid.MAX_DETAIL)
-                {
-                    detailY = Ellipsoid.MAX_DETAIL;
-                }
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "ellipsoid",
-                    radiusX,
-                    radiusY,
-                    radiusZ,
-                    detailX,
-                    detailY
-                );
+                return;
             }
+            if (detailX > Ellipsoid.MAX_DETAIL)
+            {
+                detailX = Ellipsoid.MAX_DETAIL;
+            }
+            if (detailY > Ellipsoid.MAX_DETAIL)
+            {
+                detailY = Ellipsoid.MAX_DETAIL;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "ellipsoid",
+                radiusX,
+                radiusY,
+                radiusZ,
+                detailX,
+                detailY
+            );
         }
 
         public void DrawEllipsoid(
@@ -198,17 +202,18 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Models.Plane.DEFAULT_DETAIL
         )
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "plane",
-                    width,
-                    height,
-                    detailX,
-                    detailY
-                );
+                return;
             }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "plane",
+                width,
+                height,
+                detailX,
+                detailY
+            );
         }
 
         public void DrawPlane(
@@ -237,24 +242,25 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Sphere.MAX_DETAIL
         )
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                if (detailX > Sphere.MAX_DETAIL)
-                {
-                    detailX = Sphere.MAX_DETAIL;
-                }
-                if (detailY > Sphere.MAX_DETAIL)
-                {
-                    detailY = Sphere.MAX_DETAIL;
-                }
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "sphere",
-                    radius,
-                    detailX,
-                    detailY
-                );
+                return;
             }
+            if (detailX > Sphere.MAX_DETAIL)
+            {
+                detailX = Sphere.MAX_DETAIL;
+            }
+            if (detailY > Sphere.MAX_DETAIL)
+            {
+                detailY = Sphere.MAX_DETAIL;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "sphere",
+                radius,
+                detailX,
+                detailY
+            );
         }
 
         public void DrawSphere(Sphere sphere) => DrawSphere(
@@ -270,25 +276,26 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Torus.DEFAULT_DETAIL_Y
         )
         {
-            if (IsWebGL)
+            if (!IsWebGL)
             {
-                if (detailX > Torus.MAX_DETAIL_X)
-                {
-                    detailX = Torus.MAX_DETAIL_X;
-                }
-                if (detailY > Torus.MAX_DETAIL_Y)
-                {
-                    detailY = Torus.MAX_DETAIL_Y;
-                }
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "torus",
-                    radius,
-                    tubeRadius,
-                    detailX,
-                    detailY
-                );
+                return;
             }
+            if (detailX > Torus.MAX_DETAIL_X)
+            {
+                detailX = Torus.MAX_DETAIL_X;
+            }
+            if (detailY > Torus.MAX_DETAIL_Y)
+            {
+                detailY = Torus.MAX_DETAIL_Y;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "torus",
+                radius,
+                tubeRadius,
+                detailX,
+                detailY
+            );
         }
 
         public void DrawTorus(Torus torus) => DrawTorus(
