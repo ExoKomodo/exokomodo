@@ -79,7 +79,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             _width = WindowWidth * 0.75f;
             _height = _width / aspectRatio;
             _clearColor = new Color(200);
-            CreateCanvas((uint)_width, (uint)_height, useWebGL: true);
+            CreateCanvas((uint)_width, (uint)_height, useWebGl: true);
         }
         #endregion
 

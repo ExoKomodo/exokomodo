@@ -99,7 +99,7 @@ namespace ExoKomodo.Helpers.P5
             {
                 height = width;
             }
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
@@ -204,7 +204,7 @@ namespace ExoKomodo.Helpers.P5
             float z = 0
         )
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
@@ -276,7 +276,7 @@ namespace ExoKomodo.Helpers.P5
             float z4
         )
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
@@ -368,7 +368,7 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Rectangle.DEFAULT_DETAIL
         )
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,

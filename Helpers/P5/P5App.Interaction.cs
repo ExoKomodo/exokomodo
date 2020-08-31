@@ -49,7 +49,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void OrbitControl(float x = 1f, float y = 1f, float z = 1f)
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,

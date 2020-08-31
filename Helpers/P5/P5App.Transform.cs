@@ -66,7 +66,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void Scale(float x, float y, float z)
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
@@ -106,7 +106,7 @@ namespace ExoKomodo.Helpers.P5
             float z = 0
         )
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,

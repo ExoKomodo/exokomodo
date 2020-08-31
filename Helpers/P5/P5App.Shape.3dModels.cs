@@ -12,7 +12,7 @@ namespace ExoKomodo.Helpers.P5
         #region Member Methods
         public void DrawModel(Model3D model)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }

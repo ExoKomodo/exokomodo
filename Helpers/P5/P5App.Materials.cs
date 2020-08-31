@@ -12,7 +12,7 @@ namespace ExoKomodo.Helpers.P5
         #region Member Methods
         public void AmbientMaterial(byte grayscale)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -25,7 +25,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void AmbientMaterial(Color color)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -54,7 +54,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void EmissiveMaterial(Color color)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -84,7 +84,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void NormalMaterial()
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -96,7 +96,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void Shininess(float shininess = 1f)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -113,7 +113,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void SpecularMaterial(byte grayscale, byte alpha = 255)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }
@@ -127,7 +127,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void SpecularMaterial(Color color)
         {
-            if (!IsWebGL)
+            if (!IsWebGl)
             {
                 return;
             }

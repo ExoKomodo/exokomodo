@@ -261,7 +261,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void SetBezierDetail(uint detail = 20)
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
@@ -273,7 +273,7 @@ namespace ExoKomodo.Helpers.P5
 
         public void SetCurveDetail(uint detail = 20)
         {
-            if (IsWebGL)
+            if (IsWebGl)
             {
                 detail = Math.Max(3, detail);
                 _jsRuntime.InvokeVoid(
