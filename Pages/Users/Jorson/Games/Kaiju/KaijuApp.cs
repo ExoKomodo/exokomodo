@@ -33,7 +33,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("preload")]
         public override void Preload()
         {
-            _teapot = LoadModel("models/teapot.obj", true);
+            _teapot = LoadModel("assets/teapot.obj", true);
         }
 
         public void Reset()
