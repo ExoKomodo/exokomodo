@@ -7,6 +7,19 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
+        public bool DisableFriendlyErrors
+        {
+            get => _jsRuntime.Invoke<bool>(
+                _p5GetValue,
+                "disableFriendlyErrors"
+            );
+            set => _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "disableFriendlyErrorsDotnet",
+                value
+            );
+        }
+        
         public bool IsLooping => _jsRuntime.Invoke<bool>(
             _p5InvokeFunctionAndReturn,
             "isLooping"

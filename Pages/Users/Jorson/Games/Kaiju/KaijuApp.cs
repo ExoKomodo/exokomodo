@@ -24,37 +24,34 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("draw")]
         public override void Draw()
         {
-            SetUniform(
-                _mandelbrot,
-                "r",
-                (
-                    1.5
-                    * Math.Pow(
-                        Math.E,
-                        -6.5
-                        * (
-                            1
-                            + Math.Sin(
-                                Millis
-                                / 2000
-                            )
-                        )
-                    )
-                )
-            );
-            DrawQuad(
-                -1f, -1f,
-                1f, -1f,
-                1f, 1f,
-                -1f, 1f
-            );
+            Background(200);
+
+            Pan(_camera, _delta);
+
+            if (FrameCount % 160 == 0)
+            {
+                _delta *= -1f;
+            }
+
+            RotateX(FrameCount * 0.01f);
+
+            Translate(-100f, 0f, 0f);
+            for (int i = 0; i < 10; i++)
+            {
+                Translate(0f, -30f, 0f);
+                Push();
+                for (int j = 0; j < 10; j++)
+                {
+                    Translate(30f, 0f, 0f);
+                    DrawBox(20f, 20f, 20f);
+                }
+                Pop();
+            }
         }
 
         [JSInvokable("preload")]
         public override void Preload()
         {
-            _mandelbrot = LoadShader("assets/mandelbrot.vert", "assets/mandelbrot.frag");
-            _teapot = LoadModel("assets/teapot.obj", true);
         }
 
         public void Reset()
@@ -67,14 +64,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             _clearColor = new Color(200);
             InitializeCanvas();
             Reset();
-
-            UseShader(_mandelbrot);
-            NoStroke();
-            SetUniform(
-                _mandelbrot,
-                "p",
-                new double[] {-0.74364388703, 0.13182590421 }
-            );
+            _camera = CreateCamera();
+            SetCamera(_camera);
+            NormalMaterial();
+            Pan(_camera, -0.8f);
         }
 
         [JSInvokable("windowResized")]
@@ -90,6 +83,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Private
 
         #region Members
+        private Camera _camera { get; set; }
+        private float _delta { get; set; } = 0.01f;
         private Color _clearColor { get; set; }
         private float _height { get; set; }
         private Shader _mandelbrot { get; set; }
