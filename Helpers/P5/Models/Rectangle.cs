@@ -29,7 +29,7 @@ namespace ExoKomodo.Helpers.P5.Models
             var position = new Vector2(x, y);
             var dimensions = new Vector2(
                 width,
-                (height.HasValue ? height : width).Value
+                height.HasValue ? height.Value : width
             );
             _position = position;
             _dimensions = dimensions;

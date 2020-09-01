@@ -10,7 +10,7 @@ namespace ExoKomodo.Helpers.P5
         #region Constructors
         protected P5App(IJSRuntime jsRuntime, string containerId)
         {
-            if (Instance != null)
+            if (Instance is not null)
             {
                 throw new Exception("Only one P5App should exist at once");
             }
