@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
@@ -14,13 +14,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #endregion
 
         #region Member Methods
-        public bool Add(TextAdventureItem item) => item != null && _inventory.Add(item);
+        public bool Add(TextAdventureItem item) => item is not null && _inventory.Add(item);
         
         public void Clear() => _inventory.Clear();
 
-        public bool Contains(TextAdventureItem item) => item != null && _inventory.Contains(item);
+        public bool Contains(TextAdventureItem item) => item is not null && _inventory.Contains(item);
 
-        public bool Remove(TextAdventureItem item) => item != null && _inventory.Remove(item);
+        public bool Remove(TextAdventureItem item) => item is not null && _inventory.Remove(item);
         #endregion
 
         #endregion

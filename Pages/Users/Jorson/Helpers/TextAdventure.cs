@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -59,7 +59,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             {
                 return false;
             }
-            if (nextState?.RequiredItem != null && !_inventory.Contains(nextState?.RequiredItem))
+            if (nextState?.RequiredItem is not null && !_inventory.Contains(nextState?.RequiredItem))
             {
                 BlockedTransition = true;
                 return false;

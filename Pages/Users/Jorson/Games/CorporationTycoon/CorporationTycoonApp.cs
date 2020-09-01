@@ -201,13 +201,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             var renderPosition = position + (Vector2.One * UNIT_SCALE / 2f);
             switch (room)
             {
-                case Office _:
+                case Office:
                     if (!(_hoverEmployee is Worker))
                     {
                         _hoverEmployee = new Worker(this, Vector2.Zero);
                     }
                     break;
-                case PrivateOffice _:
+                case PrivateOffice:
                     if (!(_hoverEmployee is Supervisor))
                     {
                         _hoverEmployee = new Supervisor(this, Vector2.Zero);
