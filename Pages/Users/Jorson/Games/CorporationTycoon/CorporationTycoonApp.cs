@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
@@ -216,14 +217,24 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
                 default:
                     throw new NotImplementedException($"Room of type {room.GetType()} not yet implemented");
             }
-            _hoverEmployee.FillColor.Alpha = 150;
+            _hoverEmployee.FillColor = Color.FromArgb(
+                red: _hoverEmployee.FillColor.R,
+                green: _hoverEmployee.FillColor.G,
+                blue: _hoverEmployee.FillColor.B,
+                alpha: 150
+            );
             _hoverEmployee.Position = renderPosition;
             _hoverEmployee.Draw();
         }
 
         private void DrawHoverRoom(Vector2 position)
         {
-            _hoverRoom.FillColor.Alpha = 150;
+            _hoverRoom.FillColor = Color.FromArgb(
+                red: _hoverRoom.FillColor.R,
+                green: _hoverRoom.FillColor.G,
+                blue: _hoverRoom.FillColor.B,
+                alpha: 150
+            );
             _hoverRoom.Position = position;
             _hoverRoom.Draw();
         }
@@ -291,7 +302,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.8f;
             _height = _width / aspectRatio;
-            _clearColor = new Color(0, 64, 64);
+            _clearColor = Color.FromArgb(red: 0, green: 64, blue: 64);
             CreateCanvas((uint)(_width / 100) * 100, (uint)(_height / 100) * 100);
         }
 

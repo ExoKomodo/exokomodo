@@ -1,6 +1,7 @@
 using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
+using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -9,6 +10,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
+        public Vector2 PreviousMousePosition => new Vector2(MouseXPrevious, MouseYPrevious);
         // Careful calling this function if the mouse is not currently pressed
         public MouseButtons MouseButton
         {
@@ -31,6 +33,7 @@ namespace ExoKomodo.Helpers.P5
             _p5GetValue,
             "mouseIsPressed"
         );
+        public Vector2 MousePosition => new Vector2(MouseX, MouseY);
         public float MouseX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "mouseX"

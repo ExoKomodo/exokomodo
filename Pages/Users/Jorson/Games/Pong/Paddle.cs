@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 
@@ -17,7 +18,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
 
         #region Members
         public readonly PongApp Application;
-        public Rectangle Body;
+        public Rect Body;
         public Color FillColor;
         public float HalfHeight => Body.Height / 2f;
         public float HalfWidth => Body.Width / 2f;

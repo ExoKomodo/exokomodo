@@ -3,6 +3,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
@@ -18,16 +19,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             {
                 new Paddle(this)
                 {
-                    FillColor = new Color(10, 170, 195)
+                    FillColor = Color.FromArgb(red: 10, green: 170, blue: 195)
                 },
                 new Paddle(this)
                 {
-                    FillColor = new Color(180, 25, 25)
+                    FillColor = Color.FromArgb(red: 180, green: 25, blue: 25)
                 },
             };
             Ball = new Ball(this)
             {
-                FillColor = new Color(145, 20, 185)
+                FillColor = Color.FromArgb(red: 145, green: 20, blue: 185)
             };
         }
         #endregion
@@ -79,11 +80,11 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             ResetBall();
 
             var paddleDimensions = new Vector2(_width / 40, _height / 10);
-            PaddleOne.Body = new Rectangle(
+            PaddleOne.Body = new Rect(
                 new Vector2(paddleDimensions.X * 2, _height / 2),
                 paddleDimensions
             );
-            PaddleTwo.Body = new Rectangle(
+            PaddleTwo.Body = new Rect(
                 new Vector2(_width - (paddleDimensions.X * 2), _height / 2),
                 paddleDimensions
             );
@@ -125,7 +126,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.75f;
             _height = _width / aspectRatio;
-            _clearColor = new Color(hue: 150, saturation: 250, brightness: 150);
+            _clearColor = Color.Aqua;
             CreateCanvas((uint)_width, (uint)_height);
         }
         #endregion

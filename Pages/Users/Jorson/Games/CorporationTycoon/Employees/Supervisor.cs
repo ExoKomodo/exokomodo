@@ -1,6 +1,7 @@
 ﻿using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
+using System.Drawing;
 using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
@@ -14,8 +15,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
             : base(
                   application: application,
                   position: position,
-                  fillColor: new Color(red: 0, green: 0, blue: 64),
-                  strokeColor: new Color(),
+                  fillColor: Color.FromArgb(red: 0, green: 0, blue: 64),
+                  strokeColor: Color.Black,
                   strokeWeight: 0
             )
         { }
