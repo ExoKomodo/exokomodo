@@ -43,7 +43,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
                 for (int j = 0; j < 10; j++)
                 {
                     Translate(30f, 0f, 0f);
-                    DrawBox(20f, 20f, 20f);
+                    DrawBox(20f, 20f, 20f, 1, 1);
                 }
                 Pop();
             }

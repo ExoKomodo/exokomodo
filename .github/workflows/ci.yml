@@ -15,7 +15,7 @@ jobs:
         - name: Setup .NET Core
           uses: actions/setup-dotnet@v1
           with:
-            dotnet-version: 3.1.x
+            dotnet-version: '5.0.100-preview.8.20417.9'
 
         # Run tests
         - name: Test
@@ -34,7 +34,7 @@ jobs:
           with:
             github_token: ${{ secrets.PUBLISH_TOKEN }}
             publish_branch: gh-pages
-            publish_dir: bin/Release/netstandard2.1/publish/wwwroot
+            publish_dir: bin/Release/net5.0/browser-wasm/publish/wwwroot
             allow_empty_commit: false
             keep_files: false
             force_orphan: true
