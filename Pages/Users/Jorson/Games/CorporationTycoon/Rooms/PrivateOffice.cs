@@ -2,6 +2,7 @@
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
+using System.Drawing;
 using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
@@ -15,8 +16,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             : base(
                   application: application,
                   position: position,
-                  fillColor: new Color(red: 128, green: 128, blue: 128),
-                  strokeColor: new Color(),
+                  fillColor: Color.FromArgb(red: 128, green: 128, blue: 128),
+                  strokeColor: Color.Black,
                   strokeWeight: 0,
                   windowStrokeWeight: 0,
                   width: 3 * CorporationTycoonApp.UNIT_SCALE

@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
     <UseBlazorWebAssembly>true</UseBlazorWebAssembly>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
     
   <PropertyGroup>
@@ -16,4 +17,11 @@
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0-preview.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\BlazingUI\" />
+    <Folder Include="Helpers\BlazingUI\Elements\" />
+    <Folder Include="Helpers\BlazingUI\Elements\Containers\" />
+    <Folder Include="Helpers\BlazingUI\Enums\" />
+    <Folder Include="Helpers\BlazingUI\Elements\Buttons\" />
+  </ItemGroup>
 </Project>

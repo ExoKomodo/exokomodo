@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Net.Http;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
@@ -79,7 +80,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
                 Push();
                 SetTextAlign(HorizontalTextAlign.Center, VerticalTextAlign.Top);
                 SetTextSize(24);
-                Fill(new Color(red: 255, green: 0, blue: 0));
+                Fill(Color.FromArgb(red: 255, green: 0, blue: 0));
                 DrawText(
                     "You can't do that",
                     _width / 2,
@@ -196,7 +197,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.6f;
             _height = _width / aspectRatio;
-            _clearColor = new Color(32, 32, 32);
+            _clearColor = Color.FromArgb(red: 32, green: 32, blue: 32);
             CreateCanvas((uint)_width, (uint)_height);
         }
         #endregion

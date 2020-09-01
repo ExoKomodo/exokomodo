@@ -32,7 +32,7 @@ namespace ExoKomodo.Helpers.P5
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "rectMode",
-                Rectangle.RectangleModeToString(mode)
+                Rect.RectangleModeToString(mode)
             );
         }
 

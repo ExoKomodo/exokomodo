@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System;
+using System.Drawing;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -29,27 +30,13 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "ambientMaterial",
-                        color.Red,
-                        color.Green,
-                        color.Blue
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "ambientMaterial",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "ambientMaterial",
+                color.R,
+                color.G,
+                color.B
+            );
         }
 
         public void EmissiveMaterial(Color color)
@@ -58,28 +45,14 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "emissiveMaterial",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        color.Alpha
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "emissiveMaterial",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "emissiveMaterial",
+                color.R,
+                color.G,
+                color.B,
+                color.A
+            );
         }
 
         public Shader LoadShader(string vertexShaderPath, string fragmentShaderPath) => _jsRuntime.Invoke<Shader>(
@@ -199,28 +172,14 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "specularMaterial",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        color.Alpha
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "specularMaterial",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "specularMaterial",
+                color.R,
+                color.G,
+                color.B,
+                color.A
+            );
         }
 
         public void UseShader(Shader shader)

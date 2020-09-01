@@ -2,6 +2,7 @@ using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
 using System;
 using ExoKomodo.Helpers.P5.Enums;
+using System.Drawing;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -66,28 +67,14 @@ namespace ExoKomodo.Helpers.P5
 
         public void Tint(Color color)
         {
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "tint",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        color.Alpha
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "tint",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "tint",
+                color.R,
+                color.G,
+                color.B,
+                color.A
+            );
         }
         #endregion
 

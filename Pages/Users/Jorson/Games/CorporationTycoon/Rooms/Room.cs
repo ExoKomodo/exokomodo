@@ -3,6 +3,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
+using System.Drawing;
 using System.Numerics;
 
 
@@ -43,8 +44,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
                 _rect.Width = value < 0 ? 0 : value;
             }
         }
-        public Color WindowFillColor => new Color(32, 32, 32, 255);
-        public Color WindowStrokeColor => new Color();
+        public Color WindowFillColor => Color.FromArgb(red: 32, green: 32, blue: 32);
+        public Color WindowStrokeColor => Color.Black;
         public uint WindowStrokeWeight { get; set; } = 0;
         #endregion
 
@@ -114,7 +115,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         )
         {
             _app = application;
-            _rect = new Rectangle(
+            _rect = new Rect(
                 position,
                 new Vector2(width, CorporationTycoonApp.UNIT_SCALE)
             );
@@ -129,7 +130,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 
         #region Members
         protected CorporationTycoonApp _app;
-        protected Rectangle _rect;
+        protected Rect _rect;
         #endregion
 
         #region Member Methods
@@ -159,7 +160,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             for (int i = 0; i < UnitWidth; i++)
             {
                 _app.DrawRectangle(
-                    new Rectangle(
+                    new Rect(
                         position: rootPosition,
                         dimensions: windowDimensions
                     )

@@ -165,16 +165,30 @@ namespace ExoKomodo.Helpers.P5
             float z2
         )
         {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "line",
-                x1,
-                y1,
-                z1,
-                x2,
-                y2,
-                z2
-            );
+            if (IsWebGl)
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "line",
+                    x1,
+                    y1,
+                    z1,
+                    x2,
+                    y2,
+                    z2
+                );
+            }
+            else
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "line",
+                    x1,
+                    y1,
+                    x2,
+                    y2
+                );
+            }
         }
 
         public void DrawLine(Vector2 start, Vector2 end) => DrawLine(
@@ -364,8 +378,8 @@ namespace ExoKomodo.Helpers.P5
             float topRightRadius = 0,
             float bottomRightRadius = 0,
             float bottomLeftRadius = 0,
-            uint detailX = Rectangle.DEFAULT_DETAIL,
-            uint detailY = Rectangle.DEFAULT_DETAIL
+            uint detailX = Rect.DEFAULT_DETAIL,
+            uint detailY = Rect.DEFAULT_DETAIL
         )
         {
             if (IsWebGl)
@@ -409,8 +423,8 @@ namespace ExoKomodo.Helpers.P5
             float topRightRadius = 0,
             float bottomRightRadius = 0,
             float bottomLeftRadius = 0,
-            uint detailX = Rectangle.DEFAULT_DETAIL,
-            uint detailY = Rectangle.DEFAULT_DETAIL
+            uint detailX = Rect.DEFAULT_DETAIL,
+            uint detailY = Rect.DEFAULT_DETAIL
         ) => DrawRectangle(
             position.X,
             position.Y,
@@ -424,7 +438,7 @@ namespace ExoKomodo.Helpers.P5
             detailY
         );
 
-        public void DrawRectangle(Rectangle rect) => DrawRectangle(
+        public void DrawRectangle(Rect rect) => DrawRectangle(
             rect.X,
             rect.Y,
             rect.Width,

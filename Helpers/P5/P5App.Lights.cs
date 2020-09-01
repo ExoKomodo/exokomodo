@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System;
+using System.Drawing;
 using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5
@@ -31,28 +32,14 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "ambientLight",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        color.Alpha
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "ambientLight",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "ambientLight",
+                color.R,
+                color.G,
+                color.B,
+                color.A
+            );
         }
 
         public void DirectionalLight(Color color, float x, float y, float z)
@@ -61,33 +48,16 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "directionalLight",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        x,
-                        y,
-                        z
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "directionalLight",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness,
-                        x,
-                        y,
-                        z
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "directionalLight",
+                color.R,
+                color.G,
+                color.B,
+                x,
+                y,
+                z
+            );
         }
 
         public void DirectionalLight(Color color, Vector3 direction) => DirectionalLight(
@@ -138,33 +108,16 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "pointLight",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        x,
-                        y,
-                        z
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "pointLight",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness,
-                        x,
-                        y,
-                        z
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "pointLight",
+                color.R,
+                color.G,
+                color.B,
+                x,
+                y,
+                z
+            );
         }
 
         public void PointLight(Color color, Vector3 direction) => PointLight(
@@ -180,27 +133,13 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "specularColor",
-                        color.Red,
-                        color.Green,
-                        color.Blue
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "specularColor",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "specularColor",
+                color.R,
+                color.G,
+                color.B
+            );
         }
 
         public void SpotLight(
@@ -215,43 +154,21 @@ namespace ExoKomodo.Helpers.P5
             {
                 return;
             }
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "spotLight",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        position.X,
-                        position.Y,
-                        position.Z,
-                        direction.X,
-                        direction.Y,
-                        direction.Z,
-                        angle,
-                        concentration
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "spotLight",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness,
-                        position.X,
-                        position.Y,
-                        position.Z,
-                        direction.X,
-                        direction.Y,
-                        direction.Z,
-                        angle,
-                        concentration
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "spotLight",
+                color.R,
+                color.G,
+                color.B,
+                position.X,
+                position.Y,
+                position.Z,
+                direction.X,
+                direction.Y,
+                direction.Z,
+                angle,
+                concentration
+            );
         }
         #endregion
 

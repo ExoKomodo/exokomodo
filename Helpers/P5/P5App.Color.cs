@@ -1,6 +1,8 @@
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Helpers.P5.Enums;
+using System;
+using System.Drawing;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -20,28 +22,14 @@ namespace ExoKomodo.Helpers.P5
 
         public void Background(Color color)
         {
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "background",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        color.Alpha
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "background",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "background",
+                color.R,
+                color.G,
+                color.B,
+                color.A
+            );
         }
 
         public void Clear()
@@ -73,28 +61,14 @@ namespace ExoKomodo.Helpers.P5
 
         public void Fill(Color color)
         {
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "fill",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        color.Alpha
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "fill",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "fill",
+                color.R,
+                color.G,
+                color.B,
+                color.A
+            );
         }
 
         public void NoErase()
@@ -126,7 +100,7 @@ namespace ExoKomodo.Helpers.P5
             _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "colorMode",
-                Color.ColorModeToString(mode)
+                ColorModeToString(mode)
             );
         }
 
@@ -141,29 +115,24 @@ namespace ExoKomodo.Helpers.P5
 
         public void Stroke(Color color)
         {
-            switch (color.Mode)
-            {
-                case ColorMode.RGB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "stroke",
-                        color.Red,
-                        color.Green,
-                        color.Blue,
-                        color.Alpha
-                    );
-                    break;
-                case ColorMode.HSB:
-                    _jsRuntime.InvokeVoid(
-                        _p5InvokeFunction,
-                        "stroke",
-                        color.Hue,
-                        color.Saturation,
-                        color.Brightness
-                    );
-                    break;
-            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "stroke",
+                color.R,
+                color.G,
+                color.B,
+                color.A
+            );
         }
+        #endregion
+
+        #region Static Methods
+        public static string ColorModeToString(ColorMode mode) => mode switch
+        {
+            ColorMode.RGB => "rgb",
+            ColorMode.HSB => "hsb",
+            _ => throw new Exception("Invalid ColorMode"),
+        };
         #endregion
 
         #endregion

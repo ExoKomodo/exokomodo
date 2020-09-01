@@ -1,6 +1,7 @@
 ﻿using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms;
+using System.Drawing;
 using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
@@ -90,7 +91,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         )
         {
             _app = application;
-            _rect = new Rectangle(
+            _rect = new Rect(
                 position,
                 new Vector2(Width, Height)
             );
@@ -102,7 +103,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
 
         #region Members
         protected CorporationTycoonApp _app;
-        protected Rectangle _rect;
+        protected Rect _rect;
         #endregion
 
         #endregion

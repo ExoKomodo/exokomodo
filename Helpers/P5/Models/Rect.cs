@@ -4,12 +4,12 @@ using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Helpers.P5.Models
 {
-    public struct Rectangle
+    public struct Rect
     {
         #region Public
 
         #region Constructors
-        public Rectangle(
+        public Rect(
             float x,
             float y,
             float width,
@@ -37,7 +37,7 @@ namespace ExoKomodo.Helpers.P5.Models
             DetailY = detailY;
         }
 
-        public Rectangle(
+        public Rect(
             Vector2 position,
             Vector2 dimensions,
             float topLeftRadius = 0,
