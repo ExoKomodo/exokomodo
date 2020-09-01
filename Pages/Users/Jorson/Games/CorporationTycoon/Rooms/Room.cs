@@ -66,7 +66,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             );
             if (
                 desk >= Width
-                || Employees[desk] != null
+                || Employees[desk] is not null
                 || !_app.Account.Withdraw(employee.HiringBonus)
             )
             {

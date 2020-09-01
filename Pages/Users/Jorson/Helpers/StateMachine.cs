@@ -39,7 +39,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             {
                 // Only move to states that exist in the state machine
                 if (
-                    value?.Id != null
+                    value?.Id is not null
                     && !_states.ContainsKey(value.Id)
                 )
                 {
@@ -140,7 +140,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             }
             
             var nextStateId = CurrentState.NextStates?.FirstOrDefault(
-                x => x != null && x == state?.Id
+                x => x is not null && x == state?.Id
             );
             if (!_states.TryGetValue(nextStateId, out T nextState))
             {

@@ -1,8 +1,7 @@
 @page "/users/jorson/blogs/{Id:int}"
 
 <link href="css/jorson/styles.css" rel="stylesheet" />
-
-@if (_blog != null)
+@if (_blog is not null)
 {
     <div id="body">
         <a href="/users/jorson/blogs">&larr; Back to Blogs</a>
