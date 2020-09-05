@@ -106,6 +106,15 @@ function startP5(p5Implementation, container) {
         // #region Camera
         p.cameras = {};
         p.nextCameraId = 0;
+
+        p._getCamera = function(id) {
+            let camera = this.cameras[id];
+            if (!camera) {
+                console.error(`Camera with id '${id}' is not loaded`);
+                return null;
+            }
+            return camera;
+        }
         
         p.createCameraDotnet = function() {
             p.cameras[p.nextCameraId] = this.createCamera();
@@ -115,90 +124,80 @@ function startP5(p5Implementation, container) {
         }
 
         p.frustumDotnet = function(id, left, right, bottom, top, near, far) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.frustum(left, right, bottom, top, near, far);
         }
 
         p.lookAtDotnet = function(id, x, y, z) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.lookAt(x, y, z);
         }
 
         p.moveDotnet = function(id, x, y, z) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.move(x, y, z);
         }
 
         p.orthoDotnet = function(id, left, right, bottom, top, near, far) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.ortho(left, right, bottom, top, near, far);
         }
 
         p.panDotnet = function(id, angle) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.pan(angle);
         }
 
         p.perspectiveDotnet = function(id, fovY, aspect, near, far) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.perspective(fovY, aspect, near, far);
         }
 
         p.setCameraDotnet = function(id) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             this.setCamera(camera);
         }
 
         p.setCameraParametersDotnet = function(id, x, y, z, centerX, centerY, centerZ, upX, upY, upZ) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.camera(x, y, z, centerX, centerY, centerZ, upX, upY, upZ);
         }
         
         p.setCameraPositionDotnet = function(id, x, y, z) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.setPosition(x, y, z);
         }
 
         p.tiltDotnet = function(id, angle) {
-            let camera = this.cameras[id];
+            let camera = this._getCamera(id);
             if (!camera) {
-                console.error(`Camera with id '${id}' is not loaded`);
                 return;
             }
             camera.tilt(angle);
@@ -208,10 +207,18 @@ function startP5(p5Implementation, container) {
         // #region Font
         p.fonts = {};
 
-        p.fontDotnet = function(id, size) {
+        p._getFont = function(id) {
             let font = this.fonts[id];
             if (!font) {
                 console.error(`Font with id '${id}' is not loaded`);
+                return null;
+            }
+            return font;
+        }
+
+        p.fontDotnet = function(id, size) {
+            let font = this._getFont(id);
+            if (!font) {
                 return;
             }
             if (!size) {
@@ -232,9 +239,8 @@ function startP5(p5Implementation, container) {
         }
 
         p.textFontDotnet = function(id, size) {
-            let font = this.fonts[id];
+            let font = this._getFont(id);
             if (!font) {
-                console.error(`Font with id '${id}' is not loaded`);
                 return;
             }
             if (!size) {
@@ -248,10 +254,18 @@ function startP5(p5Implementation, container) {
         // #region Image
         p.images = {};
 
-        p.imageDotnet = function(id, x, y, width, height) {
+        p._getImage = function(id) {
             let image = this.images[id];
             if (!image) {
                 console.error(`Image with id '${id}' is not loaded`);
+                return null;
+            }
+            return image;
+        }
+
+        p.imageDotnet = function(id, x, y, width, height) {
+            let image = this._getImage(id);
+            if (!image) {
                 return;
             }
             this.image(
@@ -264,18 +278,16 @@ function startP5(p5Implementation, container) {
         }
 
         p.imageHeightDotnet = function(id) {
-            let image = this.images[id];
+            let image = this._getImage(id);
             if (!image) {
-                console.error(`Image with id '${id}' is not loaded`);
                 return;
             }
             return image.height;
         }
 
         p.imageWidthDotnet = function(id) {
-            let image = this.images[id];
+            let image = this._getImage(id);
             if (!image) {
-                console.error(`Image with id '${id}' is not loaded`);
                 return;
             }
             return image.width;
@@ -292,18 +304,16 @@ function startP5(p5Implementation, container) {
         }
 
         p.loadPixelsDotnet = function(id) {
-            let image = this.images[id];
+            let image = this._getImage(id);
             if (!image) {
-                console.error(`Image with id '${id}' is not loaded`);
                 return;
             }
             image.loadPixels();
         }
 
         p.textureDotnet = function(id) {
-            let image = this.images[id];
+            let image = this._getImage(id);
             if (!image) {
-                console.error(`Image with id '${id}' is not loaded`);
                 return;
             }
             this.texture(image);
@@ -312,6 +322,15 @@ function startP5(p5Implementation, container) {
 
         // #region Model
         p.models = {};
+
+        p._getModel = function(id) {
+            let model = this.models[id];
+            if (!model) {
+                console.error(`Model with id '${id}' is not loaded`);
+                return null;
+            }
+            return model;
+        }
 
         p.loadModelDotnet = function(modelPath, normalize) {
             if (!this.models[modelPath])
@@ -324,9 +343,8 @@ function startP5(p5Implementation, container) {
         }
 
         p.modelDotnet = function(id) {
-            let model = this.models[id];
+            let model = this._getModel(id);
             if (!model) {
-                console.error(`Model with id '${id}' is not loaded`);
                 return;
             }
             this.model(model);
@@ -335,6 +353,15 @@ function startP5(p5Implementation, container) {
 
         // #region Shader
         p.shaders = {};
+
+        p._getShader = function(id) {
+            let shader = this.shaders[id];
+            if (!shader) {
+                console.error(`Shader with id '${id}' is not loaded`);
+                return null;
+            }
+            return shader;
+        }
 
         p.loadShaderDotnet = function(vertexShaderPath, fragmentShaderPath) {
             let id = `${vertexShaderPath}-${fragmentShaderPath}`;
@@ -348,21 +375,170 @@ function startP5(p5Implementation, container) {
         }
 
         p.shaderDotnet = function(id) {
-            let shader = this.shaders[id];
+            let shader = this._getShader(id);
             if (!shader) {
-                console.error(`Shader with id '${id}' is not loaded`);
                 return;
             }
             this.shader(shader);
         }
 
         p.setUniformDotnet = function(id, uniformName, value) {
-            let shader = this.shaders[id];
+            let shader = this._getShader(id);
             if (!shader) {
-                console.error(`Shader with id '${id}' is not loaded`);
                 return;
             }
             shader.setUniform(uniformName, value);
+        }
+        // #endregion
+
+        // #region Sound
+        p.sounds = {};
+
+        p._getSound = function(id) {
+            let sound = this.sounds[id];
+            if (!sound) {
+                console.error(`Sound with id '${id}' is not loaded`);
+                return null;
+            }
+            return sound;
+        }
+
+        p.getCurrentTimeDotnet = function(id) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return 0.0;
+            }
+            return sound.currentTime();
+        }
+
+        p.getDurationDotnet = function(id) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return 0.0;
+            }
+            return sound.duration();
+        }
+
+        p.getPanSoundDotnet = function(id) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return 0.0;
+            }
+            return sound.getPan();
+        }
+
+        p.isLoadedDotnet = function(id) {
+            let sound = this._getSound(id);
+            return !sound ? false : sound.isLoaded();
+        }
+
+        p.isLoopingDotnet = function(id) {
+            let sound = this._getSound(id);
+            return !sound ? false : sound.isLooping();
+        }
+        
+        p.isPausedDotnet = function(id) {
+            let sound = this._getSound(id);
+            return !sound ? false : sound.isPaused();
+        }
+
+        p.isPlayingDotnet = function(id) {
+            let sound = this._getSound(id);
+            return !sound ? false : sound.isPlaying();
+        }
+
+        p.loadSoundDotnet = function(soundPath) {
+            if (!this.sounds[soundPath])
+            {
+                this.sounds[soundPath] = this.loadSound(soundPath);
+            }
+            return {
+                id: soundPath,
+            };
+        }
+
+        p.loopDotnet = function(id, startTime, rate, amp, cueStart, duration) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.loop(
+                startTime,
+                rate,
+                amp,
+                cueStart === null ? undefined : cueStart,
+                duration === null ? undefined : duration
+            );
+        }
+
+        p.panSoundDotnet = function(id, panValue, delay) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.pan(panValue, delay);
+        }
+
+        p.pauseDotnet = function(id, delay) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.pause(delay);
+        }
+
+        p.playDotnet = function(id, startTime, rate, amp, cueStart, duration) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.play(
+                startTime,
+                rate,
+                amp,
+                cueStart === null ? undefined : cueStart,
+                duration === null ? undefined : duration
+            );
+        }
+
+        p.playModeDotnet = function(id, mode) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.playMode(mode);
+        }
+
+        p.setIsLoopingDotnet = function(id, shouldLoop) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.setLoop(shouldLoop);
+        }
+
+        p.setRateDotnet = function(id, rate) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.rate(rate);
+        }
+
+        p.setVolumeDotnet = function(id, volume, rampTime, delay) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.setVolume(volume, rampTime, delay);
+        }
+
+        p.stopDotnet = function(id, delay) {
+            let sound = this._getSound(id);
+            if (!sound) {
+                return;
+            }
+            sound.stop(delay);
         }
         // #endregion
     };
