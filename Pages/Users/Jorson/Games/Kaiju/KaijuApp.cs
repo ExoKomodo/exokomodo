@@ -15,7 +15,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 
         #region Constructors
         public KaijuApp(IJSRuntime jsRuntime, string containerId)
-            : base(jsRuntime, containerId) {}
+            : base(jsRuntime, containerId)
+        {
+            _tree = new KaijuElementTree();
+        }
         #endregion
 
         #region Members
@@ -48,6 +51,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("preload")]
         public override void Preload()
         {
+            _sound = LoadSound("assets/doorbell.mp3");
         }
 
         public void Reset()
@@ -84,6 +88,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         private Color _clearColor { get; set; }
         private float _height { get; set; }
         private Shader _mandelbrot { get; set; }
+        private Sound _sound { get; set; }
         private Model3D _teapot { get; set; }
         private KaijuElementTree _tree { get; set; }
         private float _width { get; set; }
@@ -96,6 +101,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             Console.WriteLine(
                 $"Clicked '{button.GetType()}' from '{GetType()}' at {args.ClickPosition} with text '{button.Label.Text}'"
             );
+            Play(_sound);
         }
 
         private void DrawCenterLines()
