@@ -77,7 +77,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             )
             {
                 Speed += Acceleration;
-                System.Console.WriteLine(Speed);
                 if (
                     Body.X < Application.PaddleOne.Body.X + Application.PaddleOne.HalfWidth
                     || Body.X > Application.PaddleTwo.Body.X - Application.PaddleTwo.HalfWidth
