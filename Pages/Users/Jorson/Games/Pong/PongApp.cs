@@ -68,9 +68,15 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             Pop();
         }
 
+        public void PlayBallCollisionSound()
+        {
+            Play(_ballSound);
+        }
+
         [JSInvokable("preload")]
         public override void Preload()
         {
+            _ballSound = LoadSound("assets/jorson/games/pong/ball.mp3");
             _image = LoadImage("img/jorson/knuckles.jpg");
             _font = LoadFont("fonts/jorson/Roboto-Regular.ttf");
         }
@@ -111,6 +117,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         #region Private
 
         #region Members
+        private Sound _ballSound { get; set; }
         private Color _clearColor { get; set; }
         private Font _font { get; set; }
         private float _height { get; set; }
