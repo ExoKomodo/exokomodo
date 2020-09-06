@@ -19,7 +19,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             {
                 new Paddle(this)
                 {
-                    FillColor = Color.FromArgb(red: 10, green: 170, blue: 195)
+                    FillColor = Color.LightGreen
                 },
                 new Paddle(this)
                 {
@@ -133,7 +133,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.75f;
             _height = _width / aspectRatio;
-            _clearColor = Color.Aqua;
+            _clearColor = Color.SkyBlue;
             CreateCanvas((uint)_width, (uint)_height);
         }
         #endregion
