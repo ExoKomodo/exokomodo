@@ -177,6 +177,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
             
             Stop(_victorySound);
             
+            SetMasterVolume(0.1f);
             Play(_backgroundMusic);
             SetIsSoundLooping(_backgroundMusic, true);
         }
