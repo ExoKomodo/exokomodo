@@ -62,6 +62,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
                 {
                     image = _cats;
                     Scale(0.7f);
+                    if (!IsFinished)
+                    {
+                        Stop(_backgroundMusic);
+                        SetIsSoundLooping(_victorySound, false);
+                        Play(_victorySound);
+                    }
+                    IsFinished = true;
                 }
                 else
                 {
@@ -71,7 +78,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
                 
                 DrawImage(image);
                 Pop();
-                IsFinished = true;
                 return;
             }
 
@@ -157,6 +163,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         [JSInvokable("preload")]
         public override void Preload()
         {
+            _backgroundMusic = LoadSound("assets/jorson/games/nox/background.mp3");
+            _victorySound = LoadSound("assets/jorson/games/nox/victory.mp3");
             _cats = LoadImage("img/jorson/nox_and_luna.jpg");
             _nox = LoadImage("img/jorson/nox_closeup.jpg");
         }
@@ -166,13 +174,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
             IsFinished = false;
             _adventure.Reset();
             _currentOption = 0;
+            
+            Stop(_victorySound);
+            
+            Play(_backgroundMusic);
+            SetIsSoundLooping(_backgroundMusic, true);
         }
 
         [JSInvokable("setup")]
         public override void Setup()
         {
             InitializeCanvas();
-            _currentOption = 0;
+            Reset();
         }
         #endregion
 
@@ -182,12 +195,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
 
         #region Members
         private TextAdventure _adventure { get; set; }
+        private Sound _backgroundMusic { get; set; }
         private Image _cats { get; set; }
         private Color _clearColor { get; set; }
         private float _height { get; set; }
         private Image _nox { get; set; }
         private float _width { get; set; }
         private int _currentOption { get; set; }
+        private Sound _victorySound { get; set; }
         #endregion
 
         #region Member Methods

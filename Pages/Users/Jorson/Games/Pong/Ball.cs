@@ -89,6 +89,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
                 {
                     _direction.X *= -1;
                 }
+                Application.PlayBallCollisionSound();
             }
 
             if (Body.X - Body.Radius <= 0)
