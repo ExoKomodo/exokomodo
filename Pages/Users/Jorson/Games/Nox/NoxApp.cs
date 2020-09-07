@@ -17,7 +17,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         public NoxApp(
             IJSRuntime jsRuntime,
             string containerId,
-            TextAdventure adventure
+            TextAdventure<string> adventure
         ) : base(jsRuntime, containerId)
         {
             _adventure = adventure;
@@ -51,16 +51,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
             Pop();
             
             // Check for a deadend
-            if (state.Options.Count == 0)
+            if (state.IsTerminal)
             {
                 Push();
                 SetImageMode(ImageMode.Center);
                 Translate(_width * 0.5f, _height * 0.7f);
-                
-                Image image;
-                if (_adventure.CurrentState.Id == "end")
+
+                if (_adventure.CurrentState.Info == "end")
                 {
-                    image = _cats;
                     Scale(0.7f);
                     if (!IsFinished)
                     {
@@ -68,15 +66,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
                         SetIsSoundLooping(_victorySound, false);
                         Play(_victorySound);
                     }
+                    DrawImage(_cats);
                     IsFinished = true;
                 }
                 else
                 {
-                    image = _nox;
+                    IsFinished = true;
                     Scale(0.35f);
+                    DrawImage(_nox);
                 }
-                
-                DrawImage(image);
+
                 Pop();
                 return;
             }
@@ -175,6 +174,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
             _adventure.Reset();
             _currentOption = 0;
             
+            Stop(_backgroundMusic);
             Stop(_victorySound);
             
             SetMasterVolume(0.1f);
@@ -195,7 +195,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         #region Private
 
         #region Members
-        private TextAdventure _adventure { get; set; }
+        private TextAdventure<string> _adventure { get; set; }
         private Sound _backgroundMusic { get; set; }
         private Image _cats { get; set; }
         private Color _clearColor { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
-    public class TextAdventure
+    public class TextAdventure<TId>
+        where TId : IEquatable<TId>
     {
         #region Public
 
@@ -15,28 +17,35 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         public TextAdventure()
         {
             _inventory = new TextAdventureInventory();
-            _stateMachine = new StateMachine<TextAdventureState>();
-            States = new List<TextAdventureState>();
+            _stateMachine = new StateMachine<TextAdventureState<TId>, TId>(DefaultState);
+            States = new List<TextAdventureState<TId>>();
         }
         #endregion
 
         #region Members
         [JsonIgnore]
-        public TextAdventureState CurrentState => _stateMachine.CurrentState;
+        public bool BlockedTransition { get; private set; }
+        
+        [JsonIgnore]
+        public TextAdventureState<TId> CurrentState => _stateMachine.CurrentState;
+        
+
         [JsonIgnore]
         public bool IsInitialized { get; private set; }
-        [JsonIgnore]
-        public bool BlockedTransition { get; private set; }
-        public IList<TextAdventureState> States { get; set; }
+        
+        public TId DefaultState { get; set; }
+
+        public IList<TextAdventureState<TId>> States { get; set; }
         #endregion
 
         #region Static Methods
-        public static TextAdventure LoadFromJson(HttpClient http, string jsonUrl) => LoadFromJsonAsync(http, jsonUrl).Result;
+        public static T LoadFromJson<T>(HttpClient http, string jsonUrl)
+            where T : TextAdventure<TId>
+            => LoadFromJsonAsync<T>(http, jsonUrl).Result;
         
-        public static async Task<TextAdventure> LoadFromJsonAsync(HttpClient http, string jsonUrl)
-        {
-            return await http.GetFromJsonAsync<TextAdventure>(jsonUrl);
-        }
+        public static async Task<T> LoadFromJsonAsync<T>(HttpClient http, string jsonUrl)
+            where T : TextAdventure<TId>
+            => await http.GetFromJsonAsync<T>(jsonUrl);
         #endregion
 
         #region Member Methods
@@ -46,16 +55,16 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             {
                 return IsInitialized;
             }
-            _stateMachine = new StateMachine<TextAdventureState>(States);
+            _stateMachine = new StateMachine<TextAdventureState<TId>, TId>(DefaultState, States);
             _stateMachine.MoveTo(States.FirstOrDefault());
 
             IsInitialized = true;
             return IsInitialized;
         }
 
-        public bool MoveTo(TextAdventureState nextState)
+        public bool MoveTo(TextAdventureState<TId> nextState)
         {
-            if (States?.FirstOrDefault(state => state?.Id == nextState?.Id) is null)
+            if (States?.FirstOrDefault(state => state?.Info == nextState?.Info) is null)
             {
                 return false;
             }
@@ -67,15 +76,26 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
             if (_stateMachine.MoveTo(nextState))
             {
-                _inventory.Add(CurrentState.AcquiredItem);
+                if (CurrentState.AcquiredItem is not null)
+                {
+                    _inventory.Add(CurrentState.AcquiredItem);
+                }
                 return true;
             }
             return false;
         }
 
-        public bool MoveTo(string stateId)
+        public bool MoveTo(StateInfo<TId> stateInfo) => stateInfo is null ? false : MoveTo(stateInfo.Id);
+
+        public bool MoveTo(TId stateId)
         {
-            var state = States?.FirstOrDefault(state => state?.Id == stateId);
+            if (States is null)
+            {
+                return false;
+            }
+            var state = States?.FirstOrDefault(
+                state => state.Info.Id.Equals(stateId)
+            );
             if (state is null)
             {
                 return false;
@@ -87,7 +107,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         public void Reset()
         {
             _inventory.Clear();
-            MoveTo(States?.FirstOrDefault());
+            _stateMachine.Reset();
         }
 
         public bool Update(int choice)
@@ -115,7 +135,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
         #region Members
         protected TextAdventureInventory _inventory { get; set; }
-        protected StateMachine<TextAdventureState> _stateMachine { get; set; }
+        protected StateMachine<TextAdventureState<TId>, TId> _stateMachine { get; set; }
         #endregion
 
         #endregion

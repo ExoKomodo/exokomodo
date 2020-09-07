@@ -4,28 +4,32 @@ using System.Linq;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
-    public class StateMachine<T> where T : State
+    public class StateMachine<T, TId>
+        where T : State<TId>
+        where TId : IEquatable<TId>
     {
         #region Public
 
         #region Constructors
-        public StateMachine() : this(new Dictionary<string, T>()) {}
+        public StateMachine(TId defaultStateId)
+            : this(new Dictionary<TId, T>()) {}
 
-        public StateMachine(IEnumerable<T> states)
+        public StateMachine(TId defaultStateId, IEnumerable<T> states)
         {
-            _states = new Dictionary<string, T>();
+            _states = new Dictionary<TId, T>();
 
             foreach (var state in states)
             {
-                if (state?.Id is null)
+                if (state?.Info is null)
                 {
-                    throw new Exception("A State or State Id was null when creating StateMachine");
+                    throw new Exception("A State or State Info was null when creating StateMachine");
                 }
-                _states[state.Id] = state;
+                _states[state.Info.Id] = state;
             }
+            DefaultStateId = defaultStateId;
         }
 
-        public StateMachine(IDictionary<string, T> states)
+        public StateMachine(IDictionary<TId, T> states)
         {
             _states = states;
         }
@@ -39,8 +43,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             {
                 // Only move to states that exist in the state machine
                 if (
-                    value?.Id is not null
-                    && !_states.ContainsKey(value.Id)
+                    value?.Info is not null
+                    && !_states.ContainsKey(value.Info.Id)
                 )
                 {
                     return;
@@ -48,17 +52,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
                 _currentState = value;
             }
         }
+
+        public readonly TId DefaultStateId;
         #endregion
 
         #region Member Methods
-        public bool AddNextState(T state, string nextStateId)
+        public bool AddNextState(T state, StateInfo<TId> nextStateInfo)
         {
-            if (state?.Id is null || nextStateId is null)
-            {
-                return false;
-            }
-
-            if (_states.TryGetValue(nextStateId, out T nextState))
+            if (_states.TryGetValue(nextStateInfo.Id, out T nextState))
             {
                 return AddNextState(state, nextState);
             }
@@ -66,23 +67,26 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         }
         public bool AddNextState(T state, T nextState)
         {
-            if (state?.Id is null || nextState?.Id is null)
+            if (state?.Info is null || nextState?.Info is null)
             {
                 return false;
             }
-
             if (state.NextStates is null)
             {
-                state.NextStates = new List<string>();
+                state.NextStates = new List<TId>();
             }
-            state.NextStates.Add(nextState.Id);
-            _states[nextState.Id] = nextState;
+            state.NextStates.Add(nextState.Info.Id);
+            _states[nextState.Info.Id] = nextState;
             return true;
         }
         
         public bool AddState(T state)
         {
-            _states[state.Id] = state;
+            if (state?.Info is null)
+            {
+                return false;
+            }
+            _states[state.Info.Id] = state;
             return true;
         }
 
@@ -104,17 +108,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
             return true;
         }
 
-        public bool MoveTo(string id)
+        public bool MoveTo(StateInfo<TId> info)
         {
-            if (id is null)
+            if (!_states.ContainsKey(info.Id))
             {
                 return false;
             }
-            if (!_states.ContainsKey(id))
-            {
-                return false;
-            }
-            return MoveTo(_states[id]);
+            return MoveTo(_states[info.Id]);
+        }
+
+        public void Reset()
+        {
+            CurrentState = _states[DefaultStateId];
         }
         #endregion
 
@@ -124,25 +129,30 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
 
         #region Members
         private T _currentState { get; set; }
-        private IDictionary<string, T> _states { get; set; }
+        private IDictionary<TId, T> _states { get; set; }
         #endregion
 
         #region Member Methods
         private T TryMoveTo(T state)
         {
-            if (state?.Id is null)
+            if (
+                state?.Info is null
+                || CurrentState.NextStates is null
+            )
             {
                 return null;
             }
-            if (state.Id == "default")
-            {
-                return state;
-            }
             
-            var nextStateId = CurrentState.NextStates?.FirstOrDefault(
-                x => x is not null && x == state?.Id
+            var nextStateId = CurrentState.NextStates.FirstOrDefault(
+                x => x.Equals(state.Info.Id)
             );
-            if (!_states.TryGetValue(nextStateId, out T nextState))
+            if (
+                nextStateId is null
+                || !_states.TryGetValue(
+                    nextStateId,
+                    out T nextState
+                )
+            )
             {
                 return null;
             }

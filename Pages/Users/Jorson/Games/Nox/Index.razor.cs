@@ -41,7 +41,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         {
             AppState.IsSideNavHidden = true;
 
-            _adventure = await TextAdventure.LoadFromJsonAsync(_http, "data/jorson/games/nox/adventure.json");
+            _adventure = await TextAdventure<string>.LoadFromJsonAsync<TextAdventure<string>>(_http, "data/jorson/games/nox/adventure.json");
             _adventure.Initialize();
 
             _application = new NoxApp(_jsRuntime, "nox-container", _adventure);
@@ -54,7 +54,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         #region Private
 
         #region Members
-        private TextAdventure _adventure { get; set; }
+        private TextAdventure<string> _adventure { get; set; }
         private P5App _application { get; set; }
         private bool _isDisposed { get; set; }
         [Inject]
