@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
-    public class State
+    public class State<TId>
+        where TId : IEquatable<TId>
     {
-        public string Id { get; set; }
-        public IList<string> NextStates { get; set; }
+        public StateInfo<TId> Info { get; set; }
+        public IList<TId> NextStates { get; set; }
     }
 }

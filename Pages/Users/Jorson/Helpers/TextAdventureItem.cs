@@ -1,14 +1,34 @@
+using System;
+using System.Collections.Generic;
+
 namespace ExoKomodo.Pages.Users.Jorson.Helpers
 {
     public class TextAdventureItem
+        : IEquatable<TextAdventureItem>
     {
-        public string Id { get; set; }
+        #region Public
 
+        #region Constructors
+        public TextAdventureItem(string id) 
+        {
+            this.Id = id;
+        }
+        #endregion
+
+        #region Members
+        public string Id { get; set; }
+        #endregion
+
+        #region Member Methods
         public override int GetHashCode()
         {
             return Id.GetHashCode();
         }
+        #endregion
 
+        #endregion
+
+        #region IEquatable support
         public override bool Equals(object obj)
         {
             if (obj is TextAdventureItem other)
@@ -22,5 +42,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         {
             return Id == other.Id;
         }
+        #endregion
     }
 }
