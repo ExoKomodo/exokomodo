@@ -116,38 +116,37 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         [JSInvokable("keyPressed")]
         public override bool KeyPressed()
         {
-            switch (Key)
+            switch (KeyCode)
             {
-                case "1":
-                    _currentOption = 1;
-                    break;
-                case "2":
-                    _currentOption = 2;
-                    break;
-                case "3":
-                    _currentOption = 3;
-                    break;
-                case "4":
-                    _currentOption = 4;
-                    break;
-                case "5":
-                    _currentOption = 5;
-                    break;
-                case "6":
-                    _currentOption = 6;
-                    break;
-                case "7":
-                    _currentOption = 7;
-                    break;
-                case "8":
-                    _currentOption = 8;
-                    break;
-                case "9":
-                    _currentOption = 9;
-                    break;
-                case "0":
+                case Enums.KeyCodes.NumPad0:
+                case Enums.KeyCodes.Digit0:
                     _currentOption = 10;
                     break;
+
+                case Enums.KeyCodes.Digit1:
+                case Enums.KeyCodes.Digit2:
+                case Enums.KeyCodes.Digit3:
+                case Enums.KeyCodes.Digit4:
+                case Enums.KeyCodes.Digit5:
+                case Enums.KeyCodes.Digit6:
+                case Enums.KeyCodes.Digit7:
+                case Enums.KeyCodes.Digit8:
+                case Enums.KeyCodes.Digit9:
+                    _currentOption = KeyCode - Enums.KeyCodes.Digit0;
+                    break;
+
+                case Enums.KeyCodes.NumPad1:
+                case Enums.KeyCodes.NumPad2:
+                case Enums.KeyCodes.NumPad3:
+                case Enums.KeyCodes.NumPad4:
+                case Enums.KeyCodes.NumPad5:
+                case Enums.KeyCodes.NumPad6:
+                case Enums.KeyCodes.NumPad7:
+                case Enums.KeyCodes.NumPad8:
+                case Enums.KeyCodes.NumPad9:
+                    _currentOption = KeyCode - Enums.KeyCodes.NumPad0;
+                    break;
+
                 default:
                     break;
             }
