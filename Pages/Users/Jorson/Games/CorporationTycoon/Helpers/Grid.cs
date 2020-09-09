@@ -31,12 +31,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers
         #region Members Methods
         public bool Add(T obj)
         {
-            var position = ConvertAbsoluteToGrid(obj.Position);
-            if (!IsValidPlacement(obj, position))
+            if (!IsValidPlacement(obj, obj.Position))
             {
                 return false;
             }
 
+            var position = ConvertAbsoluteToGrid(obj.Position);
             for (int i = 0; i < (int)obj.UnitWidth; i++)
             {
                 _grid[
