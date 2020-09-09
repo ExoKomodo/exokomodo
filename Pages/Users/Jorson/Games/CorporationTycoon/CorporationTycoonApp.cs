@@ -51,16 +51,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         [JSInvokable("keyPressed")]
         public override bool KeyPressed()
         {
-            switch (Key)
+            switch (KeyCode)
             {
-                case "1":
+                case Enums.KeyCodes.Digit1:
+                case Enums.KeyCodes.NumPad1:
                     _roomType = typeof(Office);
                     if (!(_hoverRoom is Office))
                     {
                         _hoverRoom = new Office(this, Vector2.Zero);
                     }
                     break;
-                case "2":
+                case Enums.KeyCodes.Digit2:
+                case Enums.KeyCodes.NumPad2:
                     _roomType = typeof(PrivateOffice);
                     if (!(_hoverRoom is PrivateOffice))
                     {
