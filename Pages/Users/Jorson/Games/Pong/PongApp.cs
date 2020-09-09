@@ -106,7 +106,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Pong
         [JSInvokable("setup")]
         public override void Setup()
         {
+            UserStartAudio();
             InitializeCanvas();
+            
             SetImageFields(_image);
             Reset();
         }

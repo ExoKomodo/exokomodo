@@ -185,6 +185,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Nox
         [JSInvokable("setup")]
         public override void Setup()
         {
+            UserStartAudio();
+            
             InitializeCanvas();
             Reset();
         }
