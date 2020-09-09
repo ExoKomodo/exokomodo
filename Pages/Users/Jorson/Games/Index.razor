@@ -1,11 +1,12 @@
 @page "/users/jorson/games"
+@using ExoKomodo.Pages.Users.Jorson.Components
 
 <link href="css/jorson/styles.css" rel="stylesheet" />
 
 @if (_games is not null)
 {
     <div id="body">
-        <a href="/users/jorson">&larr; Back to Home</a>
+        <BackLink Link="/users/jorson" PageName="home" />
         <h1>Games</h1>
         <div>
             <ul>

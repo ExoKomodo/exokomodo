@@ -1,5 +1,7 @@
 @page "/users/jorson"
 
+@using ExoKomodo.Pages.Users.Jorson.Components;
+
 <link href="css/jorson/styles.css" rel="stylesheet" />
 <link href="css/jorson/home.css" rel="stylesheet" />
 
@@ -9,7 +11,7 @@
 else
 {
     <div id="body">
-        <a href="/users">&larr; Back to users</a>
+        <BackLink Link="/users" PageName="users" />
         <h1>
             Hey it's me, @(_self.FullName)!
             Check out my <a href="/users/jorson/blogs">Blog</a> and <a href="/users/jorson/games">Games</a>.
