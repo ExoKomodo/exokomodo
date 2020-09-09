@@ -1,3 +1,4 @@
+using ExoKomodo.Enums;
 using Microsoft.JSInterop;
 
 namespace ExoKomodo.Helpers.P5
@@ -11,7 +12,7 @@ namespace ExoKomodo.Helpers.P5
             _p5GetValue,
             "key"
         );
-        public uint KeyCode => _jsRuntime.Invoke<uint>(
+        public KeyCodes KeyCode => _jsRuntime.Invoke<KeyCodes>(
             _p5GetValue,
             "keyCode"
         );
