@@ -3,12 +3,17 @@
 
 @if (_self == null)
 {
-    <div class="loading">
-        <img src="../wwwroot\img\torson\loading-bunny.gif" width="300px"/>
         <p><em>Loading...</em></p>
-    </div>
 }
 else
 {
+    <NavTasha />
     <h1>Hey it's me, @(_self.FullName)!</h1>
+    <div class="loading">
+        <img src="img/torson/loading-bunny.gif" width="300px"/>
+    </div>
+    <div class="body-basic">
+        <p>I've been working on this site since @(new DateTime(2020, 09, 09).ToShortDateString())</p>
+        <p>That's @DaysSince(new DateTime(2020, 09, 09)) days!</p>
+    </div>
 }
