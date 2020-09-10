@@ -4,7 +4,7 @@ using System.Numerics;
 using ExoKomodo.Helpers.BlazingUI.Elements.Containers;
 using ExoKomodo.Helpers.BlazingUI.Enums;
 
-namespace ExoKomodo.Helpers.BlazingUI.Elements
+namespace ExoKomodo.Helpers.BlazingUI.Elements.Containers
 {
     public class HorizontalContainer<TId>
         : Container<TId>

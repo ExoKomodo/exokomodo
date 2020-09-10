@@ -1,6 +1,6 @@
 using System;
 
-namespace ExoKomodo.Helpers.BlazingUI.Elements.Buttons
+namespace ExoKomodo.Helpers.BlazingUI.Elements.Labels
 {
     public class Label<TId> : Element<TId>
         where TId : IEquatable<TId>

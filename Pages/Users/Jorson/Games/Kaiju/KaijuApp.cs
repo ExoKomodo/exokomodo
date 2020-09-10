@@ -1,4 +1,4 @@
-using ExoKomodo.Helpers.BlazingUI.Elements;
+using ExoKomodo.Helpers.BlazingUI.Elements.Containers;
 using ExoKomodo.Helpers.BlazingUI.Enums;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Models;
