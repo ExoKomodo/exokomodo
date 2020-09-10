@@ -12,5 +12,16 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements.Buttons
         #endregion
 
         #endregion
+
+        #region Protected
+
+        #region Constructors
+        protected Label()
+        {
+            Text = "";
+        }
+        #endregion
+
+        #endregion
     }
 }

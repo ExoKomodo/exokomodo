@@ -9,7 +9,8 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements.Inputs
         #region Public
 
         #region Members
-        public TOutput Value { get; protected set; }
+        public virtual bool IsFocused { get; set; }
+        public virtual TOutput Value { get; protected set; }
         #endregion
 
         #region Member Methods
