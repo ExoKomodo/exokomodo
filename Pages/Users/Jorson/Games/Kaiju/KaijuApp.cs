@@ -28,10 +28,20 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("draw")]
         public override void Draw()
         {
-            Background(0);
+            Background(Color.Gray);
 
             _tree.Render();
             DrawCenterLines();
+        }
+
+        [JSInvokable("keyPressed")]
+        public override bool KeyPressed()
+        {
+            if (_textInput is not null)
+            {
+                _textInput.HandleInput(KeyCode);
+            }
+            return true; // Event prevent default
         }
 
         [JSInvokable("mouseClicked")]
@@ -90,6 +100,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         private Shader _mandelbrot { get; set; }
         private Sound _sound { get; set; }
         private Model3D _teapot { get; set; }
+        private KaijuTextInput _textInput { get; set; }
         private KaijuElementTree _tree { get; set; }
         private float _width { get; set; }
         #endregion
@@ -199,6 +210,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
                     };
                 _container.AddChild(button);
             }
+            _textInput = new KaijuTextInput(this)
+            {
+                BackgroundColor = Color.Green,
+                TextColor = Color.Black,
+                Dimensions = new Vector2(100f, 50f),
+            };
+            _container.AddChild(_textInput);
             _tree.Root.AddChild(_container);
 
             SetUiScale();

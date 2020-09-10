@@ -14,6 +14,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 
         #region Constructors
         public KaijuLabel(P5App application)
+            : base()
         {
             Application = application;
         }
@@ -21,17 +22,18 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 
         #region Members
         public P5App Application { get; private set; }
+        public HorizontalTextAlign HorizontalAlign { get; set; } = HorizontalTextAlign.Center;
         public Color TextColor { get; set; }
+        public VerticalTextAlign VerticalAlign { get; set; } = VerticalTextAlign.Center;
         #endregion
 
         #region Member Methods
-
         public override void Render()
         {
             var position = RenderPosition;
             Application.Push();
             Application.Fill(TextColor);
-            Application.SetTextAlign(HorizontalTextAlign.Center, VerticalTextAlign.Center);
+            Application.SetTextAlign(HorizontalAlign, VerticalAlign);
             Application.DrawText(Text, RenderPosition);
             Application.Pop();
 
