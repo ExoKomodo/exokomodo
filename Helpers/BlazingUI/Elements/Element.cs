@@ -151,10 +151,6 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
             {
                 if (child.HandleClick(clickPosition, fallThrough: fallThrough))
                 {
-                    if (!fallThrough)
-                    {
-                        return true;
-                    }
                     clickHandled = true;
                 }
             }
