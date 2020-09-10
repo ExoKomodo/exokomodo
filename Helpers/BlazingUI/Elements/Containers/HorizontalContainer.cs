@@ -25,7 +25,7 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
         public override void Render()
         {
             var elementWidthOffset = -(
-                Children.Sum(element => element.Height)
+                Children.Sum(element => element.Width)
                 + (
                     Children.Length
                     - 1
@@ -34,10 +34,7 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
             for (int i = 0; i < Children.Length; i++)
             {
                 var child = Children[i];
-                if (i == 0)
-                {
-                    elementWidthOffset += child.HalfHeight;
-                }
+                elementWidthOffset += child.HalfWidth;
                 var layoutOffset = ContainerHelper.CalculateLayoutOffset(this, child);
                 child.RenderPosition = (
                     RenderPosition
@@ -50,7 +47,7 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
                     )
                 );
                 child.Render();
-                elementWidthOffset += child.Height;
+                elementWidthOffset += child.HalfWidth;
             }
         }
         #endregion
