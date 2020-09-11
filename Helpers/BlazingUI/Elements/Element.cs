@@ -25,7 +25,11 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
         public float Height
         {
             get => Dimensions.Y;
-            set => Dimensions.Y = value < 0f ? 0f : value;
+            set
+            {
+                Dimensions.Y = value < 0f ? 0f : value;
+                ClearCachedRenderPosition();
+            }
         }
 
         public readonly TId Id;
@@ -39,8 +43,8 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
             get => _offset;
             set
             {
-                _cachedRenderPosition = null;
                 _offset = value;
+                ClearCachedRenderPosition();
             }
         }
 
@@ -49,7 +53,7 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
             get => _parent;
             protected set
             {
-                _cachedRenderPosition = null;
+                ClearCachedRenderPosition();
                 _parent = value;
             }
         }
@@ -78,7 +82,7 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
             }
             set
             {
-                _cachedRenderPosition = null;
+                ClearCachedRenderPosition();
                 _renderPositionOverride = value;
             }
         }
@@ -86,7 +90,11 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
         public float Width
         {
             get => Dimensions.X;
-            set => Dimensions.X = value < 0f ? 0f : value;
+            set
+            {
+                Dimensions.X = value < 0f ? 0f : value;
+                ClearCachedRenderPosition();
+            }
         }
         #endregion
 
@@ -238,6 +246,17 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
         protected Vector2? _renderPositionOverride { get; set; }
         protected Vector2? _cachedRenderPosition { get; set; }
         protected float _width { get; set; }
+        #endregion
+
+        #region Member Methods
+        protected void ClearCachedRenderPosition()
+        {
+            _cachedRenderPosition = null;
+            foreach (var pair in _children)
+            {
+                pair.Value.ClearCachedRenderPosition();
+            }
+        }
         #endregion
 
         #endregion
