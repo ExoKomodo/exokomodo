@@ -34,7 +34,7 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements
 
         public readonly TId Id;
 
-        public bool IsHovered { get; protected set; }
+        public bool IsHovered { get; set; }
 
         public uint LocalId { get; protected set; }
 
