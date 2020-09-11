@@ -3,7 +3,7 @@ using ExoKomodo.Helpers.BlazingUI.Elements.Labels;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
+namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
 {
     public class KaijuLabel
         : Label<string>
@@ -15,6 +15,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             : base()
         {
             Application = application;
+            FontSize = 12;
         }
         #endregion
 
@@ -31,6 +32,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             var position = RenderPosition;
             Application.Push();
             Application.Fill(TextColor);
+            Application.SetTextSize(FontSize);
             Application.SetTextAlign(HorizontalAlign, VerticalAlign);
             Application.DrawText(Text, RenderPosition);
             Application.Pop();

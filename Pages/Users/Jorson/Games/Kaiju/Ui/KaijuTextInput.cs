@@ -5,7 +5,7 @@ using ExoKomodo.Helpers.BlazingUI.Elements.Inputs;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
+namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
 {
     public class KaijuTextInput
         : TextInput<string>
