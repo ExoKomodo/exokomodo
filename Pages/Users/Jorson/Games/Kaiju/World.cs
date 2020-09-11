@@ -1,11 +1,11 @@
+using ExoKomodo.Enums;
+using ExoKomodo.Pages.Users.Jorson.Helpers;
+using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Monsters;
+using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Planets;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using ExoKomodo.Enums;
-using ExoKomodo.Helpers.P5.Models;
-using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Monsters;
-using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Planets;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 {
@@ -116,11 +116,35 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 
         private void DrawSky()
         {
-            Application.Background(Color.SkyBlue);
+            var timeOfDay = GetTimeOfDay();
+            var night = Color.Black;
+            var day = Color.LightSkyBlue;
+            var skyColor = ColorExtensions.Lerp(night, day, timeOfDay);
+
+            Application.Background(skyColor);
         }
 
         private float GetPlayerRotation()
             => Player is null ? 0f : Player.CurrentPlanet.EdgePointToRotationAngle(Player.EdgePoint);
+
+        private float GetTimeOfDay()
+        {
+            var tau = 2f * MathF.PI;
+            var timeOfDay = GetPlayerRotation();
+            if (timeOfDay < 0f)
+            {
+                timeOfDay *= -1f;
+            }
+            while (timeOfDay > tau)
+            {
+                timeOfDay -= tau;
+            }
+            if (timeOfDay > MathF.PI)
+            {
+                timeOfDay = MathF.PI - (timeOfDay - MathF.PI);
+            }
+            return (timeOfDay / MathF.PI) % 1f;
+        }
 
         private void TryExit()
         {
