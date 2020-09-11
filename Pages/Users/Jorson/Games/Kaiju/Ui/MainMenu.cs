@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using ExoKomodo.Enums;
@@ -7,24 +8,27 @@ using ExoKomodo.Helpers.P5.Enums;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
 {
-    public class MainMenu
+    public class MainMenu : Scene
     {
         #region Public
 
         #region Constructors
         public MainMenu(KaijuApp application)
-        {
-            _application = application;
-        }
+            : base(application) {}
         #endregion
 
         #region Members
-        public float Height
+        public override float Height
         {
             get => _container.Height;
             set => _container.Height = value;
         }
-        public float Width
+        public override ISet<GameStates> ActiveStates { get; protected set; }
+            = new HashSet<GameStates>
+            {
+                GameStates.MainMenu,
+            };
+        public override float Width
         {
             get => _container.Width;
             set => _container.Width = value;
@@ -32,19 +36,19 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
         #endregion
 
         #region Member Methods
-        public void Draw()
+        public override void Draw()
         {
             _application.Background(Color.Black);
             _tree?.Render();
         }
 
-        public bool HandleClick(Vector2 clickPosition, bool fallThrough = false)
+        public override bool HandleClick(Vector2 clickPosition, bool fallThrough = false)
             => _tree is null ? false : _tree.HandleClick(clickPosition, fallThrough: fallThrough);
         
-        public void HandleHover(Vector2 mousePosition)
+        public override void HandleHover(Vector2 mousePosition)
             => _tree?.HandleHover(mousePosition);
 
-        public void HandleInput(KeyCodes code)
+        public override void HandleInput(KeyCodes code)
         {
             switch (code)
             {
@@ -54,7 +58,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
             }
         }
 
-        public void Setup(float width, float height)
+        public override void Setup(float width, float height)
         {
             SetupTree();
             AddContainer();
@@ -64,13 +68,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
             AddFooter();
         }
 
-        public void SetUiScale(float width, float height)
+        public override void SetUiScale(float width, float height)
         {
             Width = width;
             Height = height;
         }
 
-        public void Update() {}
+        public override void Update() {}
         #endregion
 
         #endregion
@@ -78,7 +82,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
         #region Private
 
         #region Members
-        private KaijuApp _application { get; set; }
         private Container<string> _container { get; set; }
         private KaijuButton _startButton { get; set; }
         private KaijuElementTree _tree { get; set; }
@@ -106,7 +109,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
                 },
             };
             _startButton.OnClick += (sender, args)
-                => _application.GameState = GameStates.World;
+                => {
+                    _application.GameState = GameStates.World;
+                    _startButton.IsHovered = false;
+                };
             _container.AddChild(_startButton);
         }
         

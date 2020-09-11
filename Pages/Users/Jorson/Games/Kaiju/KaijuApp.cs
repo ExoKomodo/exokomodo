@@ -3,6 +3,7 @@ using ExoKomodo.Helpers.P5;
 using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui;
 using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 
@@ -16,8 +17,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         public KaijuApp(IJSRuntime jsRuntime, string containerId)
             : base(jsRuntime, containerId)
         {
-            _mainMenu = new MainMenu(this);
-            _world = new World(this);
+            _scenes = new List<Scene>();
         }
         #endregion
 
@@ -29,39 +29,32 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("draw")]
         public override void Draw()
         {
-            Update();
-            
-            switch (GameState)
+            foreach (var scene in _scenes)
             {
-                case GameStates.MainMenu:
-                    _mainMenu.Draw();
-                    break;
-                case GameStates.World:
-                    _world.Draw();
-                    break;
-                case GameStates.GameOver:
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
-            };
+                if (scene.ActiveStates.Contains(GameState))
+                {
+                    scene.Update();
+                }
+            }
+            foreach (var scene in _scenes)
+            {
+                if (scene.ActiveStates.Contains(GameState))
+                {
+                    scene.Draw();
+                }
+            }
         }
 
         [JSInvokable("keyPressed")]
         public override bool KeyPressed()
         {
-            switch (GameState)
+            foreach (var scene in _scenes)
             {
-                case GameStates.MainMenu:
-                    _mainMenu.HandleInput(KeyCode);
-                    break;
-                case GameStates.GameOver:
-                    break;
-                case GameStates.World:
-                    _world.HandleInput(KeyCode);
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
-            };
+                if (scene.ActiveStates.Contains(GameState))
+                {
+                    scene.HandleInput(KeyCode);
+                }
+            }
 
             return false; // Event prevent default
         }
@@ -69,37 +62,25 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         [JSInvokable("mouseClicked")]
         public override bool MouseClicked()
         {
-            switch (GameState)
+            foreach (var scene in _scenes)
             {
-                case GameStates.MainMenu:
-                    _mainMenu.HandleClick(MousePosition);
-                    break;
-                case GameStates.GameOver:
-                    break;
-                case GameStates.World:
-                    _world.HandleClick(MousePosition);
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
-            }   
+                if (scene.ActiveStates.Contains(GameState))
+                {
+                    scene.HandleClick(MousePosition);
+                }
+            }
             return true; // Event prevent default
         }
 
         [JSInvokable("mouseMoved")]
         public override bool MouseMoved()
         {
-            switch (GameState)
+            foreach (var scene in _scenes)
             {
-                case GameStates.MainMenu:
-                    _mainMenu.HandleHover(MousePosition);
-                    break;
-                case GameStates.GameOver:
-                    break;
-                case GameStates.World:
-                    _world.HandleHover(MousePosition);
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
+                if (scene.ActiveStates.Contains(GameState))
+                {
+                    scene.HandleHover(MousePosition);
+                }
             }
             return true; // Event prevent default
         }
@@ -110,8 +91,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         public void Reset()
         {
             GameState = GameStates.MainMenu;
-            _mainMenu.Setup(_width, _height);
-            _world.Setup();
+            foreach (var scene in _scenes)
+            {
+                scene.Setup(_width, _height);
+            }
         }
 
         [JSInvokable("setup")]
@@ -119,6 +102,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         {
             FrameRate(30);
             UserStartAudio();
+
+            _scenes.Add(new MainMenu(this));
+            _scenes.Add(new World(this));
+
             InitializeCanvas();
             Reset();
         }
@@ -128,18 +115,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         {
             QueryWindow();
             ResizeCanvas((uint)_width, (uint)_height);
-            switch (GameState)
+            foreach (var scene in _scenes)
             {
-                case GameStates.MainMenu:
-                    _mainMenu.SetUiScale(_width, _height);
-                    break;
-                case GameStates.GameOver:
-                    break;
-                case GameStates.World:
-                    _world.SetUiScale(_width, _height);
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
+                if (scene.ActiveStates.Contains(GameState))
+                {
+                    scene.SetUiScale(_width, _height);
+                }
             }
         }
         #endregion
@@ -151,9 +132,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Members
         private float _delta { get; set; } = 0.01f;
         private float _height { get; set; }
-        private MainMenu _mainMenu { get; set; }
+        private IList<Scene> _scenes { get; set; }
         private float _width { get; set; }
-        private World _world { get; set; }
         #endregion
 
         #region Member Methods
@@ -179,38 +159,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             CreateCanvas((uint)_width, (uint)_height, useWebGl: false);
         }
 
-        private void HandleInputGameOver(KeyCodes code) {}
-        
-        private void HandleInputMainMenu(KeyCodes code) {}
-
-        private void HandleInputWorld(KeyCodes code)
-        {
-            _world.HandleInput(code);
-        }
-
         private void QueryWindow()
         {
             bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
             float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
             _width = WindowWidth * 0.75f;
             _height = _width / aspectRatio;
-        }
-
-        private void Update()
-        {
-            switch (GameState)
-            {
-                case GameStates.MainMenu:
-                    _mainMenu.Update();
-                    break;
-                case GameStates.World:
-                    _world.Update();
-                    break;
-                case GameStates.GameOver:
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
-            };
         }
         #endregion
 
