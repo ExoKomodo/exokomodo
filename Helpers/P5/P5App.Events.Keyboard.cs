@@ -43,7 +43,7 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Member Methods
-        public bool IsKeyDown(uint code) => _jsRuntime.Invoke<bool>(
+        public bool IsKeyDown(KeyCodes code) => _jsRuntime.Invoke<bool>(
             _p5InvokeFunctionAndReturn,
             "keyIsDown",
             code
