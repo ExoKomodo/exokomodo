@@ -14,7 +14,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Planets
         {
             GroundColor = Color.ForestGreen;
             Rotation = MathF.PI;
-            RotationSpeed = MathF.PI / 20f;
+            RotationSpeed = MathF.PI / 60f;
         }
         #endregion
 
