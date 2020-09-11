@@ -8,6 +8,7 @@ namespace ExoKomodo.Helpers.BlazingUI.Elements.Labels
         #region Public
 
         #region Members
+        public float FontSize { get; set; }
         public string Text { get; set; }
         #endregion
 
