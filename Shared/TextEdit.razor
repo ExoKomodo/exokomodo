@@ -1,0 +1,10 @@
+<div class="text-edit">
+    <link href="css/components/TextEdit/styles.css" rel="stylesheet" />
+    
+    <div class="text-edit-editor-container">
+        <textarea class="text-edit-editor form-control" @bind-value="Text" @bind-value:event="oninput"></textarea>
+    </div>
+    <div class="text-edit-preview-container">
+        @Markup
+    </div>
+</div>
