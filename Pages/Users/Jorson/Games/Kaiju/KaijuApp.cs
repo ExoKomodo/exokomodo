@@ -1,11 +1,8 @@
-using ExoKomodo.Enums;
 using ExoKomodo.Helpers.P5;
+using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Monsters;
 using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui;
 using Microsoft.JSInterop;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Numerics;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 {
@@ -52,7 +49,21 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             {
                 if (scene.ActiveStates.Contains(GameState))
                 {
-                    scene.HandleInput(KeyCode);
+                    scene.HandleInputDown(KeyCode);
+                }
+            }
+
+            return false; // Event prevent default
+        }
+
+        [JSInvokable("keyReleased")]
+        public override bool KeyReleased()
+        {
+            foreach (var scene in _scenes)
+            {
+                if (scene.ActiveStates.Contains(GameState))
+                {
+                    scene.HandleInputUp(KeyCode);
                 }
             }
 
@@ -111,18 +122,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         }
 
         [JSInvokable("windowResized")]
-        public override void WindowResized()
-        {
-            QueryWindow();
-            ResizeCanvas((uint)_width, (uint)_height);
-            foreach (var scene in _scenes)
-            {
-                if (scene.ActiveStates.Contains(GameState))
-                {
-                    scene.SetUiScale(_width, _height);
-                }
-            }
-        }
+        public override void WindowResized() {}
         #endregion
 
         #endregion
@@ -130,29 +130,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Private
 
         #region Members
-        private float _delta { get; set; } = 0.01f;
         private float _height { get; set; }
         private IList<Scene> _scenes { get; set; }
         private float _width { get; set; }
         #endregion
 
         #region Member Methods
-        private void DrawCenterLines()
-        {
-            Push();
-            Stroke(Color.Red);
-            StrokeWeight(1);
-            DrawLine(
-                new Vector2(0f, _height / 2f),
-                new Vector2(_width, _height / 2f)
-            );
-            DrawLine(
-                new Vector2(_width / 2f, 0f),
-                new Vector2(_width / 2f, _height)
-            );
-            Pop();
-        }
-
         private void InitializeCanvas()
         {
             QueryWindow();
