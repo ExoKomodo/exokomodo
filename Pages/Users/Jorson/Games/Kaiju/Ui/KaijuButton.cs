@@ -4,7 +4,7 @@ using System.Numerics;
 using ExoKomodo.Helpers.BlazingUI.Elements.Buttons;
 using ExoKomodo.Helpers.P5;
 
-namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
+namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
 {
     public class KaijuButton
         : Button<string>
@@ -21,6 +21,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Members
         public P5App Application { get; private set; }
         public Color BackgroundColor { get; set; }
+        public Color BorderColor { get; set; }
+        public uint BorderWeight { get; set; }
+        public Color? BackgroundHoverColor { get; set; }
         public KaijuLabel Label
         {
             get => _label;
@@ -70,7 +73,15 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         {
             var position = RenderPosition;
             Application.Push();
-            Application.Fill(BackgroundColor);
+            if (BorderWeight > 0)
+            {
+                Application.StrokeWeight(BorderWeight);
+                Application.Stroke(BorderColor);
+            }
+            Application.Fill(
+                (IsHovered && BackgroundHoverColor.HasValue)
+                    ? BackgroundHoverColor.Value : BackgroundColor
+            );
             Application.DrawRectangle(position, Dimensions);
             Application.Pop();
 
