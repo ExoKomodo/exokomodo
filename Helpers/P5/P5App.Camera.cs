@@ -1,7 +1,5 @@
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
-using ExoKomodo.Helpers.P5.Enums;
-using System;
 using System.Numerics;
 
 namespace ExoKomodo.Helpers.P5

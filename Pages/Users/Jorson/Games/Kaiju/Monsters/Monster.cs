@@ -15,7 +15,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Monsters
         #endregion
 
         #region Member Methods
-        public abstract void Draw();
+        public abstract void Draw(float baseRotation = 0f, bool isFocused = false);
 
         public virtual void Move(float distance)
         {

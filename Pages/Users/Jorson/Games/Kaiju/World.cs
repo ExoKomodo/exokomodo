@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using ExoKomodo.Enums;
+using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Monsters;
 using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Planets;
 
@@ -33,7 +34,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         public override void Draw()
         {
             DrawSky();
-            _planet?.Draw();
+            
+            _planet?.Draw(baseRotation: -GetPlayerRotation());
             DrawBuildings();
             DrawMonsters();
         }
@@ -56,8 +58,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             _planet = new Earth(Application)
             {
                 GroundColor = Color.ForestGreen,
-                Position = new Vector2(width / 2f, height / 2f),
-                Diameter = MathF.Min(width, height) * 0.75f,
+                Position = new Vector2(width / 2f, 1.5f * height),
+                Diameter = MathF.Min(width, height) * 2f,
             };
             
             _monsters.Clear();
@@ -97,8 +99,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         private IList<Monster> _monsters { get; set; }
         private Planet _planet { get; set; }
         private bool _shouldExitToMainMenu { get; set; }
-        private bool _shouldMoveLeft { get; set; }
-        private bool _shouldMoveRight { get; set; }
         #endregion
 
         #region Member Methods
@@ -110,7 +110,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         {
             foreach (var monster in _monsters)
             {
-                monster.Draw();
+                monster.Draw(baseRotation: -GetPlayerRotation(), isFocused: ReferenceEquals(monster, Player));
             }
         }
 
@@ -118,6 +118,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         {
             Application.Background(Color.SkyBlue);
         }
+
+        private float GetPlayerRotation()
+            => Player is null ? 0f : Player.CurrentPlanet.EdgePointToRotationAngle(Player.EdgePoint);
 
         private void TryExit()
         {
