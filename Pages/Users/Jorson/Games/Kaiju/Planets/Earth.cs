@@ -19,12 +19,12 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Planets
         #endregion
 
         #region Member Methods
-        public override void Draw()
+        public override void Draw(float baseRotation = 0f)
         {
             Application.Push();
 
             Application.Translate(Position);
-            Application.Rotate(Rotation);
+            Application.Rotate(baseRotation + Rotation);
 
             Application.NoStroke();
             Application.Fill(GroundColor);

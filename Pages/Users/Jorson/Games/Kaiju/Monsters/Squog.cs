@@ -25,7 +25,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Monsters
         #endregion
 
         #region Member Methods
-        public override void Draw()
+        public override void Draw(float baseRotation = 0f, bool isFocused = false)
         {
             if (CurrentPlanet is null)
             {
@@ -35,11 +35,20 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Monsters
 
             Application.Fill(Color.DarkSlateGray);
 
-            var translation = CurrentPlanet.EdgePointToPosition(EdgePoint, radiusOffset: _body.Height * 0.5f);
+            var halfHeight = _body.Height * 0.5f;
+            Vector2 translation;
+            if (!isFocused)
+            {
+                translation = CurrentPlanet.EdgePointToPosition(EdgePoint, radiusOffset: halfHeight);
+            }
+            else
+            {
+                translation = CurrentPlanet.Position + (-Vector2.UnitY * (CurrentPlanet.Radius + halfHeight));
+            }
             Application.Translate(translation);
             
             var rotation = CurrentPlanet.EdgePointToRotationAngle(EdgePoint);
-            Application.Rotate(rotation);
+            Application.Rotate(baseRotation + rotation);
 
             Application.SetRectangleMode(RectangleMode.Center);
             Application.DrawRectangle(_body);

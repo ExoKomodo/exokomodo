@@ -42,7 +42,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Planets
         #endregion
 
         #region Member Methods
-        public abstract void Draw();
+        public abstract void Draw(float baseRotation = 0f);
 
         public Vector2 EdgePointToPosition(float edgePoint, float radiusOffset = 0f)
         {
