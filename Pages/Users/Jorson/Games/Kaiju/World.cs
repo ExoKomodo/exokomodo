@@ -1,37 +1,34 @@
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using ExoKomodo.Enums;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
 {
-    public class World
+    public class World : Scene
     {
         #region Public
 
         #region Constructors
         public World(KaijuApp application)
-        {
-            _application = application;
-        }
+            : base(application) {}
         #endregion
 
         #region Members
-        public float Height { get; set; }
-        public float Width { get; set; }
+        public override ISet<GameStates> ActiveStates { get; protected set; }
+            = new HashSet<GameStates>
+            {
+                GameStates.World,
+            };
         #endregion
 
         #region Member Methods
-        public void Draw()
+        public override void Draw()
         {
             _application.Background(Color.SkyBlue);
         }
 
-        public bool HandleClick(Vector2 clickPosition, bool fallThrough = false)
-            => true;
-        
-        public void HandleHover(Vector2 mousePosition) {}
-
-        public void HandleInput(KeyCodes code)
+        public override void HandleInput(KeyCodes code)
         {
             switch (code)
             {
@@ -41,14 +38,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             }
         }
 
-        public void SetUiScale(float width, float height) {}
-
-        public void Setup()
+        public override void Setup(float width, float height)
         {
             _shouldExitToMainMenu = false;
+            SetUiScale(width, height);
         }
 
-        public void Update()
+        public override void Update()
         {
             TryExit();
         }
@@ -59,7 +55,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Private
 
         #region Members
-        private KaijuApp _application { get; set; }
         private bool _shouldExitToMainMenu { get; set; }
         #endregion
 
