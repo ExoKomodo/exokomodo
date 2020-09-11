@@ -1,7 +1,6 @@
-using ExoKomodo.Helpers.BlazingUI.Elements.Containers;
-using ExoKomodo.Helpers.BlazingUI.Enums;
+using ExoKomodo.Enums;
 using ExoKomodo.Helpers.P5;
-using ExoKomodo.Helpers.P5.Models;
+using ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui;
 using Microsoft.JSInterop;
 using System;
 using System.Drawing;
@@ -17,72 +16,131 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         public KaijuApp(IJSRuntime jsRuntime, string containerId)
             : base(jsRuntime, containerId)
         {
-            _tree = new KaijuElementTree();
+            _mainMenu = new MainMenu(this);
+            _world = new World(this);
         }
         #endregion
 
         #region Members
+        public GameStates GameState { get; set; }
         #endregion
 
         #region Member Methods
         [JSInvokable("draw")]
         public override void Draw()
         {
-            Background(Color.Gray);
-
-            _tree.Render();
-            DrawCenterLines();
+            Update();
+            
+            switch (GameState)
+            {
+                case GameStates.MainMenu:
+                    _mainMenu.Draw();
+                    break;
+                case GameStates.World:
+                    _world.Draw();
+                    break;
+                case GameStates.GameOver:
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
+            };
         }
 
         [JSInvokable("keyPressed")]
         public override bool KeyPressed()
         {
-            if (_textInput is not null)
+            switch (GameState)
             {
-                _textInput.HandleInput(KeyCode);
-            }
-            return true; // Event prevent default
+                case GameStates.MainMenu:
+                    _mainMenu.HandleInput(KeyCode);
+                    break;
+                case GameStates.GameOver:
+                    break;
+                case GameStates.World:
+                    _world.HandleInput(KeyCode);
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
+            };
+
+            return false; // Event prevent default
         }
 
         [JSInvokable("mouseClicked")]
         public override bool MouseClicked()
         {
-            _tree.HandleClick(MousePosition);
+            switch (GameState)
+            {
+                case GameStates.MainMenu:
+                    _mainMenu.HandleClick(MousePosition);
+                    break;
+                case GameStates.GameOver:
+                    break;
+                case GameStates.World:
+                    _world.HandleClick(MousePosition);
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
+            }   
             return true; // Event prevent default
         }
 
         [JSInvokable("mouseMoved")]
         public override bool MouseMoved()
         {
-            _tree.HandleHover(MousePosition);
+            switch (GameState)
+            {
+                case GameStates.MainMenu:
+                    _mainMenu.HandleHover(MousePosition);
+                    break;
+                case GameStates.GameOver:
+                    break;
+                case GameStates.World:
+                    _world.HandleHover(MousePosition);
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
+            }
             return true; // Event prevent default
         }
 
         [JSInvokable("preload")]
-        public override void Preload()
-        {
-            _sound = LoadSound("assets/doorbell.mp3");
-        }
+        public override void Preload() {}
 
         public void Reset()
         {
+            GameState = GameStates.MainMenu;
+            _mainMenu.Setup(_width, _height);
+            _world.Setup();
         }
 
         [JSInvokable("setup")]
         public override void Setup()
         {
-            _clearColor = Color.FromArgb(red: 200, green: 200, blue: 200);
+            FrameRate(30);
+            UserStartAudio();
             InitializeCanvas();
             Reset();
-            SetupUi();
         }
 
         [JSInvokable("windowResized")]
         public override void WindowResized()
         {
             QueryWindow();
-            SetUiScale();
             ResizeCanvas((uint)_width, (uint)_height);
+            switch (GameState)
+            {
+                case GameStates.MainMenu:
+                    _mainMenu.SetUiScale(_width, _height);
+                    break;
+                case GameStates.GameOver:
+                    break;
+                case GameStates.World:
+                    _world.SetUiScale(_width, _height);
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
+            }
         }
         #endregion
 
@@ -91,30 +149,14 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Private
 
         #region Members
-        private KaijuButton _button { get; set; }
-        private Camera _camera { get; set; }
-        private Container<string> _container { get; set; }
         private float _delta { get; set; } = 0.01f;
-        private Color _clearColor { get; set; }
         private float _height { get; set; }
-        private Shader _mandelbrot { get; set; }
-        private Sound _sound { get; set; }
-        private Model3D _teapot { get; set; }
-        private KaijuTextInput _textInput { get; set; }
-        private KaijuElementTree _tree { get; set; }
+        private MainMenu _mainMenu { get; set; }
         private float _width { get; set; }
+        private World _world { get; set; }
         #endregion
 
         #region Member Methods
-        private void ButtonClickTest(object sender, KaijuClickEventArgs args)
-        {
-            var button = args.ClickedButton;
-            Console.WriteLine(
-                $"Clicked '{button.GetType()}' from '{GetType()}' at {args.ClickPosition} with text '{button.Label.Text}'"
-            );
-            Play(_sound);
-        }
-
         private void DrawCenterLines()
         {
             Push();
@@ -131,22 +173,19 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             Pop();
         }
 
-        private void DrawTeapot()
-        {
-            var frames = FrameCount;
-            Push();
-            Scale(0.4f);
-            RotateX(frames * 0.01f);
-            RotateY(frames * 0.01f);
-            NormalMaterial();
-            DrawModel(_teapot);
-            Pop();
-        }
-
         private void InitializeCanvas()
         {
             QueryWindow();
             CreateCanvas((uint)_width, (uint)_height, useWebGl: false);
+        }
+
+        private void HandleInputGameOver(KeyCodes code) {}
+        
+        private void HandleInputMainMenu(KeyCodes code) {}
+
+        private void HandleInputWorld(KeyCodes code)
+        {
+            _world.HandleInput(code);
         }
 
         private void QueryWindow()
@@ -157,69 +196,21 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
             _height = _width / aspectRatio;
         }
 
-        private void SetUiScale()
+        private void Update()
         {
-            if (_container is null)
+            switch (GameState)
             {
-                return;
-            }
-            _container.Width = _width;
-            _container.Height = _height;
-        }
-
-        private void SetupUi()
-        {
-            _tree = new KaijuElementTree();
-            _container = new HorizontalContainer<string>()
-            {
-                Alignment = LayoutAlign.Center,
-                Offset = Vector2.Zero,
+                case GameStates.MainMenu:
+                    _mainMenu.Update();
+                    break;
+                case GameStates.World:
+                    _world.Update();
+                    break;
+                case GameStates.GameOver:
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("Invalid GameStates enum value");
             };
-            for (int i = 0; i < 3; i++)
-            {
-                var dimensions = new Vector2(50f, 50f);
-                var button = new KaijuButton(this)
-                {
-                    BackgroundColor = Color.MediumAquamarine,
-                    Dimensions = dimensions,
-                    Offset = Vector2.Zero,
-                    Label = new KaijuLabel(this)
-                    {
-                        Offset = dimensions / 2f,
-                        Text = $"Test {i}",
-                        TextColor = Color.Black,
-                    },
-                };
-                button.OnClick += (sender, args)
-                    => ButtonClickTest(sender, args);
-                button.OnHoverEnter += (element, args)
-                    => {
-                        var hoveredButton = (element as KaijuButton);
-                        Console.WriteLine(
-                            $"Hover enter button with text '{hoveredButton?.Label.Text}'. Hover state: {hoveredButton?.IsHovered}"
-                        );
-                        hoveredButton.BackgroundColor = Color.Aqua;
-                    };
-                button.OnHoverExit += (element, args)
-                    => {
-                        var hoveredButton = (element as KaijuButton);
-                        Console.WriteLine(
-                            $"Hover exit button with text '{hoveredButton?.Label.Text}'. Hover state: {hoveredButton?.IsHovered}"
-                        );
-                        hoveredButton.BackgroundColor = Color.MediumAquamarine;
-                    };
-                _container.AddChild(button);
-            }
-            _textInput = new KaijuTextInput(this)
-            {
-                BackgroundColor = Color.Green,
-                TextColor = Color.Black,
-                Dimensions = new Vector2(100f, 50f),
-            };
-            _container.AddChild(_textInput);
-            _tree.Root.AddChild(_container);
-
-            SetUiScale();
         }
         #endregion
 
