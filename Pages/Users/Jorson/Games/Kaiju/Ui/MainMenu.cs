@@ -38,7 +38,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
         #region Member Methods
         public override void Draw()
         {
-            _application.Background(Color.Black);
+            Application.Background(Color.Black);
+            _startButton.IsHovered = _startButton.IsHovered || _isStartButtonHovered;
             _tree?.Render();
         }
 
@@ -48,11 +49,22 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
         public override void HandleHover(Vector2 mousePosition)
             => _tree?.HandleHover(mousePosition);
 
-        public override void HandleInput(KeyCodes code)
+        public override void HandleInputDown(KeyCodes code)
         {
             switch (code)
             {
                 case KeyCodes.Enter:
+                    _isStartButtonHovered = true;
+                    break;
+            }
+        }
+
+        public override void HandleInputUp(KeyCodes code)
+        {
+            switch (code)
+            {
+                case KeyCodes.Enter:
+                    _isStartButtonHovered = false;
                     _startButton.Click();
                     break;
             }
@@ -83,6 +95,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
 
         #region Members
         private Container<string> _container { get; set; }
+        private bool _isStartButtonHovered { get; set; }
         private KaijuButton _startButton { get; set; }
         private KaijuElementTree _tree { get; set; }
         #endregion
@@ -92,7 +105,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
         {
             var width = Width / 8f;
             var dimensions = new Vector2(width, width * (1f / 3f));
-            _startButton = new KaijuButton(_application)
+            _startButton = new KaijuButton(Application)
             {
                 BackgroundColor = Color.Black,
                 BackgroundHoverColor = Color.DarkSlateGray,
@@ -100,7 +113,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
                 Offset = Vector2.Zero,
                 BorderColor = Color.White,
                 BorderWeight = 2,
-                Label = new KaijuLabel(_application)
+                Label = new KaijuLabel(Application)
                 {
                     FontSize = 24f,
                     Offset = dimensions / 2f,
@@ -110,7 +123,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
             };
             _startButton.OnClick += (sender, args)
                 => {
-                    _application.GameState = GameStates.World;
+                    Application.GameState = GameStates.World;
                     _startButton.IsHovered = false;
                 };
             _container.AddChild(_startButton);
@@ -128,7 +141,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
 
         private void AddFooter()
         {
-            var footer = new KaijuLabel(_application)
+            var footer = new KaijuLabel(Application)
             {
                 FontSize = 12f,
                 Offset = new Vector2(Width / 2f, Height * (19f / 20f)),
@@ -142,7 +155,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju.Ui
 
         private void AddTitle()
         {
-            var title = new KaijuLabel(_application)
+            var title = new KaijuLabel(Application)
             {
                 FontSize = 64f,
                 Offset = new Vector2(Width / 2f, Height / 8f),
