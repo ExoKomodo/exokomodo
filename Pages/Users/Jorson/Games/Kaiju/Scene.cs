@@ -10,8 +10,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Public
 
         #region Members
-        public virtual float Height { get; set; }
         public abstract ISet<GameStates> ActiveStates { get; protected set; }
+        public KaijuApp Application { get; protected set; }
+        public virtual float Height { get; set; }
         public virtual float Width { get; set; }
         #endregion
 
@@ -23,7 +24,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         
         public virtual void HandleHover(Vector2 mousePosition) {}
 
-        public virtual void HandleInput(KeyCodes code) {}
+        public virtual void HandleInputDown(KeyCodes code) {}
+
+        public virtual void HandleInputUp(KeyCodes code) { }
 
         public virtual void SetUiScale(float width, float height)
         {
@@ -43,12 +46,8 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.Kaiju
         #region Constructors
         protected Scene(KaijuApp application)
         {
-            _application = application;
+            Application = application;
         }
-        #endregion
-
-        #region Members
-        protected KaijuApp _application { get; set; }
         #endregion
 
         #endregion
