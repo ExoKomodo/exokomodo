@@ -1,0 +1,16 @@
+@page "/users/dabby/ramen-blog/{Id:int}"
+
+@using ExoKomodo.Pages.Users.Jorson.Components
+
+<link href="css/dabby/styles.css" rel="stylesheet" />
+
+@if (_blog is not null)
+{
+    <div id="body">
+        <BackLink Link="/users/dabby/ramen-blog" PageName="ramen blog" />
+        <h1>@_blog.Title</h1>
+        <div>
+            @((MarkupString)_blog.Content.Text)
+        </div>
+    </div>
+}

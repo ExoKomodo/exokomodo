@@ -1,0 +1,19 @@
+@page "/users/dabby"
+
+@using ExoKomodo.Pages.Users.Jorson.Components;
+
+<link href="css/dabby/styles.css" rel="stylesheet" />
+
+@if (_self == null)
+{
+}
+else
+{
+    <div id="body">
+        <BackLink Link="/users" PageName="users" />
+        <h1>
+            Hey it's me, @(_self.FullName)!
+            Check out my <a href="/users/dabby/ramen-blog">Ramen Blog</a>.
+        </h1>
+    </div>
+}

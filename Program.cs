@@ -28,6 +28,7 @@ namespace ExoKomodo
         private static void ConfigureJorsonServices(WebAssemblyHostBuilder builder)
         {
             builder.Services.AddTransient<JsonDb<int, Models.Jorson.Blog>, Pages.Users.Jorson.Blogs.BlogDb>();
+            builder.Services.AddTransient<JsonDb<int, Models.Dabby.Blog>, Pages.Users.Dabby.RamenBlog.BlogDb>();
         }
     }
 }
