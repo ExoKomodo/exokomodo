@@ -3,13 +3,14 @@
 @using ExoKomodo.Pages.Users.Jorson.Components
 
 <link href="css/dabby/styles.css" rel="stylesheet" />
+<link href="css/dabby/ramen-blog/ramen-blog.css" rel="stylesheet" />
 
 @if (_blog is not null)
 {
     <div id="body">
         <BackLink Link="/users/dabby/ramen-blog" PageName="ramen blog" />
         <h1>@_blog.Title</h1>
-        <div>
+        <div id="blog-content">
             @((MarkupString)_blog.Content.Text)
         </div>
     </div>
