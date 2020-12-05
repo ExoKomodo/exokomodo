@@ -15,9 +15,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Helpers
         #endregion
 
         #region Member Methods
-        public async Task<IList<T>> GetAllAsync() => await _http.GetFromJsonAsync<List<T>>($"{BaseUrl}");
+        public virtual async Task<IList<T>> GetAllAsync() => await _http.GetFromJsonAsync<List<T>>($"{BaseUrl}");
 
-        public async Task<T> GetByIdAsync(TId id) => await _http.GetFromJsonAsync<T>($"{BaseUrl}/{id}");
+        public virtual async Task<T> GetByIdAsync(TId id) => await _http.GetFromJsonAsync<T>($"{BaseUrl}/{id}");
         #endregion
 
         #endregion

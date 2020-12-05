@@ -1,18 +1,18 @@
-﻿using ExoKomodo.Models.Jorson;
+﻿using ExoKomodo.Models.Dabby;
 using ExoKomodo.Pages.Users.Jorson.Helpers;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ExoKomodo.Pages.Users.Jorson.Blogs
+namespace ExoKomodo.Pages.Users.Dabby.RamenBlog
 {
-    public class BlogDb : JsonDb<int, Blog>
+    public class RamenBlogDb : JsonDb<int, Blog>
     {
         #region Public
 
         #region Constructors
-        public BlogDb(HttpClient http) : base(http)
+        public RamenBlogDb(HttpClient http) : base(http)
         {
-            BaseUrl = "data/jorson/blogs/blogs.json";
+            BaseUrl = "data/dabby/blogs/ramenBlogs.json";
         }
         #endregion
 
