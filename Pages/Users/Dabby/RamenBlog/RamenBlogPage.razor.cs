@@ -8,16 +8,16 @@ using ExoKomodo.Pages.Users.Jorson;
 
 namespace ExoKomodo.Pages.Users.Dabby.RamenBlog
 {
-    internal class BlogPageBase : PageBase {}
+    internal class RamenBlogPageBase : PageBase {}
 
-    public partial class BlogPage : IDisposable
+    public partial class RamenBlogPage : IDisposable
     {
         #region Public
 
         #region Constructors
-        public BlogPage()
+        public RamenBlogPage()
         {
-            _base = new BlogPageBase();
+            _base = new RamenBlogPageBase();
         }
         #endregion
 
