@@ -1,0 +1,34 @@
+@page "/users/nbarlow/how-old-am-i"
+
+<div>
+    <label for="birthdate">Your Birthday</label>
+</div>
+
+<input id="birthdate" type="date" @bind="BirthDate" @bind:format="yyyy-MM-dd" />
+<div id="age-container">Your Age</div>
+<div>@YourAge</div>
+
+@code {
+    private DateTime BirthDate { get; set; } = DateTime.Today;
+    private string YourAge {
+        get {
+            var today = DateTime.Today;
+            var years = today.Year - BirthDate.Year;
+            var months = today.Month - BirthDate.Month;
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            var days = today.Day - BirthDate.Day;
+            if (days < 0) {
+                months--;
+                //Add today's days as a negative number to bring us to the beginning of the month,
+                //then add the difference in days between today's days and BirthDate's days to push
+                //us a few days back into last month, then grab that day of the month to get how many
+                //days old we are
+                days = today.AddDays(days - today.Day).Day;
+            }
+            return $"{years} Years, {months} Months, {days} Days";
+        }
+    }
+}
