@@ -1,0 +1,26 @@
+@page "/users/nbarlow"
+
+<link href="css/nbarlow/styles.css" rel="stylesheet" />
+<link href="css/nbarlow/home.css" rel="stylesheet" />
+
+@using ExoKomodo.Pages.Users.Jorson.Components
+
+@if (_self == null)
+{
+}
+else
+{
+    <div id="body">
+        <div class="top-row">
+        </div>
+        <BackLink Link="/users" PageName="users" />
+        <h1>
+            Hey it's me, @(_self.FullName)!
+        </h1>
+        <div class="creeper-crunch-me"></div>
+        <p class="content">
+            I am a software developer who loves Jesus!
+        </p>
+        <h2>Check out my <a href="/users/nbarlow/how-old-am-i">birthday calculator</a>!</h2>
+    </div>
+}
