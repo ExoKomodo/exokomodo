@@ -5,15 +5,15 @@ function startP5(p5Implementation, container) {
 
         // #region Main functions
         p.deviceMoved = function() {
-            p5Implementation.invokeMethod('deviceMoved');
+            p5Implementation.invokeMethodAsync('deviceMoved');
         }
 
         p.deviceShaken = function() {
-            p5Implementation.invokeMethod('deviceShaken');
+            p5Implementation.invokeMethodAsync('deviceShaken');
         }
 
         p.deviceTurned = function() {
-            p5Implementation.invokeMethod('deviceTurned');
+            p5Implementation.invokeMethodAsync('deviceTurned');
         }
 
         p.disableFriendlyErrorsDotnet = function(value) {
@@ -21,11 +21,11 @@ function startP5(p5Implementation, container) {
         }
 
         p.doubleClicked = function() {
-            return p5Implementation.invokeMethod('doubleClicked');
+            return p5Implementation.invokeMethodAsync('doubleClicked');
         }
 
         p.draw = function() {
-            p5Implementation.invokeMethod('draw');
+            return p5Implementation.invokeMethodAsync('draw');
         }
 
         p.getValue = function(valueName) {
@@ -43,63 +43,63 @@ function startP5(p5Implementation, container) {
         }
 
         p.keyPressed = function() {
-            return p5Implementation.invokeMethod('keyPressed');
+            return p5Implementation.invokeMethodAsync('keyPressed');
         }
 
         p.keyReleased = function() {
-            return p5Implementation.invokeMethod('keyReleased');
+            return p5Implementation.invokeMethodAsync('keyReleased');
         }
 
         p.keyTyped = function() {
-            return p5Implementation.invokeMethod('keyTyped');
+            return p5Implementation.invokeMethodAsync('keyTyped');
         }
 
         p.mouseClicked = function() {
-            return p5Implementation.invokeMethod('mouseClicked');
+            return p5Implementation.invokeMethodAsync('mouseClicked');
         }
 
         p.mouseDragged = function() {
-            return p5Implementation.invokeMethod('mouseDragged');
+            return p5Implementation.invokeMethodAsync('mouseDragged');
         }
 
         p.mouseMoved = function() {
-            return p5Implementation.invokeMethod('mouseMoved');
+            return p5Implementation.invokeMethodAsync('mouseMoved');
         }
 
         p.mousePressed = function() {
-            return p5Implementation.invokeMethod('mousePressed');
+            return p5Implementation.invokeMethodAsync('mousePressed');
         }
 
         p.mouseReleased = function() {
-            return p5Implementation.invokeMethod('mouseReleased');
+            return p5Implementation.invokeMethodAsync('mouseReleased');
         }
 
         p.mouseWheel = function(event) {
-            return p5Implementation.invokeMethod('mouseWheel', event.delta);
+            return p5Implementation.invokeMethodAsync('mouseWheel', event.delta);
         }
 
         p.preload = function() {
-            p5Implementation.invokeMethod('preload');
+            p5Implementation.invokeMethodAsync('preload');
         }
         
         p.setup = function() {
-            p5Implementation.invokeMethod('setup');
+            p5Implementation.invokeMethodAsync('setup');
         }
 
         p.touchEnded = function() {
-            return p5Implementation.invokeMethod('touchEnded');
+            return p5Implementation.invokeMethodAsync('touchEnded');
         }
 
         p.touchMoved = function() {
-            return p5Implementation.invokeMethod('touchMoved');
+            return p5Implementation.invokeMethodAsync('touchMoved');
         }
 
         p.touchStarted = function() {
-            return p5Implementation.invokeMethod('touchStarted');
+            return p5Implementation.invokeMethodAsync('touchStarted');
         }
 
         p.windowResized = function() {
-            p5Implementation.invokeMethod('windowResized');
+            p5Implementation.invokeMethodAsync('windowResized');
         }
         // #endregion
 

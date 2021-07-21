@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+using Microsoft.JSInterop;
+
 namespace ExoKomodo.Helpers.P5
 {
     public abstract partial class P5App
@@ -6,7 +8,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public float RandomGaussian(float mean, float standardDeviation) => _jsRuntime.Invoke<float>(
+        public ValueTask<float> RandomGaussian(float mean, float standardDeviation) => _JS.InvokeAsync<float>(
             _p5InvokeFunctionAndReturn,
             "randomGaussian",
             mean,

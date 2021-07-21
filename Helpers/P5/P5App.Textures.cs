@@ -3,6 +3,7 @@ using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -11,26 +12,26 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void SetTextureMode(TextureMode mode) => _jsRuntime.InvokeVoid(
+        public ValueTask SetTextureMode(TextureMode mode) => _JS.InvokeVoidAsync(
             _p5InvokeFunction,
             "textureMode",
             TextureModeToString(mode)
         );
 
-        public void SetTextureWrap(TextureWrap wrap) => _jsRuntime.InvokeVoid(
+        public ValueTask SetTextureWrap(TextureWrap wrap) => _JS.InvokeVoidAsync(
             _p5InvokeFunction,
             "textureWrap",
             TextureWrapToString(wrap)
         );
 
-        public void SetTextureWrap(TextureWrap wrapX, TextureWrap wrapY) => _jsRuntime.InvokeVoid(
+        public ValueTask SetTextureWrap(TextureWrap wrapX, TextureWrap wrapY) => _JS.InvokeVoidAsync(
             _p5InvokeFunction,
             "textureWrap",
             TextureWrapToString(wrapX),
             TextureWrapToString(wrapY)
         );
         
-        public void Texture(Image image) => _jsRuntime.InvokeVoid(
+        public ValueTask Texture(Image image) => _JS.InvokeVoidAsync(
             "p5Instance.textureDotnet",
             image.Id
         );

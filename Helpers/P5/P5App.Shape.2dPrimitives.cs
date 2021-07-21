@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,7 +11,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void DrawArc(
+        public ValueTask DrawArc(
             float x,
             float y,
             float width,
@@ -19,23 +20,20 @@ namespace ExoKomodo.Helpers.P5
             float stopAngle,
             ArcMode mode = ArcMode.Pie,
             uint detail = Arc.DEFAULT_DETAIL
-        )
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "arc",
-                x,
-                y,
-                width,
-                height,
-                startAngle,
-                stopAngle,
-                Arc.ArcModeToString(mode),
-                detail
-            );
-        }
+        ) =>_JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "arc",
+            x,
+            y,
+            width,
+            height,
+            startAngle,
+            stopAngle,
+            Arc.ArcModeToString(mode),
+            detail
+        );
 
-        public void DrawArc(
+        public ValueTask DrawArc(
             Vector2 position,
             Vector2 dimensions,
             float startAngle,
@@ -53,7 +51,7 @@ namespace ExoKomodo.Helpers.P5
             detail
         );
 
-        public void DrawArc(Arc arc) => DrawArc(
+        public ValueTask DrawArc(Arc arc) => DrawArc(
             arc.X,
             arc.Y,
             arc.Width,
@@ -64,30 +62,28 @@ namespace ExoKomodo.Helpers.P5
             arc.Detail
         );
 
-        public void DrawCircle(float x, float y, float d)
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask DrawCircle(float x, float y, float d) =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "circle",
                 x,
                 y,
                 d
             );
-        }
 
-        public void DrawCircle(Vector2 position, float d) => DrawCircle(
+        public ValueTask DrawCircle(Vector2 position, float d) => DrawCircle(
             position.X,
             position.Y,
             d
         );
 
-        public void DrawCircle(Circle circle) => DrawCircle(
+        public ValueTask DrawCircle(Circle circle) => DrawCircle(
             circle.X,
             circle.Y,
             circle.Diameter
         );
 
-        public void DrawEllipse(
+        public ValueTask DrawEllipse(
             float x,
             float y,
             float width,
@@ -99,32 +95,25 @@ namespace ExoKomodo.Helpers.P5
             {
                 height = width;
             }
-            if (IsWebGl)
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "ellipse",
-                    x,
-                    y,
-                    width,
-                    height,
-                    detail
-                );
-            }
-            else
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "ellipse",
-                    x,
-                    y,
-                    width,
-                    height
-                );
-            }
+            return IsWebGl ? _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "ellipse",
+                x,
+                y,
+                width,
+                height,
+                detail
+            ) : _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "ellipse",
+                x,
+                y,
+                width,
+                height
+            );
         }
 
-        public void DrawEllipse(
+        public ValueTask DrawEllipse(
             Vector2 position,
             Vector2 dimensions,
             uint detail = Ellipse.DEFAULT_DETAIL
@@ -136,13 +125,13 @@ namespace ExoKomodo.Helpers.P5
             detail
         );
 
-        public void DrawEllipse(Ellipse ellipse) => DrawEllipse(
+        public ValueTask DrawEllipse(Ellipse ellipse) => DrawEllipse(
             ellipse.Position,
             ellipse.Dimensions,
             ellipse.Detail
         );
 
-        public void DrawLine(
+        public ValueTask DrawLine(
             float x1,
             float y1,
             float x2,
@@ -156,49 +145,39 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        public void DrawLine(
+        public ValueTask DrawLine(
             float x1,
             float y1,
             float z1,
             float x2,
             float y2,
             float z2
-        )
-        {
-            if (IsWebGl)
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "line",
-                    x1,
-                    y1,
-                    z1,
-                    x2,
-                    y2,
-                    z2
-                );
-            }
-            else
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "line",
-                    x1,
-                    y1,
-                    x2,
-                    y2
-                );
-            }
-        }
+        ) => IsWebGl ? _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "line",
+                x1,
+                y1,
+                z1,
+                x2,
+                y2,
+                z2
+            ) : _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "line",
+                x1,
+                y1,
+                x2,
+                y2
+            );
 
-        public void DrawLine(Vector2 start, Vector2 end) => DrawLine(
+        public ValueTask DrawLine(Vector2 start, Vector2 end) => DrawLine(
             start.X,
             start.Y,
             end.X,
             end.Y
         );
 
-        public void DrawLine(Vector3 start, Vector3 end) => DrawLine(
+        public ValueTask DrawLine(Vector3 start, Vector3 end) => DrawLine(
             start.X,
             start.Y,
             start.Z,
@@ -207,51 +186,40 @@ namespace ExoKomodo.Helpers.P5
             end.Z
         );
 
-        public void DrawLine(Line line) => DrawLine(
+        public ValueTask DrawLine(Line line) => DrawLine(
             line.Start,
             line.End
         );
 
-        public void DrawPoint(
+        public ValueTask DrawPoint(
             float x,
             float y,
             float z = 0
-        )
-        {
-            if (IsWebGl)
-            {
-                _jsRuntime.InvokeVoid(
+        ) => IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
-                    "point",
-                    x,
-                    y,
-                    z
-                );
-            }
-            else
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "point",
-                    x,
-                    y
-                );
-            }
-            
-        }
+                "point",
+                x,
+                y,
+                z
+            ) : _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "point",
+                x,
+                y
+            );
         
-        public void DrawPoint(Vector2 point) => DrawPoint(
+        public ValueTask DrawPoint(Vector2 point) => DrawPoint(
             point.X,
             point.Y
         );
 
-        public void DrawPoint(Vector3 point) => DrawPoint(
+        public ValueTask DrawPoint(Vector3 point) => DrawPoint(
             point.X,
             point.Y,
             point.Z
         );
 
-        public void DrawQuad(
+        public ValueTask DrawQuad(
             float x1,
             float y1,
             float x2,
@@ -275,7 +243,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        public void DrawQuad(
+        public ValueTask DrawQuad(
             float x1,
             float y1,
             float z1,
@@ -288,45 +256,35 @@ namespace ExoKomodo.Helpers.P5
             float x4,
             float y4,
             float z4
-        )
-        {
-            if (IsWebGl)
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "quad",
-                    x1,
-                    y1,
-                    z1,
-                    x2,
-                    y2,
-                    z2,
-                    x3,
-                    y3,
-                    z3,
-                    x4,
-                    y4,
-                    z4
-                );
-            }
-            else
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "quad",
-                    x1,
-                    y1,
-                    x2,
-                    y2,
-                    x3,
-                    y3,
-                    x4,
-                    y4
-                );
-            }
-        }
+        ) => IsWebGl ? _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "quad",
+                x1,
+                y1,
+                z1,
+                x2,
+                y2,
+                z2,
+                x3,
+                y3,
+                z3,
+                x4,
+                y4,
+                z4
+            ) : _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "quad",
+                x1,
+                y1,
+                x2,
+                y2,
+                x3,
+                y3,
+                x4,
+                y4
+            );
 
-        public void DrawQuad(
+        public ValueTask DrawQuad(
             Vector2 v1,
             Vector2 v2,
             Vector2 v3,
@@ -342,7 +300,7 @@ namespace ExoKomodo.Helpers.P5
             v4.Y
         );
 
-        public void DrawQuad(
+        public ValueTask DrawQuad(
             Vector3 v1,
             Vector3 v2,
             Vector3 v3,
@@ -362,14 +320,14 @@ namespace ExoKomodo.Helpers.P5
             v4.Z
         );
         
-        public void DrawQuad(Quad quad) => DrawQuad(
+        public ValueTask DrawQuad(Quad quad) => DrawQuad(
             quad.V1,
             quad.V2,
             quad.V3,
             quad.V4
         );
 
-        public void DrawRectangle(
+        public ValueTask DrawRectangle(
             float x,
             float y,
             float width,
@@ -380,43 +338,33 @@ namespace ExoKomodo.Helpers.P5
             float bottomLeftRadius = 0,
             uint detailX = Rect.DEFAULT_DETAIL,
             uint detailY = Rect.DEFAULT_DETAIL
-        )
-        {
-            if (IsWebGl)
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "rect",
-                    x,
-                    y,
-                    width,
-                    height.HasValue ? height.Value : width,
-                    topLeftRadius,
-                    topRightRadius,
-                    bottomRightRadius,
-                    bottomLeftRadius,
-                    detailX,
-                    detailY
-                );
-            }
-            else
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "rect",
-                    x,
-                    y,
-                    width,
-                    height.HasValue ? height.Value : width,
-                    topLeftRadius,
-                    topRightRadius,
-                    bottomRightRadius,
-                    bottomLeftRadius
-                );
-            }
-        }
+        ) => IsWebGl ? _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "rect",
+                x,
+                y,
+                width,
+                height.HasValue ? height.Value : width,
+                topLeftRadius,
+                topRightRadius,
+                bottomRightRadius,
+                bottomLeftRadius,
+                detailX,
+                detailY
+            ) : _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "rect",
+                x,
+                y,
+                width,
+                height.HasValue ? height.Value : width,
+                topLeftRadius,
+                topRightRadius,
+                bottomRightRadius,
+                bottomLeftRadius
+            );
 
-        public void DrawRectangle(
+        public ValueTask DrawRectangle(
             Vector2 position,
             Vector2 dimensions,
             float topLeftRadius = 0,
@@ -438,7 +386,7 @@ namespace ExoKomodo.Helpers.P5
             detailY
         );
 
-        public void DrawRectangle(Rect rect) => DrawRectangle(
+        public ValueTask DrawRectangle(Rect rect) => DrawRectangle(
             rect.X,
             rect.Y,
             rect.Width,
@@ -451,7 +399,7 @@ namespace ExoKomodo.Helpers.P5
             rect.DetailY
         );
 
-        public void DrawSquare(
+        public ValueTask DrawSquare(
             float x,
             float y,
             float side,
@@ -459,22 +407,19 @@ namespace ExoKomodo.Helpers.P5
             double? topRightRadius = null,
             double? bottomRightRadius = null,
             double? bottomLeftRadius = null
-        )
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "square",
-                x,
-                y,
-                side,
-                topLeftRadius,
-                topRightRadius,
-                bottomRightRadius,
-                bottomLeftRadius
-            );
-        }
+        ) =>_JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "square",
+            x,
+            y,
+            side,
+            topLeftRadius,
+            topRightRadius,
+            bottomRightRadius,
+            bottomLeftRadius
+        );
 
-        public void DrawSquare(
+        public ValueTask DrawSquare(
             Vector2 position,
             float side,
             double? topLeftRadius = null,
@@ -491,7 +436,7 @@ namespace ExoKomodo.Helpers.P5
             bottomLeftRadius
         );
 
-        public void DrawSquare(Square square) => DrawSquare(
+        public ValueTask DrawSquare(Square square) => DrawSquare(
             square.Position,
             square.Side,
             square.TopLeftRadius,
@@ -500,28 +445,25 @@ namespace ExoKomodo.Helpers.P5
             square.BottomLeftRadius
         );
 
-        public void DrawTriangle(
+        public ValueTask DrawTriangle(
             float x1,
             float y1,
             float x2,
             float y2,
             float x3,
             float y3
-        )
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "triangle",
-                x1,
-                y1,
-                x2,
-                y2,
-                x3,
-                y3
-            );
-        }
+        ) => _JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "triangle",
+            x1,
+            y1,
+            x2,
+            y2,
+            x3,
+            y3
+        );
 
-        public void DrawTriangle(
+        public ValueTask DrawTriangle(
             Vector2 v1,
             Vector2 v2,
             Vector2 v3
@@ -534,7 +476,7 @@ namespace ExoKomodo.Helpers.P5
             v3.Y
         );
 
-        public void DrawTriangle(Triangle triangle) => DrawTriangle(
+        public ValueTask DrawTriangle(Triangle triangle) => DrawTriangle(
             triangle.V1,
             triangle.V2,
             triangle.V3

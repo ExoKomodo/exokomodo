@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
 
@@ -8,34 +9,25 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void Save(string savePath)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "save",
-                savePath
-            );
-        }
+        public ValueTask Save(string savePath) => _JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "save",
+            savePath
+        );
 
-        public void Save(Image image, string savePath)
-        {
-            _jsRuntime.InvokeVoid(
-                "p5Instance.saveImageDotnet",
-                image.Id,
-                savePath
-            );
-        }
+        public ValueTask Save(Image image, string savePath) => _JS.InvokeVoidAsync(
+            "p5Instance.saveImageDotnet",
+            image.Id,
+            savePath
+        );
 
-        public void SaveJson(object obj, string savePath, bool prettyPrint = true)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "saveJSON",
-                obj,
-                savePath,
-                !prettyPrint
-            );
-        }
+        public ValueTask SaveJson(object obj, string savePath, bool prettyPrint = true) => _JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "saveJSON",
+            obj,
+            savePath,
+            !prettyPrint
+        );
         #endregion
 
         #endregion

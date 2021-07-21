@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,7 +11,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void DrawBezier(
+        public ValueTask DrawBezier(
             float x1,
             float y1,
             float z1,
@@ -23,9 +24,7 @@ namespace ExoKomodo.Helpers.P5
             float x4,
             float y4,
             float z4
-        )
-        {
-            _jsRuntime.InvokeVoid(
+        ) => _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "bezier",
                 x1,
@@ -41,9 +40,8 @@ namespace ExoKomodo.Helpers.P5
                 y4,
                 z4
             );
-        }
 
-        public void DrawBezier(
+        public ValueTask DrawBezier(
             Vector3 firstAnchor,
             Vector3 firstControl,
             Vector3 secondControl,
@@ -63,54 +61,46 @@ namespace ExoKomodo.Helpers.P5
             secondAnchor.Z
         );
         
-        public void DrawBezier(Bezier bezier) => DrawBezier(
+        public ValueTask DrawBezier(Bezier bezier) => DrawBezier(
             bezier.FirstAnchor,
             bezier.FirstControl,
             bezier.SecondControl,
             bezier.SecondAnchor
         );
 
-        public void DrawBezierPoint(
+        public ValueTask DrawBezierPoint(
             float firstPoint,
             float firstControl,
             float secondControl,
             float secondPoint,
             float t
-        )
-        {
-            t = Math.Clamp(t, 0, 1);
-            _jsRuntime.InvokeVoid(
+        ) => _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "bezierPoint",
                 firstPoint,
                 firstControl,
                 secondControl,
                 secondPoint,
-                t
+                Math.Clamp(t, 0, 1)
             );
-        }
 
-        public void DrawBezierTangent(
+        public ValueTask DrawBezierTangent(
             float firstPoint,
             float firstControl,
             float secondControl,
             float secondPoint,
             float t
-        )
-        {
-            t = Math.Clamp(t, 0, 1);
-            _jsRuntime.InvokeVoid(
+        ) => _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "bezierTangent",
                 firstPoint,
                 firstControl,
                 secondControl,
                 secondPoint,
-                t
+                Math.Clamp(t, 0, 1)
             );
-        }
 
-        public void DrawCurve(
+        public ValueTask DrawCurve(
             float x1,
             float y1,
             float x2,
@@ -134,7 +124,7 @@ namespace ExoKomodo.Helpers.P5
             0
         );
 
-        public void DrawCurve(
+        public ValueTask DrawCurve(
             float x1,
             float y1,
             float z1,
@@ -147,9 +137,7 @@ namespace ExoKomodo.Helpers.P5
             float x4,
             float y4,
             float z4
-        )
-        {
-            _jsRuntime.InvokeVoid(
+        ) => _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "curve",
                 x1,
@@ -165,9 +153,8 @@ namespace ExoKomodo.Helpers.P5
                 y4,
                 z4
             );
-        }
 
-        public void DrawCurve(
+        public ValueTask DrawCurve(
             Vector2 beginningControl,
             Vector2 firstPoint,
             Vector2 secondPoint,
@@ -183,7 +170,7 @@ namespace ExoKomodo.Helpers.P5
             endingControl.Y
         );
 
-        public void DrawCurve(
+        public ValueTask DrawCurve(
             Vector3 beginningControl,
             Vector3 firstPoint,
             Vector3 secondPoint,
@@ -203,86 +190,65 @@ namespace ExoKomodo.Helpers.P5
             endingControl.Z
         );
 
-        public void DrawCurve(Curve curve) => DrawCurve(
+        public ValueTask DrawCurve(Curve curve) => DrawCurve(
             curve.BeginningControl,
             curve.FirstPoint,
             curve.SecondPoint,
             curve.EndingControl
         );
 
-        public void DrawCurvePoint(
+        public ValueTask DrawCurvePoint(
             float firstControl,
             float firstPoint,
             float secondPoint,
             float secondControl,
             float t
-        )
-        {
-            t = Math.Clamp(t, 0, 1);
-            _jsRuntime.InvokeVoid(
+        ) => _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "curvePoint",
                 firstControl,
                 firstPoint,
                 secondPoint,
                 secondControl,
-                t
+                Math.Clamp(t, 0, 1)
             );
-        }
 
-        public void DrawCurveTangent(
+        public ValueTask DrawCurveTangent(
             float firstControl,
             float firstPoint,
             float secondPoint,
             float secondControl,
             float t
-        )
-        {
-            t = Math.Clamp(t, 0, 1);
-            _jsRuntime.InvokeVoid(
+        ) => _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "curveTangent",
                 firstControl,
                 firstPoint,
                 secondPoint,
                 secondControl,
-                t
+                Math.Clamp(t, 0, 1)
             );
-        }
 
-        public void DrawCurveTightness(float amount)
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask DrawCurveTightness(float amount) =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "curveTightness",
                 amount
             );
-        }
 
-        public void SetBezierDetail(uint detail = 20)
-        {
-            if (IsWebGl)
-            {
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "bezierDetail",
-                    detail
-                );
-            }
-        }
+        public ValueTask SetBezierDetail(uint detail = 20) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "bezierDetail",
+                detail
+            ) : new ValueTask();
 
-        public void SetCurveDetail(uint detail = 20)
-        {
-            if (IsWebGl)
-            {
-                detail = Math.Max(3, detail);
-                _jsRuntime.InvokeVoid(
-                    _p5InvokeFunction,
-                    "curveDetail",
-                    detail
-                );
-            }
-        }
+        public ValueTask SetCurveDetail(uint detail = 20) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
+                _p5InvokeFunction,
+                "curveDetail",
+                Math.Max(3, detail)
+            ) : new ValueTask();
         #endregion
 
         #endregion

@@ -1,6 +1,7 @@
 using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -9,14 +10,11 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void SetAngleMode(AngleMode mode)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "angleMode",
-                AngleModeToString(mode)
-            );
-        }
+        public ValueTask SetAngleMode(AngleMode mode) => _JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "angleMode",
+            AngleModeToString(mode)
+        );
         #endregion
 
         #region Static Methods

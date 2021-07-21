@@ -1,27 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <!-- <RuntimeIdentifier>browser-wasm</RuntimeIdentifier> -->
-    <UseBlazorWebAssembly>true</UseBlazorWebAssembly>
-    <OutputType>Exe</OutputType>
-  </PropertyGroup>
-    
-  <PropertyGroup>
-    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.*" PrivateAssets="all" />
-    <PackageReference Include="System.Net.Http.Json" Version="5.0.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\BlazingUI\" />
-    <Folder Include="Helpers\BlazingUI\Elements\" />
-    <Folder Include="Helpers\BlazingUI\Elements\Containers\" />
-    <Folder Include="Helpers\BlazingUI\Enums\" />
-    <Folder Include="Helpers\BlazingUI\Elements\Buttons\" />
-  </ItemGroup>
 </Project>

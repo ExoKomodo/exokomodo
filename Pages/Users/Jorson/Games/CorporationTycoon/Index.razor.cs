@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using ExoKomodo.Config;
 using ExoKomodo.Helpers.P5;
-using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 using System;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
@@ -24,15 +25,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         #region Protected
 
         #region Member Methods
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
-
             if (firstRender)
             {
                 _base.Initialize();
-                _application = new CorporationTycoonApp(_jsRuntime, "corporation-tycoon-container");
-                _application.Start();
+                _application = new CorporationTycoonApp(JS, "corporation-tycoon-container");
+                await _application.StartAsync();
             }
         }
 
@@ -50,8 +49,6 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
         private P5App _application { get; set; }
         private PageBase _base { get; set; }
         private bool _isDisposed { get; set; }
-        [Inject]
-        private IJSRuntime _jsRuntime { get; set; }
         #endregion
 
         #endregion
