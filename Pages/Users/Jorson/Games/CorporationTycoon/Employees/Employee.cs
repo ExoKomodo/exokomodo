@@ -3,6 +3,7 @@ using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms;
 using System.Drawing;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
 {
@@ -62,19 +63,19 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         #endregion
 
         #region Member Methods
-        public abstract void Draw();
+        public abstract Task Draw();
 
-        public virtual void Update(double dt)
-        {
-            _app.Account.Withdraw(
-                (
-                    Salary
-                    * _app.TimeScale
-                    * (decimal)dt
-                ),
-                force: true
-            );
-        }
+        public virtual async Task Update(double dt) =>
+            await Task.Run(() => {
+                _app.Account.Withdraw(
+                    (
+                        Salary
+                        * _app.TimeScale
+                        * (decimal)dt
+                    ),
+                    force: true
+                );
+            });
         #endregion
 
         #endregion

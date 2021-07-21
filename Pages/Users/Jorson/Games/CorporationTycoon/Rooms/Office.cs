@@ -2,8 +2,10 @@
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
+using System;
 using System.Drawing;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 {
@@ -30,34 +32,27 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Member Methods
-        public override void Draw()
-        {
-            _app.Push();
+        public override async Task Draw() =>
+            await Task.Run(async () => {
+                Console.WriteLine("\t\tStarting Office");
+                await _app.Push();
 
-            _app.Fill(FillColor);
-            _app.StrokeWeight(StrokeWeight);
-            _app.Stroke(StrokeColor);
-            _app.DrawRectangle(_rect);
+                await _app.Fill(FillColor);
+                await _app.StrokeWeight(StrokeWeight);
+                await _app.Stroke(StrokeColor);
+                await _app.DrawRectangle(_rect);
 
-            _app.Pop();
+                await _app.Pop();
+                Console.WriteLine("\t\tEnding Office");
 
-            DrawWindows();
-            DrawEmployees();
-        }
+                // await DrawWindows();
+                // await DrawEmployees();
+            });
 
-        public override bool Hire(Employee employee)
-        {
-            if (employee is Worker)
-            {
-                return base.Hire(employee);
-            }
-            return false;
-        }
+        public override bool Hire(Employee employee) =>
+            employee is Worker ? base.Hire(employee) : false;
 
-        public override void Update(double dt)
-        {
-            base.Update(dt);
-        }
+        public override async Task Update(double dt) => await base.Update(dt);
         #endregion
 
         #endregion

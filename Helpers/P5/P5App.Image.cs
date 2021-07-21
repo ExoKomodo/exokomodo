@@ -3,6 +3,7 @@ using ExoKomodo.Helpers.P5.Models;
 using System;
 using ExoKomodo.Helpers.P5.Enums;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -11,7 +12,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void DrawImage(Image image) => _jsRuntime.InvokeVoid(
+        public ValueTask DrawImage(Image image) => _JS.InvokeVoidAsync(
             "p5Instance.imageDotnet",
             image.Id,
             image.X,
@@ -20,62 +21,53 @@ namespace ExoKomodo.Helpers.P5
             image.Height
         );
 
-        public uint GetImageHeight(Image image) => _jsRuntime.Invoke<uint>(
+        public ValueTask<uint> GetImageHeight(Image image) => _JS.InvokeAsync<uint>(
             "p5Instance.imageHeightDotnet",
             image.Id
         );
 
-        public uint GetImageWidth(Image image) => _jsRuntime.Invoke<uint>(
+        public ValueTask<uint> GetImageWidth(Image image) => _JS.InvokeAsync<uint>(
             "p5Instance.imageWidthDotnet",
             image.Id
         );
 
-        public Image LoadImage(string path) => _jsRuntime.Invoke<Image>(
+        public ValueTask<Image> LoadImage(string path) => _JS.InvokeAsync<Image>(
             "p5Instance.loadImageDotnet",
             path
         );
 
-        public void NoTint()
+        public ValueTask NoTint() => _JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "noTint"
+        );
+
+        public async Task SetImageFields(Image image)
         {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "noTint"
-            );
+            image.Width = await GetImageWidth(image);
+            image.Height = await GetImageHeight(image);
         }
 
-        public void SetImageFields(Image image)
-        {
-            image.Width = GetImageWidth(image);
-            image.Height = GetImageHeight(image);
-        }
-
-        public void SetImageMode(ImageMode mode) => _jsRuntime.InvokeVoid(
+        public ValueTask SetImageMode(ImageMode mode) => _JS.InvokeVoidAsync(
             _p5InvokeFunction,
             "imageMode",
             ImageModeToString(mode)
         );
 
-        public void Tint(byte grayscale, byte alpha = 255)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "tint",
-                grayscale,
-                alpha
-            );
-        }
+        public ValueTask Tint(byte grayscale, byte alpha = 255) => _JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "tint",
+            grayscale,
+            alpha
+        );
 
-        public void Tint(Color color)
-        {
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "tint",
-                color.R,
-                color.G,
-                color.B,
-                color.A
-            );
-        }
+        public ValueTask Tint(Color color) => _JS.InvokeVoidAsync(
+            _p5InvokeFunction,
+            "tint",
+            color.R,
+            color.G,
+            color.B,
+            color.A
+        );
         #endregion
 
         #region Static Methods

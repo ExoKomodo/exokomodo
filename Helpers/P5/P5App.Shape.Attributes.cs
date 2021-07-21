@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,33 +11,27 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void NoSmooth()
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask NoSmooth() =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "noSmooth"
             );
-        }
 
-        public void SetEllipseMode(EllipseMode mode)
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask SetEllipseMode(EllipseMode mode) =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "ellipseMode",
                 Ellipse.EllipseModeToString(mode)
             );
-        }
         
-        public void SetRectangleMode(RectangleMode mode)
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask SetRectangleMode(RectangleMode mode) =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "rectMode",
                 Rect.RectangleModeToString(mode)
             );
-        }
 
-        public void SetStrokeCap(StrokeCap cap)
+        public ValueTask SetStrokeCap(StrokeCap cap)
         {
             var mode = "";
             switch (cap)
@@ -53,14 +48,14 @@ namespace ExoKomodo.Helpers.P5
                 default:
                     throw new Exception("Invalid StrokeCap");
             }
-            _jsRuntime.InvokeVoid(
+            return _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "strokeCap",
                 mode
             );
         }
 
-        public void SetStrokeJoin(StrokeJoin join)
+        public ValueTask SetStrokeJoin(StrokeJoin join)
         {
             var mode = "";
             switch (join)
@@ -77,29 +72,25 @@ namespace ExoKomodo.Helpers.P5
                 default:
                     throw new Exception("Invalid StrokeJoin");
             }
-            _jsRuntime.InvokeVoid(
+            return _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "strokeJoin",
                 mode
             );
         }
 
-        public void StrokeWeight(uint weight)
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask StrokeWeight(uint weight) =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "strokeWeight",
                 weight
             );
-        }
 
-        public void Smooth()
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask Smooth() =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "smooth"
             );
-        }
         #endregion
 
         #endregion

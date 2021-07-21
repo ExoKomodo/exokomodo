@@ -17,6 +17,10 @@
                     </li>
                 }
             </ul>
+            @if (_games.Count == 0)
+            {
+                <span>Games are currently unavailable due to technical limitations.</span>
+            }
         </div>
     </div>
 }

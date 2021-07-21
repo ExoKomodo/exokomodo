@@ -4,8 +4,9 @@ using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
-
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 {
@@ -50,7 +51,7 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Member Methods
-        public abstract void Draw();
+        public abstract Task Draw();
 
         public virtual bool Hire(Employee employee)
         {
@@ -81,22 +82,25 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             return true;
         }
 
-        public virtual void Update(double dt)
-        {
-            _app.Account.Withdraw(
-                (
-                    UpkeepCost
-                    * _app.TimeScale
-                    * (decimal)dt
-                ),
-                force: true
-            );
+        public virtual async Task Update(double dt) =>
+            await Task.Run(async () => {
+                _app.Account.Withdraw(
+                    (
+                        UpkeepCost
+                        * _app.TimeScale
+                        * (decimal)dt
+                    ),
+                    force: true
+                );
 
-            foreach (var employee in Employees)
-            {
-                employee?.Update(dt);
-            }
-        }
+                foreach (var employee in Employees)
+                {
+                    if (employee is not null)
+                    {
+                        await employee.Update(dt);
+                    }
+                }
+            });
         #endregion
 
         #endregion
@@ -134,42 +138,45 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Member Methods
-        protected void DrawEmployees()
-        {
-            foreach (var employee in Employees)
-            {
-                employee?.Draw();
-            }
-        }
+        protected async Task DrawEmployees() =>
+            await Task.Run(() => {
+                foreach (var employee in Employees)
+                {
+                    if (employee is not null)
+                    {
+                        employee.Draw();
+                    }
+                }
+            });
 
-        protected void DrawWindows()
-        {
-            var rootPosition = Position + (
-                Vector2.One
-                * 0.5f
-                * CorporationTycoonApp.UNIT_SCALE
-            );
-            var windowDimensions = Vector2.One * CorporationTycoonApp.UNIT_SCALE * 0.8f;
-
-            _app.Push();
-
-            _app.SetRectangleMode(RectangleMode.Center);
-            _app.Fill(WindowFillColor);
-            _app.StrokeWeight(WindowStrokeWeight);
-            _app.Stroke(WindowStrokeColor);
-            for (int i = 0; i < UnitWidth; i++)
-            {
-                _app.DrawRectangle(
-                    new Rect(
-                        position: rootPosition,
-                        dimensions: windowDimensions
-                    )
+        protected async Task DrawWindows() =>
+            await Task.Run(async () => {
+                var rootPosition = Position + (
+                    Vector2.One
+                    * 0.5f
+                    * CorporationTycoonApp.UNIT_SCALE
                 );
-                rootPosition.X += CorporationTycoonApp.UNIT_SCALE;
-            }
+                var windowDimensions = Vector2.One * CorporationTycoonApp.UNIT_SCALE * 0.8f;
 
-            _app.Pop();
-        }
+                await _app.Push();
+
+                await _app.SetRectangleMode(RectangleMode.Center);
+                await _app.Fill(WindowFillColor);
+                await _app.StrokeWeight(WindowStrokeWeight);
+                await _app.Stroke(WindowStrokeColor);
+                for (int i = 0; i < UnitWidth; i++)
+                {
+                    await _app.DrawRectangle(
+                        new Rect(
+                            position: rootPosition,
+                            dimensions: windowDimensions
+                        )
+                    );
+                    rootPosition.X += CorporationTycoonApp.UNIT_SCALE;
+                }
+
+                await _app.Pop();
+            });
         #endregion
 
         #endregion

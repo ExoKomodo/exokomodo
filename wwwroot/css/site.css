@@ -1,4 +1,4 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -14,7 +14,7 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
-app {
+#app {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -147,11 +147,13 @@ app {
 }
 
 @media (min-width: 768px) {
-    app {
+    #app {
+        display: flex;
         flex-direction: row;
     }
 
     .sidenav {
+        margin: 0;
         width: 250px;
         height: 100vh;
         position: sticky;

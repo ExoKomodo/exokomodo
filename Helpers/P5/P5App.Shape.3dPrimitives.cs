@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,31 +11,19 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void DrawBox()
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask DrawBox() =>
+            IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "box"
-            );
-        }
+            ) : new ValueTask();
 
-        public void DrawBox(
+        public ValueTask DrawBox(
             float width,
             float height,
             float depth,
             uint detailX = Box.DEFAULT_DETAIL,
             uint detailY = Box.DEFAULT_DETAIL
-        )
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        ) => IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "box",
                 width,
@@ -42,10 +31,9 @@ namespace ExoKomodo.Helpers.P5
                 depth,
                 detailX,
                 detailY
-            );
-        }
+            ) : new ValueTask();
 
-        public void DrawBox(
+        public ValueTask DrawBox(
             Vector3 dimensions,
             uint detailX = Box.DEFAULT_DETAIL,
             uint detailY = Box.DEFAULT_DETAIL
@@ -57,7 +45,7 @@ namespace ExoKomodo.Helpers.P5
             detailY
         );
 
-        public void DrawBox(Box box) => DrawBox(
+        public ValueTask DrawBox(Box box) => DrawBox(
             box.Width,
             box.Height,
             box.Depth,
@@ -65,7 +53,7 @@ namespace ExoKomodo.Helpers.P5
             box.DetailY
         );
 
-        public void DrawCone(
+        public ValueTask DrawCone(
             float radius,
             float height,
             uint detailX = Cone.DEFAULT_DETAIL_X,
@@ -73,30 +61,30 @@ namespace ExoKomodo.Helpers.P5
             bool showCap = true
         )
         {
-            if (!IsWebGl)
+            if (IsWebGl)
             {
-                return;
+                if (detailX > Cone.MAX_DETAIL)
+                {
+                    detailX = Cone.MAX_DETAIL;
+                }
+                if (detailY > Cone.MAX_DETAIL)
+                {
+                    detailY = Cone.MAX_DETAIL;
+                }
+                return _JS.InvokeVoidAsync(
+                    _p5InvokeFunction,
+                    "cone",
+                    radius,
+                    height,
+                    detailX,
+                    detailY,
+                    showCap
+                );
             }
-            if (detailX > Cone.MAX_DETAIL)
-            {
-                detailX = Cone.MAX_DETAIL;
-            }
-            if (detailY > Cone.MAX_DETAIL)
-            {
-                detailY = Cone.MAX_DETAIL;
-            }
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "cone",
-                radius,
-                height,
-                detailX,
-                detailY,
-                showCap
-            );
+            return new ValueTask();
         }
 
-        public void DrawCone(Cone cone) => DrawCone(
+        public ValueTask DrawCone(Cone cone) => DrawCone(
             cone.Radius,
             cone.Height,
             cone.DetailX,
@@ -104,7 +92,7 @@ namespace ExoKomodo.Helpers.P5
             cone.ShowCap
         );
 
-        public void DrawCylinder(
+        public ValueTask DrawCylinder(
             float radius,
             float height,
             uint detailX = Cylinder.DEFAULT_DETAIL_X,
@@ -113,31 +101,31 @@ namespace ExoKomodo.Helpers.P5
             bool showTopCap = true
         )
         {
-            if (!IsWebGl)
+            if (IsWebGl)
             {
-                return;
+                if (detailX > Cylinder.MAX_DETAIL)
+                {
+                    detailX = Cylinder.MAX_DETAIL;
+                }
+                if (detailY > Cylinder.MAX_DETAIL)
+                {
+                    detailY = Cylinder.MAX_DETAIL;
+                }
+                return _JS.InvokeVoidAsync(
+                    _p5InvokeFunction,
+                    "cylinder",
+                    radius,
+                    height,
+                    detailX,
+                    detailY,
+                    showBottomCap,
+                    showTopCap
+                );
             }
-            if (detailX > Cylinder.MAX_DETAIL)
-            {
-                detailX = Cylinder.MAX_DETAIL;
-            }
-            if (detailY > Cylinder.MAX_DETAIL)
-            {
-                detailY = Cylinder.MAX_DETAIL;
-            }
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "cylinder",
-                radius,
-                height,
-                detailX,
-                detailY,
-                showBottomCap,
-                showTopCap
-            );
+            return new ValueTask();
         }
 
-        public void DrawCylinder(Cylinder cylinder) => DrawCylinder(
+        public ValueTask DrawCylinder(Cylinder cylinder) => DrawCylinder(
             cylinder.Radius,
             cylinder.Height,
             cylinder.DetailX,
@@ -146,7 +134,7 @@ namespace ExoKomodo.Helpers.P5
             cylinder.ShowTopCap
         );
 
-        public void DrawEllipsoid(
+        public ValueTask DrawEllipsoid(
             float radiusX,
             float radiusY,
             float radiusZ,
@@ -154,30 +142,30 @@ namespace ExoKomodo.Helpers.P5
             uint detailY = Ellipsoid.DEFAULT_DETAIL_Y
         )
         {
-            if (!IsWebGl)
+            if (IsWebGl)
             {
-                return;
+                if (detailX > Ellipsoid.MAX_DETAIL)
+                {
+                    detailX = Ellipsoid.MAX_DETAIL;
+                }
+                if (detailY > Ellipsoid.MAX_DETAIL)
+                {
+                    detailY = Ellipsoid.MAX_DETAIL;
+                }
+                return _JS.InvokeVoidAsync(
+                    _p5InvokeFunction,
+                    "ellipsoid",
+                    radiusX,
+                    radiusY,
+                    radiusZ,
+                    detailX,
+                    detailY
+                );
             }
-            if (detailX > Ellipsoid.MAX_DETAIL)
-            {
-                detailX = Ellipsoid.MAX_DETAIL;
-            }
-            if (detailY > Ellipsoid.MAX_DETAIL)
-            {
-                detailY = Ellipsoid.MAX_DETAIL;
-            }
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "ellipsoid",
-                radiusX,
-                radiusY,
-                radiusZ,
-                detailX,
-                detailY
-            );
+            return new ValueTask();
         }
 
-        public void DrawEllipsoid(
+        public ValueTask DrawEllipsoid(
             Vector3 dimensions,
             uint detailX = Ellipsoid.DEFAULT_DETAIL_X,
             uint detailY = Ellipsoid.DEFAULT_DETAIL_Y
@@ -189,34 +177,27 @@ namespace ExoKomodo.Helpers.P5
             detailY
         );
 
-        public void DrawEllipsoid(Ellipsoid ellipsoid) => DrawEllipsoid(
+        public ValueTask DrawEllipsoid(Ellipsoid ellipsoid) => DrawEllipsoid(
             ellipsoid.Dimensions,
             ellipsoid.DetailX,
             ellipsoid.DetailY
         );
 
-        public void DrawPlane(
+        public ValueTask DrawPlane(
             float width,
             float height,
             uint detailX = Models.Plane.DEFAULT_DETAIL,
             uint detailY = Models.Plane.DEFAULT_DETAIL
-        )
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        ) => IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "plane",
                 width,
                 height,
                 detailX,
                 detailY
-            );
-        }
+            ) : new ValueTask();
 
-        public void DrawPlane(
+        public ValueTask DrawPlane(
             Vector2 dimensions,
             uint detailX = Models.Plane.DEFAULT_DETAIL,
             uint detailY = Models.Plane.DEFAULT_DETAIL
@@ -227,7 +208,7 @@ namespace ExoKomodo.Helpers.P5
             detailY
         );
 
-        public void DrawPlane(
+        public ValueTask DrawPlane(
             Models.Plane plane
         ) => DrawPlane(
             plane.Width,
@@ -236,69 +217,69 @@ namespace ExoKomodo.Helpers.P5
             plane.DetailY
         );
 
-        public void DrawSphere(
+        public ValueTask DrawSphere(
             float radius,
             uint detailX = Sphere.MAX_DETAIL,
             uint detailY = Sphere.MAX_DETAIL
         )
         {
-            if (!IsWebGl)
+            if (IsWebGl)
             {
-                return;
+                if (detailX > Sphere.MAX_DETAIL)
+                {
+                    detailX = Sphere.MAX_DETAIL;
+                }
+                if (detailY > Sphere.MAX_DETAIL)
+                {
+                    detailY = Sphere.MAX_DETAIL;
+                }
+                return _JS.InvokeVoidAsync(
+                    _p5InvokeFunction,
+                    "sphere",
+                    radius,
+                    detailX,
+                    detailY
+                );
             }
-            if (detailX > Sphere.MAX_DETAIL)
-            {
-                detailX = Sphere.MAX_DETAIL;
-            }
-            if (detailY > Sphere.MAX_DETAIL)
-            {
-                detailY = Sphere.MAX_DETAIL;
-            }
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "sphere",
-                radius,
-                detailX,
-                detailY
-            );
+            return new ValueTask();
         }
 
-        public void DrawSphere(Sphere sphere) => DrawSphere(
+        public ValueTask DrawSphere(Sphere sphere) => DrawSphere(
             sphere.Radius,
             sphere.DetailX,
             sphere.DetailY
         );
 
-        public void DrawTorus(
+        public ValueTask DrawTorus(
             float radius,
             float tubeRadius,
             uint detailX = Torus.DEFAULT_DETAIL_X,
             uint detailY = Torus.DEFAULT_DETAIL_Y
         )
         {
-            if (!IsWebGl)
+            if (IsWebGl)
             {
-                return;
+                if (detailX > Torus.MAX_DETAIL_X)
+                {
+                    detailX = Torus.MAX_DETAIL_X;
+                }
+                if (detailY > Torus.MAX_DETAIL_Y)
+                {
+                    detailY = Torus.MAX_DETAIL_Y;
+                }
+                return _JS.InvokeVoidAsync(
+                    _p5InvokeFunction,
+                    "torus",
+                    radius,
+                    tubeRadius,
+                    detailX,
+                    detailY
+                );
             }
-            if (detailX > Torus.MAX_DETAIL_X)
-            {
-                detailX = Torus.MAX_DETAIL_X;
-            }
-            if (detailY > Torus.MAX_DETAIL_Y)
-            {
-                detailY = Torus.MAX_DETAIL_Y;
-            }
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "torus",
-                radius,
-                tubeRadius,
-                detailX,
-                detailY
-            );
+            return new ValueTask();
         }
 
-        public void DrawTorus(Torus torus) => DrawTorus(
+        public ValueTask DrawTorus(Torus torus) => DrawTorus(
             torus.Radius,
             torus.TubeRadius,
             torus.DetailX,

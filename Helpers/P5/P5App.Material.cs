@@ -3,6 +3,7 @@ using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -11,81 +12,54 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public void AmbientMaterial(byte grayscale)
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask AmbientMaterial(byte grayscale) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "ambientMaterial",
                 grayscale
-            );
-        }
+            ) : new ValueTask();
 
-        public void AmbientMaterial(Color color)
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask AmbientMaterial(Color color) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "ambientMaterial",
                 color.R,
                 color.G,
                 color.B
-            );
-        }
+            ) : new ValueTask();
 
-        public void EmissiveMaterial(Color color)
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask EmissiveMaterial(Color color) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "emissiveMaterial",
                 color.R,
                 color.G,
                 color.B,
                 color.A
-            );
-        }
+            ) : new ValueTask();
 
-        public Shader LoadShader(string vertexShaderPath, string fragmentShaderPath) => _jsRuntime.Invoke<Shader>(
+        public ValueTask<Shader> LoadShader(
+            string vertexShaderPath,
+            string fragmentShaderPath
+        ) => _JS.InvokeAsync<Shader>(
             "p5Instance.loadShaderDotnet",
             vertexShaderPath,
             fragmentShaderPath
         );
 
-        public void NormalMaterial()
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask NormalMaterial() =>
+            IsWebGl ?_JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "normalMaterial"
-            );
-        }
+            ) : new ValueTask();
 
-        public void ResetShader()
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask ResetShader() =>
+            IsWebGl ?_JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "resetShader"
-            );
-        }
+            ) : new ValueTask();
 
-        public void SetUniform(
+        public ValueTask SetUniform(
             Shader shader,
             string uniformName,
             bool value
@@ -95,7 +69,7 @@ namespace ExoKomodo.Helpers.P5
             value
         );
 
-        public void SetUniform(
+        public ValueTask SetUniform(
             Shader shader,
             string uniformName,
             double value
@@ -105,7 +79,7 @@ namespace ExoKomodo.Helpers.P5
             value
         );
 
-        public void SetUniform(
+        public ValueTask SetUniform(
             Shader shader,
             string uniformName,
             float value
@@ -115,7 +89,7 @@ namespace ExoKomodo.Helpers.P5
             value
         );
 
-        public void SetUniform(
+        public ValueTask SetUniform(
             Shader shader,
             string uniformName,
             double[] value
@@ -125,7 +99,7 @@ namespace ExoKomodo.Helpers.P5
             value
         );
         
-        public void SetUniform(
+        public ValueTask SetUniform(
             Shader shader,
             string uniformName,
             float[] value
@@ -135,64 +109,46 @@ namespace ExoKomodo.Helpers.P5
             value
         );
 
-        public void Shininess(float shininess = 1f)
+        public ValueTask Shininess(float shininess = 1f)
         {
-            if (!IsWebGl)
+            if (IsWebGl)
             {
-                return;
+                if (shininess < 1f)
+                {
+                    shininess = 1f;
+                }
+                return _JS.InvokeVoidAsync(
+                    _p5InvokeFunction,
+                    "shininess",
+                    shininess
+                );
             }
-            if (shininess < 1f)
-            {
-                shininess = 1f;
-            }
-            _jsRuntime.InvokeVoid(
-                _p5InvokeFunction,
-                "shininess",
-                shininess
-            );
+            return new ValueTask();
         }
 
-        public void SpecularMaterial(byte grayscale, byte alpha = 255)
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask SpecularMaterial(byte grayscale, byte alpha = 255) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "specularMaterial",
                 grayscale,
                 alpha
-            );
-        }
+            ) : new ValueTask();
 
-        public void SpecularMaterial(Color color)
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask SpecularMaterial(Color color) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "specularMaterial",
                 color.R,
                 color.G,
                 color.B,
                 color.A
-            );
-        }
+            ) : new ValueTask();
 
-        public void UseShader(Shader shader)
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        public ValueTask UseShader(Shader shader) =>
+            IsWebGl ? _JS.InvokeVoidAsync(
                 "p5Instance.shaderDotnet",
                 shader.Id
-            );
-        }
+            ) : new ValueTask();
         #endregion
 
         #endregion
@@ -200,23 +156,16 @@ namespace ExoKomodo.Helpers.P5
         #region Private
 
         #region Member Methods
-        private void SetUniformCommon(
+        private ValueTask SetUniformCommon(
             Shader shader,
             string uniformName,
             object value
-        )
-        {
-            if (!IsWebGl)
-            {
-                return;
-            }
-            _jsRuntime.InvokeVoid(
+        ) => IsWebGl ?_JS.InvokeVoidAsync(
                 "p5Instance.setUniformDotnet",
                 shader.Id,
                 uniformName,
                 value
-            );
-        }
+            ) : new ValueTask();
         #endregion
 
         #endregion

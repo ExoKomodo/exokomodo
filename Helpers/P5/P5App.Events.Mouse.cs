@@ -2,6 +2,7 @@ using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,13 +11,11 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
-        public Vector2 PreviousMousePosition => new Vector2(MouseXPrevious, MouseYPrevious);
+        public async Task<Vector2> GetPreviousMousePosition() => new Vector2(await MouseXPrevious, await MouseYPrevious);
         // Careful calling this function if the mouse is not currently pressed
-        public MouseButtons MouseButton
-        {
-            get
-            {
-                var button = _jsRuntime.Invoke<string>(
+        public async Task<MouseButtons> GetMouseButton() =>
+            await Task.Run(async () => {
+                var button = await _JS.InvokeAsync<string>(
                     _p5GetValue,
                     "mouseButton"
                 );
@@ -27,50 +26,49 @@ namespace ExoKomodo.Helpers.P5
                     "right" => MouseButtons.Right,
                     _ => throw new Exception("Invalid MouseButton"),
                 };
-            }
-        }
-        public bool MouseIsPressed => _jsRuntime.Invoke<bool>(
+            });
+        public ValueTask<bool> MouseIsPressed => _JS.InvokeAsync<bool>(
             _p5GetValue,
             "mouseIsPressed"
         );
-        public Vector2 MousePosition => new Vector2(MouseX, MouseY);
-        public float MouseX => _jsRuntime.Invoke<float>(
+        public async Task<Vector2> GetMousePosition() => new Vector2(await MouseX, await MouseY);
+        public ValueTask<float> MouseX => _JS.InvokeAsync<float>(
             _p5GetValue,
             "mouseX"
         );
-        public float MouseXPrevious => _jsRuntime.Invoke<float>(
+        public ValueTask<float> MouseXPrevious => _JS.InvokeAsync<float>(
             _p5GetValue,
             "pmouseX"
         );
-        public float MouseY => _jsRuntime.Invoke<float>(
+        public ValueTask<float> MouseY => _JS.InvokeAsync<float>(
             _p5GetValue,
             "mouseY"
         );
-        public float MouseYPrevious => _jsRuntime.Invoke<float>(
+        public ValueTask<float> MouseYPrevious => _JS.InvokeAsync<float>(
             _p5GetValue,
             "pmouseY"
         );
-        public float MouseMovedX => _jsRuntime.Invoke<float>(
+        public ValueTask<float> MouseMovedX => _JS.InvokeAsync<float>(
             _p5GetValue,
             "movedX"
         );
-        public float MouseMovedY => _jsRuntime.Invoke<float>(
+        public ValueTask<float> MouseMovedY => _JS.InvokeAsync<float>(
             _p5GetValue,
             "movedY"
         );
-        public float WindowMouseX => _jsRuntime.Invoke<float>(
+        public ValueTask<float> WindowMouseX => _JS.InvokeAsync<float>(
             _p5GetValue,
             "winMouseX"
         );
-        public float WindowMouseXPrevious => _jsRuntime.Invoke<float>(
+        public ValueTask<float> WindowMouseXPrevious => _JS.InvokeAsync<float>(
             _p5GetValue,
             "pwinMouseX"
         );
-        public float WindowMouseY => _jsRuntime.Invoke<float>(
+        public ValueTask<float> WindowMouseY => _JS.InvokeAsync<float>(
             _p5GetValue,
             "winMouseY"
         );
-        public float WindowMouseYPrevious => _jsRuntime.Invoke<float>(
+        public ValueTask<float> WindowMouseYPrevious => _JS.InvokeAsync<float>(
             _p5GetValue,
             "pwinMouseY"
         );
@@ -78,64 +76,46 @@ namespace ExoKomodo.Helpers.P5
 
         #region Hooks
         [JSInvokable("doubleClicked")]
-        public virtual bool DoubleClicked()
-        {
-            return true; // Event prevent default
-        }
+        public virtual async Task<bool> DoubleClicked() =>
+            await Task.FromResult(true); // event prevent default
 
         [JSInvokable("mouseClicked")]
-        public virtual bool MouseClicked()
-        {
-            return true; // Event prevent default
-        }
+        public virtual async Task<bool> MouseClicked() =>
+            await Task.FromResult(true); // event prevent default
 
         [JSInvokable("mouseDragged")]
-        public virtual bool MouseDragged()
-        {
-            return true; // Event prevent default
-        }
+        public virtual async Task<bool> MouseDragged() =>
+            await Task.FromResult(true); // event prevent default
 
         [JSInvokable("mouseMoved")]
-        public virtual bool MouseMoved()
-        {
-            return true; // Event prevent default
-        }
+        public virtual async Task<bool> MouseMoved() =>
+            await Task.FromResult(true); // event prevent default
         
         [JSInvokable("mousePressed")]
-        public virtual bool MousePressed()
-        {
-            return true; // Event prevent default
-        }
+        public virtual async Task<bool> MousePressed() =>
+            await Task.FromResult(true); // event prevent default
 
         [JSInvokable("mouseReleased")]
-        public virtual bool MouseReleased()
-        {
-            return true; // Event prevent default
-        }
+        public virtual async Task<bool> MouseReleased() =>
+            await Task.FromResult(true); // event prevent default
 
         [JSInvokable("mouseWheel")]
-        public virtual bool MouseWheel(float delta)
-        {
-            return true; // Event prevent default
-        }
+        public virtual async Task<bool> MouseWheel(float delta) =>
+            await Task.FromResult(true); // event prevent default
         #endregion
 
         #region Member Methods
-        public void ExitPointerLock()
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask ExitPointerLock() =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "exitPointerLock"
             );
-        }
 
-        public void RequestPointerLock()
-        {
-            _jsRuntime.InvokeVoid(
+        public ValueTask RequestPointerLock() =>
+            _JS.InvokeVoidAsync(
                 _p5InvokeFunction,
                 "requestPointerLock"
             );
-        }
         #endregion
 
         #endregion

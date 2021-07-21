@@ -254,7 +254,7 @@ UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
 
-# SQL Server files
+# SQL ExoKomodo files
 *.mdf
 *.ldf
 *.ndf
@@ -291,8 +291,8 @@ node_modules/
 **/*.HTMLClient/GeneratedArtifacts
 **/*.DesktopClient/GeneratedArtifacts
 **/*.DesktopClient/ModelManifest.xml
-**/*.Server/GeneratedArtifacts
-**/*.Server/ModelManifest.xml
+**/*.ExoKomodo/GeneratedArtifacts
+**/*.ExoKomodo/ModelManifest.xml
 _Pvt_Extensions
 
 # Paket dependency manager
