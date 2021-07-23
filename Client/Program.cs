@@ -28,7 +28,13 @@ namespace Client
             );
             builder.Services.AddHttpClient<ApiClient>(
                 client => {
-                    client.BaseAddress = new Uri("https://localhost:5001/api/");
+                    client.BaseAddress = new Uri(
+                        #if DEBUG
+                        "https://localhost:5001/api/"
+                        #else
+                        "https://services.exokomodo.com/api/"
+                        #endif
+                    );
                 }
             );
 
