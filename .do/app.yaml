@@ -1,5 +1,5 @@
 domains:
-- domain: debug.exokomodo.com
+- domain: services.exokomodo.com
   type: PRIMARY
 name: exokomodo
 region: sfo
