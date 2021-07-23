@@ -11,4 +11,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0
 COPY --from=builder /exokomodo /exokomodo
 WORKDIR /exokomodo/bin/Release/net5.0/publish
 
-CMD ["ExoKomodo"]
+CMD ["dotnet", "ExoKomodo.dll"]
