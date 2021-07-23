@@ -1,7 +1,3 @@
-domains:
-- domain: exokomodo.com
-  type: PRIMARY
-  zone: exokomodo.com
 name: exokomodo
 region: sfo
 services:
