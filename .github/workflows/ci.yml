@@ -17,13 +17,20 @@ jobs:
           with:
             dotnet-version: '5.0.*'
 
-        # Run tests
-        - name: Test
-          run: dotnet test
+        # Test Client builds
+        - name: Test Client Build
+          run: |
+            dotnet build ExoKomodo.sln --project Client --configuration Release
+          
+        # Test Server builds
+        - name: Test Server Build
+          run: |
+            dotnet build ExoKomodo.sln --project Server --configuration Release
 
         # Generate the website
-        - name: Publish
+        - name: Publish website
           run: |
+            cd Client
             cp wwwroot/index.html wwwroot/404.html
             dotnet publish ExoKomodo.csproj --configuration Release
 

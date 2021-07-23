@@ -1,0 +1,27 @@
+@page "/users/jorson/blogs"
+@using Client.Pages.Users.Jorson.Components
+
+<link href="css/jorson/styles.css" rel="stylesheet" />
+
+@if (_blogs is not null)
+{
+    <div id="body">
+        <BackLink Link="/users/jorson" PageName="home" />
+        <h1>Blogs</h1>
+        <div>
+            <ul>
+                @for (int i = 0; i < _blogs.Count; ++i)
+                {
+                    var blog = _blogs[i];
+                    <li>
+                        <h3>
+                            <a href="@($"/users/jorson/blogs/{i}")">
+                                @blog.Date.ToShortDateString() - @((MarkupString)blog.Title)
+                            </a>
+                        </h3>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

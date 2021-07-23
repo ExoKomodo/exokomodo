@@ -1,0 +1,18 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+<div><span>Welcome to your demise.</span></div>
+
+<div>
+@if (_weatherGuess == null)
+{
+    <span>Loading weather guess...</span>
+}
+else
+{
+    <span>We predict the temp will be @_weatherGuess.TemperatureF Fahrenheit, or @_weatherGuess.TemperatureC Celsius.</span>
+}
+</div>
+
+<AdSense></AdSense>

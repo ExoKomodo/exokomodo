@@ -1,0 +1,43 @@
+@page "/users/nbarlow/how-old-am-i"
+
+@using Client.Pages.Users.Jorson.Components
+
+<link href="css/nbarlow/styles.css" rel="stylesheet" />
+<link href="css/nbarlow/how-old-am-i/how-old-am-i.css" rel="stylesheet" />
+
+@if (_self is not null)
+{
+    <div id="body">
+        <BackLink Link="/users/nbarlow" PageName="home" />
+        <h1><label for="birthdate">Your Birthday</label></h1>
+
+        <input id="birthdate" type="date" @bind="BirthDate" @bind:format="yyyy-MM-dd" />
+        <h2 id="age-container">Your Age</h2>
+        <h2>@YourAge</h2>
+    </div>
+
+    @code {
+        private DateTime BirthDate { get; set; } = new DateTime(1997, 2, 6);
+        private string YourAge {
+            get {
+                var today = DateTime.Today;
+                var years = today.Year - BirthDate.Year;
+                var months = today.Month - BirthDate.Month;
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+                var days = today.Day - BirthDate.Day;
+                if (days < 0) {
+                    months--;
+                    //Add today's days as a negative number to bring us to the beginning of the month,
+                    //then add the difference in days between today's days and BirthDate's days to push
+                    //us a few days back into last month, then grab that day of the month to get how many
+                    //days old we are
+                    days = today.AddDays(days - today.Day).Day;
+                }
+                return $"{years} Years, {months} Months, {days} Days";
+            }
+        }
+    }
+}
