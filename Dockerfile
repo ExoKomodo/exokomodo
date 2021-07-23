@@ -9,6 +9,6 @@ RUN dotnet publish ExoKomodo.sln --configuration Release
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
 COPY --from=builder /exokomodo /exokomodo
-WORKDIR /exokomodo
+WORKDIR /exokomodo/bin/Release/net5.0
 
-CMD ["dotnet", "bin/Release/net5.0/ExoKomodo.dll"]
+CMD ["dotnet", "ExoKomodo.dll"]
