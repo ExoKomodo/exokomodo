@@ -1,7 +1,6 @@
 using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,62 +9,62 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
-        public ValueTask<float> DeltaTime => _JS.InvokeAsync<float>(
+        public float DeltaTime => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "deltaTime"
         );
 
-        public ValueTask<float> DisplayDensity => _JS.InvokeAsync<float>(
+        public float DisplayDensity => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "displayDensity"
         );
 
-        public ValueTask<uint> DisplayHeight => _JS.InvokeAsync<uint>(
+        public uint DisplayHeight => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "displayHeight"
         );
 
-        public ValueTask<uint> DisplayWidth => _JS.InvokeAsync<uint>(
+        public float DisplayWidth => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "displayWidth"
         );
 
-        public ValueTask<uint> FrameCount => _JS.InvokeAsync<uint>(
+        public uint FrameCount => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "frameCount"
         );
         
-        public ValueTask<uint> Height => _JS.InvokeAsync<uint>(
+        public float Height => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "height"
         );
 
-        public ValueTask<bool> IsFocused => _JS.InvokeAsync<bool>(
+        public bool IsFocused => _jsRuntime.Invoke<bool>(
             _p5GetValue,
             "focused"
         );
 
-        public ValueTask<string> Url => _JS.InvokeAsync<string>(
+        public string Url => _jsRuntime.Invoke<string>(
             _p5InvokeFunctionAndReturn,
             "getURL"
         );
         
-        public ValueTask<string> UrlPath => _JS.InvokeAsync<string>(
+        public string UrlPath => _jsRuntime.Invoke<string>(
             _p5InvokeFunctionAndReturn,
             "getURLPath"
         );
         
-        public ValueTask<uint> Width => _JS.InvokeAsync<uint>(
+        public float Width => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "width"
         );
 
-        public ValueTask<uint> WindowHeight => _JS.InvokeAsync<uint>(
+        public uint WindowHeight => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "windowHeight"
         );
 
-        public ValueTask<uint> WindowWidth => _JS.InvokeAsync<uint>(
+        public float WindowWidth => _jsRuntime.Invoke<uint>(
             _p5GetValue,
             "windowWidth"
         );
@@ -77,24 +76,30 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Member Methods
-        public ValueTask Cursor(CursorMode mode) => Cursor(CursorModeToString(mode));
-
-        public ValueTask Cursor(CursorMode mode, uint x, uint y) => Cursor(CursorModeToString(mode), x, y);
-
-        public ValueTask Cursor(string mode)
+        public void Cursor(CursorMode mode)
         {
-            return _JS.InvokeVoidAsync(
+            Cursor(CursorModeToString(mode));
+        }
+
+        public void Cursor(CursorMode mode, uint x, uint y)
+        {
+            Cursor(CursorModeToString(mode), x, y);
+        }
+
+        public void Cursor(string mode)
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "cursor",
                 mode
             );
         }
 
-        public ValueTask Cursor(string mode, uint x, uint y)
+        public void Cursor(string mode, uint x, uint y)
         {
             x = Math.Min(x, 32);
             y = Math.Min(y, 32);
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "cursor",
                 mode,
@@ -103,26 +108,23 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public ValueTask<float> FrameRate()
-        {
-            return _JS.InvokeAsync<float>(
-                _p5InvokeFunctionAndReturn,
-                "frameRate"
-            );
-        }
+        public float FrameRate() => _jsRuntime.Invoke<float>(
+            _p5InvokeFunctionAndReturn,
+            "frameRate"
+        );
 
-        public ValueTask FrameRate(float fps)
+        public void FrameRate(float fps)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "frameRate",
                 fps
             );
         }
 
-        public ValueTask NoCursor()
+        public void NoCursor()
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "noCursor"
             );

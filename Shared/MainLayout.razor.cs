@@ -23,7 +23,7 @@ namespace ExoKomodo.Shared
 
         #region Members
         [Inject]
-        protected IJSRuntime _JS { get; set; }
+        protected IJSRuntime _jsRuntime { get; set; }
         #endregion
 
         #region Member Methods
@@ -35,7 +35,7 @@ namespace ExoKomodo.Shared
 
         protected void UpdateFavicon()
         {
-            _JS.InvokeVoidAsync("updateFavicon", AppState.FaviconUri);
+            _jsRuntime.InvokeVoidAsync("updateFavicon", AppState.FaviconUri);
             StateHasChanged();
         }
         #endregion

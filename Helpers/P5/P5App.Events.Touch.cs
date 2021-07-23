@@ -1,6 +1,5 @@
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -9,7 +8,7 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
-        public ValueTask<Touch[]> Touches => _JS.InvokeAsync<Touch[]>(
+        public Touch[] Touches => _jsRuntime.Invoke<Touch[]>(
             _p5GetValue,
             "touches"
         );

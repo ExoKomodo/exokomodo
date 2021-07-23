@@ -14,13 +14,13 @@ namespace ExoKomodo.Pages.Users
         private HttpClient _http { get; set; }
         private IList<User> _users;
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override void OnAfterRender(bool firstRender)
         {
             base.OnAfterRender(firstRender);
 
             if (firstRender)
             {
-                await base.InvokeAsync(AppState.Reset);
+                AppState.Reset();
             }
         }
 

@@ -4,7 +4,6 @@ using Microsoft.JSInterop;
 using System;
 using System.Drawing;
 using System.Numerics;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -13,26 +12,43 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public ValueTask AmbientLight(byte grayscale, byte alpha = 255) =>
-            IsWebGl ? _JS.InvokeVoidAsync(
+        public void AmbientLight(byte grayscale, byte alpha = 255)
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "ambientLight",
                 grayscale,
                 alpha
-            ) : new ValueTask();
+            );
+        }
 
-        public ValueTask AmbientLight(Color color) =>
-            IsWebGl ? _JS.InvokeVoidAsync(
+        public void AmbientLight(Color color)
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "ambientLight",
                 color.R,
                 color.G,
                 color.B,
                 color.A
-            ) : new ValueTask();
+            );
+        }
 
-        public ValueTask DirectionalLight(Color color, float x, float y, float z) =>
-            IsWebGl ? _JS.InvokeVoidAsync(
+        public void DirectionalLight(Color color, float x, float y, float z)
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "directionalLight",
                 color.R,
@@ -41,39 +57,58 @@ namespace ExoKomodo.Helpers.P5
                 x,
                 y,
                 z
-            ) : new ValueTask();
+            );
+        }
 
-        public ValueTask DirectionalLight(Color color, Vector3 direction) => DirectionalLight(
+        public void DirectionalLight(Color color, Vector3 direction) => DirectionalLight(
             color,
             direction.X,
             direction.Y,
             direction.Z
         );
 
-        public ValueTask LightFalloff(
+        public void LightFalloff(
             float constant = 1f,
             float linear = 0f,
             float quadratic = 0f
-        ) => IsWebGl ? _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "lightFalloff",
-            constant,
-            linear,
-            quadratic
-        ) : new ValueTask();
+        )
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "lightFalloff",
+                constant,
+                linear,
+                quadratic
+            );
+        }
 
-        public ValueTask Lights() => _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "lights"
-        );
+        public void Lights()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "lights"
+            );
+        }
 
-        public ValueTask NoLights() => _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "noLights"
-        );
+        public void NoLights()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "noLights"
+            );
+        }
 
-        public ValueTask PointLight(Color color, float x, float y, float z) =>
-            IsWebGl ? _JS.InvokeVoidAsync(
+        public void PointLight(Color color, float x, float y, float z)
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "pointLight",
                 color.R,
@@ -82,31 +117,44 @@ namespace ExoKomodo.Helpers.P5
                 x,
                 y,
                 z
-            ) : new ValueTask();
+            );
+        }
 
-        public ValueTask PointLight(Color color, Vector3 direction) => PointLight(
+        public void PointLight(Color color, Vector3 direction) => PointLight(
             color,
             direction.X,
             direction.Y,
             direction.Z
         );
 
-        public ValueTask SpecularColor(Color color) => 
-            IsWebGl ? _JS.InvokeVoidAsync(
+        public void SpecularColor(Color color)
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "specularColor",
                 color.R,
                 color.G,
                 color.B
-            ) : new ValueTask();
+            );
+        }
 
-        public ValueTask SpotLight(
+        public void SpotLight(
             Color color,
             Vector3 position,
             Vector3 direction,
             float angle = (float)(Math.PI / 3),
             float concentration = 100f
-        ) => IsWebGl ? _JS.InvokeVoidAsync(
+        )
+        {
+            if (!IsWebGl)
+            {
+                return;
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "spotLight",
                 color.R,
@@ -120,7 +168,8 @@ namespace ExoKomodo.Helpers.P5
                 direction.Z,
                 angle,
                 concentration
-            ) : new ValueTask();
+            );
+        }
         #endregion
 
         #endregion

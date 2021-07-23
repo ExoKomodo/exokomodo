@@ -3,7 +3,6 @@ using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using System.Drawing;
 using System.Numerics;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
 {
@@ -32,20 +31,23 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees
         #endregion
 
         #region Member Methods
-        public override async Task Draw() =>
-            await Task.Run(async () => {
-                await _app.Push();
+        public override void Draw()
+        {
+            _app.Push();
 
-                await _app.SetRectangleMode(RectangleMode.Center);
-                await _app.Fill(FillColor);
-                await _app.StrokeWeight(StrokeWeight);
-                await _app.Stroke(StrokeColor);
-                await _app.DrawRectangle(_rect);
+            _app.SetRectangleMode(RectangleMode.Center);
+            _app.Fill(FillColor);
+            _app.StrokeWeight(StrokeWeight);
+            _app.Stroke(StrokeColor);
+            _app.DrawRectangle(_rect);
 
-                await _app.Pop();
-            });
+            _app.Pop();
+        }
 
-        public override async Task Update(double dt) => await base.Update(dt);
+        public override void Update(double dt)
+        {
+            base.Update(dt);
+        }
         #endregion
 
         #endregion

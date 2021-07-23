@@ -2,7 +2,6 @@ using System;
 using ExoKomodo.Helpers.P5.Enums;
 using ExoKomodo.Helpers.P5.Models;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -11,9 +10,9 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
-        public ValueTask<float> MasterVolume
+        public float MasterVolume
         {
-            get => _JS.InvokeAsync<float>(
+            get => _jsRuntime.Invoke<float>(
                 _p5InvokeFunctionAndReturn,
                 "getMasterVolume"
             );
@@ -21,27 +20,27 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Member Methods
-        public ValueTask SetBPM(float bpm, float rampTime) => _JS.InvokeVoidAsync(
+        public void SetBPM(float bpm, float rampTime) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "setBPM",
             bpm,
             rampTime
         );
 
-        public ValueTask SetMasterVolume(float volume) => _JS.InvokeVoidAsync(
+        public void SetMasterVolume(float volume) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "masterVolume",
             volume
         );
         
-        public ValueTask SetMasterVolume(float volume, float rampTime) => _JS.InvokeVoidAsync(
+        public void SetMasterVolume(float volume, float rampTime) => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "masterVolume",
             volume,
             rampTime
         );
 
-        public ValueTask UserStartAudio() => _JS.InvokeVoidAsync(
+        public void UserStartAudio() => _jsRuntime.InvokeVoid(
             _p5InvokeFunction,
             "userStartAudio"
         );

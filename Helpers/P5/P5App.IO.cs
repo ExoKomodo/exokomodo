@@ -1,14 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.JSInterop;
-
-namespace ExoKomodo.Helpers.P5
+﻿namespace ExoKomodo.Helpers.P5
 {
     public abstract partial class P5App
     {
         #region Public
 
         #region Members
-        public ValueTask<float> Millis => _JS.InvokeAsync<float>(
+        public float Millis => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "millis"
         );

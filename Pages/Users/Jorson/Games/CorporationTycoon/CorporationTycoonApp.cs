@@ -4,11 +4,11 @@ using System.Linq;
 using System.Numerics;
 using ExoKomodo.Helpers.P5;
 using ExoKomodo.Helpers.P5.Enums;
+using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Helpers;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 {
@@ -18,9 +18,9 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         #region Constructors
         public CorporationTycoonApp(
-            IJSRuntime JS,
+            IJSRuntime jsRuntime,
             string containerId
-        ) : base(JS, containerId) {}
+        ) : base(jsRuntime, containerId) {}
         #endregion
 
         #region Constants
@@ -37,66 +37,68 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
 
         #region Member Methods
         [JSInvokable("draw")]
-        public override async Task Draw() =>
-            await Task.Run(async () => {
-                Console.WriteLine("Starting draw");
-                await Update(0);//(await DeltaTime) / 1_000f);
+        public override void Draw()
+        {
+            Update(DeltaTime / 1_000f);
 
-                await Background(_clearColor);
+            Background(_clearColor);
 
-                await DrawCorporation();
-                Console.WriteLine("Ending draw");
-                // await DrawHoverElements();
-                // await DrawUi();
-            });
+            DrawCorporation();
+            DrawHoverElements();
+            DrawUi();
+        }
 
         [JSInvokable("keyPressed")]
-        public override async Task<bool> KeyPressed() =>
-            await Task.Run(async () => {
-                switch (await KeyCode)
-                {
-                    case Enums.KeyCodes.Digit1:
-                    case Enums.KeyCodes.NumPad1:
-                        _roomType = typeof(Office);
-                        if (!(_hoverRoom is Office))
-                        {
-                            _hoverRoom = new Office(this, Vector2.Zero);
-                        }
-                        break;
-                    case Enums.KeyCodes.Digit2:
-                    case Enums.KeyCodes.NumPad2:
-                        _roomType = typeof(PrivateOffice);
-                        if (!(_hoverRoom is PrivateOffice))
-                        {
-                            _hoverRoom = new PrivateOffice(this, Vector2.Zero);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                return true; // Event prevent default
-            });
+        public override bool KeyPressed()
+        {
+            switch (KeyCode)
+            {
+                case Enums.KeyCodes.Digit1:
+                case Enums.KeyCodes.NumPad1:
+                    _roomType = typeof(Office);
+                    if (!(_hoverRoom is Office))
+                    {
+                        _hoverRoom = new Office(this, Vector2.Zero);
+                    }
+                    break;
+                case Enums.KeyCodes.Digit2:
+                case Enums.KeyCodes.NumPad2:
+                    _roomType = typeof(PrivateOffice);
+                    if (!(_hoverRoom is PrivateOffice))
+                    {
+                        _hoverRoom = new PrivateOffice(this, Vector2.Zero);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return true; // Event prevent default
+        }
 
         [JSInvokable("mousePressed")]
-        public override async Task<bool> MousePressed() =>
-            await Task.Run(async () => {
-                switch (await GetMouseButton())
-                {
-                    case MouseButtons.Left:
-                        await HandleLeftMouse();
-                        break;
-                    default:
-                        break;
-                }
-                return true; // Event prevent default
-            });
+        public override bool MousePressed()
+        {
+            switch (MouseButton)
+            {
+                case MouseButtons.Left:
+                    HandleLeftMouse();
+                    break;
+                default:
+                    break;
+            }
+            return true; // Event prevent default
+        }
+
+        [JSInvokable("preload")]
+        public override void Preload() {}
 
         [JSInvokable("setup")]
-        public override async Task Setup() =>
-            await Task.Run(async () => {
-                await InitializeCanvas();
-                await Reset();
-            });
+        public override void Setup()
+        {
+            InitializeCanvas();
+            Reset();
+        }
         #endregion
 
         #endregion
@@ -150,11 +152,13 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             );
         }
 
-        private Vector2 ClampPositionToGridLines(float mouseX, float mouseY) =>
-            new Vector2(
-                MathF.Floor(mouseX / UNIT_SCALE),
-                MathF.Floor(mouseY / UNIT_SCALE)
+        private Vector2 ClampPositionToGridLines()
+        {
+            return new Vector2(
+                MathF.Floor(MouseX / UNIT_SCALE),
+                MathF.Floor(MouseY / UNIT_SCALE)
             ) * UNIT_SCALE;
+        }
 
         private Room CreateRoom(Vector2 position)
         {
@@ -169,120 +173,115 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             throw new NotImplementedException("Room type not implemented");
         }
 
-        private async Task DrawCorporation() =>
-            await Task.Run(async () => {
-                Console.WriteLine("\tStarting corporation");
-                foreach (var room in _corporation)
+        private void DrawCorporation()
+        {
+            foreach (var room in _corporation)
+            {
+                room?.Draw();
+            }
+        }
+
+        private void DrawHoverElements()
+        {
+            var position = ClampPositionToGridLines();
+            var room = _corporation.Get(position);
+            if (room is null)
+            {
+                if (!_corporation.IsValidPlacement(_hoverRoom, position))
                 {
-                    if (room is not null)
+                    return;
+                }
+                DrawHoverRoom(position);
+            }
+            else
+            {
+                DrawHoverEmployee(room, position);
+            }
+        }
+
+        private void DrawHoverEmployee(Room room, Vector2 position)
+        {
+            var renderPosition = position + (Vector2.One * UNIT_SCALE / 2f);
+            switch (room)
+            {
+                case Office:
+                    if (!(_hoverEmployee is Worker))
                     {
-                        await room.Draw();
+                        _hoverEmployee = new Worker(this, Vector2.Zero);
                     }
-                }
-                Console.WriteLine("\tEnding corporation");
-            });
-
-        private async Task DrawHoverElements() =>
-            await Task.Run(async () => {
-                var position = ClampPositionToGridLines(await MouseX, await MouseY);
-                var room = _corporation.Get(position);
-                if (room is null)
-                {
-                    if (!_corporation.IsValidPlacement(_hoverRoom, position))
+                    break;
+                case PrivateOffice:
+                    if (!(_hoverEmployee is Supervisor))
                     {
-                        return;
+                        _hoverEmployee = new Supervisor(this, Vector2.Zero);
                     }
-                    await DrawHoverRoom(position);
-                }
-                else
-                {
-                    await DrawHoverEmployee(room, position);
-                }
-            });
+                    break;
+                default:
+                    throw new NotImplementedException($"Room of type {room.GetType()} not yet implemented");
+            }
+            _hoverEmployee.FillColor = Color.FromArgb(
+                red: _hoverEmployee.FillColor.R,
+                green: _hoverEmployee.FillColor.G,
+                blue: _hoverEmployee.FillColor.B,
+                alpha: 150
+            );
+            _hoverEmployee.Position = renderPosition;
+            _hoverEmployee.Draw();
+        }
 
-        private async Task DrawHoverEmployee(Room room, Vector2 position) =>
-            await Task.Run(async () => {
-                var renderPosition = position + (Vector2.One * UNIT_SCALE / 2f);
-                switch (room)
-                {
-                    case Office:
-                        if (!(_hoverEmployee is Worker))
+        private void DrawHoverRoom(Vector2 position)
+        {
+            _hoverRoom.FillColor = Color.FromArgb(
+                red: _hoverRoom.FillColor.R,
+                green: _hoverRoom.FillColor.G,
+                blue: _hoverRoom.FillColor.B,
+                alpha: 150
+            );
+            _hoverRoom.Position = position;
+            _hoverRoom.Draw();
+        }
+
+        private void DrawUi()
+        {
+            DrawUiBalance();
+        }
+
+        private void DrawUiBalance()
+        {
+            Push();
+            Fill(255);
+            SetTextAlign(HorizontalTextAlign.Left, VerticalTextAlign.Top);
+            SetTextSize(20);
+            DrawText(
+                $"Balance: {string.Format($"{{0:{CurrencySymbol}#,##0.00}}", Account.Balance)}",
+                Vector2.One * UNIT_SCALE / 10f
+            );
+            Pop();
+        }
+
+        private void HandleLeftMouse()
+        {
+            switch (_state)
+            {
+                case GameState.Default:
+                    var position = ClampPositionToGridLines();
+                    // If a room exists, add an employee instead
+                    var room = _corporation.Get(position);
+                    if (room is null)
+                    {
+                        room = CreateRoom(position);
+                        if (Account.Withdraw(room.BuildCost))
                         {
-                            _hoverEmployee = new Worker(this, Vector2.Zero);
+                            _corporation.Add(room);
                         }
                         break;
-                    case PrivateOffice:
-                        if (!(_hoverEmployee is Supervisor))
-                        {
-                            _hoverEmployee = new Supervisor(this, Vector2.Zero);
-                        }
-                        break;
-                    default:
-                        throw new NotImplementedException($"Room of type {room.GetType()} not yet implemented");
-                }
-                _hoverEmployee.FillColor = Color.FromArgb(
-                    red: _hoverEmployee.FillColor.R,
-                    green: _hoverEmployee.FillColor.G,
-                    blue: _hoverEmployee.FillColor.B,
-                    alpha: 150
-                );
-                _hoverEmployee.Position = renderPosition;
-                await _hoverEmployee.Draw();
-            });
-
-        private async Task DrawHoverRoom(Vector2 position) =>
-            await Task.Run(async () => {
-                _hoverRoom.FillColor = Color.FromArgb(
-                    red: _hoverRoom.FillColor.R,
-                    green: _hoverRoom.FillColor.G,
-                    blue: _hoverRoom.FillColor.B,
-                    alpha: 150
-                );
-                _hoverRoom.Position = position;
-                await _hoverRoom.Draw();
-            });
-
-        private async Task DrawUi() =>
-            await Task.Run(async () => {
-                await DrawUiBalance();
-            });
-
-        private async Task DrawUiBalance() =>
-            await Task.Run(async () => {
-                await Push();
-                await Fill(255);
-                await SetTextAlign(HorizontalTextAlign.Left, VerticalTextAlign.Top);
-                await SetTextSize(20);
-                await DrawText(
-                    $"Balance: {string.Format($"{{0:{CurrencySymbol}#,##0.00}}", Account.Balance)}",
-                    Vector2.One * UNIT_SCALE / 10f
-                );
-                await Pop();
-            });
-
-        private async Task HandleLeftMouse() =>
-            await Task.Run(async () => {
-                switch (_state)
-                {
-                    case GameState.Default:
-                        var position = ClampPositionToGridLines(await MouseX, await MouseY);
-                        // If a room exists, add an employee instead
-                        var room = _corporation.Get(position);
-                        if (room is null)
-                        {
-                            room = CreateRoom(position);
-                            if (Account.Withdraw(room.BuildCost))
-                            {
-                                _corporation.Add(room);
-                            }
-                            break;
-                        }
-                        Hire(room, position);
-                        break;
-                    default:
-                        break;
-                }
-            });
+                    }
+                    Hire(room, position);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         private bool Hire(Room room, Vector2 hirePosition)
         {
@@ -299,59 +298,54 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon
             };
         }
 
-        private async Task InitializeCanvas() =>
-            await Task.Run(async () => {
-                var windowWidth = await WindowWidth;
-                var windowHeight = await WindowHeight;
-                bool isVerticalDisplay = windowWidth / windowHeight < 1;
-                float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
-                _width = windowWidth * 0.8f;
-                _height = _width / aspectRatio;
-                _clearColor = Color.FromArgb(red: 0, green: 64, blue: 64);
-                await CreateCanvas((uint)(_width / 100) * 100, (uint)(_height / 100) * 100);
-            });
+        private void InitializeCanvas()
+        {
+            bool isVerticalDisplay = WindowWidth / WindowHeight < 1;
+            float aspectRatio = isVerticalDisplay ? 4f / 3f : 16f / 9f;
+            _width = WindowWidth * 0.8f;
+            _height = _width / aspectRatio;
+            _clearColor = Color.FromArgb(red: 0, green: 64, blue: 64);
+            CreateCanvas((uint)(_width / 100) * 100, (uint)(_height / 100) * 100);
+        }
 
-        private async Task PostUpdate() =>
-            await Task.Run(async () => {
-                if (Account.Balance <= GAME_OVER_BALANCE)
-                {
-                    await Reset();
-                }
-            });
+        private void PostUpdate()
+        {
+            if (Account.Balance <= GAME_OVER_BALANCE)
+            {
+                Reset();
+            }
+        }
 
-        private async Task PreUpdate() =>
-            await Task.Run(() => {
-                CalculateSupervisionFactor();
-            });
+        private void PreUpdate()
+        {
+            CalculateSupervisionFactor();
+        }
 
-        private async Task Reset() =>
-            await Task.Run(() => {
-                Account = new Bank(10_000m);
-                _corporation = new Corporation(
-                    (uint)_width / UNIT_SCALE,
-                    (uint)_height / UNIT_SCALE,
-                    UNIT_SCALE
-                );
-                _roomType = typeof(Office);
-                _hoverRoom = new Office(this, Vector2.Zero);
-            });
+        private void Reset()
+        {
+            Account = new Bank(10_000m);
+            _corporation = new Corporation(
+                (uint)_width / UNIT_SCALE,
+                (uint)_height / UNIT_SCALE,
+                UNIT_SCALE
+            );
+            _roomType = typeof(Office);
+            _hoverRoom = new Office(this, Vector2.Zero);
+        }
 
-        private async Task Update(float dt) =>
-            await Task.Run(async () => {
-                await PreUpdate();
+        private void Update(float dt)
+        {
+            PreUpdate();
 
-                foreach (var room in _corporation)
-                {
-                    if (room is not null)
-                    {
-                        await room.Update(dt);
-                    }
-                }
+            foreach (var room in _corporation)
+            {
+                room?.Update(dt);
+            }
 
-                _hoverRoom.Position = new Vector2(await MouseX, await MouseY);
+            _hoverRoom.Position = new Vector2(MouseX, MouseY);
 
-                await PostUpdate();
-            });
+            PostUpdate();
+        }
         #endregion
 
         #endregion

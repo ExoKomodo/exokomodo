@@ -1,7 +1,6 @@
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Enums;
 using System;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,33 +9,29 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public ValueTask<float> GetTextAscent() =>
-            _JS.InvokeAsync<float>(
-                _p5InvokeFunctionAndReturn,
-                "textAscent"
-            );
+        public float GetTextAscent() => _jsRuntime.Invoke<float>(
+            _p5InvokeFunctionAndReturn,
+            "textAscent"
+        );
 
-        public ValueTask<float> GetTextDescent() =>
-            _JS.InvokeAsync<float>(
-                _p5InvokeFunctionAndReturn,
-                "textDescent"
-            );
+        public float GetTextDescent() => _jsRuntime.Invoke<float>(
+            _p5InvokeFunctionAndReturn,
+            "textDescent"
+        );
 
-        public ValueTask<float> GetTextLeading() =>
-            _JS.InvokeAsync<float>(
-                _p5InvokeFunctionAndReturn,
-                "textLeading"
-            );
+        public float GetTextLeading() => _jsRuntime.Invoke<float>(
+            _p5InvokeFunctionAndReturn,
+            "textLeading"
+        );
 
-        public ValueTask<float> GetTextSize() =>
-            _JS.InvokeAsync<float>(
-                _p5InvokeFunctionAndReturn,
-                "textSize"
-            );
+        public float GetTextSize() => _jsRuntime.Invoke<float>(
+            _p5InvokeFunctionAndReturn,
+            "textSize"
+        );
 
-        public async Task<TextStyle> GetTextStyle()
+        public TextStyle GetTextStyle()
         {
-            var style = await _JS.InvokeAsync<string>(
+            var style = _jsRuntime.Invoke<string>(
                 _p5InvokeFunctionAndReturn,
                 "textStyle"
             );
@@ -55,79 +50,117 @@ namespace ExoKomodo.Helpers.P5
             }
         }
 
-        public ValueTask<float> GetTextWidth(string text) => _JS.InvokeAsync<float>(
+        public float GetTextWidth(string text) => _jsRuntime.Invoke<float>(
             _p5InvokeFunctionAndReturn,
             "textWidth",
             text
         );
 
-        public ValueTask SetTextAlign(HorizontalTextAlign align) =>
-            _JS.InvokeVoidAsync(
+        public void SetTextAlign(HorizontalTextAlign align)
+        {
+            var textAlign = "";
+            switch (align)
+            {
+                case HorizontalTextAlign.Center:
+                    textAlign = "center";
+                    break;
+                case HorizontalTextAlign.Left:
+                    textAlign = "left";
+                    break;
+                case HorizontalTextAlign.Right:
+                    textAlign = "right";
+                    break;
+                default:
+                    throw new Exception("Invalid HorizontalTextAlign");
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "textAlign",
-                HorizontalTextAlignToString(align)
+                textAlign
             );
+        }
 
-        public ValueTask SetTextAlign(
-            HorizontalTextAlign horizontalAlign,
-            VerticalTextAlign verticalAlign
-        ) => _JS.InvokeVoidAsync(
+        public void SetTextAlign(HorizontalTextAlign horizontalAlign, VerticalTextAlign verticalAlign)
+        {
+            var horizontalTextAlign = "";
+            switch (horizontalAlign)
+            {
+                case HorizontalTextAlign.Center:
+                    horizontalTextAlign = "center";
+                    break;
+                case HorizontalTextAlign.Left:
+                    horizontalTextAlign = "left";
+                    break;
+                case HorizontalTextAlign.Right:
+                    horizontalTextAlign = "right";
+                    break;
+                default:
+                    throw new Exception("Invalid HorizontalTextAlign");
+            }
+            var verticalTextAlign = "";
+            switch (verticalAlign)
+            {
+                case VerticalTextAlign.Baseline:
+                    verticalTextAlign = "alphabetic";
+                    break;
+                case VerticalTextAlign.Bottom:
+                    verticalTextAlign = "bottom";
+                    break;
+                case VerticalTextAlign.Center:
+                    verticalTextAlign = "center";
+                    break;
+                case VerticalTextAlign.Top:
+                    verticalTextAlign = "top";
+                    break;
+                default:
+                    throw new Exception("Invalid VerticalTextAlign");
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "textAlign",
-                HorizontalTextAlignToString(horizontalAlign),
-                VerticalTextAlignToString(verticalAlign)
+                horizontalTextAlign,
+                verticalTextAlign
             );
+        }
 
-        public ValueTask SetTextLeading(float leading) =>
-            _JS.InvokeVoidAsync(
-                _p5InvokeFunction,
-                "textLeading",
-                leading
-            );
+        public void SetTextLeading(float leading) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "textLeading",
+            leading
+        );
 
-        public ValueTask SetTextSize(float size) =>
-            _JS.InvokeVoidAsync(
-                _p5InvokeFunction,
-                "textSize",
-                size
-            );
+        public void SetTextSize(float size) => _jsRuntime.InvokeVoid(
+            _p5InvokeFunction,
+            "textSize",
+            size
+        );
 
-        public ValueTask SetTextStyle(TextStyle style) =>
-            _JS.InvokeVoidAsync(
+        public void SetTextStyle(TextStyle style)
+        {
+            var textStyle = "";
+            switch (style)
+            {
+                case TextStyle.Bold:
+                    textStyle = "bold";
+                    break;
+                case TextStyle.BoldItalic:
+                    textStyle = "bold italic";
+                    break;
+                case TextStyle.Italic:
+                    textStyle = "italic";
+                    break;
+                case TextStyle.Normal:
+                    textStyle = "normal";
+                    break;
+                default:
+                    throw new Exception("Invalid TextStyle");
+            }
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "textStyle",
-                TextStyleToString(style)
+                textStyle
             );
-        #endregion
-
-        #region Static Methods
-
-        public static string HorizontalTextAlignToString(HorizontalTextAlign align) =>
-            align switch {
-                HorizontalTextAlign.Center => "center",
-                HorizontalTextAlign.Left => "left",
-                HorizontalTextAlign.Right => "right",
-                _ => throw new Exception("Invalid HorizontalTextAlign"),
-            };
-
-        public static string TextStyleToString(TextStyle style) =>
-            style switch {
-                TextStyle.Bold => "bold",
-                TextStyle.BoldItalic => "bold italic",
-                TextStyle.Italic => "italic",
-                TextStyle.Normal => "normal",
-                _ => throw new Exception("Invalid TextStyle"),
-            };
-        
-        public static string VerticalTextAlignToString(VerticalTextAlign align) =>
-            align switch {
-                VerticalTextAlign.Baseline => "alphabetic",
-                VerticalTextAlign.Bottom => "bottom",
-                VerticalTextAlign.Center => "center",
-                VerticalTextAlign.Top => "top",
-                _ => throw new Exception("Invalid VerticalTextAlign"),
-            };
-
+        }
         #endregion
 
         #endregion

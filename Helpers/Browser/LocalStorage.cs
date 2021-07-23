@@ -7,21 +7,21 @@ namespace ExoKomodo.Helpers.Browser
         #region Public
 
         #region Constructors
-        public LocalStorage(IJSRuntime JS)
+        public LocalStorage(IJSRuntime jsRuntime)
         {
-            _JS = JS;
+            _jsRuntime = jsRuntime as IJSInProcessRuntime;
         }
         #endregion
 
         #region Member Methods
         public T Load<T>(string key)
         {
-            return _JS.InvokeAsync<T>("loadFromLocalStorage", key).Result;
+            return _jsRuntime.Invoke<T>("loadFromLocalStorage", key);
         }
 
         public void Save(string key, object obj)
         {
-            _JS.InvokeVoidAsync("saveToLocalStorage", key, obj).AsTask().Wait();
+            _jsRuntime.InvokeVoid("saveToLocalStorage", key, obj);
         }
         #endregion
 
@@ -30,7 +30,7 @@ namespace ExoKomodo.Helpers.Browser
         #region Protected
 
         #region Members
-        protected readonly IJSRuntime _JS;
+        protected readonly IJSInProcessRuntime _jsRuntime;
         #endregion
 
         #endregion

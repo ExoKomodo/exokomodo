@@ -4,7 +4,6 @@ using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Employees;
 using System.Drawing;
 using System.Numerics;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
 {
@@ -32,20 +31,20 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
         #endregion
 
         #region Member Methods
-        public override async Task Draw() =>
-            await Task.Run(async () => {
-                await _app.Push();
+        public override void Draw()
+        {
+            _app.Push();
 
-                await _app.Fill(FillColor);
-                await _app.StrokeWeight(StrokeWeight);
-                await _app.Stroke(StrokeColor);
-                await _app.DrawRectangle(_rect);
+            _app.Fill(FillColor);
+            _app.StrokeWeight(StrokeWeight);
+            _app.Stroke(StrokeColor);
+            _app.DrawRectangle(_rect);
 
-                await _app.Pop();
+            _app.Pop();
 
-                await DrawWindows();
-                await DrawEmployees();
-            });
+            DrawWindows();
+            DrawEmployees();
+        }
 
         public override bool Hire(Employee employee)
         {
@@ -56,7 +55,10 @@ namespace ExoKomodo.Pages.Users.Jorson.Games.CorporationTycoon.Rooms
             return false;
         }
 
-        public override async Task Update(double dt) => await base.Update(dt);
+        public override void Update(double dt)
+        {
+            base.Update(dt);
+        }
         #endregion
 
         #endregion

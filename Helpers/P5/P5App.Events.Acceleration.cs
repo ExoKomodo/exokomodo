@@ -1,6 +1,5 @@
 using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -9,68 +8,71 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
-        public ValueTask<float> AccelerationX => _JS.InvokeAsync<float>(
+        public float AccelerationX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "accelerationX"
         );
-        public ValueTask<float> AccelerationY => _JS.InvokeAsync<float>(
+        public float AccelerationY => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "accelerationY"
         );
-        public ValueTask<float> AccelerationZ => _JS.InvokeAsync<float>(
+        public float AccelerationZ => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "accelerationZ"
         );
-        public async Task<Orientation> GetDeviceOrientation()
+        public Orientation DeviceOrientation
         {
-            var orientation = await _JS.InvokeAsync<string>(
-                _p5GetValue,
-                "deviceOrientation"
-            );
-            return orientation switch
+            get
             {
-                "landscape" => Orientation.Landscape,
-                "portrait" => Orientation.Portrait,
-                _ => Orientation.Undefined,
-            };
+                var orientation = _jsRuntime.Invoke<string>(
+                    _p5GetValue,
+                    "deviceOrientation"
+                );
+                return orientation switch
+                {
+                    "landscape" => Orientation.Landscape,
+                    "portrait" => Orientation.Portrait,
+                    _ => Orientation.Undefined,
+                };
+            }
         }
-        public ValueTask<float> PreviousAccelerationX => _JS.InvokeAsync<float>(
+        public float PreviousAccelerationX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "pAccelerationX"
         );
-        public ValueTask<float> PreviousAccelerationY => _JS.InvokeAsync<float>(
+        public float PreviousAccelerationY => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "pAccelerationY"
         );
-        public ValueTask<float> PreviousAccelerationZ => _JS.InvokeAsync<float>(
+        public float PreviousAccelerationZ => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "pAccelerationZ"
         );
-        public ValueTask<float> PreviousRotationX => _JS.InvokeAsync<float>(
+        public float PreviousRotationX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "previousRotationX"
         );
-        public ValueTask<float> PreviousRotationY => _JS.InvokeAsync<float>(
+        public float PreviousRotationY => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "previousRotationY"
         );
-        public ValueTask<float> PreviousRotationZ => _JS.InvokeAsync<float>(
+        public float PreviousRotationZ => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "previousRotationZ"
         );
-        public ValueTask<float> RotationX => _JS.InvokeAsync<float>(
+        public float RotationX => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "rotationX"
         );
-        public ValueTask<float> RotationY => _JS.InvokeAsync<float>(
+        public float RotationY => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "rotationY"
         );
-        public ValueTask<float> RotationZ => _JS.InvokeAsync<float>(
+        public float RotationZ => _jsRuntime.Invoke<float>(
             _p5GetValue,
             "rotationZ"
         );
-        public ValueTask<string> TurnAxis => _JS.InvokeAsync<string>(
+        public string TurnAxis => _jsRuntime.Invoke<string>(
             _p5GetValue,
             "turnAxis"
         );
@@ -88,18 +90,18 @@ namespace ExoKomodo.Helpers.P5
         #endregion
 
         #region Member Methods
-        public ValueTask SetMoveThreshold(float threshold = 0.5f)
+        public void SetMoveThreshold(float threshold = 0.5f)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "setMoveThreshold",
                 threshold
             );
         }
 
-        public ValueTask SetShakeThreshold(float threshold = 30f)
+        public void SetShakeThreshold(float threshold = 30f)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "setShakeThreshold",
                 threshold

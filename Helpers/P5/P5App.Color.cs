@@ -3,7 +3,6 @@ using ExoKomodo.Helpers.P5.Models;
 using ExoKomodo.Helpers.P5.Enums;
 using System;
 using System.Drawing;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -12,18 +11,18 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public ValueTask Background(byte grayscale)
+        public void Background(byte grayscale)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "background",
                 grayscale
             );
         }
 
-        public ValueTask Background(Color color)
+        public void Background(Color color)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "background",
                 color.R,
@@ -33,17 +32,17 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public ValueTask Clear()
+        public void Clear()
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "clear"
             );
         }
 
-        public ValueTask Erase(byte strengthFill = 255, byte strengthStroke = 255)
+        public void Erase(byte strengthFill = 255, byte strengthStroke = 255)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "erase",
                 strengthFill,
@@ -51,18 +50,18 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public ValueTask Fill(byte grayscale)
+        public void Fill(byte grayscale)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "fill",
                 grayscale
             );
         }
 
-        public ValueTask Fill(Color color)
+        public void Fill(Color color)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "fill",
                 color.R,
@@ -72,51 +71,51 @@ namespace ExoKomodo.Helpers.P5
             );
         }
 
-        public ValueTask NoErase()
+        public void NoErase()
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "noErase"
             );
         }
 
-        public ValueTask NoFill()
+        public void NoFill()
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "noFill"
             );
         }
 
-        public ValueTask NoStroke()
+        public void NoStroke()
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "noStroke"
             );
         }
 
-        public ValueTask SetColorMode(ColorMode mode)
+        public void SetColorMode(ColorMode mode)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "colorMode",
                 ColorModeToString(mode)
             );
         }
 
-        public ValueTask Stroke(byte grayscale)
+        public void Stroke(byte grayscale)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "stroke",
                 grayscale
             );
         }
 
-        public ValueTask Stroke(Color color)
+        public void Stroke(Color color)
         {
-            return _JS.InvokeVoidAsync(
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "stroke",
                 color.R,

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
 namespace ExoKomodo.Helpers.P5
@@ -8,100 +7,113 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Members
-        public ValueTask<bool> DisableFriendlyErrors
+        public bool DisableFriendlyErrors
         {
-            get => _JS.InvokeAsync<bool>(
+            get => _jsRuntime.Invoke<bool>(
                 _p5GetValue,
                 "disableFriendlyErrors"
             );
-            set => _JS.InvokeVoidAsync(
+            set => _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "disableFriendlyErrorsDotnet",
                 value
             );
         }
         
-        public ValueTask<bool> IsLooping =>
-            _JS.InvokeAsync<bool>(
-                _p5InvokeFunctionAndReturn,
-                "isLooping"
-            );
+        public bool IsLooping => _jsRuntime.Invoke<bool>(
+            _p5InvokeFunctionAndReturn,
+            "isLooping"
+        );
         #endregion
 
         #region Hooks
         [JSInvokable("draw")]
-        public abstract Task Draw();
+        public abstract void Draw();
 
         [JSInvokable("preload")]
-        public virtual async Task Preload() => await Task.Yield();
+        public virtual void Preload() {}
 
         [JSInvokable("setup")]
-        public abstract Task Setup();
+        public abstract void Setup();
         #endregion
 
         #region Member Methods
-        public ValueTask<bool> Fullscreen() =>
-            _JS.InvokeAsync<bool>(
-                _p5InvokeFunctionAndReturn,
-                "fullscreen"
-            );
+        public bool Fullscreen() => _jsRuntime.Invoke<bool>(
+            _p5InvokeFunctionAndReturn,
+            "fullscreen"
+        );
 
-        public ValueTask Fullscreen(bool isFullscreen) =>
-            _JS.InvokeVoidAsync(
+        public void Fullscreen(bool isFullscreen)
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "fullscreen",
                 isFullscreen
             );
+        }
     
-        public ValueTask Loop() =>
-            _JS.InvokeVoidAsync(
+        public void Loop()
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "loop"
             );
+        }
 
-        public ValueTask NoLoop() =>
-            _JS.InvokeVoidAsync(
+        public void NoLoop()
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "noLoop"
             );
+        }
 
-        public ValueTask<float> PixelDensity() =>
-            _JS.InvokeAsync<float>(
-                _p5InvokeFunctionAndReturn,
-                "pixelDensity"
-            );
+        public float PixelDensity() => _jsRuntime.Invoke<float>(
+            _p5InvokeFunctionAndReturn,
+            "pixelDensity"
+        );
 
-        public ValueTask PixelDensity(float density) =>
-            _JS.InvokeVoidAsync(
+        public void PixelDensity(float density)
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "pixelDensity",
                 density
             );
+        }
 
-        public ValueTask Pop() =>
-            _JS.InvokeVoidAsync(
+        public void Pop()
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "pop"
             );
+        }
 
-        public ValueTask Push() =>
-            _JS.InvokeVoidAsync(
+        public void Push()
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "push"
             );
+        }
 
-        public ValueTask Redraw(uint times = 1) =>
-            _JS.InvokeVoidAsync(
+        public void Redraw(uint times = 1)
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "redraw",
                 times
             );
+        }
 
-        public ValueTask Remove() =>
-            _JS.InvokeVoidAsync(
+        public void Remove()
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "remove"
             );
+        }
         #endregion
 
         #endregion

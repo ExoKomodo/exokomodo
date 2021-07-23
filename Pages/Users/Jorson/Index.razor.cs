@@ -33,14 +33,16 @@ namespace ExoKomodo.Pages.Users.Jorson
         #region Protected
 
         #region Member Methods
-        protected override void OnAfterRender(bool firstRender) =>
+        protected override void OnAfterRender(bool firstRender)
+        {
             base.OnAfterRender(firstRender);
 
-        protected override void OnInitialized()
-        {
-            _base.Initialize();
+            if (firstRender)
+            {
+                _base.Initialize();
+            }
         }
-        
+
         protected override async Task OnInitializedAsync()
         {
             _self = (await _http.GetFromJsonAsync<List<User>>("data/users.json")).Where(user => user.Id == UserId).FirstOrDefault();

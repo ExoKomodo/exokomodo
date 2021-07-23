@@ -1,7 +1,6 @@
 using Microsoft.JSInterop;
 using ExoKomodo.Helpers.P5.Models;
 using System.Numerics;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,16 +9,16 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public ValueTask<Camera> CreateCamera() => _JS.InvokeAsync<Camera>(
+        public Camera CreateCamera() => _jsRuntime.Invoke<Camera>(
             "p5Instance.createCameraDotnet"
         );
 
-        public ValueTask Frustum(Camera camera) => _JS.InvokeVoidAsync(
+        public void Frustum(Camera camera) => _jsRuntime.InvokeVoid(
             "p5Instance.frustumDotnet",
             camera.Id
         );
 
-        public ValueTask Frustum(
+        public void Frustum(
             Camera camera,
             float left,
             float right,
@@ -27,7 +26,7 @@ namespace ExoKomodo.Helpers.P5
             float top,
             float near,
             float far
-        ) => _JS.InvokeVoidAsync(
+        ) => _jsRuntime.InvokeVoid(
             "p5Instance.frustumDotnet",
             camera.Id,
             left,
@@ -38,7 +37,7 @@ namespace ExoKomodo.Helpers.P5
             far
         );
 
-        public ValueTask LookAt(Camera camera, float x, float y, float z) => _JS.InvokeVoidAsync(
+        public void LookAt(Camera camera, float x, float y, float z) => _jsRuntime.InvokeVoid(
             "p5Instance.lookAtDotnet",
             camera.Id,
             x,
@@ -46,14 +45,14 @@ namespace ExoKomodo.Helpers.P5
             z
         );
 
-        public ValueTask LookAt(Camera camera, Vector3 position) => LookAt(
+        public void LookAt(Camera camera, Vector3 position) => LookAt(
             camera,
             position.X,
             position.Y,
             position.Z
         );
 
-        public ValueTask Move(Camera camera, float x, float y, float z) => _JS.InvokeVoidAsync(
+        public void Move(Camera camera, float x, float y, float z) => _jsRuntime.InvokeVoid(
             "p5Instance.moveDotnet",
             camera.Id,
             x,
@@ -61,19 +60,19 @@ namespace ExoKomodo.Helpers.P5
             z
         );
 
-        public ValueTask Move(Camera camera, Vector3 position) => Move(
+        public void Move(Camera camera, Vector3 position) => Move(
             camera,
             position.X,
             position.Y,
             position.Z
         );
 
-        public ValueTask Orthographic(Camera camera) => _JS.InvokeVoidAsync(
+        public void Orthographic(Camera camera) => _jsRuntime.InvokeVoid(
             "p5Instance.orthoDotnet",
             camera.Id
         );
 
-        public ValueTask Orthographic(
+        public void Orthographic(
             Camera camera,
             float left,
             float right,
@@ -81,7 +80,7 @@ namespace ExoKomodo.Helpers.P5
             float top,
             float near,
             float far
-        ) => _JS.InvokeVoidAsync(
+        ) => _jsRuntime.InvokeVoid(
             "p5Instance.orthoDotnet",
             camera.Id,
             left,
@@ -92,26 +91,26 @@ namespace ExoKomodo.Helpers.P5
             far
         );
 
-        public ValueTask Pan(Camera camera, float angle) => _JS.InvokeVoidAsync(
+        public void Pan(Camera camera, float angle) => _jsRuntime.InvokeVoid(
             "p5Instance.panDotnet",
             camera.Id,
             angle
         );
 
-        public ValueTask Perspective(
+        public void Perspective(
             Camera camera
-        ) => _JS.InvokeVoidAsync(
+        ) => _jsRuntime.InvokeVoid(
             "p5Instance.perspectiveDotnet",
             camera.Id
         );
 
-        public ValueTask Perspective(
+        public void Perspective(
             Camera camera,
             float fovY,
             float aspect,
             float near,
             float far
-        ) => _JS.InvokeVoidAsync(
+        ) => _jsRuntime.InvokeVoid(
             "p5Instance.perspectiveDotnet",
             camera.Id,
             fovY,
@@ -120,12 +119,12 @@ namespace ExoKomodo.Helpers.P5
             far
         );
 
-        public ValueTask SetCamera(Camera camera) => _JS.InvokeVoidAsync(
+        public void SetCamera(Camera camera) => _jsRuntime.InvokeVoid(
             "p5Instance.setCameraDotnet",
             camera.Id
         );
 
-        public ValueTask SetCameraParameters(
+        public void SetCameraParameters(
             Camera camera,
             float x,
             float y,
@@ -136,7 +135,7 @@ namespace ExoKomodo.Helpers.P5
             float upX,
             float upY,
             float upZ
-        ) => _JS.InvokeVoidAsync(
+        ) => _jsRuntime.InvokeVoid(
             "p5Instance.setCameraParametersDotnet",
             camera.Id,
             x,
@@ -150,7 +149,7 @@ namespace ExoKomodo.Helpers.P5
             upZ
         );
 
-        public ValueTask SetCameraParameters(
+        public void SetCameraParameters(
             Camera camera,
             Vector3 position,
             Vector3 sketchCenter,
@@ -168,7 +167,7 @@ namespace ExoKomodo.Helpers.P5
             up.Z
         );
 
-        public ValueTask SetPosition(Camera camera, float x, float y, float z) => _JS.InvokeVoidAsync(
+        public void SetPosition(Camera camera, float x, float y, float z) => _jsRuntime.InvokeVoid(
             "p5Instance.setCameraPositionDotnet",
             camera.Id,
             x,
@@ -176,14 +175,14 @@ namespace ExoKomodo.Helpers.P5
             z
         );
 
-        public ValueTask SetPosition(Camera camera, Vector3 position) => SetPosition(
+        public void SetPosition(Camera camera, Vector3 position) => SetPosition(
             camera,
             position.X,
             position.Y,
             position.Z
         );
 
-        public ValueTask Tilt(Camera camera, float angle) => _JS.InvokeVoidAsync(
+        public void Tilt(Camera camera, float angle) => _jsRuntime.InvokeVoid(
             "p5Instance.tiltDotnet",
             camera.Id,
             angle

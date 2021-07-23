@@ -2,7 +2,6 @@ using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -11,46 +10,60 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public ValueTask CreateCanvas(uint width, uint height, bool useWebGl = false)
+        public void CreateCanvas(uint width, uint height, bool useWebGl = false)
         {
             IsWebGl = useWebGl;
-            return IsWebGl ? _JS.InvokeVoidAsync(
+            if (useWebGl)
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "createCanvas",
+                    width,
+                    height,
+                    "webgl"
+                );
+            }
+            else
+            {
+                _jsRuntime.InvokeVoid(
+                    _p5InvokeFunction,
+                    "createCanvas",
+                    width,
+                    height
+                );
+            }
+        }
+
+        public void NoCanvas()
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
-                "createCanvas",
-                width,
-                height,
-                "webgl"
-            ) : _JS.InvokeVoidAsync(
-                _p5InvokeFunction,
-                "createCanvas",
-                width,
-                height
+                "noCanvas"
             );
         }
 
-        public ValueTask NoCanvas() => _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "noCanvas"
-        );
-
-        public ValueTask ResizeCanvas(uint width, uint height, bool noRedraw = false) =>
-            _JS.InvokeVoidAsync(
+        public void ResizeCanvas(uint width, uint height, bool noRedraw = false)
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "resizeCanvas",
                 width,
                 height,
                 noRedraw
             );
+        }
 
-        public ValueTask SetAttributes(WebGlAttribute attribute, bool value) =>
-            _JS.InvokeVoidAsync(
+        public void SetAttributes(WebGlAttribute attribute, bool value)
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "setAttributes",
                 WebGlAttributeToString(attribute),
                 value
             );
+        }
 
-        public async Task SetAttributes(IDictionary<WebGlAttribute, bool> attributes)
+        public void SetAttributes(IDictionary<WebGlAttribute, bool> attributes)
         {
             if (attributes is null)
             {
@@ -58,16 +71,18 @@ namespace ExoKomodo.Helpers.P5
             }
             foreach (var pair in attributes)
             {
-                await SetAttributes(pair.Key, pair.Value);
+                SetAttributes(pair.Key, pair.Value);
             }
         }
 
-        public ValueTask SetBlendMode(BlendMode mode) =>
-            _JS.InvokeVoidAsync(
+        public void SetBlendMode(BlendMode mode)
+        {
+            _jsRuntime.InvokeVoid(
                 _p5InvokeFunction,
                 "blendMode",
                 BlendModeToString(mode)
             );
+        }
         #endregion
 
         #region Static Methods

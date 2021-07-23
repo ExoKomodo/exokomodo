@@ -1,7 +1,6 @@
 using ExoKomodo.Helpers.P5.Enums;
 using Microsoft.JSInterop;
 using System;
-using System.Threading.Tasks;
 
 namespace ExoKomodo.Helpers.P5
 {
@@ -10,37 +9,49 @@ namespace ExoKomodo.Helpers.P5
         #region Public
 
         #region Member Methods
-        public ValueTask SetDebugMode() => _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "debugMode"
-        );
+        public void SetDebugMode()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "debugMode"
+            );
+        }
 
-        public ValueTask SetDebugMode(DebugMode mode) => _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "debugMode",
-            DebugModeToString(mode)
-        );
+        public void SetDebugMode(DebugMode mode)
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "debugMode",
+                DebugModeToString(mode)
+            );
+        }
 
-        public ValueTask SetDebugMode(
+        public void SetDebugMode(
             DebugMode mode,
             float gridSize
-        ) => _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "debugMode",
-            DebugModeToString(mode),
-            gridSize
-        );
+        )
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "debugMode",
+                DebugModeToString(mode),
+                gridSize
+            );
+        }
 
-        public ValueTask NoDebugMode() => _JS.InvokeVoidAsync(
-            _p5InvokeFunction,
-            "noDebugMode"
-        );
+        public void NoDebugMode()
+        {
+            _jsRuntime.InvokeVoid(
+                _p5InvokeFunction,
+                "noDebugMode"
+            );
+        }
 
-        public ValueTask OrbitControl(float x = 1f, float y = 1f, float z = 1f)
+        public void OrbitControl(float x = 1f, float y = 1f, float z = 1f)
         {
             if (IsWebGl)
             {
-                return _JS.InvokeVoidAsync(
+                _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
                     "orbitControl",
                     x,
@@ -50,7 +61,7 @@ namespace ExoKomodo.Helpers.P5
             }
             else
             {
-                return _JS.InvokeVoidAsync(
+                _jsRuntime.InvokeVoid(
                     _p5InvokeFunction,
                     "orbitControl",
                     x,
