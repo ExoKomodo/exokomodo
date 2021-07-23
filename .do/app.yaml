@@ -7,7 +7,7 @@ region: sfo
 services:
 - dockerfile_path: Dockerfile
   github:
-    branch: main
+    branch: digitalocean
     deploy_on_push: true
     repo: ExoKomodo/ExoKomodo
   http_port: 80
