@@ -1,0 +1,52 @@
+.home-body-image {
+    height: auto;
+    width: 15rem;
+}
+
+#home-body-content {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: "who-am-i-heading who-am-i-heading who-am-i-heading"
+                         "who-am-i who-am-i who-am-i-image"
+                         "what-do-i-care-about-heading what-do-i-care-about-heading what-do-i-care-about-heading"
+                         "what-do-i-care-about-image what-do-i-care-about what-do-i-care-about";
+    column-gap: 2rem;
+}
+
+#who-am-i {
+    grid-area: who-am-i;
+}
+
+#who-am-i-heading {
+    grid-area: who-am-i-heading;
+}
+
+#who-am-i-image {
+    grid-area: who-am-i-image;
+}
+
+#what-do-i-care-about {
+    grid-area: what-do-i-care-about;
+}
+
+#what-do-i-care-about-heading {
+    grid-area: what-do-i-care-about-heading;
+}
+
+#what-do-i-care-about-image {
+    grid-area: what-do-i-care-about-image;
+}
+
+@media screen and (max-width: 650px) {
+    #home-body-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: "who-am-i-heading"
+                             "who-am-i-image"
+                             "who-am-i"
+                             "what-do-i-care-about-heading"
+                             "what-do-i-care-about-image"
+                             "what-do-i-care-about";
+        gap: 2rem;
+    }
+}

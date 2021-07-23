@@ -2,13 +2,15 @@
 
 @using ExoKomodo.Pages.Users.Jorson.Components;
 
+<link href="css/jorson/styles.css" rel="stylesheet" />
+<link href="css/jorson/home.css" rel="stylesheet" />
 
 @if (_self == null)
 {
 }
 else
 {
-    <div id="jorson-body">
+    <div id="body">
         <BackLink Link="/users" PageName="users" />
         <h1>
             Hey it's me, @(_self.FullName)!
