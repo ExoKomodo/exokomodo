@@ -20,12 +20,12 @@ jobs:
         # Test Client builds
         - name: Test Client Build
           run: |
-            dotnet build ExoKomodo.sln --project Client --configuration Release
+            dotnet build Client/Client.csproj --configuration Release
           
         # Test Server builds
         - name: Test Server Build
           run: |
-            dotnet build ExoKomodo.sln --project Server --configuration Release
+            dotnet build Server/Server.csproj --configuration Release
 
         # Generate the website
         - name: Publish website
