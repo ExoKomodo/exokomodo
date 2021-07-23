@@ -32,7 +32,7 @@ jobs:
           run: |
             cd Client
             cp wwwroot/index.html wwwroot/404.html
-            dotnet publish ExoKomodo.csproj --configuration Release
+            dotnet publish --configuration Release
 
         # Publish the website
         - name: GitHub Pages action
