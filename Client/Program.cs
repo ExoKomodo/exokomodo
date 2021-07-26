@@ -1,19 +1,13 @@
 using System;
-using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Client.Pages.Users.Jorson.Helpers;
-using System.Reflection;
 using Client.Http;
+using Client.Services;
 
 namespace Client
 {
-    public static class Program
+  public static class Program
     {
 
         public static async Task Main(string[] args)
@@ -26,7 +20,7 @@ namespace Client
                     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
                 }
             );
-            builder.Services.AddHttpClient<ApiClient>(
+            builder.Services.AddHttpClient<ServerApiClient>(
                 client => {
                     client.BaseAddress = new Uri(
                         #if DEBUG
@@ -37,6 +31,8 @@ namespace Client
                     );
                 }
             );
+            builder.Services.AddSingleton<WeatherForecastService>();
+            builder.Services.AddSingleton<UserService>();
 
             ConfigureJorsonServices(builder);
 
@@ -45,8 +41,7 @@ namespace Client
 
         private static void ConfigureJorsonServices(WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddTransient<JsonDb<int, Models.Jorson.Blog>, Pages.Users.Jorson.Blogs.BlogDb>();
-            builder.Services.AddTransient<JsonDb<int, Models.Dabby.Blog>, Pages.Users.Dabby.RamenBlog.RamenBlogDb>();
+            builder.Services.AddSingleton<Services.Jorson.BlogService>();
         }
     }
 }
