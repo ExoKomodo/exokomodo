@@ -1,23 +1,25 @@
 using Client.Config;
-using Client.Http;
-using Client.Models;
 using Microsoft.AspNetCore.Components;
 using Client.DTO;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Linq;
+using Client.Services;
+using System;
 
 namespace Client.Pages
 {
-    public partial class Index
+  public partial class Index
     {
         [Inject]
-        private ApiClient _httpApi { get; set; }
-        protected WeatherForecast _weatherGuess { get; set; }
-
+        private WeatherForecastService _weatherForecastService { get; set; }
+        private WeatherForecast _weatherGuess { get; set; }
+        public bool IsLoading { get; set; }
+        public const bool IsDebug =
+            #if DEBUG
+            true
+            #else
+            false
+            #endif
+            ;
         protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender)
@@ -28,12 +30,19 @@ namespace Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            await GuessWeather();
-        }
-
-        protected async Task GuessWeather()
-        {
-            _weatherGuess = await _httpApi.Client.GetFromJsonAsync<WeatherForecast>("WeatherForecast");
+            IsLoading = true;
+            try
+            {
+                _weatherGuess = await _weatherForecastService.GetAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unable to retrieve weather guess:{ex.GetType()}:{ex.Message}:{ex.StackTrace}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

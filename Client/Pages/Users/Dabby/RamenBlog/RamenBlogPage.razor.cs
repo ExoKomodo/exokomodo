@@ -1,14 +1,13 @@
-using Client.Config;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
-using Client.Models.Dabby;
-using Client.Pages.Users.Jorson.Helpers;
 using Client.Pages.Users.Jorson;
+using Client.Models.Jorson;
+using Client.Services.Jorson;
 
 namespace Client.Pages.Users.Dabby.RamenBlog
 {
-    internal class RamenBlogPageBase : PageBase {}
+  internal class RamenBlogPageBase : PageBase {}
 
     public partial class RamenBlogPage : IDisposable
     {
@@ -24,6 +23,10 @@ namespace Client.Pages.Users.Dabby.RamenBlog
         #region Members
         [Parameter]
         public int Id { get; set; }
+        #endregion
+
+        #region Constants
+        public const string UserId = "dabby";
         #endregion
 
         #endregion
@@ -44,10 +47,11 @@ namespace Client.Pages.Users.Dabby.RamenBlog
 
         protected override async Task OnInitializedAsync()
         {
-            _blog = await _db.GetByIdAsync(Id);
+            _blogService.UserId = UserId;
+            _blog = await _blogService.GetByIdAsync(Id);
             if (_blog is null)
             {
-                _navigation.NavigateTo("/users/dabby/ramen-blog");
+                _navigation.NavigateTo($"/users/{UserId}/ramen-blog");
             }
             _blog.Id = Id;
         }
@@ -60,7 +64,7 @@ namespace Client.Pages.Users.Dabby.RamenBlog
         #region Members
         private Blog _blog { get; set; }
         [Inject]
-        private JsonDb<int, Blog> _db { get; set; }
+        private BlogService _blogService { get; set; }
         private bool _isDisposed { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }

@@ -1,24 +1,22 @@
 using Client.Config;
-using Client.Http;
 using Client.Models;
+using Client.Services;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace Client.Pages.Users
 {
-    public partial class Index
+  public partial class Index
     {
+        public bool IsLoading { get; set; }
         [Inject]
-        private LocalClient _httpLocal { get; set; }
-        private IList<User> _users;
+        private UserService _userService { get; set; }
+        private IEnumerable<User> _users;
 
         protected override void OnAfterRender(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
-
             if (firstRender)
             {
                 AppState.Reset();
@@ -27,7 +25,19 @@ namespace Client.Pages.Users
 
         protected override async Task OnInitializedAsync()
         {
-            _users = await _httpLocal.Client.GetFromJsonAsync<List<User>>("data/users.json");
+            IsLoading = true;
+            try
+            {
+                _users = await _userService.GetAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Unable to retrieve users:{ex.GetType()}:{ex.Message}:{ex.StackTrace}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

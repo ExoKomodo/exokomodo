@@ -1,15 +1,9 @@
-using Microsoft.JSInterop;
-using Client.Config;
 using Client.Models;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Client.Pages.Users.Jorson;
-using Client.Http;
+using Client.Services;
 
 namespace Client.Pages.Users.Nbarlow
 {
@@ -47,7 +41,7 @@ namespace Client.Pages.Users.Nbarlow
 
         protected override async Task OnInitializedAsync()
         {
-            _self = (await _httpLocal.Client.GetFromJsonAsync<List<User>>("data/users.json")).Where(user => user.Id == UserId).FirstOrDefault();
+            _self = await _userService.GetByIdAsync(UserId);
             if (_self is null)
             {
                 throw new Exception($"Could not find user {UserId}");
@@ -61,7 +55,7 @@ namespace Client.Pages.Users.Nbarlow
 
         #region Members
         [Inject]
-        private LocalClient _httpLocal { get; set; }
+        private UserService _userService { get; set; }
         private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         private User _self;

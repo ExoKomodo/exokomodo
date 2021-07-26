@@ -2,9 +2,9 @@ using System.Net.Http;
 
 namespace Client.Http
 {
-    public class ApiClient {
+  public class ServerApiClient {
         public readonly HttpClient Client;
-        public ApiClient(HttpClient client)
+        public ServerApiClient(HttpClient client)
         {
             Client = client;
         }

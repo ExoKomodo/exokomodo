@@ -1,8 +1,9 @@
 using System;
+using Client.Models;
 
 namespace Client.Models.Jorson
 {
-    public class Blog : JsonDbModel<int>
+    public class Blog : Model<int>
     {
         public DateTime Date { get; set; }
         public string Title { get; set; }

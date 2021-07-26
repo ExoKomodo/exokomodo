@@ -1,10 +1,9 @@
-using Client.Config;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Models.Jorson;
-using Client.Pages.Users.Jorson.Helpers;
+using Client.Services.Jorson;
 
 namespace Client.Pages.Users.Jorson.Blogs
 {
@@ -42,7 +41,8 @@ namespace Client.Pages.Users.Jorson.Blogs
 
         protected override async Task OnInitializedAsync()
         {
-            _blogs = await _db.GetAllAsync();
+            _blogService.UserId = UserId;
+            _blogs = await _blogService.GetAsync();
         }
         #endregion
 
@@ -51,9 +51,9 @@ namespace Client.Pages.Users.Jorson.Blogs
         #region Private
 
         #region Members
-        private IList<Blog> _blogs { get; set; }
+        private IEnumerable<Blog> _blogs { get; set; }
         [Inject]
-        private JsonDb<int, Blog> _db { get; set; }
+        private BlogService _blogService { get; set; }
         private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         #endregion

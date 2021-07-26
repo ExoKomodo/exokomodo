@@ -1,13 +1,12 @@
-using Client.Config;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 using Client.Models.Jorson;
-using Client.Pages.Users.Jorson.Helpers;
+using Client.Services.Jorson;
 
 namespace Client.Pages.Users.Jorson.Blogs
 {
-    internal class BlogPageBase : PageBase {}
+  internal class BlogPageBase : PageBase {}
 
     public partial class BlogPage : IDisposable
     {
@@ -25,9 +24,14 @@ namespace Client.Pages.Users.Jorson.Blogs
         public int Id { get; set; }
         #endregion
 
+        #region Constants
+        public const string UserId = "jorson";
+        #endregion
+
         #endregion
 
         #region Protected
+        
 
         #region Member Methods
         
@@ -43,10 +47,11 @@ namespace Client.Pages.Users.Jorson.Blogs
 
         protected override async Task OnInitializedAsync()
         {
-            _blog = await _db.GetByIdAsync(Id);
+            _blogService.UserId = UserId;
+            _blog = await _blogService.GetByIdAsync(Id);
             if (_blog is null)
             {
-                _navigation.NavigateTo("/users/jorson/blogs");
+                _navigation.NavigateTo($"/users/{UserId}/blogs");
             }
             _blog.Id = Id;
         }
@@ -59,7 +64,7 @@ namespace Client.Pages.Users.Jorson.Blogs
         #region Members
         private Blog _blog { get; set; }
         [Inject]
-        private JsonDb<int, Blog> _db { get; set; }
+        private BlogService _blogService { get; set; }
         private bool _isDisposed { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
