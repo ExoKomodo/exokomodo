@@ -5,7 +5,7 @@ namespace Client.Pages.Users.Jorson
 {
     public abstract class PageBase : IDisposable
     {
-        #region Publie
+        #region Public
 
         #region Member Methods
         public virtual void Initialize()

@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Client.Models.Jorson;
 using Client.Services.Jorson;
+using Client.Http;
 
 namespace Client.Pages.Users.Jorson.Blogs
 {
@@ -49,11 +50,17 @@ namespace Client.Pages.Users.Jorson.Blogs
         {
             _blogService.UserId = UserId;
             _blog = await _blogService.GetByIdAsync(Id);
-            if (_blog is null)
+            if (_blog?.Content is null)
             {
                 _navigation.NavigateTo($"/users/{UserId}/blogs");
+                return;
             }
             _blog.Id = Id;
+            Console.WriteLine(_blog.Content.Path);
+            if (!string.IsNullOrWhiteSpace(_blog.Content.Path))
+            {
+                _blog.Content.Text = await _localClient.Client.GetStringAsync($"/data/jorson/{_blog.Content.Path}");
+            }
         }
         #endregion
 
@@ -65,6 +72,8 @@ namespace Client.Pages.Users.Jorson.Blogs
         private Blog _blog { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
+        [Inject]
+        private LocalClient _localClient { get; set; }
         private bool _isDisposed { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
