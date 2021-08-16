@@ -56,10 +56,9 @@ namespace Client.Pages.Users.Jorson.Blogs
                 return;
             }
             _blog.Id = Id;
-            Console.WriteLine(_blog.Content.Path);
             if (!string.IsNullOrWhiteSpace(_blog.Content.Path))
             {
-                _blog.Content.Text = await _localClient.Client.GetStringAsync($"/data/jorson/{_blog.Content.Path}");
+                _blog.Content.Text = await _localClient.Client.GetStringAsync($"/data/{UserId}/{_blog.Content.Path}");
             }
         }
         #endregion

@@ -1,0 +1,14 @@
+@page "/users/torson/blogs/{Id:int}"
+@using Client.Pages.Users.Jorson.Components
+
+<link href="css/torson/styles.css" rel="stylesheet" />
+@if (_blog is not null)
+{
+    <div id="body">
+        <BackLink Link="/users/torson/blogs" PageName="blogs" />
+        <h1>@_blog.Title</h1>
+        <div>
+            @((MarkupString)_blog.Content.Text)
+        </div>
+    </div>
+}
