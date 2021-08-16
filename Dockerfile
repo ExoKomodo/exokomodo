@@ -25,4 +25,4 @@ ENV ASPNETCORE_URLS=http://+:5000
 
 COPY ./deployment_scripts /exokomodo/deployment_scripts
 WORKDIR /exokomodo
-CMD ["deployment_scripts/run_net_app.sh", "Server"]
+CMD ["bash", "deployment_scripts/run_net_app.sh", "Server"]
