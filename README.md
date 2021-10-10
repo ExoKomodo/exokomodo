@@ -4,7 +4,7 @@ TODO: Description
 
 ## Important Links
 - [Github](https://github.com/ExoKomodo/ExoKomodo)
-- [Client - Production](https://people.exokomodo.com)
+- [Client - Production](https://exokomodo.com)
 - [Dotnet Installation Page](https://dotnet.microsoft.com/download)
 
 ## Setup
