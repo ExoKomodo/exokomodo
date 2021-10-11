@@ -41,7 +41,7 @@ TODO: Description
     - Superset of HTML
     - Supports inline code directives and HTML generation
     - Supports component-based front-end patterns
-    - Can include all all the C# or CSS code for a page as well
+    - Can include all the C# or CSS code for a page as well
 - Code-Behind fIles [`.razor.cs`] (Optional)
     - A page in Blazor is represented by one class in the end compilation, so a Code-Behind file can contain a partial class for the Razor page, containing the code that would have been present in a `@code` block
     - Allows definition/redefinition of page lifecycle hooks such as `OnInitialized`, `OnAfterRender`, etc. 
