@@ -4,7 +4,7 @@ domains:
 name: exokomodo
 region: sfo
 services:
-- dockerfile_path: Dockerfile
+- dockerfile_path: do.Dockerfile
   github:
     branch: main
     deploy_on_push: true

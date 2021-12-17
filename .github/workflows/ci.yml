@@ -1,4 +1,4 @@
-name: 'Publish application'
+name: 'Publish ExoKomodo static site to Github Pages'
 on: 
   push:
     branches:
@@ -17,20 +17,10 @@ jobs:
           with:
             dotnet-version: '5.0.*'
 
-        # Test Client builds
-        - name: Test Client Build
-          run: |
-            dotnet build Client/Client.csproj --configuration Release
-          
-        # Test Server builds
-        - name: Test Server Build
-          run: |
-            dotnet build Server/Server.csproj --configuration Release
-
         # Generate the website
         - name: Publish website
           run: |
-            cd Client
+            cd src/Client
             cp wwwroot/index.html wwwroot/404.html
             dotnet publish --configuration Release
 
@@ -41,7 +31,7 @@ jobs:
           with:
             github_token: ${{ secrets.PUBLISH_TOKEN }}
             publish_branch: gh-pages
-            publish_dir: Client/bin/Release/net5.0/publish/wwwroot
+            publish_dir: src/Client/bin/Release/net5.0/publish/wwwroot
             allow_empty_commit: false
             keep_files: false
             force_orphan: true
