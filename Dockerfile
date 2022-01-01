@@ -25,6 +25,8 @@ RUN ln -s /etc/nginx/sites-available/Server.conf /etc/nginx/sites-enabled/Server
 
 RUN nginx
 
+RUN ls /Server/bin/Release
+RUN ls /Server/bin/Release/net5.0
 WORKDIR /Server/bin/Release/net5.0/publish
 
 EXPOSE 80
