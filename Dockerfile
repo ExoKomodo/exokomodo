@@ -30,5 +30,4 @@ WORKDIR /Server/bin/Release/net5.0
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:5000
 
-RUN ls -l
 RUN ./Server
