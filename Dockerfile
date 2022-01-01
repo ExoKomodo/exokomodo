@@ -1,15 +1,11 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0
+# TODO: Change dockerfile to use our own image
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 as deployment
 
 COPY . /app
 
-WORKDIR /app
+WORKDIR /app/src/Server
+RUN compose_scripts/build.sh
 
-EXPOSE 80
-ENV JENKINS_USER=112
-ENV JENKINS_GROUP=119
-ENV ASPNETCORE_URLS=http://+:5000
+WORKDIR /app/src/Server/bin/Release/net5.0/build
 
-RUN apt update -y
-
-RUN bash admin_scripts/setup_jenkins_user.sh
-RUN bash admin_scripts/setup_nginx.sh
+RUN Server
