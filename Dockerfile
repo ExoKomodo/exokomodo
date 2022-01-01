@@ -23,11 +23,8 @@ RUN rm -f /etc/nginx/sites-enabled/*
 RUN ln -f /Server/nginx/Server.conf /etc/nginx/sites-available/Server.conf
 RUN ln -s /etc/nginx/sites-available/Server.conf /etc/nginx/sites-enabled/Server.conf
 
-RUN nginx
-
-WORKDIR /Server/bin/Release/net5.0
-
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:5000
 
-CMD ["./Server"]
+WORKDIR /Server
+CMD ["bash", "./deploy.sh"]
