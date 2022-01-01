@@ -25,9 +25,7 @@ RUN ln -s /etc/nginx/sites-available/Server.conf /etc/nginx/sites-enabled/Server
 
 RUN nginx
 
-RUN ls /Server/bin/Release
-RUN ls /Server/bin/Release/net5.0
-WORKDIR /Server/bin/Release/net5.0/publish
+WORKDIR /Server/bin/Release/net5.0
 
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:5000
