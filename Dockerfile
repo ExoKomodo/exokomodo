@@ -1,5 +1,4 @@
-# TODO: Change dockerfile to use our own image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 as deployment
+FROM mcr.microsoft.com/dotnet/sdk:5.0
 
 COPY . /app
 
