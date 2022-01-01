@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0 as deployment
 COPY . /app
 
 WORKDIR /app/src/Server
-RUN compose_scripts/build.sh
+RUN /app/compose_scripts/build.sh
 
 WORKDIR /app/src/Server/bin/Release/net5.0/build
 
