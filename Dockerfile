@@ -31,4 +31,4 @@ EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:5000
 
 RUN ls -l
-RUN Server
+RUN ./Server
