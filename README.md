@@ -19,7 +19,7 @@ Run the front-end client in a terminal window of its own (2 options):
 dotnet watch run --project Client
 ```
 ```bash
-cd Client
+cd src/Client
 dotnet watch run
 ```
 
@@ -28,7 +28,7 @@ Run the back-end server, if you need it, in a terminal window of its own (2 opti
 dotnet watch run --project Server
 ```
 ```bash
-cd Server
+cd src/Server
 dotnet watch run
 ```
 
