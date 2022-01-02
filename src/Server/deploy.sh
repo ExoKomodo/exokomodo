@@ -2,6 +2,6 @@
 
 nginx
 
-cd /Server/bin/Release/net5.0
+cd /Server/bin/Release/net6.0
 
 ./Server
