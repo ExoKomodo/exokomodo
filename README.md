@@ -16,7 +16,7 @@ dotnet restore
 ```
 Run the front-end client in a terminal window of its own (2 options):
 ```bash
-dotnet watch run --project Client
+dotnet watch run --project src/Client
 ```
 ```bash
 cd src/Client
@@ -25,7 +25,7 @@ dotnet watch run
 
 Run the back-end server, if you need it, in a terminal window of its own (2 options):
 ```bash
-dotnet watch run --project Server
+dotnet watch run --project src/Server
 ```
 ```bash
 cd src/Server
