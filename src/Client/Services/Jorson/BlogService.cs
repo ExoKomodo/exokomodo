@@ -24,14 +24,18 @@ namespace Client.Services.Jorson
             _client = client;
         }
 
-        public async Task<IEnumerable<Blog>> GetAsync() =>
+        public async Task<IEnumerable<Blog>> GetAsync() => await this.GetAsync("blogs/blogs.json");
+        
+        public async Task<IEnumerable<Blog>> GetAsync(string dataFilePath) =>
             await this.GetAsync<BlogService, Blog, int>(
-                $"data/{UserId}/blogs/blogs.json"
+                $"data/{UserId}/{dataFilePath}"
             );
 
-        public async Task<Blog> GetByIdAsync(int id)
+        public async Task<Blog> GetByIdAsync(int id) => await GetByIdAsync(id, "blogs/blogs.json");
+
+        public async Task<Blog> GetByIdAsync(int id, string dataFilePath)
         {
-            var blogs = (await GetAsync()).ToList();
+            var blogs = (await GetAsync(dataFilePath)).ToList();
             return (id >= 0 && id < blogs.Count) ?
                 blogs[id] :
                 throw new Exception($"Could not find blog with id: {id}");
