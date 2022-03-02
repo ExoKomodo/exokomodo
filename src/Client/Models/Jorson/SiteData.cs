@@ -4,6 +4,6 @@ namespace Client.Models.Jorson
 {
     public class SiteData
     {
-        public IList<Blog> Blogs { get; set; }
+        public IList<Blog<int>> Blogs { get; set; }
     }
 }

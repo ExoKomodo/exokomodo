@@ -68,7 +68,7 @@ namespace Client.Pages.Users.Jjones.Recipes
         #region Private
 
         #region Members
-        private Blog _recipe { get; set; }
+        private Blog<int> _recipe { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
         [Inject]

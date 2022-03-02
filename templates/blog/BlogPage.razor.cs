@@ -5,11 +5,11 @@ using Client.Models.Jorson;
 using Client.Services.Jorson;
 using Client.Http;
 
-namespace Client.Pages.Users.Jorson.Blogs
+namespace Client.Pages.Users.UserId.Blogs
 {
   internal class BlogPageBase : PageBase {}
 
-    public partial class BlogPage : IDisposable
+    public partial class BlogPage
     {
         #region Public
 
@@ -26,7 +26,7 @@ namespace Client.Pages.Users.Jorson.Blogs
         #endregion
 
         #region Constants
-        public const string UserId = "jorson";
+        public static string UserId = "user id";
         #endregion
 
         #endregion
@@ -52,7 +52,7 @@ namespace Client.Pages.Users.Jorson.Blogs
             _blog = await _blogService.GetByIdAsync(Id);
             if (_blog?.Content is null)
             {
-                _navigation.NavigateTo($"/users/{UserId}/blogs");
+                _navigation.NavigateTo($"/users/{UserId}/<blog name>");
                 return;
             }
             _blog.Id = Id;
@@ -68,34 +68,16 @@ namespace Client.Pages.Users.Jorson.Blogs
         #region Private
 
         #region Members
-        private Blog _blog { get; set; }
+        private Blog<int> _blog { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
-        private bool _isDisposed { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
         private PageBase _base { get; set; }
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _base.Dispose();
-        }
         #endregion
     }
 }

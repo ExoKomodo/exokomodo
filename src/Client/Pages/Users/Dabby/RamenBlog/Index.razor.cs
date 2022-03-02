@@ -52,7 +52,7 @@ namespace Client.Pages.Users.Dabby.RamenBlog
         #region Private
 
         #region Members
-        private IEnumerable<Blog> _blogs { get; set; }
+        private IEnumerable<Blog<int>> _blogs { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
         private bool _isDisposed { get; set; }
