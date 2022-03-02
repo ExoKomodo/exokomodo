@@ -9,7 +9,7 @@ namespace Client.Pages.Users.Nbarlow
 {
     internal class WebLinksBase : PageBase {}
 
-    public partial class WebLinks : IDisposable
+    public partial class WebLinks
     {
         #region Public
 
@@ -56,29 +56,10 @@ namespace Client.Pages.Users.Nbarlow
         #region Members
         [Inject]
         private UserService _userService { get; set; }
-        private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         private User _self;
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _base.Dispose();
-            _isDisposed = true;
-        }
         #endregion
     }
 }

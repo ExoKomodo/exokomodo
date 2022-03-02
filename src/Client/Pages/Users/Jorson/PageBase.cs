@@ -3,7 +3,7 @@ using Client.Config;
 
 namespace Client.Pages.Users.Jorson
 {
-    public abstract class PageBase : IDisposable
+    public abstract class PageBase
     {
         #region Public
 
@@ -18,10 +18,6 @@ namespace Client.Pages.Users.Jorson
 
         #region Protected
 
-        #region Members
-        protected bool _isDisposed { get; set; }
-        #endregion
-
         #region Member Methods
         protected virtual void SetAppState()
         {
@@ -30,23 +26,6 @@ namespace Client.Pages.Users.Jorson
         }
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _isDisposed = true;
-        }
         #endregion
     }
 }

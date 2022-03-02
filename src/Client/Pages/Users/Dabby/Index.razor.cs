@@ -9,7 +9,7 @@ namespace Client.Pages.Users.Dabby
 {
     internal class IndexBase : PageBase {}
 
-    public partial class Index : IDisposable
+    public partial class Index
     {
         #region Public
 
@@ -56,29 +56,10 @@ namespace Client.Pages.Users.Dabby
         #region Members
         [Inject]
         private UserService _userService { get; set; }
-        private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         private User _self;
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _base.Dispose();
-            _isDisposed = true;
-        }
         #endregion
     }
 }

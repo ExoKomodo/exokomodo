@@ -9,7 +9,7 @@ namespace Client.Pages.Users.Jorson.Blogs.General
 {
     internal class IndexBase : PageBase {}
 
-    public partial class Index : IDisposable
+    public partial class Index
     {
         #region Public
 
@@ -54,27 +54,9 @@ namespace Client.Pages.Users.Jorson.Blogs.General
         private IEnumerable<Blog<int>> _blogs { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
-        private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _base.Dispose();
-        }
         #endregion
     }
 }

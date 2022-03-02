@@ -8,7 +8,7 @@ namespace Client.Pages.Users.Jorson.Games.Pong
 {
     internal class PongBase : PageBase {}
 
-    public partial class Index : IDisposable
+    public partial class Index
     {
         #region Public
 
@@ -47,30 +47,11 @@ namespace Client.Pages.Users.Jorson.Games.Pong
 
         #region Members
         private P5App _application { get; set; }
-        private bool _isDisposed { get; set; }
         [Inject]
         private IJSRuntime _jsRuntime { get; set; }
         private PageBase _base { get; set; }
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _base.Dispose();
-            _application.Dispose();
-        }
         #endregion
     }
 }

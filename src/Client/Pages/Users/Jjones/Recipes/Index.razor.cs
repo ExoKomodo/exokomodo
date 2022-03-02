@@ -55,7 +55,6 @@ namespace Client.Pages.Users.Jjones.Recipes
         private IEnumerable<Blog<int>> _recipes { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
-        private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         #endregion
 

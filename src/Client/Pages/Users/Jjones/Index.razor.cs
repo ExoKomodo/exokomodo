@@ -56,7 +56,6 @@ namespace Client.Pages.Users.Jjones
         #region Members
         [Inject]
         private UserService _userService { get; set; }
-        private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         private User _self;
         #endregion
