@@ -73,29 +73,11 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
         private BlogService _blogService { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
-        private bool _isDisposed { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
         private PageBase _base { get; set; }
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _base.Dispose();
-        }
         #endregion
     }
 }

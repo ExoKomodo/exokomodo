@@ -12,7 +12,7 @@ namespace Client.Pages.Users.Jorson.Games.Nox
 {
     internal class NoxBase : PageBase {}
 
-    public partial class Index : IDisposable
+    public partial class Index
     {
         #region Public
 
@@ -60,7 +60,6 @@ namespace Client.Pages.Users.Jorson.Games.Nox
         #region Members
         private TextAdventure<string> _adventure { get; set; }
         private P5App _application { get; set; }
-        private bool _isDisposed { get; set; }
         [Inject]
         private LocalClient _httpLocal { get; set; }
         [Inject]
@@ -68,24 +67,6 @@ namespace Client.Pages.Users.Jorson.Games.Nox
         private PageBase _base { get; set; }
         #endregion
 
-        #endregion
-
-        #region IDisposable Support
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_isDisposed || !disposing)
-            {
-                return;
-            }
-            _base.Dispose();
-            _application.Dispose();
-        }
         #endregion
     }
 }

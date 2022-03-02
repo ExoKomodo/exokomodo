@@ -24,7 +24,6 @@ namespace Client.Pages.Users.Jorson
             }
         }
     
-        private bool _isDisposed { get; set; }
         private string _loadedPage { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
