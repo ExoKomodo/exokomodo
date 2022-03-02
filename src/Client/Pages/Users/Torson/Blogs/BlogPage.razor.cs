@@ -29,7 +29,7 @@ namespace Client.Pages.Users.Torson.Blogs
             }
         }
 
-        private Blog _blog { get; set; }
+        private Blog<int> _blog { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
         [Inject]

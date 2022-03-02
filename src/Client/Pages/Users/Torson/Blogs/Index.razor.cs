@@ -8,11 +8,8 @@ namespace Client.Pages.Users.Torson.Blogs
 {
     public partial class Index
     {
-        public IEnumerable<Blog> blogs = new List<Blog>();
-        public const string UserId = "torson";
-
-        public Index()
-        {}
+        public IEnumerable<Blog<int>> blogs = new List<Blog<int>>();
+        public static string UserId = "torson";
 
         protected override async Task OnInitializedAsync()
         {

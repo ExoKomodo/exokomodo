@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Models.Jorson;
 using Client.Services.Jorson;
-using Client.Pages.Users.Jorson;
 
-namespace Client.Pages.Users.Jjones.Recipes
+namespace Client.Pages.Users.UserId.Blogs
 {
     internal class IndexBase : PageBase {}
 
@@ -22,7 +21,7 @@ namespace Client.Pages.Users.Jjones.Recipes
         #endregion
 
         #region Constants
-        public const string UserId = "jjones";
+        public static string UserId = "user id";
         #endregion
 
         #endregion
@@ -43,7 +42,7 @@ namespace Client.Pages.Users.Jjones.Recipes
         protected override async Task OnInitializedAsync()
         {
             _blogService.UserId = UserId;
-            _recipes = await _blogService.GetAsync("recipes/recipes.json");
+            _blogs = await _blogService.GetAsync();
         }
         #endregion
 
@@ -52,10 +51,9 @@ namespace Client.Pages.Users.Jjones.Recipes
         #region Private
 
         #region Members
-        private IEnumerable<Blog<int>> _recipes { get; set; }
+        private IEnumerable<Blog<int>> _blogs { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
-        private bool _isDisposed { get; set; }
         private PageBase _base { get; set; }
         #endregion
 
