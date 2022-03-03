@@ -8,6 +8,32 @@
         <BackLink Link="/users/jorson/food" PageName="food" />
         <h1>@_blog.Title</h1>
         <div>
+            <div id="anchors">
+                <span>
+                    <a @onclick='(() => ScrollTo("links"))'
+                       href="javascript:void(0)"
+                    >
+                        Links
+                    </a>
+                </span>
+                <span>|</span>
+                <span>
+                    <a @onclick='(() => ScrollTo("ingredients"))'
+                       href="javascript:void(0)"
+                    >
+                        Ingredients
+                    </a>
+                </span>
+                <span>|</span>
+                <span>
+                    <a @onclick='(() => ScrollTo("directions"))'
+                    href="javascript:void(0)"
+                    >
+                        Directions
+                    </a>
+                </span>
+            </div>
+
             @((MarkupString)_blog.Content.Text)
             <img src="img/jorson/james-logo.svg" height="100px">
         </div>

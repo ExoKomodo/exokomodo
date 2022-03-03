@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
 using Client.Models.Jorson;
@@ -29,10 +30,21 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
         public static string UserId = "jorson";
         #endregion
 
+        #region Member Methods
+        public async void ScrollTo(string targetId) {
+            if (targetId.StartsWith("#")) {
+                targetId = targetId[1..];
+            }
+            await _jsRuntime.InvokeVoidAsync(
+                "scrollIntoView",
+                targetId
+            );
+        }
+        #endregion
+
         #endregion
 
         #region Protected
-        
 
         #region Member Methods
         
@@ -75,6 +87,8 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
         private LocalClient _localClient { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
+        [Inject]
+        private IJSRuntime _jsRuntime { get; set; }
         private PageBase _base { get; set; }
         #endregion
 

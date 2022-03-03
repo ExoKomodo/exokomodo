@@ -6,8 +6,16 @@ function saveToLocalStorage(key, obj) {
     localStorage.setItem(key, JSON.stringify(obj));
 }
 
+function scrollIntoView(elementId) {
+  const elem = document.getElementById(elementId);
+  if (elem) {
+    elem.scrollIntoView();
+    window.location.hash = elementId;
+  }
+}
+
 function updateFavicon(faviconUri) {
-    let favicon = document.getElementById('favicon');
+    const favicon = document.getElementById('favicon');
     if (!favicon) {
         console.error('Could not find favicon tag.');
         return;
