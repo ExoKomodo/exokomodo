@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
+using Client.Models.Jorson.Blogs;
 using Client.Services.Jorson;
 
 namespace Client.Pages.Users.Jorson.Blogs.Food
 {
-    internal class IndexBase : PageBase {}
+	internal class IndexBase : PageBase {}
 
     public partial class Index
     {
@@ -41,8 +40,8 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
 
         protected override async Task OnInitializedAsync()
         {
-            _blogService.UserId = UserId;
-            _blogs = await _blogService.GetAsync("food/food.json");
+            _foodBlogService.UserId = UserId;
+            _blogs = await _foodBlogService.GetAsync("food/food.json");
         }
         #endregion
 
@@ -51,9 +50,9 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
         #region Private
 
         #region Members
-        private IEnumerable<Blog<int>> _blogs { get; set; }
+        private IEnumerable<FoodBlog> _blogs { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private FoodBlogService _foodBlogService { get; set; }
         private PageBase _base { get; set; }
         #endregion
 

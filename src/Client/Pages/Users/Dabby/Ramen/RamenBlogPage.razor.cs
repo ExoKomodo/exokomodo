@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Threading.Tasks;
 using Client.Pages.Users.Jorson;
-using Client.Models.Jorson;
 using Client.Services.Jorson;
+using Client.Models.Dabby.Blogs;
 
-namespace Client.Pages.Users.Dabby.RamenBlog
+namespace Client.Pages.Users.Dabby.Ramen
 {
-  internal class RamenBlogPageBase : PageBase {}
+	internal class RamenBlogPageBase : PageBase {}
 
     public partial class RamenBlogPage
     {
@@ -62,9 +61,9 @@ namespace Client.Pages.Users.Dabby.RamenBlog
         #region Private
 
         #region Members
-        private Blog<int> _blog { get; set; }
+        private RamenBlog _blog { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private BlogService<RamenBlog> _blogService { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
         private PageBase _base { get; set; }

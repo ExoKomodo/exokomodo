@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
+using Client.Models.Jorson.Blogs;
 using Client.Services.Jorson;
 using Client.Pages.Users.Jorson;
 
@@ -52,9 +51,9 @@ namespace Client.Pages.Users.Jjones.Recipes
         #region Private
 
         #region Members
-        private IEnumerable<Blog<int>> _recipes { get; set; }
+        private IEnumerable<GeneralBlog> _recipes { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private BlogService<GeneralBlog> _blogService { get; set; }
         private PageBase _base { get; set; }
         #endregion
 

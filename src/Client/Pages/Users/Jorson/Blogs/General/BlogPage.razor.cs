@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
-using Client.Services.Jorson;
+using Client.Models.Jorson.Blogs;
 using Client.Http;
+using Client.Services.Jorson;
 
 namespace Client.Pages.Users.Jorson.Blogs.General
 {
-  internal class BlogPageBase : PageBase {}
+	internal class BlogPageBase : PageBase {}
 
     public partial class BlogPage
     {
@@ -68,9 +67,9 @@ namespace Client.Pages.Users.Jorson.Blogs.General
         #region Private
 
         #region Members
-        private Blog<int> _blog { get; set; }
+        private GeneralBlog _blog { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private BlogService<GeneralBlog> _blogService { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
         [Inject]

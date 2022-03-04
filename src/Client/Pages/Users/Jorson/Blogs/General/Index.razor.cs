@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
 using Client.Services.Jorson;
+using Client.Models.Jorson.Blogs;
 
 namespace Client.Pages.Users.Jorson.Blogs.General
 {
-    internal class IndexBase : PageBase {}
+	internal class IndexBase : PageBase {}
 
     public partial class Index
     {
@@ -51,9 +50,9 @@ namespace Client.Pages.Users.Jorson.Blogs.General
         #region Private
 
         #region Members
-        private IEnumerable<Blog<int>> _blogs { get; set; }
+        private IEnumerable<GeneralBlog> _blogs { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private BlogService<GeneralBlog> _blogService { get; set; }
         private PageBase _base { get; set; }
         #endregion
 

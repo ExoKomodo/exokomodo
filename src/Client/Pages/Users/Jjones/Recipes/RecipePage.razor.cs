@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
+using Client.Models.Jorson.Blogs;
 using Client.Services.Jorson;
 using Client.Http;
 using Client.Pages.Users.Jorson;
@@ -70,7 +70,7 @@ namespace Client.Pages.Users.Jjones.Recipes
         #region Members
         private Blog<int> _recipe { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private BlogService<GeneralBlog> _blogService { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
         [Inject]

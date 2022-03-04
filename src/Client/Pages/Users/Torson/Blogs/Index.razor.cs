@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
+using Client.Models.Jorson.Blogs;
 using Client.Services.Jorson;
 using Microsoft.AspNetCore.Components;
 
 namespace Client.Pages.Users.Torson.Blogs
 {
-    public partial class Index
+	public partial class Index
     {
         public IEnumerable<Blog<int>> blogs = new List<Blog<int>>();
         public static string UserId = "torson";
@@ -18,6 +18,6 @@ namespace Client.Pages.Users.Torson.Blogs
         }
 
         [Inject]
-        private BlogService _blogService { get; set; }
+        private BlogService<Blog<int>> _blogService { get; set; }
     }
 }
