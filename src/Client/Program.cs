@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Client.Http;
 using Client.Services;
+using Client.Services.Jorson;
+using Client.Models.Jorson.Blogs;
+using Client.Models.Dabby.Blogs;
 
 namespace Client
 {
@@ -41,7 +44,10 @@ namespace Client
 
         private static void ConfigureJorsonServices(WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddSingleton<Services.Jorson.BlogService>();
+            builder.Services.AddSingleton<Services.Jorson.BlogService<Blog<int>>>();
+            builder.Services.AddSingleton<Services.Jorson.BlogService<GeneralBlog>>();
+            builder.Services.AddSingleton<Services.Jorson.BlogService<RamenBlog>>();
+            builder.Services.AddSingleton<Services.Jorson.FoodBlogService>();
         }
     }
 }

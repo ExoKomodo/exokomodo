@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
 using Client.Services.Jorson;
 using Client.Http;
+using Client.Models.Jorson.Blogs;
 
 namespace Client.Pages.Users.Torson.Blogs
 {
-    public partial class BlogPage
+	public partial class BlogPage
     {
         [Parameter]
         public int Id { get; set; }
@@ -31,7 +30,7 @@ namespace Client.Pages.Users.Torson.Blogs
 
         private Blog<int> _blog { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private BlogService<Blog<int>> _blogService { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
         [Inject]

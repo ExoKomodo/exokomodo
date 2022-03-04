@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
 using System.Threading.Tasks;
-using Client.Models.Jorson;
 using Client.Services.Jorson;
 using Client.Http;
+using Client.Models.Jorson.Blogs;
 
 namespace Client.Pages.Users.Jorson.Blogs.Food
 {
-  internal class BlogPageBase : PageBase {}
+	internal class BlogPageBase : PageBase {}
 
     public partial class BlogPage
     {
@@ -23,7 +22,7 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
 
         #region Members
         [Parameter]
-        public int Id { get; set; }
+        public string Id { get; set; }
         #endregion
 
         #region Constants
@@ -60,8 +59,8 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
 
         protected override async Task OnInitializedAsync()
         {
-            _blogService.UserId = UserId;
-            _blog = await _blogService.GetByIdAsync(Id, "food/food.json");
+            _foodBlogService.UserId = UserId;
+            _blog = await _foodBlogService.GetByIdAsync(Id, "food/food.json");
             if (_blog?.Content is null)
             {
                 _navigation.NavigateTo($"/users/{UserId}/food");
@@ -80,9 +79,9 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
         #region Private
 
         #region Members
-        private Blog<int> _blog { get; set; }
+        private FoodBlog _blog { get; set; }
         [Inject]
-        private BlogService _blogService { get; set; }
+        private FoodBlogService _foodBlogService { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
         [Inject]

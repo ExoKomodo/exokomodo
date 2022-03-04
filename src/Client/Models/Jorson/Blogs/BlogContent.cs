@@ -1,4 +1,4 @@
-namespace Client.Models.Jorson
+namespace Client.Models.Jorson.Blogs
 {
     public class BlogContent
     {

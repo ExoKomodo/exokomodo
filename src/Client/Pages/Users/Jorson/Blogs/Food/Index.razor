@@ -10,11 +10,11 @@
         <h1>Food Excursions!</h1>
         <div>
             <ul>
-                @foreach (var (blog, index) in _blogs.Select((item, index) => (item, index)))
+                @foreach (var blog in _blogs.Where(x => !x.IsHidden))
                 {
                     <li>
                         <h3>
-                            <a href="@($"/users/jorson/food/{index}")">
+                            <a href="@($"/users/jorson/food/{blog.Id}")">
                                 @blog.Date.ToShortDateString() - @((MarkupString)blog.Title)
                             </a>
                         </h3>
