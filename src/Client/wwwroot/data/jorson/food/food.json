@@ -2,9 +2,17 @@
   {
     "id": "spicy-fried-chicken-tofu-sandwich",
     "date": "2022-03-02",
-    "title": "Spicy Fried \"Chicken\" Tofu Sandwich",
+    "title": "Spicy Fried 'Chicken' Tofu Sandwich",
     "content": {
       "path": "food/spicy-fried-chicken-tofu-sandwich.html"
     }
+  },
+  {
+    "date": "2022-03-04",
+    "title": "Template",
+    "content": {
+      "path": "food/_template.html"
+    },
+    "IsHidden": true
   }
 ]
