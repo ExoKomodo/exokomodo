@@ -8,6 +8,7 @@
     }
   },
   {
+    "id": "mapo-tofu",
     "date": "2022-03-05",
     "title": "Mapo Tofu",
     "content": {
@@ -15,6 +16,7 @@
     }
   },
   {
+    "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
     "content": {
