@@ -8,6 +8,13 @@
     }
   },
   {
+    "date": "2022-03-05",
+    "title": "Mapo Tofu",
+    "content": {
+      "path": "food/mapo-tofu.html"
+    }
+  },
+  {
     "date": "2022-03-04",
     "title": "Template",
     "content": {
