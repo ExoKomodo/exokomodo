@@ -1,5 +1,6 @@
 @page "/users/jorson/food/{Id}"
 @using Client.Pages.Users.Jorson.Components
+@using Client.Helpers.Browser
 
 <link href="css/jorson/styles.css" rel="stylesheet" />
 @if (_blog is not null)
@@ -10,7 +11,7 @@
         <div>
             <div id="anchors">
                 <span>
-                    <a @onclick='(() => ScrollTo("links"))'
+                    <a @onclick='(() => Dom.ScrollIntoView(_jsRuntime, "links"))'
                        href="javascript:void(0)"
                     >
                         Links
@@ -18,7 +19,7 @@
                 </span>
                 <span>|</span>
                 <span>
-                    <a @onclick='(() => ScrollTo("ingredients"))'
+                    <a @onclick='(() => Dom.ScrollIntoView(_jsRuntime, "ingredients"))'
                        href="javascript:void(0)"
                     >
                         Ingredients
@@ -26,7 +27,7 @@
                 </span>
                 <span>|</span>
                 <span>
-                    <a @onclick='(() => ScrollTo("directions"))'
+                    <a @onclick='(() => Dom.ScrollIntoView(_jsRuntime, "directions"))'
                     href="javascript:void(0)"
                     >
                         Directions

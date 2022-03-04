@@ -29,18 +29,6 @@ namespace Client.Pages.Users.Jorson.Blogs.Food
         public static string UserId = "jorson";
         #endregion
 
-        #region Member Methods
-        public async void ScrollTo(string targetId) {
-            if (targetId.StartsWith("#")) {
-                targetId = targetId[1..];
-            }
-            await _jsRuntime.InvokeVoidAsync(
-                "scrollIntoView",
-                targetId
-            );
-        }
-        #endregion
-
         #endregion
 
         #region Protected
