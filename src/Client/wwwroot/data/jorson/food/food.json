@@ -24,6 +24,14 @@
     }
   },
   {
+    "id": "bagels",
+    "date": "2022-04-04",
+    "title": "Bagels",
+    "content": {
+      "path": "food/bagels.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
