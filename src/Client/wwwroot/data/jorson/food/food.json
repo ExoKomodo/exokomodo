@@ -16,6 +16,14 @@
     }
   },
   {
+    "id": "chikn-alfredo",
+    "date": "2022-04-04",
+    "title": "Chik'n Alfredo",
+    "content": {
+      "path": "food/chikn-alfredo.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
