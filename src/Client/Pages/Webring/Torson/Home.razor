@@ -1,0 +1,16 @@
+@page "/webring/torson"
+<link href="css/torson/styles.css" rel="stylesheet" />
+
+@if (_self == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h1>Hey it's me, @(_self.Name)!</h1>
+    <div class="loading">
+        <img src="img/torson/loading-bunny.gif" width="300px"/>
+    </div>
+    <div class="body-basic">
+    </div>
+}

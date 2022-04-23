@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Client.Models.Jorson;
 using Client.Services.Jorson;
 
-namespace Client.Pages.Users.UserId.Blogs
+namespace Client.Pages.Webring.UserId.Blogs
 {
     internal class IndexBase : PageBase {}
 

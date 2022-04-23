@@ -1,0 +1,15 @@
+@page "/webring/jorson/blogs/{Id:int}"
+@using Client.Pages.Webring.Jorson.Components
+
+<link href="css/jorson/styles.css" rel="stylesheet" />
+@if (_blog is not null)
+{
+    <div id="body">
+        <BackLink Link="/webring/jorson/blogs" PageName="blogs" />
+        <h1>@_blog.Title</h1>
+        <div>
+            @((MarkupString)_blog.Content.Text)
+            <img src="img/jorson/james-logo.svg" height="100px">
+        </div>
+    </div>
+}
