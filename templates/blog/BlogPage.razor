@@ -1,10 +1,10 @@
-@page "/users/<user id>/<blog name>/{Id:int}"
-@using Client.Pages.Users.Jorson.Components
+@page "/webring/<user id>/<blog name>/{Id:int}"
+@using Client.Pages.Webring.Jorson.Components
 
 @if (_blog is not null)
 {
     <div id="body">
-        <BackLink Link="/users/<user id>/<blog name>" PageName="<blog name>" />
+        <BackLink Link="/webring/<user id>/<blog name>" PageName="<blog name>" />
         <h1>@_blog.Title</h1>
         <div>
             @((MarkupString)_blog.Content.Text)

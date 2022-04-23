@@ -5,7 +5,7 @@ using Client.Models.Jorson;
 using Client.Services.Jorson;
 using Client.Http;
 
-namespace Client.Pages.Users.UserId.Blogs
+namespace Client.Pages.Webring.UserId.Blogs
 {
   internal class BlogPageBase : PageBase {}
 
@@ -52,7 +52,7 @@ namespace Client.Pages.Users.UserId.Blogs
             _blog = await _blogService.GetByIdAsync(Id);
             if (_blog?.Content is null)
             {
-                _navigation.NavigateTo($"/users/{UserId}/<blog name>");
+                _navigation.NavigateTo($"/webring/{UserId}/<blog name>");
                 return;
             }
             _blog.Id = Id;

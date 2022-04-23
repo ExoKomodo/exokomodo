@@ -1,0 +1,26 @@
+@page "/webring/jjones/recipes"
+@using Client.Pages.Webring.Jorson.Components
+
+<link href="css/jjones/styles.css" rel="stylesheet" />
+
+@if (_recipes is not null)
+{
+    <div id="body">
+        <BackLink Link="/webring/jjones" PageName="home" />
+        <h1>Blogs</h1>
+        <div>
+            <ul>
+                @foreach (var (recipe, index) in _recipes.Select((item, index) => (item, index)))
+                {
+                    <li>
+                        <h3>
+                            <a href="@($"/webring/jjones/recipes/{index}")">
+                                @recipe.Date.ToShortDateString() - @((MarkupString)recipe.Title)
+                            </a>
+                        </h3>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

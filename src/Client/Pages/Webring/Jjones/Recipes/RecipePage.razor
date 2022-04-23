@@ -1,0 +1,14 @@
+@page "/webring/jjones/recipes/{Id:int}"
+@using Client.Pages.Webring.Jorson.Components
+
+<link href="css/jjones/styles.css" rel="stylesheet" />
+@if (_recipe is not null)
+{
+    <div id="body">
+        <BackLink Link="/webring/jjones/recipes" PageName="recipes" />
+        <h1>@_recipe.Title</h1>
+        <div>
+            @((MarkupString)_recipe.Content.Text)
+        </div>
+    </div>
+}
