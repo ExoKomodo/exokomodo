@@ -28,6 +28,7 @@ app {
 
 .main {
     flex: 1;
+    width: 100%;
 }
 
     .main .top-row {
@@ -176,4 +177,10 @@ app {
         /* Never collapse the sidenav for wide screens */
         display: block;
     }
+}
+
+.body-flex {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }

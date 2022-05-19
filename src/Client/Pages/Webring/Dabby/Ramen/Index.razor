@@ -1,0 +1,27 @@
+@page "/webring/dabby/ramen-blog"
+
+@using Client.Pages.Webring.Jorson.Components
+
+<link href="css/dabby/styles.css" rel="stylesheet" />
+
+@if (_blogs is not null)
+{
+    <div id="body">
+        <BackLink Link="/webring/dabby" PageName="home" />
+        <h1>Ramen Blog</h1>
+        <div>
+            <ul>
+                @foreach (var (blog, index) in _blogs.Select((item, index) => (item, index)))
+                {
+                    <li>
+                        <h3>
+                            <a href="@($"/webring/dabby/ramen-blog/{index}")">
+                                @blog.Date.ToShortDateString() - @((MarkupString)blog.Title)
+                            </a>
+                        </h3>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

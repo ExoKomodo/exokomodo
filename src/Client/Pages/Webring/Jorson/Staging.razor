@@ -1,0 +1,15 @@
+@page "/webring/jorson/staging"
+
+<link href="css/jorson/styles.css" rel="stylesheet" />
+<link href="css/jorson/home.css" rel="stylesheet" />
+
+@if (IsLoading)
+{
+}
+else
+{
+    <div id="body">
+        <h1>Some content</h1>
+        @((MarkupString)_loadedPage)
+    </div>
+}

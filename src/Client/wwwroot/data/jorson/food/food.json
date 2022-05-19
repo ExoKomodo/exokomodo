@@ -32,6 +32,30 @@
     }
   },
   {
+    "id": "lasagna",
+    "date": "2022-04-04",
+    "title": "Lasagna (Bonus: Tofu Ricotta)",
+    "content": {
+      "path": "food/lasagna.html"
+    }
+  },
+  {
+    "id": "cashew-cheese",
+    "date": "2022-05-19",
+    "title": "Cashew Cheese",
+    "content": {
+      "path": "food/cashew-cheese.html"
+    }
+  },
+  {
+    "id": "spinach-artichoke-dip",
+    "date": "2022-05-19",
+    "title": "Spinach Artichoke Dip",
+    "content": {
+      "path": "food/spinach-artichoke-dip.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",

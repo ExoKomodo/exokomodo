@@ -1,8 +1,12 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Welcome to ExoKomodo!</h1>
 
-<div><span>Welcome to your demise.</span></div>
+<div>
+    <p>
+        ExoKomodo is a simple webring of close friends and collaborative software nerds made in WebAssembly using .NET Blazor
+    </p>
+</div>
 
 <div>
 @if (IsLoading)
@@ -13,7 +17,7 @@ else
 {
     @if (_weatherGuess is not null)
     {
-        <span>We predict the temp will be @_weatherGuess.TemperatureF Fahrenheit, or @_weatherGuess.TemperatureC Celsius.</span>
+        <span>Our <em>definitely correct</em> weather prediction says your temp will be @_weatherGuess.TemperatureF Fahrenheit, or @_weatherGuess.TemperatureC Celsius.</span>
     }
     else
     {
@@ -30,4 +34,12 @@ else
 }
 </div>
 
-<AdSense></AdSense>
+<div id="geekring">
+    <img src="http://geekring.net/banner/geek_1.gif" alt="geekring.net nvigation" usemap="#geekringmap">
+    <map name="geekringmap">
+        <area shape="rect" coords="9,28,111,53" alt="Previous geekring site" href="http://geekring.net/site/NUMBER/previous">
+        <area shape="rect" coords="248,28,350,53" alt="Random geekring site" href="http://geekring.net/site/NUMBER/random">
+        <area shape="rect" coords="490,28,592,53" alt="Next geekring site" href="http://geekring.net/site/NUMBER/next">
+        <area shape="rect" coords="465,6,566,22" alt="Main geekring site" href="http://geekring.net/">
+    </map>
+</div>

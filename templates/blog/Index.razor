@@ -1,10 +1,10 @@
-@page "/users/<user id>/<blog name>"
-@using Client.Pages.Users.Jorson.Components
+@page "/webring/<user id>/<blog name>"
+@using Client.Pages.Webring.Jorson.Components
 
 @if (_blogs is not null)
 {
     <div id="body">
-        <BackLink Link="/users/<user id>" PageName="home" />
+        <BackLink Link="/webring/<user id>" PageName="home" />
         <h1>Blog title</h1>
         <div>
             <ul>
@@ -12,7 +12,7 @@
                 {
                     <li>
                         <h3>
-                            <a href="@($"/users/<user id>/<blog name>/{index}")">
+                            <a href="@($"/webring/<user id>/<blog name>/{index}")">
                                 @blog.Date.ToShortDateString() - @((MarkupString)blog.Title)
                             </a>
                         </h3>

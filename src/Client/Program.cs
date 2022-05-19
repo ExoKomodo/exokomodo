@@ -35,7 +35,7 @@ namespace Client
                 }
             );
             builder.Services.AddSingleton<WeatherForecastService>();
-            builder.Services.AddSingleton<UserService>();
+            builder.Services.AddSingleton<WebringService>();
 
             ConfigureJorsonServices(builder);
 
