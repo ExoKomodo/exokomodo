@@ -24,5 +24,10 @@
   {
     "id": "torson",
     "name": "Tasha Simone Orson"
+  },
+  {
+    "id": "the-lisp-curse",
+    "name": "The LISP Curse",
+    "linkOverride": "http://winestockwebdesign.com/Essays/Lisp_Curse.html"
   }
 ]
