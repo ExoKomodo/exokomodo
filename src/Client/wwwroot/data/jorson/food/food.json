@@ -48,6 +48,14 @@
     }
   },
   {
+    "id": "roasted-artichoke",
+    "date": "2022-07-11",
+    "title": "Roasted Artichoke",
+    "content": {
+      "path": "food/roasted-artichoke.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
