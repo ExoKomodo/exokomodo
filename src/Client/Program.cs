@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Client.Http;
 using Client.Services;
 using Client.Services.Jorson;
-using Client.Models.Jorson.Blogs;
-using Client.Models.Dabby.Blogs;
+using Client.Services.Torson;
+using Client.Models;
 
 namespace Client
 {
@@ -38,16 +38,23 @@ namespace Client
             builder.Services.AddSingleton<WebringService>();
 
             ConfigureJorsonServices(builder);
+            ConfigureTorsonServices(builder);
 
             await builder.Build().RunAsync();
         }
 
         private static void ConfigureJorsonServices(WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddSingleton<Services.Jorson.BlogService<Blog<int>>>();
-            builder.Services.AddSingleton<Services.Jorson.BlogService<GeneralBlog>>();
-            builder.Services.AddSingleton<Services.Jorson.BlogService<RamenBlog>>();
-            builder.Services.AddSingleton<Services.Jorson.FoodBlogService>();
+            builder.Services.AddSingleton<Client.Services.Jorson.BlogService<Client.Models.Jorson.Blogs.Blog<int>>>();
+            builder.Services.AddSingleton<Client.Services.Jorson.BlogService<Client.Models.Jorson.Blogs.GeneralBlog>>();
+            builder.Services.AddSingleton<Client.Services.Jorson.BlogService<Client.Models.Dabby.Blogs.RamenBlog>>();
+            builder.Services.AddSingleton<Client.Services.Jorson.FoodBlogService>();
+        }
+
+        private static void ConfigureTorsonServices(WebAssemblyHostBuilder builder)
+        {
+            builder.Services.AddSingleton<Client.Services.Torson.BlogService<Client.Models.Torson.Blogs.Blog<int>>>();
+            builder.Services.AddSingleton<Client.Services.Torson.BlogService<Client.Models.Torson.Blogs.GeneralBlog>>();
         }
     }
 }
