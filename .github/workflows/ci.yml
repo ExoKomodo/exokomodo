@@ -36,4 +36,4 @@ jobs:
             keep_files: false
             force_orphan: true
             # Custom Domain
-            cname: exokomodo.com
+            cname: www.exokomodo.com
