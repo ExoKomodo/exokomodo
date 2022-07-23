@@ -56,6 +56,14 @@
     }
   },
   {
+    "id": "french-onion-soup",
+    "date": "2022-07-23",
+    "title": "French Onion Soup (Bonus: Cashew Mozzarella Cheese)",
+    "content": {
+      "path": "food/french-onion-soup.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
