@@ -17,7 +17,7 @@
             <td><em>Loading links...</em></td>
         </tr>
     }
-    @else
+    else
     {
         @foreach (var page in _webring.Where(x => !x.IsDisabled))
         {
