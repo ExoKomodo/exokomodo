@@ -2,13 +2,13 @@
 @using Client.Pages.Webring.Torson.Components
 
 <link href="css/torson/styles.css" rel="stylesheet" />
-@if (_lifeblog is not null)
+@if (_lifeBlog is not null)
 {
     <div id="body">
         <BackLink Link="/torson/life" PageName="blogs" />
-        <h1>@_lifeblog.Title</h1>
+        <h1>@_lifeBlog.Title</h1>
         <div>
-            @((MarkupString)_lifeblog.Content.Text)
+            @((MarkupString)_lifeBlog.Content.Text)
         </div>
     </div>
 }

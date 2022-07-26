@@ -36,8 +36,7 @@ namespace Client.Services.Jorson
         public async Task<LifeBlog> GetByIdAsync(int id, string dataFilePath)
         {
             var blogs = (await GetAsync(dataFilePath)).ToList();
-            return blogs.SingleOrDefault(x => x.Id == id)
-                ?? throw new Exception($"Could not find blog with id: {id}");
+            return blogs.Count > id ? blogs[id] : throw new Exception($"Could not find blog with id: {id}");
         }
     }
 }

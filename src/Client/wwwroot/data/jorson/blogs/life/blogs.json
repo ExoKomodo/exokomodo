@@ -2,36 +2,26 @@
   {
     "date": "2020-08-20",
     "title": "Hello World!",
-    "content": {
-      "path": "blogs/2020-08-20.html"
-    }
+    "content": {}
   },
   {
     "date": "2020-08-22",
     "title": "Coffee grounds, vodka sauce, and daydreams",
-    "content": {
-      "path": "blogs/2020-08-22.html"
-    }
+    "content": {}
   },
   {
     "date": "2020-08-27",
     "title": "Flashy Ideas",
-    "content": {
-      "path": "blogs/2020-08-27.html"
-    }
+    "content": {}
   },
   {
     "date": "2021-02-02",
     "title": "Oh dear",
-    "content": {
-      "path": "blogs/2021-02-02.html"
-    }
+    "content": {}
   },
   {
     "date": "2021-03-30",
     "title": "Two blogs in two months, nice",
-    "content": {
-      "path": "blogs/2021-03-30.html"
-    }
+    "content": {}
   }
 ]

@@ -47,18 +47,16 @@ namespace Client.Pages.Webring.Torson.Blogs.Life
 
         protected override async Task OnInitializedAsync()
         {
-            _lifeblogService.UserId = UserId;
-            _lifeblog = await _lifeblogService.GetByIdAsync(Id);
-            if (_lifeblog?.Content is null)
+            _lifeBlogService.UserId = UserId;
+            _lifeBlog = await _lifeBlogService.GetByIdAsync(Id);
+            if (_lifeBlog?.Content is null)
             {
                 _navigation.NavigateTo($"/{UserId}");
                 return;
             }
-            _lifeblog.Id = Id;
-            if (!string.IsNullOrWhiteSpace(_lifeblog.Content.Path))
-            {
-                _lifeblog.Content.Text = await _localClient.Client.GetStringAsync($"/data/{UserId}/{_lifeblog.Content.Path}");
-            }
+            _lifeBlog.Id = Id;
+            const string format = "yyyy-MM-dd";
+            _lifeBlog.Content.Text = await _localClient.Client.GetStringAsync($"/data/{UserId}/blogs/life/{_lifeBlog.Date.ToString(format)}.html");
         }
         #endregion
 
@@ -67,9 +65,9 @@ namespace Client.Pages.Webring.Torson.Blogs.Life
         #region Private
 
         #region Members
-        private LifeBlog _lifeblog { get; set; }
+        private LifeBlog _lifeBlog { get; set; }
         [Inject]
-        private LifeBlogService _lifeblogService { get; set; }
+        private LifeBlogService _lifeBlogService { get; set; }
         [Inject]
         private LocalClient _localClient { get; set; }
         [Inject]

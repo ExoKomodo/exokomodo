@@ -2,39 +2,42 @@
 
 <h1>The ExoKomodo Webring</h1>
 
-@if (IsLoading)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Link</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var page in _webring.Where(x => !x.IsDisabled))
-            {
-                <tr>
-                    <td>@(page.Name)</td>
-                    <td>
-                        <a target="_blank"
-                           href="@(page.LinkOverride ?? page.Link)"
-                        >
-                            Have fun!
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (IsLoading)
+    {
+        <tr>
+            <td><em>Loading names...</em></td>
+            <td><em>Loading links...</em></td>
+        </tr>
+    }
+    else
+    {
+        @foreach (var page in _webring.Where(x => !x.IsDisabled))
+        {
+        <tr>
+            <td>@(page.Name)</td>
+            <td>
+                <a target="_blank"
+                    href="@(page.LinkOverride ?? page.Link)"
+                >
+                    Have fun!
+                </a>
+            </td>
+        </tr>
+        }
+    }
+    </tbody>
+</table>
 
 <div id="geekring">
-    <img src="http://geekring.net/banner/geek_1.gif" alt="geekring.net nvigation" usemap="#geekringmap" width="100%">
+    <img src="img/geekring.gif" alt="geekring.net nvigation" usemap="#geekringmap">
     <map name="geekringmap">
         <area shape="rect" coords="9,28,111,53" alt="Previous geekring site" href="http://geekring.net/site/NUMBER/previous">
         <area shape="rect" coords="248,28,350,53" alt="Random geekring site" href="http://geekring.net/site/NUMBER/random">

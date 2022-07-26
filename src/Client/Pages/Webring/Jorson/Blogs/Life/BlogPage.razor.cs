@@ -55,10 +55,9 @@ namespace Client.Pages.Webring.Jorson.Blogs.Life
                 return;
             }
             _lifeBlog.Id = Id;
-            if (!string.IsNullOrWhiteSpace(_lifeBlog.Content.Path))
-            {
-                _lifeBlog.Content.Text = await _localClient.Client.GetStringAsync($"/data/{UserId}/{_lifeBlog.Content.Path}");
-            }
+
+            const string format = "yyyy-MM-dd";
+            _lifeBlog.Content.Text = await _localClient.Client.GetStringAsync($"/data/{UserId}/blogs/life/{_lifeBlog.Date.ToString(format)}.html");
         }
         #endregion
 
