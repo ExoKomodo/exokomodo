@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Pages.Webring.Jorson;
-using Client.Services.Jorson;
+using Client.Services.Dabby;
 using Client.Models.Dabby.Blogs;
 
 namespace Client.Pages.Webring.Dabby.Ramen
@@ -41,8 +41,8 @@ namespace Client.Pages.Webring.Dabby.Ramen
 
         protected override async Task OnInitializedAsync()
         {
-            _blogService.UserId = UserId;
-            _blogs = await _blogService.GetAsync();
+            _ramenBlogService.UserId = UserId;
+            _ramenBlogs = await _ramenBlogService.GetAsync();
         }
         #endregion
 
@@ -51,9 +51,9 @@ namespace Client.Pages.Webring.Dabby.Ramen
         #region Private
 
         #region Members
-        private IEnumerable<RamenBlog> _blogs { get; set; }
+        private IEnumerable<RamenBlog> _ramenBlogs { get; set; }
         [Inject]
-        private BlogService<RamenBlog> _blogService { get; set; }
+        private RamenBlogService _ramenBlogService { get; set; }
         private PageBase _base { get; set; }
         #endregion
 

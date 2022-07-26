@@ -1,0 +1,75 @@
+[
+  {
+    "id": "spicy-fried-chicken-tofu-sandwich",
+    "date": "2022-03-02",
+    "title": "Spicy Fried 'Chicken' Tofu Sandwich",
+    "content": {
+      "path": "blogs/food/spicy-fried-chicken-tofu-sandwich.html"
+    }
+  },
+  {
+    "id": "mapo-tofu",
+    "date": "2022-03-05",
+    "title": "Mapo Tofu",
+    "content": {
+      "path": "blogs/food/mapo-tofu.html"
+    }
+  },
+  {
+    "id": "chikn-alfredo",
+    "date": "2022-04-04",
+    "title": "Chik'n Alfredo",
+    "content": {
+      "path": "blogs/food/chikn-alfredo.html"
+    }
+  },
+  {
+    "id": "lasagna",
+    "date": "2022-04-04",
+    "title": "Lasagna (Bonus: Tofu Ricotta)",
+    "content": {
+      "path": "blogs/food/lasagna.html"
+    }
+  },
+  {
+    "id": "cashew-cheese",
+    "date": "2022-05-19",
+    "title": "Cashew Cheese",
+    "content": {
+      "path": "blogs/food/cashew-cheese.html"
+    }
+  },
+  {
+    "id": "spinach-artichoke-dip",
+    "date": "2022-05-19",
+    "title": "Spinach Artichoke Dip",
+    "content": {
+      "path": "blogs/food/spinach-artichoke-dip.html"
+    }
+  },
+  {
+    "id": "roasted-artichoke",
+    "date": "2022-07-11",
+    "title": "Roasted Artichoke",
+    "content": {
+      "path": "blogs/food/roasted-artichoke.html"
+    }
+  },
+  {
+    "id": "french-onion-soup",
+    "date": "2022-07-23",
+    "title": "French Onion Soup (Bonus: Cashew Mozzarella Cheese)",
+    "content": {
+      "path": "blogs/food/french-onion-soup.html"
+    }
+  },
+  {
+    "id": "_template",
+    "date": "2022-03-04",
+    "title": "Template",
+    "content": {
+      "path": "blogs/food/_template.html"
+    },
+    "IsHidden": true
+  }
+]

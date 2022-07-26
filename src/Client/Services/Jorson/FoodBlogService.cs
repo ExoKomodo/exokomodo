@@ -24,14 +24,14 @@ namespace Client.Services.Jorson
             _client = client;
         }
 
-        public async Task<IEnumerable<FoodBlog>> GetAsync() => await this.GetAsync("blogs/blogs.json");
+        public async Task<IEnumerable<FoodBlog>> GetAsync() => await this.GetAsync("blogs/food/blogs.json");
         
         public async Task<IEnumerable<FoodBlog>> GetAsync(string dataFilePath) =>
             await this.GetAsync<FoodBlogService, FoodBlog, string>(
                 $"data/{UserId}/{dataFilePath}"
             );
 
-        public async Task<FoodBlog> GetByIdAsync(string id) => await GetByIdAsync(id, "blogs/blogs.json");
+        public async Task<FoodBlog> GetByIdAsync(string id) => await GetByIdAsync(id, "blogs/food/blogs.json");
 
         public async Task<FoodBlog> GetByIdAsync(string id, string dataFilePath)
         {

@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2021-08-15",
+    "title": "Pilot",
+    "content": {
+      "path": "blogs/life/2021-08-15.html"
+    }
+  },
+  {
+    "date": "2021-08-30",
+    "title": "Wings",
+    "content": {
+      "path": "blogs/life/2021-08-30.html"
+    }
+  },
+  {
+    "date": "2022-07-18",
+    "title": "Crew",
+    "content": {
+      "path": "blogs/life/2022-07-18.html"
+    }
+  },
+  {
+    "date": "2022-07-19",
+    "title": "Passengers",
+    "content": {
+      "path": "blogs/life/2022-07-19.html"
+    }
+  }
+]

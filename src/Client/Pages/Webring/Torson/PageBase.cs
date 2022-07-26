@@ -22,7 +22,6 @@ namespace Client.Pages.Webring.Torson
         protected virtual void SetAppState()
         {
             AppState.FaviconUri = "favicons/favicon.ico";
-            AppState.IsSideNavHidden = true;
         }
         #endregion
 

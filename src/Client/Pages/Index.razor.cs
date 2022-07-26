@@ -1,25 +1,21 @@
 using Client.Config;
-using Microsoft.AspNetCore.Components;
-using Client.DTO;
-using System.Threading.Tasks;
+using Client.Models;
 using Client.Services;
+using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Client.Pages.Webring;
 
 namespace Client.Pages
 {
-  public partial class Index
+    public partial class Index
     {
-        [Inject]
-        private WeatherForecastService _weatherForecastService { get; set; }
-        private WeatherForecast _weatherGuess { get; set; }
         public bool IsLoading { get; set; }
-        public const bool IsDebug =
-            #if DEBUG
-            true
-            #else
-            false
-            #endif
-            ;
+        [Inject]
+        private WebringService _webringService { get; set; }
+        private IEnumerable<Page> _webring;
+
         protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender)
@@ -33,11 +29,11 @@ namespace Client.Pages
             IsLoading = true;
             try
             {
-                _weatherGuess = await _weatherForecastService.GetAsync();
+                _webring = await _webringService.GetAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unable to retrieve weather guess:{ex.GetType()}:{ex.Message}:{ex.StackTrace}");
+                Console.Error.WriteLine($"Unable to retrieve webring:{ex.GetType()}:{ex.Message}:{ex.StackTrace}");
             }
             finally
             {

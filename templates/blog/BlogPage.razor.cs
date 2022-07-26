@@ -52,7 +52,7 @@ namespace Client.Pages.Webring.UserId.Blogs
             _blog = await _blogService.GetByIdAsync(Id);
             if (_blog?.Content is null)
             {
-                _navigation.NavigateTo($"/webring/{UserId}/<blog name>");
+                _navigation.NavigateTo($"/{UserId}/<blog name>");
                 return;
             }
             _blog.Id = Id;

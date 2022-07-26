@@ -13,7 +13,6 @@ namespace Client.Shared
         public void Dispose()
         {
             AppState.OnFaviconUriChange -= UpdateFavicon;
-            AppState.OnIsSideNavHiddenChange -= StateHasChanged;
         }
         #endregion
 
@@ -30,7 +29,6 @@ namespace Client.Shared
         protected override void OnInitialized()
         {
             AppState.OnFaviconUriChange += UpdateFavicon;
-            AppState.OnIsSideNavHiddenChange += StateHasChanged;
         }
 
         protected void UpdateFavicon()

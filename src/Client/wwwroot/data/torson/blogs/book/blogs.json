@@ -1,0 +1,9 @@
+[
+  {
+    "id": "template",
+    "title": "Template",
+    "content": {
+      "path": "blogs/book/_template.html"
+    }
+  }
+]

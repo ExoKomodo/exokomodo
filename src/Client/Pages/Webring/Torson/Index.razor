@@ -1,4 +1,4 @@
-@page "/webring/torson"
+@page "/torson"
 
 @using Client.Pages.Webring.Torson.Components;
 
@@ -11,10 +11,23 @@
 else
 {
     <div id="body">
-        <BackLink Link="/webring" PageName="webring" />
+        <BackLink Link="/" PageName="webring" />
         <h1>
             Hey it's me, @(_self.Name)!
-            Check out my <a href="/webring/torson/blogs">Blog</a>.
         </h1>
+        <p>
+            Check out my
+            <ul>
+                <li>
+                    <a href="/torson/life">Blog</a>
+                </li>
+                <li>
+                    <a href="/torson/baby-carrier">Baby Carrier Blog</a>
+                </li>
+                <li>
+                    <a href="/torson/book">Book Blog</a>
+                </li>
+            </ul>
+        </p>
     </div>
 }

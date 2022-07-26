@@ -1,4 +1,4 @@
-@page "/webring/dabby"
+@page "/dabby"
 
 @using Client.Pages.Webring.Jorson.Components;
 
@@ -13,7 +13,7 @@ else
     <div id="body">
         <div class="top-row">
         </div>
-        <BackLink Link="/webring" PageName="webring" />
+        <BackLink Link="/" PageName="webring" />
         <h1>
             Hey it's me, @(_self.Name)!
         </h1>
@@ -21,7 +21,7 @@ else
         <p class="content">
             My life has been quite a time.
         </p>
-        <h2>Check out my <a href="/webring/dabby/ramen-blog">Ramen Blog</a>.</h2>
+        <h2>Check out my <a href="/dabby/ramen">Ramen Blog</a>.</h2>
         <div class="dancing-skeletons"></div>
     </div>
 }
