@@ -1,0 +1,14 @@
+@page "/torson/book/{Id}"
+@using Client.Pages.Webring.Torson.Components
+
+<link href="css/torson/styles.css" rel="stylesheet" />
+@if (_bookBlog is not null)
+{
+    <div id="body">
+        <BackLink Link="/torson/book" PageName="blogs" />
+        <h1>@_bookBlog.Title</h1>
+        <div>
+            @((MarkupString)_bookBlog.Content.Text)
+        </div>
+    </div>
+}

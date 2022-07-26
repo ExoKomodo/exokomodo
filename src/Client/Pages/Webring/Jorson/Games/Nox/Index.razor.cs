@@ -40,8 +40,6 @@ namespace Client.Pages.Webring.Jorson.Games.Nox
 
         protected override async Task OnInitializedAsync()
         {
-            AppState.IsSideNavHidden = true;
-
             _adventure = await TextAdventure<string>.LoadFromJsonAsync<TextAdventure<string>>(
                 _httpLocal.Client,
                 "data/jorson/games/nox/adventure.json"

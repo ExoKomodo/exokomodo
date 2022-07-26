@@ -35,11 +35,6 @@ namespace Client.Pages.Webring.Jorson.Games.CorporationTycoon
                 _application.Start();
             }
         }
-
-        protected override void OnInitialized()
-        {
-            AppState.IsSideNavHidden = true;
-        }
         #endregion
 
         #endregion

@@ -1,0 +1,26 @@
+@page "/torson/book"
+@using Client.Pages.Webring.Torson.Components
+
+<link href="css/torson/styles.css" rel="stylesheet" />
+
+@if (_bookBlogs is not null)
+{
+    <div id="body">
+        <BackLink Link="/torson" PageName="home" />
+        <h1>Book Reviews</h1>
+        <div>
+            <ul>
+                @foreach (var (blog, index) in _bookBlogs.Select((item, index) => (item, index)))
+                {
+                    <li>
+                        <h3>
+                            <a href="@($"/torson/book/{blog.Id}")">
+                                @((MarkupString)blog.Title)
+                            </a>
+                        </h3>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

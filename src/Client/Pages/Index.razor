@@ -1,41 +1,40 @@
 ﻿@page "/"
 
-<h1>Welcome to ExoKomodo!</h1>
+<h1>The ExoKomodo Webring</h1>
 
-<div>
-    <p>
-        ExoKomodo is a simple webring of close friends and collaborative software nerds made in WebAssembly using .NET Blazor
-    </p>
-</div>
-
-<div>
 @if (IsLoading)
 {
-    <span>Page is still loading</span>
+    <p><em>Loading...</em></p>
 }
 else
 {
-    @if (_weatherGuess is not null)
-    {
-        <span>Our <em>definitely correct</em> weather prediction says your temp will be @_weatherGuess.TemperatureF Fahrenheit, or @_weatherGuess.TemperatureC Celsius.</span>
-    }
-    else
-    {
-        <span><i>The weather is currently unavailable.</i></span>
-        @if (IsDebug)
-        {
-            <div>
-                <span style="color: red">
-                    Something probably went wrong. Feel free to check the <a href="https://developer.mozilla.org/en-US/docs/Tools/Browser_Console">browser console</a> for an error message.
-                </span>
-            </div>
-        }
-    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var page in _webring.Where(x => !x.IsDisabled))
+            {
+                <tr>
+                    <td>@(page.Name)</td>
+                    <td>
+                        <a target="_blank"
+                           href="@(page.LinkOverride ?? page.Link)"
+                        >
+                            Have fun!
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-</div>
 
 <div id="geekring">
-    <img src="http://geekring.net/banner/geek_1.gif" alt="geekring.net nvigation" usemap="#geekringmap">
+    <img src="http://geekring.net/banner/geek_1.gif" alt="geekring.net nvigation" usemap="#geekringmap" width="100%">
     <map name="geekringmap">
         <area shape="rect" coords="9,28,111,53" alt="Previous geekring site" href="http://geekring.net/site/NUMBER/previous">
         <area shape="rect" coords="248,28,350,53" alt="Random geekring site" href="http://geekring.net/site/NUMBER/random">

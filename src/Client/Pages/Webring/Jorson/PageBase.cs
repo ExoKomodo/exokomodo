@@ -22,7 +22,6 @@ namespace Client.Pages.Webring.Jorson
         protected virtual void SetAppState()
         {
             AppState.FaviconUri = "favicons/jorson/favicon.ico";
-            AppState.IsSideNavHidden = true;
         }
         #endregion
 

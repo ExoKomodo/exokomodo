@@ -1,4 +1,4 @@
-@page "/webring/jorson/games"
+@page "/jorson/games"
 @using Client.Pages.Webring.Jorson.Components
 
 <link href="css/jorson/styles.css" rel="stylesheet" />
@@ -6,14 +6,14 @@
 @if (_games is not null)
 {
     <div id="body">
-        <BackLink Link="/webring/jorson" PageName="home" />
+        <BackLink Link="/jorson" PageName="home" />
         <h1>Games</h1>
         <div>
             <ul>
                 @foreach (var game in _games)
                 {
                     <li>
-                        <a href="@($"/webring/jorson/games/{String.Join('-', game.ToLower().Split(' '))}")">@game</a>
+                        <a href="@($"/jorson/games/{String.Join('-', game.ToLower().Split(' '))}")">@game</a>
                     </li>
                 }
             </ul>

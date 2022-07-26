@@ -37,24 +37,29 @@ namespace Client
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddSingleton<WebringService>();
 
+            ConfigureDabbyServices(builder);
             ConfigureJorsonServices(builder);
             ConfigureTorsonServices(builder);
 
             await builder.Build().RunAsync();
         }
 
+        private static void ConfigureDabbyServices(WebAssemblyHostBuilder builder)
+        {
+            builder.Services.AddSingleton<Client.Services.Dabby.RamenBlogService>();
+        }
+
         private static void ConfigureJorsonServices(WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddSingleton<Client.Services.Jorson.BlogService<Client.Models.Jorson.Blogs.Blog<int>>>();
-            builder.Services.AddSingleton<Client.Services.Jorson.BlogService<Client.Models.Jorson.Blogs.GeneralBlog>>();
-            builder.Services.AddSingleton<Client.Services.Jorson.BlogService<Client.Models.Dabby.Blogs.RamenBlog>>();
+            builder.Services.AddSingleton<Client.Services.Jorson.LifeBlogService>();
             builder.Services.AddSingleton<Client.Services.Jorson.FoodBlogService>();
         }
 
         private static void ConfigureTorsonServices(WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddSingleton<Client.Services.Torson.BlogService<Client.Models.Torson.Blogs.Blog<int>>>();
-            builder.Services.AddSingleton<Client.Services.Torson.BlogService<Client.Models.Torson.Blogs.GeneralBlog>>();
+            builder.Services.AddSingleton<Client.Services.Torson.LifeBlogService>();
+            builder.Services.AddSingleton<Client.Services.Torson.BabyCarrierBlogService>();
+            builder.Services.AddSingleton<Client.Services.Torson.BookBlogService>();
         }
     }
 }

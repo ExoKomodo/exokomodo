@@ -48,10 +48,10 @@ namespace Client.Pages.Webring.Jorson.Blogs.Food
         protected override async Task OnInitializedAsync()
         {
             _foodBlogService.UserId = UserId;
-            _blog = await _foodBlogService.GetByIdAsync(Id, "food/food.json");
+            _blog = await _foodBlogService.GetByIdAsync(Id);
             if (_blog?.Content is null)
             {
-                _navigation.NavigateTo($"/webring/{UserId}/food");
+                _navigation.NavigateTo($"/{UserId}/food");
                 return;
             }
             _blog.Id = Id;

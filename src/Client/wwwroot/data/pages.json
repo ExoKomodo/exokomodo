@@ -4,22 +4,13 @@
     "name": "Dabbington"
   },
   {
-    "id": "jjones",
-    "name": "Jennifer Jones",
-    "isDisabled": true
-  },
-  {
     "id": "jorson",
     "name": "James Orson"
   },
   {
     "id": "nbarlow",
-    "name": "Nathan Barlow"
-  },
-  {
-    "id": "tcjones",
-    "name": "Callahan Jones",
-    "isDisabled": true
+    "name": "Nathan Barlow",
+    "linkOverride": "/webring/nbarlow"
   },
   {
     "id": "torson",

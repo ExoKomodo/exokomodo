@@ -8,7 +8,6 @@ namespace Client.Config
 
         #region Defaults
         public const string DEFAULT_FAVICON_URI = "favicons/favicon.ico";
-        public const bool DEFAULT_IS_SIDENAV_HIDDEN = false;
         #endregion
 
         #region Fields
@@ -22,18 +21,7 @@ namespace Client.Config
                 NotifyStateChanged();
             }
         }
-        public static bool IsSideNavHidden
-        {
-            get => _isSideNavHidden;
-            set
-            {
-                _isSideNavHidden = value;
-                OnIsSideNavHiddenChange?.Invoke();
-                NotifyStateChanged();
-            }
-        }
         public static event Action OnFaviconUriChange;
-        public static event Action OnIsSideNavHiddenChange;
         public static event Action OnChange;
         #endregion
 
@@ -41,7 +29,6 @@ namespace Client.Config
         public static void Reset()
         {
             FaviconUri = DEFAULT_FAVICON_URI;
-            IsSideNavHidden = DEFAULT_IS_SIDENAV_HIDDEN;
         }
         #endregion
 
@@ -51,7 +38,6 @@ namespace Client.Config
 
         #region Fields
         private static string _faviconUri { get; set; } = DEFAULT_FAVICON_URI;
-        private static bool _isSideNavHidden { get; set; } = DEFAULT_IS_SIDENAV_HIDDEN;
         #endregion
 
         #region Methods

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 using Client.Pages.Webring.Jorson;
-using Client.Services.Jorson;
+using Client.Services.Dabby;
 using Client.Models.Dabby.Blogs;
 
 namespace Client.Pages.Webring.Dabby.Ramen
@@ -46,13 +46,13 @@ namespace Client.Pages.Webring.Dabby.Ramen
 
         protected override async Task OnInitializedAsync()
         {
-            _blogService.UserId = UserId;
-            _blog = await _blogService.GetByIdAsync(Id);
-            if (_blog is null)
+            _ramenBlogService.UserId = UserId;
+            _ramenBlog = await _ramenBlogService.GetByIdAsync(Id);
+            if (_ramenBlog is null)
             {
-                _navigation.NavigateTo($"/webring/{UserId}/ramen-blog");
+                _navigation.NavigateTo($"/{UserId}/ramen");
             }
-            _blog.Id = Id;
+            _ramenBlog.Id = Id;
         }
         #endregion
 
@@ -61,9 +61,9 @@ namespace Client.Pages.Webring.Dabby.Ramen
         #region Private
 
         #region Members
-        private RamenBlog _blog { get; set; }
+        private RamenBlog _ramenBlog { get; set; }
         [Inject]
-        private BlogService<RamenBlog> _blogService { get; set; }
+        private RamenBlogService _ramenBlogService { get; set; }
         [Inject]
         private NavigationManager _navigation { get; set; }
         private PageBase _base { get; set; }

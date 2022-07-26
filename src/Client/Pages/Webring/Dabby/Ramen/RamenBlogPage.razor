@@ -1,17 +1,17 @@
-@page "/webring/dabby/ramen-blog/{Id:int}"
+@page "/dabby/ramen/{Id:int}"
 
 @using Client.Pages.Webring.Jorson.Components
 
 <link href="css/dabby/styles.css" rel="stylesheet" />
 <link href="css/dabby/ramen-blog/ramen-blog.css" rel="stylesheet" />
 
-@if (_blog is not null)
+@if (_ramenBlog is not null)
 {
     <div id="body">
-        <BackLink Link="/webring/dabby/ramen-blog" PageName="ramen blog" />
-        <h1>@_blog.Title</h1>
+        <BackLink Link="/dabby/ramen" PageName="ramen blog" />
+        <h1>@_ramenBlog.Title</h1>
         <div id="blog">
-            @((MarkupString)_blog.Content.Text)
+            @((MarkupString)_ramenBlog.Content.Text)
         </div>
     </div>
 }
