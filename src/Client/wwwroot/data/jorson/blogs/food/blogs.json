@@ -64,6 +64,14 @@
     }
   },
   {
+    "id": "chocolate-syrup",
+    "date": "2022-08-04",
+    "title": "Chocolate Syrup",
+    "content": {
+      "path": "blogs/food/chocolate-syrup.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
