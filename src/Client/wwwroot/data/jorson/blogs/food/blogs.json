@@ -72,6 +72,14 @@
     }
   },
   {
+    "id": "instant-pot-spaghetti",
+    "date": "2022-09-14",
+    "title": "Instant Pot Spaghetti",
+    "content": {
+      "path": "blogs/food/instant-pot-spaghetti.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
