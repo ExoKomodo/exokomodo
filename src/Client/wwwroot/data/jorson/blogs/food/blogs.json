@@ -80,6 +80,14 @@
     }
   },
   {
+    "id": "banana-bread",
+    "date": "2022-09-24",
+    "title": "Banana Bread",
+    "content": {
+      "path": "blogs/food/banana-bread.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",

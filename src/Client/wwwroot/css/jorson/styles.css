@@ -8,3 +8,12 @@
 .top-row {
     display: none;
 }
+
+.recipe-image-item {
+    list-style-type: none;
+}
+
+.recipe-image-item div img {
+    height: 30rem;
+    transform: rotate(270deg);
+}
