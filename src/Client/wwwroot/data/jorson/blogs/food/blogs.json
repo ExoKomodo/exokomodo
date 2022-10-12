@@ -88,6 +88,14 @@
     }
   },
   {
+    "id": "cookie-dough-balls",
+    "date": "2022-09-24",
+    "title": "Cookie Dough Balls",
+    "content": {
+      "path": "blogs/food/cookie-dough-balls.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
