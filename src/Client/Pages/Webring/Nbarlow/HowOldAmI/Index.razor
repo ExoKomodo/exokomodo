@@ -23,10 +23,6 @@
                 var today = DateTime.Today;
                 var years = today.Year - BirthDate.Year;
                 var months = today.Month - BirthDate.Month;
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
                 var days = today.Day - BirthDate.Day;
                 if (days < 0) {
                     months--;
@@ -35,6 +31,10 @@
                     //us a few days back into last month, then grab that day of the month to get how many
                     //days old we are
                     days = today.AddDays(days - today.Day).Day;
+                }
+                while (months < 0) {
+                    years--;
+                    months += 12;
                 }
                 return $"{years} Years, {months} Months, {days} Days";
             }
