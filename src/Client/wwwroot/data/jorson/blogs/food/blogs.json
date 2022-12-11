@@ -96,6 +96,54 @@
     }
   },
   {
+    "id": "gingerbread-cookie",
+    "date": "2022-12-10",
+    "title": "Gingerbread/Pepparkakor",
+    "content": {
+      "path": "blogs/food/gingerbread-cookie.html"
+    }
+  },
+  {
+    "id": "st-lucia-buns",
+    "date": "2022-09-24",
+    "title": "Lussekatter (St Lucia Buns)",
+    "content": {
+      "path": "blogs/food/st-lucia-buns.html"
+    }
+  },
+  {
+    "id": "macadamia-nut-cookie",
+    "date": "2022-09-24",
+    "title": "White Chocolate Macadmia Cookies (Bonus: Vegan White Chocolate)",
+    "content": {
+      "path": "blogs/food/macadamia-nut-cookie.html"
+    }
+  },
+  {
+    "id": "candy-cane-cookie",
+    "date": "2022-09-24",
+    "title": "Candy Cane Cookies",
+    "content": {
+      "path": "blogs/food/candy-cane-cookie.html"
+    }
+  },
+  {
+    "id": "pbj-thumbprint-cookie",
+    "date": "2022-09-24",
+    "title": "Peanut Butter and Jelly Thumbprint Cookies",
+    "content": {
+      "path": "blogs/food/pbj-thumbprint-cookie.html"
+    }
+  },
+  {
+    "id": "sugar-cookie",
+    "date": "2022-09-24",
+    "title": "Sugar Cookies",
+    "content": {
+      "path": "blogs/food/sugar-cookie.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
