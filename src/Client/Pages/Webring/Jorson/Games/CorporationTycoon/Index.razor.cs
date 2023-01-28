@@ -1,12 +1,10 @@
 using Microsoft.JSInterop;
-using Client.Config;
 using Client.Helpers.P5;
 using Microsoft.AspNetCore.Components;
-using System;
 
 namespace Client.Pages.Webring.Jorson.Games.CorporationTycoon
 {
-    internal class CorporationTycoonBase : PageBase {}
+  internal class CorporationTycoonBase : PageBase {}
 
     public partial class Index
     {

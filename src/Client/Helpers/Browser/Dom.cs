@@ -1,9 +1,8 @@
-using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
 namespace Client.Helpers.Browser
 {
-    public static class Dom
+  public static class Dom
     {
         #region Public
 

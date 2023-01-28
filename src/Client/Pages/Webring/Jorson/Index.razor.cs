@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client.Pages.Webring.Jorson
 {
-    internal class IndexBase : PageBase {}
+  internal class IndexBase : PageBase {}
 
     public partial class Index
     {

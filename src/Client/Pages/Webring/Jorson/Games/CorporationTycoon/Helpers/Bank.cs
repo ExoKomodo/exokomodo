@@ -1,7 +1,6 @@
-﻿using System;
-namespace Client.Pages.Webring.Jorson.Games.CorporationTycoon.Helpers
+﻿namespace Client.Pages.Webring.Jorson.Games.CorporationTycoon.Helpers
 {
-    public class Bank
+  public class Bank
     {
         #region Public
 

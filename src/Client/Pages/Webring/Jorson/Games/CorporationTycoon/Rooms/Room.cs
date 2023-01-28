@@ -1,5 +1,4 @@
-﻿using Client.Helpers.P5;
-using Client.Helpers.P5.Enums;
+﻿using Client.Helpers.P5.Enums;
 using Client.Helpers.P5.Models;
 using Client.Pages.Webring.Jorson.Games.CorporationTycoon.Employees;
 using Client.Pages.Webring.Jorson.Games.CorporationTycoon.Helpers;
@@ -9,7 +8,7 @@ using System.Numerics;
 
 namespace Client.Pages.Webring.Jorson.Games.CorporationTycoon.Rooms
 {
-    public abstract class Room : GridEntry
+  public abstract class Room : GridEntry
     {
         #region Public
 

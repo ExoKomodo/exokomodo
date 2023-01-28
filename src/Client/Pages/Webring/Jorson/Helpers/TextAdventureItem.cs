@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 
 namespace Client.Pages.Webring.Jorson.Helpers
 {
-    public class TextAdventureItem
+  public class TextAdventureItem
         : IEquatable<TextAdventureItem>
     {
         #region Public

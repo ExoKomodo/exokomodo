@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Server.Models;
-using Server;
+using static Core.Models;
 
 namespace Server.Controllers
 {
-    [ApiController]
+  [ApiController]
     [Route("api/[controller]")]
     [EnableCors(Startup.OpenCORS)]
     public class WeatherForecastController : ControllerBase
@@ -40,12 +36,11 @@ namespace Server.Controllers
         public WeatherForecast Get()
         {
             var rng = new Random();
-            return new WeatherForecast
-            {
-                Date = DateTime.Now,
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            };
+            return new WeatherForecast(
+                date: DateTime.Now,
+                summary: Summaries[rng.Next(Summaries.Length)],
+                temperatureC: (double)rng.Next(-20, 55)
+            );
         }
     }
 }

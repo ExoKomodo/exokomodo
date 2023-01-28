@@ -29,7 +29,6 @@ namespace Client.Pages.Webring.Jorson.Helpers
         [JsonIgnore]
         public TextAdventureState<TId> CurrentState => _stateMachine.CurrentState;
         
-
         [JsonIgnore]
         public bool IsInitialized { get; private set; }
         

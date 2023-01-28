@@ -1,13 +1,10 @@
-﻿using Client.Helpers.P5;
-using Client.Helpers.P5.Enums;
-using Client.Helpers.P5.Models;
-using Client.Pages.Webring.Jorson.Games.CorporationTycoon.Employees;
+﻿using Client.Pages.Webring.Jorson.Games.CorporationTycoon.Employees;
 using System.Drawing;
 using System.Numerics;
 
 namespace Client.Pages.Webring.Jorson.Games.CorporationTycoon.Rooms
 {
-    public class PrivateOffice : Room
+  public class PrivateOffice : Room
     {
         #region Public
 

@@ -25,4 +25,8 @@
     <Folder Include="Helpers\BlazingUI\Enums\" />
     <Folder Include="Helpers\BlazingUI\Elements\Buttons\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.fsproj" />
+  </ItemGroup>
 </Project>

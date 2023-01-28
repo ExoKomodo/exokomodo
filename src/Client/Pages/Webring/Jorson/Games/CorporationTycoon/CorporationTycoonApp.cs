@@ -4,7 +4,6 @@ using System.Linq;
 using System.Numerics;
 using Client.Helpers.P5;
 using Client.Helpers.P5.Enums;
-using Client.Helpers.P5.Models;
 using Client.Pages.Webring.Jorson.Games.CorporationTycoon.Employees;
 using Client.Pages.Webring.Jorson.Games.CorporationTycoon.Helpers;
 using Client.Pages.Webring.Jorson.Games.CorporationTycoon.Rooms;
@@ -12,7 +11,7 @@ using Microsoft.JSInterop;
 
 namespace Client.Pages.Webring.Jorson.Games.CorporationTycoon
 {
-    public class CorporationTycoonApp : P5App
+  public class CorporationTycoonApp : P5App
     {
         #region Public
 
