@@ -144,6 +144,14 @@
     }
   },
   {
+    "id": "shepherds-pie",
+    "date": "2-23-06-12",
+    "title": "Shepherd's Pie",
+    "content": {
+      "path": "blogs/food/shepherds-pie.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
