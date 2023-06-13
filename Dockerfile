@@ -1,7 +1,7 @@
 ############
 # Builder #
 ############
-FROM mcr.microsoft.com/dotnet/sdk:6.0 as builder
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder
 
 COPY ./src/Server /Server
 
@@ -12,7 +12,7 @@ RUN dotnet publish --configuration Release
 ############
 # Deployer #
 ############
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 as deployer
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS deployer
 
 COPY --from=builder /Server /Server
 
