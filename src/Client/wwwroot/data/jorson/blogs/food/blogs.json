@@ -145,10 +145,18 @@
   },
   {
     "id": "shepherds-pie",
-    "date": "2-23-06-12",
+    "date": "2023-06-12",
     "title": "Shepherd's Pie",
     "content": {
       "path": "blogs/food/shepherds-pie.html"
+    }
+  },
+  {
+    "id": "beef-chili",
+    "date": "2023-08-17",
+    "title": "Beef Chili",
+    "content": {
+      "path": "blogs/food/beef-chili.html"
     }
   },
   {
