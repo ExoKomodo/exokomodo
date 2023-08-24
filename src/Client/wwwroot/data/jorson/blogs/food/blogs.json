@@ -160,6 +160,14 @@
     }
   },
   {
+    "id": "frozen-custard",
+    "date": "2023-08-24",
+    "title": "Frozen Custard",
+    "content": {
+      "path": "blogs/food/frozen-custard.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
