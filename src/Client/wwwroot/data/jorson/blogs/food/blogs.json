@@ -168,6 +168,14 @@
     }
   },
   {
+    "id": "biscuits",
+    "date": "2023-08-24",
+    "title": "Biscuits 'n' Gravy",
+    "content": {
+      "path": "blogs/food/biscuits.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
