@@ -176,6 +176,14 @@
     }
   },
   {
+    "id": "pumpkin-pie",
+    "date": "2023-11-22",
+    "title": "Pumpkin Pie",
+    "content": {
+      "path": "blogs/food/pumpkin-pie.html"
+    }
+  },
+  {
     "id": "_template",
     "date": "2022-03-04",
     "title": "Template",
