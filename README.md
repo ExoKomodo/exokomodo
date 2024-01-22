@@ -1,9 +1,5 @@
 # ExoKomodo
 
-## DEPRECATED: MOVED TO [SOURCEHUT](https://git.sr.ht/~jamesaorson/exokomodo)
-
-TODO: Description
-
 [Website](https://exokomodo.com)
 
 ## Important Links
