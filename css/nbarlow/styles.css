@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url('/fonts/nbarlow/Rubik-Regular.ttf');
+}
+
+body {
+    background-color: #274194;
+    color: #D0D0D0;
+}
+
+#body {
+    font-family: 'Rubik';
+    margin: 2rem 2rem;
+}
+
+.top-row {
+    display: none;
+}
+
+a {
+    color: #d69503;
+}
+
+a:hover {
+    color: #bd76d3;
+}

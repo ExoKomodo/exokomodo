@@ -1,0 +1,11 @@
+.dancing-skeletons {
+    background-image: url("/img/dabby/dancing-skeleton.gif");
+    background-repeat: round;
+    background-size: contain;
+    height: 6rem;
+    width: 100%;
+}
+
+.content {
+    font-size: 1.5rem;
+}

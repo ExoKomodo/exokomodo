@@ -1,0 +1,83 @@
+#blog {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: "ramen-bag ramen-bag-content ramen-bag-content"
+                         "ramen-ingredients-content ramen-ingredients-content ramen-ingredients"
+                         "ramen-nutrition-facts ramen-nutrition-facts-content ramen-nutrition-facts-content"
+                         "ramen-stove-content ramen-stove-content ramen-stove"
+                         "ramen-bowl ramen-bowl-content ramen-bowl-content";
+    gap: 1rem;
+}
+
+#ramen-bag {
+    grid-area: ramen-bag;
+    width: 20rem;
+}
+
+#ramen-bag-content {
+    grid-area: ramen-bag-content;
+}
+
+#ramen-bowl {
+    grid-area: ramen-bowl;
+    width: 20rem;
+}
+
+#ramen-bowl-content {
+    grid-area: ramen-bowl-content;
+}
+
+#ramen-ingredients {
+    grid-area: ramen-ingredients;
+    width: 20rem;
+}
+
+#ramen-ingredients-content {
+    grid-area: ramen-ingredients-content;
+}
+
+#ramen-nutrition-facts {
+    grid-area: ramen-nutrition-facts;
+    width: 20rem;
+}
+
+#ramen-nutrition-facts-content {
+    grid-area: ramen-nutrition-facts-content;
+}
+
+#ramen-stove {
+    grid-area: ramen-stove;
+    width: 20rem;
+}
+
+#ramen-stove-content {
+    grid-area: ramen-stove-content;
+}
+
+.blog-content {
+    font-size: 2rem;
+}
+
+@media screen and (max-width: 650px) {
+    #blog {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: "ramen-bag"
+                             "ramen-bag-content"
+                             "ramen-ingredients"
+                             "ramen-ingredients-content"
+                             "ramen-nutrition-facts"
+                             "ramen-nutrition-facts-content"
+                             "ramen-stove"
+                             "ramen-stove-content"
+                             "ramen-bowl"
+                             "ramen-bowl-content";
+        gap: 2rem;
+    }
+
+    .blog-image {
+        justify-self: center;
+        width: 80%;
+    }
+}
