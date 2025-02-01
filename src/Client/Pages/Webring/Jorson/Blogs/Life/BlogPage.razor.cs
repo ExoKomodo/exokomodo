@@ -55,8 +55,6 @@ namespace Client.Pages.Webring.Jorson.Blogs.Life
                 return;
             }
             _lifeBlog.Id = Id;
-
-            const string format = "yyyy-MM-dd";
             _lifeBlog.Content.Text = await _localClient.Client.GetStringAsync($"/data/{UserId}/blogs/life/{_lifeBlog.Date}.html");
         }
         #endregion
