@@ -2,8 +2,11 @@
 
 @inherits LayoutComponentBase
 
-<div class="main">
-    <div class="content px-4">
-        @Body
-    </div>
+<div>
+    <main class="main">
+        <div class="content px-4">
+            @Body
+        </div>
+    </main>
+    <footer>℗ @DateTime.Now.Year ExoKomodo</footer>
 </div>
