@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+#body {
+    font-family: Montserrat, sans-serif;
+    margin: 2rem 2rem;
+}
+
+.top-row {
+    display: none;
+}
+
+.recipe-image-item {
+    list-style-type: none;
+}
+
+.recipe-image-item div img {
+    height: 30rem;
+    transform: rotate(270deg);
+}

@@ -1,0 +1,29 @@
+﻿[
+  {
+    "id": "dabby",
+    "name": "Dabbington"
+  },
+  {
+    "id": "jorson",
+    "name": "James Orson"
+  },
+  {
+    "id": "nbarlow",
+    "name": "Nathan Barlow",
+    "linkOverride": "/webring/nbarlow"
+  },
+  {
+    "id": "torson",
+    "name": "Tasha Simone Orson"
+  },
+  {
+    "id": "accessible-ally",
+    "name": "Accessible A11y",
+    "linkOverride": "https://www.accessiblea11y.com"
+  },
+  {
+    "id": "the-lisp-curse",
+    "name": "The LISP Curse",
+    "linkOverride": "http://winestockwebdesign.com/Essays/Lisp_Curse.html"
+  }
+]

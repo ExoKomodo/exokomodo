@@ -1,0 +1,92 @@
+{
+    "defaultState": "default",
+    "states": [
+        {
+            "info": {
+                "id": "default"
+            },
+            "nextStates": [
+                "pantry",
+                "food bowl",
+                "homicide"
+            ],
+            "options": [
+                "Go to the pantry",
+                "Feed Nox",
+                "Pet Luna"
+            ],
+            "requiredItem": null,
+            "text": "Nox and Luna are both in the room and very soft.\nNox looks angry about something.\n\"I am fat. Feed me now!\" says Nox."
+        },
+        {
+            "info": {
+                "id": "pantry"
+            },
+            "nextStates": [
+                "grab food",
+                "default"
+            ],
+            "options": [
+                "Grab the cat food",
+                "Go back to the cats"
+            ],
+            "acquiredItem": null,
+            "requiredItem": null,
+            "text": "You look in the pantry and see some cat food."
+        },
+        {
+            "info": {
+                "id": "grab food"
+            },
+            "nextStates": [
+                "pantry",
+                "default"
+            ],
+            "options": [
+                "Go back to the pantry",
+                "Go back to the cats"
+            ],
+            "acquiredItem": {
+                "id": "food"
+            },
+            "requiredItem": null,
+            "text": "You grab the cat food and have it in your hand."
+        },
+        {
+            "info": {
+                "id": "food bowl"
+            },
+            "nextStates": [
+                "end",
+                "homicide"
+            ],
+            "options": [
+                "Pet Nox",
+                "Pet Luna"
+            ],
+            "acquiredItem": null,
+            "requiredItem": {
+                "id": "food"
+            },
+            "text": "Nox is satisfied, and still very soft.\nHis sister Luna wants to be pet."
+        },
+        {
+            "info": {
+                "id": "homicide"
+            },
+            "nextStates": [],
+            "options": [],
+            "requiredItem": null,
+            "text": "Nox killed you.\nTry again."
+        },
+        {
+            "info": {
+                "id": "end"
+            },
+            "nextStates": [],
+            "options": [],
+            "requiredItem": null,
+            "text": "You made Nox happy by ignoring Luna.\nCongratulations!"
+        }
+    ]
+}
