@@ -23,8 +23,8 @@ jobs:
             dotnet-version: ${{ env.DOTNET_VERSION }}.*
 
         - name: Build
+          working-directory: src/Client
           run: |
-            cd src/Client
             cp wwwroot/index.html wwwroot/404.html
             dotnet publish --configuration Release
 
