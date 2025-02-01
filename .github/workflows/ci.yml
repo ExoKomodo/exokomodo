@@ -1,5 +1,8 @@
-name: Publish static website
+name: CI
 on: 
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -25,7 +28,7 @@ jobs:
             dotnet publish --configuration Release
 
         - name: Publish
-          if: ${{ github.ref == 'refs/heads/main' }} # Publish only when the push is on main
+          if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           uses: peaceiris/actions-gh-pages@v3.6.1
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
