@@ -1,39 +1,37 @@
-name: 'Publish ExoKomodo static site to Github Pages'
+name: Publish static website
 on: 
   push:
     branches:
       - main
 
+env:
+  DOTNET_VERSION: '9.0'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-        # Checkout the code
         - uses: actions/checkout@v2
 
-        # Install .NET SDK
-        - name: Setup .NET
+        - name: Setup
           uses: actions/setup-dotnet@v1
           with:
-            dotnet-version: '7.0.*'
+            dotnet-version: ${{ env.DOTNET_VERSION }}.*
 
-        # Generate the website
-        - name: Publish website
+        - name: Build
           run: |
             cd src/Client
             cp wwwroot/index.html wwwroot/404.html
             dotnet publish --configuration Release
 
-        # Publish the website
-        - name: GitHub Pages action
+        - name: Publish
           if: ${{ github.ref == 'refs/heads/main' }} # Publish only when the push is on main
           uses: peaceiris/actions-gh-pages@v3.6.1
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_branch: gh-pages
-            publish_dir: src/Client/bin/Release/net7.0/publish/wwwroot
+            publish_dir: src/Client/bin/Release/net${{ env.DOTNET_VERSION }}/publish/wwwroot
             allow_empty_commit: false
             keep_files: false
             force_orphan: true
-            # Custom Domain
             cname: www.exokomodo.com
